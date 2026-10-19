@@ -59,3 +59,7 @@ Kameraet forsøger at starte efter pc-accept, når browserens tilladelse er give
 Funktionstest og et npm-opslag er ikke en penetrationstest, fuzz-test eller garanti. Native C++-, WebView2- og systemkomponenter kan have ukendte fejl; alvorlige fejl kan potentielt kompromittere en proces. Hold Windows, browser og app opdateret. Telefonklienten opdateres online; den lokale Windows-brugerflade kræver en ny appversion.
 
 [Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases)
+
+## Udvikling med AI
+
+Prototypen er vibe-kodet med AI-assistance og Codex. Automatiske tests og løbende afprøvning kan overse fejl og forkerte antagelser i både kode og dokumentation. Der er ingen uafhængig sikkerhedsgodkendelse eller garanti. Læs også [FAQ og vejledninger](FAQ.da.md) og [rapportering af sikkerhedsfejl](../SECURITY.md).

@@ -5,6 +5,7 @@
 204 RCDATA "camera/UPSTREAM-LICENSE.txt"
 205 RCDATA "THIRD_PARTY_NOTICES.txt"
 206 RCDATA "../LICENSE"
+207 RCDATA "../BRAND-NOTICE.txt"
 
 300 RCDATA "dist/ui/index.html"
 301 RCDATA "dist/ui/style.css"

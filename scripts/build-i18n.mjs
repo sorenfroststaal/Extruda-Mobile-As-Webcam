@@ -1,3 +1,4 @@
+import './build-help.mjs';
 import {readFile,writeFile} from 'node:fs/promises';
 const languages=['da','en','de','fr'];const data={};
 for(const lang of languages)data[lang]=JSON.parse(await readFile(`public/locales/${lang}.json`,'utf8'));

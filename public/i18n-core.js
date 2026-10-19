@@ -55,7 +55,18 @@
   window.addEventListener('languagechange',()=>{if(languageChoice==='auto')window.ExtrudaI18n.setLanguage('auto');});
   dark.addEventListener('change',()=>{if(themeChoice==='auto')applyTheme();});
   let queued=false;new MutationObserver(()=>{if(!queued){queued=true;queueMicrotask(()=>{queued=false;render();});}}).observe(document.body,{childList:true,subtree:true,characterData:true});
-  document.getElementById('safety-open')?.addEventListener('click',()=>document.getElementById('safety').showModal());
+  const help=document.getElementById('safety');
+  const back=document.getElementById('help-back');
+  function showHelp(view='help-menu') {
+    if(!['help-menu','help-risks','help-faq'].includes(view))return;
+    for(const id of ['help-menu','help-risks','help-faq']){const section=document.getElementById(id);if(section)section.hidden=id!==view;}
+    if(back)back.hidden=view==='help-menu';
+    if(help){help.setAttribute('aria-labelledby',view==='help-menu'?'help-title':view==='help-risks'?'safety-title':'faq-title');help.scrollTop=0;}
+    document.getElementById(view)?.querySelector('h2')?.focus();
+  }
+  document.getElementById('safety-open')?.addEventListener('click',()=>{showHelp();help.showModal();document.getElementById('help-title')?.focus();});
+  for(const id of ['help-show-risks','help-show-faq'])document.getElementById(id)?.addEventListener('click',()=>showHelp(id==='help-show-risks'?'help-risks':'help-faq'));
+  back?.addEventListener('click',()=>showHelp());
   document.getElementById('safety-close')?.addEventListener('click',()=>document.getElementById('safety').close());
   applyTheme();render();
 })();

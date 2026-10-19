@@ -59,3 +59,7 @@ The camera attempts to start after PC approval once browser permission is grante
 Functional tests and an npm advisory check are not penetration testing, fuzzing or a guarantee. Native C++, WebView2 and system components may contain unknown flaws; serious flaws could potentially compromise a process. Keep Windows, browser and app updated. The phone client updates online; the local Windows UI requires a new app version.
 
 [Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases)
+
+## AI-assisted development
+
+The prototype is vibe-coded with AI assistance and Codex. Automated tests and iterative testing may miss errors and incorrect assumptions in both code and documentation. There is no independent security certification or warranty. Also read the [FAQ and guides](FAQ.en.md) and [security reporting policy](../SECURITY.md).

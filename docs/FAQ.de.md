@@ -1,0 +1,73 @@
+# FAQ und Anleitungen
+
+[Dansk](FAQ.da.md) · [English](FAQ.en.md) · [Deutsch](FAQ.de.md) · [Français](FAQ.fr.md)
+
+[Sicherheitsrisiken](SECURITY.de.md)
+
+## Wie fange ich an?
+
+Installiere die App unter Windows 11 x64. Öffne sie und scanne den QR-Code mit dem Telefon im selben WLAN. Vergleiche den sechsstelligen Code und bestätige am PC. Erlaube den Kamerazugriff am Telefon. Lass beide Anwendungen geöffnet.
+
+## iPhone: Wie erlaube ich die Kamera?
+
+Öffne den Kopplungslink in Safari und wähle Erlauben, wenn die Seite Kamerazugriff anfordert. Nach einer Ablehnung: Seitenmenü an der Adressleiste → Website-Einstellungen → Kamera → Fragen oder Erlauben. Lade neu; scanne bei abgelaufener Kopplung einen neuen QR-Code.
+
+Fehlt die Einstellung, prüfe Einstellungen → Apps → Safari → Kamera (älteres iOS: Einstellungen → Safari). Behalte Fragen als allgemeine Einstellung und erlaube nur die gewünschte Seite. Andere Browser benötigen eventuell auch eine Freigabe unter Einstellungen → Datenschutz & Sicherheit → Kamera. Menünamen variieren je nach Version. Tippe auf Kamera starten, falls der Browser einen weiteren Tipp verlangt.
+
+[Apple · Safari](https://support.apple.com/guide/iphone/browse-the-web-privately-iphb01fc3c85/ios) · [Apple · iPhone](https://support.apple.com/guide/iphone/iph168c4bbd5/ios)
+
+## Android: Wie erlaube ich die Kamera?
+
+Öffne den Link in Chrome und erlaube die Kamera auf Nachfrage. Bei einer Sperre: Chrome → ⋮ → Einstellungen → Website-Einstellungen → Kamera. Wähle die blockierte Seite und erlaube sie. Prüfe auch Android → Einstellungen → Apps → Chrome → Berechtigungen → Kamera → Nur während der Nutzung zulassen. Lade neu oder scanne einen neuen QR-Code. Menünamen variieren nach Gerät und Version.
+
+[Google · Chrome](https://support.google.com/chrome/answer/2693767?co=GENIE.Platform%3DAndroid&hl=en)
+
+## Wie wähle ich die Kamera in Teams?
+
+Verbinde zuerst das Telefon. In Teams am PC: Einstellungen → Geräte → Kamera → Extruda Phone Camera wählen. Der Name kann Auflösung und Windows Virtual Camera enthalten. Im Meeting kannst du den Pfeil neben dem Kamerasymbol zur Auswahl verwenden. Schalte Video ein. Fehlt die Kamera, starte Teams neu und lass Extruda geöffnet.
+
+[Microsoft · Teams](https://support.microsoft.com/en-us/teams/notifications-settings/manage-your-device-settings-in-microsoft-teams)
+
+## Wie wähle ich die Kamera in Zoom?
+
+Verbinde zuerst das Telefon. In Zoom am PC: Einstellungen → Video & Effekte (oder Video) → Kamera → Extruda Phone Camera. Im Meeting: Pfeil neben Video → Kamera auswählen und Video starten. Starte Zoom neu, falls sie fehlt. Zoom und Meeting-Einstellungen können die tatsächliche Auflösung begrenzen.
+
+[Zoom · Video](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0061836)
+
+## Andere Programme und eine fehlende Kamera
+
+Wähle Extruda Phone Camera in den Kameraeinstellungen des Programms. Eine Meeting-Webseite braucht ebenfalls Kamerazugriff. Unter Windows: Einstellungen → Datenschutz & Sicherheit → Kamera → Kamerazugriff und Zugriff für Desktop-Apps aktivieren. Firmen-PCs können durch IT-Richtlinien eingeschränkt sein. Nicht alle Programme sind garantiert kompatibel; diese Version hat keinen Empfänger für macOS oder Linux.
+
+[Microsoft · Camera](https://support.microsoft.com/en-us/teams/meetings/my-camera-isn-t-working-in-microsoft-teams)
+
+## QR-Code abgelaufen oder Verbindung fehlgeschlagen
+
+Eine Einladung gilt 10 Minuten. Brich ab und erstelle eine neue Kopplung oder öffne die App erneut. Nutze dasselbe normale WLAN; Gastnetze können Geräte isolieren. VPN oder Firewall können WebRTC blockieren. Probiere ein vertrauenswürdiges Netz, ohne den Schutz allgemein abzuschalten. Öffne den Link in Safari oder Chrome statt im integrierten Scanner-Browser. Fehler 429 bedeutet zu viele Versuche: warten und erneut versuchen.
+
+## Auflösung, schwarzes Bild und Ruckeln
+
+Die App startet mit 1920 × 1080. Nach dem Verbinden stehen 480p, 720p, 1080p, 1440p und 4K zur Wahl. Telefon oder Meeting-App können weniger liefern. Nach einem Wechsel musst du die Kamera eventuell in Teams oder Zoom neu wählen. Bei Ruckeln: 720p versuchen, näher zum Router gehen und für gutes Licht sorgen. Lass die Telefonseite im Vordergrund und den Bildschirm an; Sperre, Hintergrundbetrieb, Wärme und Energiesparen können Video unterbrechen. Schließe andere Kamera-Apps und versuche Kamera starten oder eine neue Kopplung.
+
+## Internet, Ton, Aufnahme und sicheres Beenden
+
+Diese Version braucht Internet für Telefon-Client und Kopplung, auch im selben WLAN. Video läuft direkt über WebRTC zwischen den Geräten; Cloudflare vermittelt die Kopplung und leitet kein Video weiter. Es gibt keine Mikrofon- oder Aufnahmefunktion: Wähle in der Meeting-App das PC- oder Headset-Mikrofon. Empfänger oder Meeting-App können das Bild trotzdem aufzeichnen. Nutze Trennen/Abbrechen und schließe danach Telefonseite und App. Teile nie QR-Code oder Link. Alle bekannten Einschränkungen stehen unter Sicherheitsrisiken.
+
+## Sprache, Design und Updates
+
+Die Weltkugel wählt Dänisch, Englisch, Deutsch oder Französisch. Die Sonne wählt hell, dunkel oder automatisch. Automatisch folgt Systemsprache und Erscheinungsbild; am Telefon kommen die Spracheinstellungen aus dem Browser. Manuelle Auswahl wird pro Gerät gespeichert. Aktualisiere die Windows-App über die GitHub Releases des Projekts und schließe sie vor der Installation. Neuladen aktualisiert den Telefon-Client. Der Installer ist unsigniert; prüfe die Quelle vor der Administratorfreigabe.
+
+## Ist es Open Source, und darf ich es ändern und teilen?
+
+Ja. Der Projektcode steht unter der MIT-Lizenz: Du darfst ihn nutzen, kopieren, ändern, veröffentlichen, teilen und verkaufen, auch kommerziell. Behalte Copyright- und Lizenzhinweis in Kopien oder wesentlichen Teilen bei. Die Software wird ohne Gewährleistung bereitgestellt. Fremdcode und Schriften haben eigene beiliegende Lizenzen; extruda-Logo und Markenmaterial fallen nicht unter die MIT-Lizenz des Codes.
+
+[GitHub · Source](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam) · [MIT · LICENSE](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/blob/main/LICENSE)
+
+## Ist das Programm vibe-gecodet?
+
+Ja. Der Prototyp wurde mit KI-gestützter Programmierung (Vibe Coding) und Codex anhand der Wünsche des Eigentümers und fortlaufender Tests entwickelt. Code und Dokumentation können trotz bestandener automatisierter Tests Fehler oder übersehene Annahmen enthalten. Das ist keine unabhängige Codeprüfung oder Sicherheitszertifizierung. Nutze ihn als experimentelles Open-Source-Werkzeug und lies vorab die Sicherheitsrisiken.
+
+## Fehler, Vorschläge und Mitarbeit
+
+Erstelle ein GitHub-Issue mit App-Version, Windows-Version, Telefon/Browser und Schritten zum Nachstellen. Teile nie aktive Kopplungslinks, QR-Codes, Zugangsschlüssel oder private Kamerabilder. Code, Übersetzungen und Verbesserungen sind willkommen; es gibt keine garantierte Antwortzeit oder Supportzusage. Lies bei Sicherheitsfehlern SECURITY.md für einen privaten Kontaktweg, bevor du Details veröffentlichst.
+
+[GitHub · Issues](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/issues) · [GitHub · Security](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/blob/main/SECURITY.md)

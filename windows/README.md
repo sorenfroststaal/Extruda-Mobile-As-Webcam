@@ -1,6 +1,6 @@
-# extruda Camera 0.5.1
+# extruda Camera 0.5.2
 
-Language and theme follow the operating system by default. Use the globe and sun icons to override them; choices are stored per device. The information icon shows known security risks without leaving the session.
+Language and theme follow the operating system by default. Use the globe and sun icons to override them; choices are stored per device. The information icon opens Security risks and FAQ and guides without leaving the session.
 
 > **KNOWN SECURITY RISKS:** This prototype is not independently security audited. Hosting/client compromise, an unsigned administrator installer, leaked pairing secrets, compromised devices, a protected file buffer, quota exhaustion, metadata exposure, recording by the receiver and unknown native/runtime flaws remain relevant. Compare the code before accepting and avoid sensitive situations.
 >
@@ -99,3 +99,9 @@ From the repository root run `windows\build.cmd`. Output is windows/dist.
 Run CameraTests.exe from that directory to test the actual media source through
 Media Foundation Source Reader without installing or registering a camera.
 `CameraTests.exe --enumerate` lists OS camera devices without capturing them.
+
+## Help and open source
+
+The in-app FAQ covers phone camera permissions, Teams, Zoom, troubleshooting and open-source terms. Read it on GitHub: [English](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/blob/main/docs/FAQ.en.md) · [Deutsch](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/blob/main/docs/FAQ.de.md) · [Français](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/blob/main/docs/FAQ.fr.md) · [Dansk](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/blob/main/docs/FAQ.da.md).
+
+This is an AI-assisted, vibe-coded prototype made with Codex. It has not undergone an independent security audit. Project code is MIT-licensed: use, change, share and sell it while preserving the copyright and permission notice. No warranty is provided. Third-party notices, font licences and the separate brand notice still apply.

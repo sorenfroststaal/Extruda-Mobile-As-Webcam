@@ -64,6 +64,7 @@ copy /y windows\README.md windows\dist\README.md >nul
 copy /y windows\camera\UPSTREAM-LICENSE.txt windows\dist\ >nul
 copy /y windows\THIRD_PARTY_NOTICES.txt windows\dist\ >nul
 copy /y LICENSE windows\dist\LICENSE.txt >nul
+copy /y BRAND-NOTICE.txt windows\dist\BRAND-NOTICE.txt >nul
 pushd windows
 rc /nologo /fo build\setup.res setup.rc
 popd

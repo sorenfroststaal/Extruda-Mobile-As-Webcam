@@ -13,6 +13,7 @@
 #include "WebView2EnvironmentOptions.h"
 #include "FrameWriter.h"
 #include "NativeTranslations.h"
+#include "HelpLinks.h"
 using namespace Microsoft::WRL;
 static constexpr wchar_t Site[] = L"https://app.extruda.local/index.html";
 HWND window;
@@ -77,7 +78,14 @@ void InitWeb() {
             settings->put_AreDevToolsEnabled(FALSE); settings->put_AreDefaultContextMenusEnabled(FALSE); settings->put_IsStatusBarEnabled(FALSE);
             EventRegistrationToken token;
             web->add_NavigationStarting(Callback<ICoreWebView2NavigationStartingEventHandler>([](ICoreWebView2*, ICoreWebView2NavigationStartingEventArgs* e) -> HRESULT { LPWSTR uri = nullptr; e->get_Uri(&uri); bool allowed = Trusted(uri); CoTaskMemFree(uri); if (!allowed) e->put_Cancel(TRUE); if (writer) writer->Clear(); shared.Reset(); frameData = nullptr; return S_OK; }).Get(), &token);
-            web->add_NewWindowRequested(Callback<ICoreWebView2NewWindowRequestedEventHandler>([](ICoreWebView2*, ICoreWebView2NewWindowRequestedEventArgs* e) -> HRESULT { e->put_Handled(TRUE); return S_OK; }).Get(), &token);
+            web->add_NewWindowRequested(Callback<ICoreWebView2NewWindowRequestedEventHandler>([](ICoreWebView2*, ICoreWebView2NewWindowRequestedEventArgs* e) -> HRESULT {
+                e->put_Handled(TRUE);
+                BOOL userInitiated=FALSE; e->get_IsUserInitiated(&userInitiated);
+                LPWSTR source=nullptr; web->get_Source(&source); const bool trusted=Trusted(source); CoTaskMemFree(source);
+                LPWSTR uri=nullptr; e->get_Uri(&uri);
+                if(userInitiated && trusted && AllowedHelpLink(uri))ShellExecuteW(window,L"open",uri,nullptr,nullptr,SW_SHOWNORMAL);
+                CoTaskMemFree(uri); return S_OK;
+            }).Get(), &token);
             web->add_PermissionRequested(Callback<ICoreWebView2PermissionRequestedEventHandler>([](ICoreWebView2*, ICoreWebView2PermissionRequestedEventArgs* e) -> HRESULT { e->put_State(COREWEBVIEW2_PERMISSION_STATE_DENY); return S_OK; }).Get(), &token);
             web->add_NavigationCompleted(Callback<ICoreWebView2NavigationCompletedEventHandler>([](ICoreWebView2*, ICoreWebView2NavigationCompletedEventArgs* e) -> HRESULT {
                 BOOL success = FALSE; e->get_IsSuccess(&success);

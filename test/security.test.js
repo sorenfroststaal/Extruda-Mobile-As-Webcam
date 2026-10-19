@@ -17,5 +17,5 @@ import worker from '../src/worker.js';
 test('legacy installer URL redirects to the fixed GitHub release asset',async()=>{
  const result=await worker.fetch(new Request('https://camera.example/downloads/ExtrudaCamera-Setup-0.3.0-x64.exe'),{});
  assert.equal(result.status,302);
- assert.equal(result.headers.get('location'),'https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases/download/camera-v0.5.1/ExtrudaCamera-Setup-0.5.1-x64.exe');
+ assert.equal(result.headers.get('location'),'https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases/download/camera-v0.5.2/ExtrudaCamera-Setup-0.5.2-x64.exe');
 });

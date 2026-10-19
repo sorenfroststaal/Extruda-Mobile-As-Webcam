@@ -59,3 +59,7 @@ La caméra tente de démarrer après l’acceptation sur le PC et l’autorisati
 Les tests fonctionnels et la recherche d’alertes npm ne constituent ni un test d’intrusion, ni du fuzzing, ni une garantie. Les composants C++ natifs, WebView2 et système peuvent contenir des failles inconnues ; des failles graves pourraient compromettre un processus. Maintenez Windows, le navigateur et l’application à jour. Le client du téléphone se met à jour en ligne ; l’interface Windows locale nécessite une nouvelle version.
 
 [Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases)
+
+## Développement assisté par IA
+
+Le prototype est « vibe codé » avec l’assistance de l’IA et Codex. Les tests automatisés et successifs peuvent manquer des erreurs et hypothèses incorrectes dans le code et la documentation. Aucune certification indépendante ni garantie n’est fournie. Consultez aussi la [FAQ et les guides](FAQ.fr.md) et la [procédure de signalement](../SECURITY.md).

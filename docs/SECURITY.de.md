@@ -59,3 +59,7 @@ Die Kamera versucht nach PC-Bestätigung zu starten, sobald die Browserfreigabe 
 Funktionstests und eine npm-Prüfung ersetzen weder Penetrationstests noch Fuzzing und bieten keine Garantie. Native C++-, WebView2- und Systemkomponenten können unbekannte Fehler enthalten; schwere Fehler können möglicherweise einen Prozess kompromittieren. Windows, Browser und App aktuell halten. Der Telefon-Client wird online aktualisiert; die lokale Windows-Oberfläche benötigt eine neue App-Version.
 
 [Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases)
+
+## KI-gestützte Entwicklung
+
+Der Prototyp wurde mit KI-Unterstützung und Codex vibe-gecodet. Automatisierte und fortlaufende Tests können Fehler und falsche Annahmen in Code und Dokumentation übersehen. Es gibt keine unabhängige Sicherheitszertifizierung oder Gewährleistung. Lies auch [FAQ und Anleitungen](FAQ.de.md) und die [Hinweise zur Meldung von Sicherheitsfehlern](../SECURITY.md).

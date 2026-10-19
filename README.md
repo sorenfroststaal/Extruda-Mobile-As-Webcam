@@ -7,7 +7,7 @@
 
 Use an Android or iPhone camera as a Windows webcam, without OBS or a user account.
 
-**[Download Windows installer 0.5.1](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases/download/camera-v0.5.1/ExtrudaCamera-Setup-0.5.1-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases/tag/camera-v0.5.1) · [Camera website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
+**[Download Windows installer 0.5.2](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases/download/camera-v0.5.2/ExtrudaCamera-Setup-0.5.2-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases/tag/camera-v0.5.2) · [Camera website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
 
 ## Use
 
@@ -56,4 +56,15 @@ Fonts carry their OFL licences. Brand assets are covered separately by
 
 ## Language and appearance
 
-Use the globe icon to choose Danish, English, German or French. Automatic uses the Windows UI language in the desktop app and the browser’s preferred languages on the phone, falling back to English. Manual choices are stored only on that device. The theme icon offers Automatic, Light and Dark; Automatic follows the OS colour preference and updates when it changes. The information icon opens the known security risks without leaving the connection.
+Use the globe icon to choose Danish, English, German or French. Automatic uses the Windows UI language in the desktop app and the browser’s preferred languages on the phone, falling back to English. Manual choices are stored only on that device. The theme icon offers Automatic, Light and Dark; Automatic follows the OS colour preference and updates when it changes. The information icon opens a menu with **Security risks** and **FAQ and guides** without leaving the connection. Help topics expand individually. Official reference links open in your browser.
+
+
+## FAQ, permissions and meeting apps
+
+Read the guides in [English](docs/FAQ.en.md), [Deutsch](docs/FAQ.de.md), [Français](docs/FAQ.fr.md) or [Dansk](docs/FAQ.da.md). They cover iOS/Safari and Android/Chrome camera permissions, Teams, Zoom, other meeting apps, Windows camera access, pairing failures, resolution, internet requirements, audio, stopping, preferences and updates. Menu labels can vary by OS and app version.
+
+## Open source and development
+
+This prototype is **vibe-coded with AI assistance and Codex**, guided by the owner’s requests and iterative testing. Passing tests do not establish that its code or documentation is correct or secure. There has been no independent security audit; read the [known risks](docs/SECURITY.en.md) and [security reporting policy](SECURITY.md). Contributions, translations and reproducible bug reports are welcome; support has no guaranteed response time. Never post active pairing links, QR codes, secrets or private video frames.
+
+The project code is MIT-licensed. You may use, copy, modify, publish, distribute, sublicense and sell it, including commercially, while retaining the copyright and permission notice in copies or substantial portions. It is supplied without warranty. Preserve third-party notices; fonts and brand assets have separate terms listed above.
