@@ -162,4 +162,4 @@ L’IA a aidé à écrire le programme et ses guides. Elle peut produire un rés
 Un guide peut indiquer le mauvais menu, une fonction peut échouer ou une faille peut avoir été oubliée. Un test réussi ou un texte convaincant ne prouve pas la sécurité. Évitez les usages où une fuite d’image ou une panne aurait de graves conséquences.
 <!-- plain:end -->
 
-[Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases)
+[Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases)

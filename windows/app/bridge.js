@@ -24,7 +24,7 @@
     const changed = canvas.width !== width || canvas.height !== height;
     canvas.width = width; canvas.height = height; changing = false; select.value = `${width}x${height}`;
     window.extrudaCaptureSize = {width,height}; if (changed) window.extrudaSetCaptureSize?.({width,height}).catch(() => { hint.textContent = 'Videoen fortsætter. Opløsningen på telefonen kunne ikke ændres.'; }); showResolution(); document.getElementById('create').disabled = false; updateEnabled();
-    if (document.getElementById('native-camera-guide')) document.getElementById('native-camera-guide').textContent = tr('Vælg “Extruda Phone Camera ({w}x{h}) Windows Virtual Camera” i dit mødeprogram. Hold appen åben.',{w:width,h:height});
+    if (document.getElementById('native-camera-guide')) document.getElementById('native-camera-guide').textContent = tr('Vælg “extruda mobile as webcam ({w}x{h}) Windows Virtual Camera” i dit mødeprogram. Hold appen åben.',{w:width,h:height});
   };
   window.extrudaResolutionApplied(canvas.width, canvas.height);
   window.addEventListener('extruda-capture-info', event => { const {width,height} = event.detail; captureInfo = {w:width,h:height}; showResolution(); });
@@ -50,9 +50,9 @@
     setTimeout(() => frame(performance.now()), 33);
   }
   const guide = document.getElementById('guide');
-  if (guide) { guide.replaceChildren(); const text = document.createElement('p'); text.id = 'native-camera-guide'; text.textContent = tr('Vælg “Extruda Phone Camera ({w}x{h}) Windows Virtual Camera” i dit mødeprogram. Hold appen åben.',{w:canvas.width,h:canvas.height}); guide.append(text); }
-  window.addEventListener('extruda-language',()=>{showResolution();if(document.getElementById('native-camera-guide'))document.getElementById('native-camera-guide').textContent=tr('Vælg “Extruda Phone Camera ({w}x{h}) Windows Virtual Camera” i dit mødeprogram. Hold appen åben.',{w:canvas.width,h:canvas.height});});
-  document.title = 'Extruda Phone Camera · Windows';
+  if (guide) { guide.replaceChildren(); const text = document.createElement('p'); text.id = 'native-camera-guide'; text.textContent = tr('Vælg “extruda mobile as webcam ({w}x{h}) Windows Virtual Camera” i dit mødeprogram. Hold appen åben.',{w:canvas.width,h:canvas.height}); guide.append(text); }
+  window.addEventListener('extruda-language',()=>{showResolution();if(document.getElementById('native-camera-guide'))document.getElementById('native-camera-guide').textContent=tr('Vælg “extruda mobile as webcam ({w}x{h}) Windows Virtual Camera” i dit mødeprogram. Hold appen åben.',{w:canvas.width,h:canvas.height});});
+  document.title = 'extruda mobile as webcam · Windows';
   if (window.extrudaTestPattern) {
     const pattern = document.createElement('canvas'); pattern.width = canvas.width; pattern.height = canvas.height;
     const paint = pattern.getContext('2d');

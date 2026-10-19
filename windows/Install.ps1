@@ -7,8 +7,8 @@ foreach ($name in @('ExtrudaCamera.exe','ExtrudaCamera.dll','UPSTREAM-LICENSE.tx
 }
 $register = Start-Process -FilePath "$env:SystemRoot\System32\regsvr32.exe" -ArgumentList '/s',('"' + (Join-Path $destination 'ExtrudaCamera.dll') + '"') -Wait -PassThru -WindowStyle Hidden
 if ($register.ExitCode -ne 0) { throw "Camera registration failed: $($register.ExitCode)" }
-$shortcut = (New-Object -ComObject WScript.Shell).CreateShortcut((Join-Path ([Environment]::GetFolderPath('CommonPrograms')) 'Extruda Phone Camera.lnk'))
+$shortcut = (New-Object -ComObject WScript.Shell).CreateShortcut((Join-Path ([Environment]::GetFolderPath('CommonPrograms')) 'extruda mobile as webcam.lnk'))
 $shortcut.TargetPath = Join-Path $destination 'ExtrudaCamera.exe'
 $shortcut.WorkingDirectory = $destination
 $shortcut.Save()
-Write-Host "Installed. Open Extruda Phone Camera from the Start menu as your normal Windows user."
+Write-Host "Installed. Open extruda mobile as webcam from the Start menu as your normal Windows user."

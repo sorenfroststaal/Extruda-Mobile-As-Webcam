@@ -162,4 +162,4 @@ KI hat beim Schreiben des Programms und der Anleitungen geholfen. KI kann etwas 
 Eine Anleitung könnte ein falsches Menü nennen, eine Funktion könnte versagen oder eine Sicherheitslücke übersehen worden sein. Ein bestandener Test oder überzeugender Text beweist keine Sicherheit. Vermeide den Einsatz, wenn ein Bildleck oder Ausfall ernste Folgen hätte.
 <!-- plain:end -->
 
-[Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases)
+[Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases)

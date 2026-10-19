@@ -13,7 +13,7 @@ inline const wchar_t* NativeText(const wchar_t* text){
 {L"Kunne ikke ændre opløsning.",L"Could not change resolution.",L"Die Auflösung konnte nicht geändert werden.",L"Impossible de modifier la résolution."},
 {L"Luk kameraet i Teams og vælg opløsningen igen.",L"Close the camera in Teams and select the resolution again.",L"Kamera in Teams schließen und Auflösung erneut wählen.",L"Fermez la caméra dans Teams et sélectionnez de nouveau la résolution."},
 {L"Microsoft Edge WebView2 Runtime kunne ikke indlæses.",L"Could not load Microsoft Edge WebView2 Runtime.",L"Microsoft Edge WebView2 Runtime konnte nicht geladen werden.",L"Impossible de charger Microsoft Edge WebView2 Runtime."},
-{L"Extruda Phone Camera er allerede åben.",L"Extruda Phone Camera is already open.",L"Extruda Phone Camera ist bereits geöffnet.",L"Extruda Phone Camera est déjà ouvert."},
+{L"extruda mobile as webcam er allerede åben.",L"extruda mobile as webcam is already open.",L"extruda mobile as webcam ist bereits geöffnet.",L"extruda mobile as webcam est déjà ouvert."},
 {L"Kunne ikke oprette den lokale videoforbindelse.",L"Could not create the local video transport.",L"Die lokale Videoverbindung konnte nicht erstellt werden.",L"Impossible de créer le transport vidéo local."},
 {L"Det virtuelle kamera kunne ikke startes. Kør installationsprogrammet igen og kontrollér Windows’ kameratilladelser.",L"Could not start the virtual camera. Run the installer again and check Windows camera permissions.",L"Die virtuelle Kamera konnte nicht gestartet werden. Installation erneut ausführen und Windows-Kameraberechtigungen prüfen.",L"Impossible de démarrer la caméra virtuelle. Relancez l’installateur et vérifiez les autorisations caméra de Windows."}
  };

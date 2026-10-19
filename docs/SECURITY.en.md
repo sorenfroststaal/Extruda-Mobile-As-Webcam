@@ -162,4 +162,4 @@ AI helped write the program and its guides. AI can produce something that looks 
 A guide could name the wrong menu, a feature could fail or a security flaw could be overlooked. A passing test or convincing text is not proof of security. Avoid use where a leaked image or an outage could have serious consequences.
 <!-- plain:end -->
 
-[Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases)
+[Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases)

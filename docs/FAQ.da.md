@@ -24,19 +24,19 @@ Hvis indstillingen mangler, se Indstillinger → Apps → Safari → Kamera (på
 
 ## Hvordan vælger jeg kameraet i Teams?
 
-Forbind telefonen først. I Teams på pc: Indstillinger → Enheder → Kamera → vælg Extruda Phone Camera. Navnet kan indeholde opløsning og Windows Virtual Camera. Under et møde kan du bruge pilen ved kameraikonet til at vælge kamera. Tænd videoen. Hvis kameraet mangler, genstart Teams, mens Extruda er åben.
+Forbind telefonen først. I Teams på pc: Indstillinger → Enheder → Kamera → vælg extruda mobile as webcam. Navnet kan indeholde opløsning og Windows Virtual Camera. Under et møde kan du bruge pilen ved kameraikonet til at vælge kamera. Tænd videoen. Hvis kameraet mangler, genstart Teams, mens Extruda er åben.
 
 [Microsoft · Teams](https://support.microsoft.com/en-us/teams/notifications-settings/manage-your-device-settings-in-microsoft-teams)
 
 ## Hvordan vælger jeg kameraet i Zoom?
 
-Forbind telefonen først. I Zoom på pc: Indstillinger → Video og effekter (eller Video) → Kamera → Extruda Phone Camera. I et møde: pilen ved Video → vælg kameraet, og start video. Genstart Zoom, hvis kameraet ikke er på listen. Zoom og mødeindstillinger kan begrænse den faktiske opløsning.
+Forbind telefonen først. I Zoom på pc: Indstillinger → Video og effekter (eller Video) → Kamera → extruda mobile as webcam. I et møde: pilen ved Video → vælg kameraet, og start video. Genstart Zoom, hvis kameraet ikke er på listen. Zoom og mødeindstillinger kan begrænse den faktiske opløsning.
 
 [Zoom · Video](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0061836)
 
 ## Andre programmer og et kamera, der mangler
 
-Vælg Extruda Phone Camera i programmets kameraindstillinger. I en browser skal mødesiden også have kameratilladelse. På Windows: Indstillinger → Beskyttelse af personlige oplysninger og sikkerhed → Kamera → slå kameraadgang og adgang for skrivebordsapps til. Arbejds-pc’er kan være begrænset af IT. Kompatibilitet er ikke garanteret i alle programmer; macOS og Linux har ingen modtagerapp i denne version.
+Vælg extruda mobile as webcam i programmets kameraindstillinger. I en browser skal mødesiden også have kameratilladelse. På Windows: Indstillinger → Beskyttelse af personlige oplysninger og sikkerhed → Kamera → slå kameraadgang og adgang for skrivebordsapps til. Arbejds-pc’er kan være begrænset af IT. Kompatibilitet er ikke garanteret i alle programmer; macOS og Linux har ingen modtagerapp i denne version.
 
 [Microsoft · Camera](https://support.microsoft.com/en-us/teams/meetings/my-camera-isn-t-working-in-microsoft-teams)
 
@@ -60,7 +60,7 @@ Globusikonet vælger dansk, engelsk, tysk eller fransk. Solikonet vælger lyst, 
 
 Ja. Projektets kode er udgivet under MIT-licensen: du må bruge, kopiere, ændre, udgive, dele og sælge den, også kommercielt. Bevar copyright- og licensteksten i kopier eller væsentlige dele. Softwaren leveres uden garanti. Tredjepartskode og skrifttyper har deres egne medfølgende licenser; extruda-logo og brandmateriale er ikke omfattet af kodens MIT-licens.
 
-[GitHub · Source](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam) · [MIT · LICENSE](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/blob/main/LICENSE)
+[GitHub · Source](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam) · [MIT · LICENSE](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/blob/main/LICENSE)
 
 ## Er programmet vibe-kodet?
 
@@ -70,4 +70,4 @@ Ja. Prototypen er udviklet med AI-assisteret programmering (vibe coding) og Code
 
 Opret et GitHub-issue med appversion, Windows-version, telefon/browser og trin til at genskabe fejlen. Del aldrig et aktivt parringslink, QR-kode, adgangsnøgler eller private kamerabilleder. Kodebidrag, oversættelser og forbedringer er velkomne; ingen svartid eller supportgaranti loves. Ved en sikkerhedsfejl: læs SECURITY.md for en privat kontaktvej, før detaljer offentliggøres.
 
-[GitHub · Issues](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/issues) · [GitHub · Security](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/blob/main/SECURITY.md)
+[GitHub · Issues](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/issues) · [GitHub · Security](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/blob/main/SECURITY.md)

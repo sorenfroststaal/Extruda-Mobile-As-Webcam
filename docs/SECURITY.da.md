@@ -162,4 +162,4 @@ AI har hjulpet med at skrive programmet og vejledningerne. AI kan skrive noget, 
 En vejledning kan vise en forkert menu, en funktion kan svigte, eller en sikkerhedsfejl kan være overset. At en test består eller en tekst lyder overbevisende er ikke et bevis på sikkerhed. Undgå brug, hvor et lækket billede eller et driftsstop kan få alvorlige følger.
 <!-- plain:end -->
 
-[Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases)
+[Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases)

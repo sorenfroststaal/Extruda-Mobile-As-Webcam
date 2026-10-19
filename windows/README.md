@@ -1,16 +1,16 @@
-# extruda Camera 0.5.6
+# extruda mobile as webcam 0.6.0
 
 Language and theme follow the operating system by default. Use the globe and sun icons to override them; choices are stored per device. The information icon opens Security risks and FAQ and guides without leaving the session.
 
 > **KNOWN SECURITY RISKS:** This prototype is not independently security audited. Hosting/client compromise, an unsigned administrator installer, leaked pairing secrets, compromised devices, a protected file buffer, quota exhaustion, metadata exposure, recording by the receiver and unknown native/runtime flaws remain relevant. Compare the code before accepting and avoid sensitive situations.
 >
-> Read the full risk documentation: [English](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/blob/main/docs/SECURITY.en.md) · [Deutsch](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/blob/main/docs/SECURITY.de.md) · [Français](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/blob/main/docs/SECURITY.fr.md) · [Dansk](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/blob/main/docs/SECURITY.da.md).
+> Read the full risk documentation: [English](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/blob/main/docs/SECURITY.en.md) · [Deutsch](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/blob/main/docs/SECURITY.de.md) · [Français](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/blob/main/docs/SECURITY.fr.md) · [Dansk](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/blob/main/docs/SECURITY.da.md).
 
 # Security revision 0.4.0
 
 The Windows interface is packaged locally. Compare the six-digit code on the phone and PC before accepting. No user account is required. The protected temporary frame file remains; releases are unsigned.
 
-# extruda Camera for Windows — prototype 0.4
+# extruda mobile as webcam for Windows — prototype 0.4
 
 Windows 11 x64 receiver with its own Media Foundation virtual camera. No OBS.
 Microsoft Edge WebView2 Runtime is required (normally present on Windows 11).
@@ -27,12 +27,12 @@ See VALIDATION.md in the source tree for the precise verification scope.
    the app and camera DLL into Program Files, registers this one COM class in
    HKLM, and adds a Start menu shortcut. No kernel driver or Windows service is
    installed. PowerShell execution policy is not changed or required.
-3. Open extruda Camera from Start as your normal Windows user. The app starts
+3. Open extruda mobile as webcam from Start as your normal Windows user. The app starts
    at 1920 × 1080 and automatically shows a QR code.
 4. Scan the QR on the same Wi-Fi, compare the six-digit code and accept on the PC.
    The phone starts its camera automatically; grant camera permission if prompted.
    Resolution can be changed after video connects, without a new pairing.
-5. In the meeting program select **Extruda Phone Camera Windows Virtual Camera**.
+5. In the meeting program select **extruda mobile as webcam Windows Virtual Camera**.
    Restart the meeting program if the new camera is not in its list.
 6. Keep the receiver app open. Closing it removes the session camera. Stop on
    the phone clears the output; a stalled receiver goes black after 2 seconds.
@@ -102,6 +102,6 @@ Media Foundation Source Reader without installing or registering a camera.
 
 ## Help and open source
 
-The in-app FAQ covers phone camera permissions, Teams, Zoom, troubleshooting and open-source terms. Read it on GitHub: [English](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/blob/main/docs/FAQ.en.md) · [Deutsch](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/blob/main/docs/FAQ.de.md) · [Français](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/blob/main/docs/FAQ.fr.md) · [Dansk](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/blob/main/docs/FAQ.da.md).
+The in-app FAQ covers phone camera permissions, Teams, Zoom, troubleshooting and open-source terms. Read it on GitHub: [English](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/blob/main/docs/FAQ.en.md) · [Deutsch](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/blob/main/docs/FAQ.de.md) · [Français](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/blob/main/docs/FAQ.fr.md) · [Dansk](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/blob/main/docs/FAQ.da.md).
 
 This is an AI-assisted, vibe-coded prototype made with Codex. It has not undergone an independent security audit. Project code is MIT-licensed: use, change, share and sell it while preserving the copyright and permission notice. No warranty is provided. Third-party notices, font licences and the separate brand notice still apply.

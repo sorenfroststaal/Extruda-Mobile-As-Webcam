@@ -43,10 +43,10 @@ bool Trusted(const wchar_t* uri) {
 void Error(const wchar_t* message, HRESULT hr) {
     if (pairingSmokeTest) { std::ofstream out("pairing-native-error.txt"); out << std::hex << static_cast<unsigned>(hr); for(auto p=message;*p;++p)out << static_cast<char>(*p<128?*p:'?'); PostQuitMessage(1); return; }
     wchar_t text[1024]{}; swprintf_s(text, L"%s\n\n%s: 0x%08X", NativeText(message), NativeText(L"Fejlkode"), static_cast<unsigned>(hr));
-    MessageBoxW(window, text, L"Extruda Phone Camera", MB_OK | MB_ICONERROR);
+    MessageBoxW(window, text, L"extruda mobile as webcam", MB_OK | MB_ICONERROR);
 }
 HRESULT StartCamera() {
-    auto name = L"Extruda Phone Camera (" + std::to_wstring(outputWidth) + L"x" + std::to_wstring(outputHeight) + L")";
+    auto name = L"extruda mobile as webcam (" + std::to_wstring(outputWidth) + L"x" + std::to_wstring(outputHeight) + L")";
     auto hr = MFCreateVirtualCamera(MFVirtualCameraType_SoftwareCameraSource, MFVirtualCameraLifetime_Session, MFVirtualCameraAccess_CurrentUser, name.c_str(), CameraClassId, nullptr, 0, &camera);
     if (FAILED(hr)) return hr;
     hr = camera->SetString(FramePathAttribute, writer->path.c_str());
@@ -185,7 +185,7 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR, int show) {
     if (FAILED(CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED))) return 1;
     MFStartup(MF_VERSION);
     HANDLE single = CreateMutexW(nullptr, TRUE, L"Local\\ExtrudaPhoneCameraReceiver");
-    if (!single || GetLastError() == ERROR_ALREADY_EXISTS) { MessageBoxW(nullptr, NativeText(L"Extruda Phone Camera er allerede åben."), L"Extruda", MB_OK); if (single) CloseHandle(single); return 1; }
+    if (!single || GetLastError() == ERROR_ALREADY_EXISTS) { MessageBoxW(nullptr, NativeText(L"extruda mobile as webcam er allerede åben."), L"Extruda", MB_OK); if (single) CloseHandle(single); return 1; }
     auto resource = FindResourceW(instance, MAKEINTRESOURCEW(101), RT_RCDATA);
     auto bytes = SizeofResource(instance, resource); auto ptr = static_cast<const char*>(LockResource(LoadResource(instance, resource)));
     int count = MultiByteToWideChar(CP_UTF8, 0, ptr, bytes, nullptr, 0); bridge.resize(count); MultiByteToWideChar(CP_UTF8, 0, ptr, bytes, bridge.data(), count);
@@ -200,7 +200,7 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR, int show) {
     const int availableHeight = monitor.rcWork.bottom - monitor.rcWork.top;
     const int width = std::min(MulDiv(1200, dpi, 96), availableWidth - 24);
     const int height = std::min(MulDiv(900, dpi, 96), availableHeight - 24);
-    window = CreateWindowExW(0, cls.lpszClassName, L"extruda Camera", WS_OVERLAPPEDWINDOW,
+    window = CreateWindowExW(0, cls.lpszClassName, L"extruda mobile as webcam", WS_OVERLAPPEDWINDOW,
         monitor.rcWork.left + (availableWidth - width) / 2, monitor.rcWork.top + (availableHeight - height) / 2,
         width, height, nullptr, nullptr, instance, nullptr);
     try { writer = std::make_unique<FrameWriter>(outputWidth, outputHeight); } catch (...) { Error(L"Kunne ikke oprette den lokale videoforbindelse.", HRESULT_FROM_WIN32(GetLastError())); return 1; }

@@ -16,13 +16,14 @@ HRESULT ExportRegistration(const std::wstring& path, bool remove) {
 }
 HRESULT RunSetup(HINSTANCE instance, bool remove) {
     auto folder = KnownFolder(FOLDERID_ProgramFiles) + L"\\Extruda Phone Camera";
-    auto shortcut = KnownFolder(FOLDERID_CommonPrograms) + L"\\Extruda Phone Camera.lnk";
+    auto shortcut = KnownFolder(FOLDERID_CommonPrograms) + L"\\extruda mobile as webcam.lnk";
     auto appMutex = OpenMutexW(SYNCHRONIZE, FALSE, L"Local\\ExtrudaPhoneCameraReceiver");
     if (appMutex) { CloseHandle(appMutex); return HRESULT_FROM_WIN32(ERROR_BUSY); }
     if (remove) {
         auto hr = ExportRegistration(folder + L"\\ExtrudaCamera-0.3.dll", true);
         if (FAILED(hr) && hr != HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND) && hr != HRESULT_FROM_WIN32(ERROR_MOD_NOT_FOUND)) return hr;
         DeleteFileW(shortcut.c_str());
+        DeleteFileW((KnownFolder(FOLDERID_CommonPrograms)+L"\\Extruda Phone Camera.lnk").c_str());
         for (const auto& file : files) { auto path = folder + L"\\" + file.name; if (!DeleteFileW(path.c_str()) && GetLastError() == ERROR_SHARING_VIOLATION) MoveFileExW(path.c_str(), nullptr, MOVEFILE_DELAY_UNTIL_REBOOT); }
         for (const auto& directory : {L"\\ui\\fonts",L"\\ui\\brand",L"\\ui"}) RemoveDirectoryW((folder + directory).c_str());
         RemoveDirectoryW(folder.c_str());
@@ -61,7 +62,10 @@ HRESULT RunSetup(HINSTANCE instance, bool remove) {
     if (FAILED(hr)) return hr;
     link->SetPath((folder + L"\\ExtrudaCamera.exe").c_str()); link->SetWorkingDirectory(folder.c_str());
     link->SetDescription(L"Telefon som Windows-webcam uden OBS");
-    ComPtr<IPersistFile> persisted; link.As(&persisted); return persisted->Save(shortcut.c_str(), TRUE);
+    ComPtr<IPersistFile> persisted; link.As(&persisted);
+    hr = persisted->Save(shortcut.c_str(), TRUE);
+    if(SUCCEEDED(hr))DeleteFileW((KnownFolder(FOLDERID_CommonPrograms)+L"\\Extruda Phone Camera.lnk").c_str());
+    return hr;
 }
 int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR arguments, int) {
     const bool quiet = wcsstr(arguments, L"--quiet") != nullptr;
@@ -70,9 +74,9 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR arguments, int) {
     auto hr = RunSetup(instance, remove);
     if (!quiet) {
         wchar_t message[512]{};
-        if (SUCCEEDED(hr)) swprintf_s(message, remove ? L"Extruda Phone Camera er afinstalleret." : L"Installeret. Åbn Extruda Phone Camera fra Start-menuen som din almindelige Windows-bruger.");
+        if (SUCCEEDED(hr)) swprintf_s(message, remove ? L"extruda mobile as webcam er afinstalleret." : L"Installeret. Åbn extruda mobile as webcam fra Start-menuen som din almindelige Windows-bruger.");
         else swprintf_s(message, L"Installationen kunne ikke gennemføres. Luk Extruda-appen og prøv igen.\nFejlkode: 0x%08X", static_cast<unsigned>(hr));
-        MessageBoxW(nullptr, message, L"Extruda Phone Camera Setup", MB_OK | (SUCCEEDED(hr) ? MB_ICONINFORMATION : MB_ICONERROR));
+        MessageBoxW(nullptr, message, L"extruda mobile as webcam Setup", MB_OK | (SUCCEEDED(hr) ? MB_ICONINFORMATION : MB_ICONERROR));
     }
     CoUninitialize(); return SUCCEEDED(hr) ? 0 : static_cast<int>(hr);
 }
