@@ -7,7 +7,7 @@
 
 Use an Android or iPhone camera as a Windows webcam, without OBS or a user account.
 
-**[Download Windows installer 0.5.2](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases/download/camera-v0.5.2/ExtrudaCamera-Setup-0.5.2-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases/tag/camera-v0.5.2) · [Camera website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
+**[Download Windows installer 0.5.3](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases/download/camera-v0.5.3/ExtrudaCamera-Setup-0.5.3-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases/tag/camera-v0.5.3) · [Camera website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
 
 ## Use
 
@@ -68,3 +68,5 @@ Read the guides in [English](docs/FAQ.en.md), [Deutsch](docs/FAQ.de.md), [Franç
 This prototype is **vibe-coded with AI assistance and Codex**, guided by the owner’s requests and iterative testing. Passing tests do not establish that its code or documentation is correct or secure. There has been no independent security audit; read the [known risks](docs/SECURITY.en.md) and [security reporting policy](SECURITY.md). Contributions, translations and reproducible bug reports are welcome; support has no guaranteed response time. Never post active pairing links, QR codes, secrets or private video frames.
 
 The project code is MIT-licensed. You may use, copy, modify, publish, distribute, sublicense and sell it, including commercially, while retaining the copyright and permission notice in copies or substantial portions. It is supplied without warranty. Preserve third-party notices; fonts and brand assets have separate terms listed above.
+
+Each security topic includes a plain-language explanation and concrete possible consequences, in the app and all four security guides. These distinguish service outages from image disclosure and describe hypothetical severe outcomes without claiming a vulnerability has been found.

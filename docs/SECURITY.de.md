@@ -10,11 +10,31 @@
 
 Der Telefon-Client wird von Cloudflare geladen. Kompromittierter Hosting- oder Deployment-Zugriff kann den Client verändern und Video offenlegen. Die lokale Windows-Oberfläche reduziert diese Abhängigkeit am PC, schützt aber nicht den Telefon-Client.
 
+<!-- plain:start -->
+**Einfach erklärt**
+
+Die Kameraseite auf deinem Telefon kommt von unserer Website. Wer den Zugang zum Ändern der Website übernimmt, könnte auch das Verhalten der Seite ändern.
+
+**Was das für dich bedeuten kann**
+
+Im schlimmsten Fall könnte ein Angreifer die Seite dazu bringen, dein Kamerabild während der Nutzung an andere zu senden. Verschlüsselung hilft nicht, wenn die Seite selbst verändert wurde.
+<!-- plain:end -->
+
 ## Installation und Downloads
 
 **Hohe Folgen bei Kompromittierung**
 
 Das Installationsprogramm ist nicht signiert und benötigt Administratorfreigabe. Ein gefälschtes oder ersetztes Programm kann den PC kompromittieren. Nur aus dem offiziellen GitHub Release herunterladen. Eine Prüfsumme im selben Konto schützt nicht vor Übernahme des gesamten Kontos.
+
+<!-- plain:start -->
+**Einfach erklärt**
+
+Du erlaubst dem Installationsprogramm, Windows zu ändern. Windows kann den Herausgeber noch nicht anhand einer digitalen Signatur bestätigen.
+
+**Was das für dich bedeuten kann**
+
+Eine gefälschte Kopie könnte im schlimmsten Fall Schadsoftware installieren, Dateien stehlen oder den PC übernehmen. Nutze den offiziellen GitHub-Download des Projekts; der richtige Dateiname beweist nicht, dass eine Datei echt ist.
+<!-- plain:end -->
 
 ## Zugriff auf den QR-Code
 
@@ -22,11 +42,31 @@ Das Installationsprogramm ist nicht signiert und benötigt Administratorfreigabe
 
 QR-Code und Kopplungslink enthalten Zugangsschlüssel. Nicht teilen oder veröffentlichen. Einmalige Schlüssel, Ablaufzeit und Vergleichscode verringern das Risiko; ein geleakter Link und eine falsche Bestätigung können dennoch das falsche Gerät verbinden. Der Code ist kein Konto-Login und keine Identitätsgarantie.
 
+<!-- plain:start -->
+**Einfach erklärt**
+
+Der QR-Code ist eine vorübergehende Einladung mit einem geheimen Schlüssel. Wer ein Bild davon oder den Link erhält, kann versuchen, die Einladung zu nutzen.
+
+**Was das für dich bedeuten kann**
+
+Wenn du zusätzlich bestätigst, ohne den Code auf beiden Geräten zu vergleichen, könntest du ein fremdes Gerät verbinden. Dann könnten Bilder vom falschen Telefon in deinem Meeting erscheinen. Ein geleakter QR-Code allein gibt keinen Zugriff auf deine Telefonkamera; teile ihn trotzdem nie.
+<!-- plain:end -->
+
 ## Kompromittierte Geräte
 
 **Hohe Folgen bei Kompromittierung**
 
 Malware, Administratoren oder Personen mit Zugriff auf ein entsperrtes Telefon oder einen PC können Bildschirm, Schlüssel oder Video lesen. Transportverschlüsselung schützt keine kompromittierten Endgeräte. Diesen Prototyp nicht einsetzen, wenn ein Videoleck schwerwiegende Folgen hätte.
+
+<!-- plain:start -->
+**Einfach erklärt**
+
+Wenn Telefon oder PC bereits Schadsoftware enthalten oder jemand dein entsperrtes Gerät benutzen kann, könnte diese Person sehen, was du siehst.
+
+**Was das für dich bedeuten kann**
+
+Private Bilder, Kopplungsschlüssel oder Bildschirminhalte könnten ohne dein Wissen kopiert werden. Die Verschlüsselung der App macht ein bereits übernommenes Gerät nicht wieder sicher.
+<!-- plain:end -->
 
 ## Lokaler Bildpuffer
 
@@ -34,11 +74,31 @@ Malware, Administratoren oder Personen mit Zugriff auf ein entsperrtes Telefon o
 
 Dekodierte Bilder laufen durch eine temporäre Datei unter ProgramData. Sie ist zugriffsgeschützt, wird geleert und beim Schließen gelöscht, liegt aber nicht ausschließlich in anonymem RAM. Prozesse desselben Benutzers oder mit ausreichenden Systemrechten können Zugriff erhalten. Löschen garantiert kein sicheres Überschreiben von Datenträger- oder Auslagerungsdateidaten.
 
+<!-- plain:start -->
+**Einfach erklärt**
+
+Um Video als Windows-Kamera bereitzustellen, legt die App Bilder kurzzeitig in einer geschützten temporären Datei auf dem PC ab. Das ist keine normale Videoaufnahme, aber die Bilder liegen kurz außerhalb der App vor.
+
+**Was das für dich bedeuten kann**
+
+Ein anderes Programm mit deinen Benutzerrechten oder Administratorzugriff könnte die Bilder kopieren. Auch nach dem Löschen können Spuren auf dem Speicher bleiben. Vermeide Bilder, bei denen schon ein mögliches Leck schwerwiegend wäre.
+<!-- plain:end -->
+
 ## Verfügbarkeit und Missbrauch
 
 **Verbleibendes Risiko**
 
 Server- und Nachrichtenlimits begrenzen Missbrauch, aber Anfragen erreichen weiterhin Cloudflare. Größere Angriffe können Kontingente aufbrauchen und neue Kopplungen blockieren. Ein bereits gekoppeltes bösartiges Gerät kann die Sitzung ebenfalls stören. Dies allein gibt Außenstehenden keinen Zugriff auf Video.
+
+<!-- plain:start -->
+**Einfach erklärt**
+
+Die Kopplung nutzt einen gemeinsamen Onlinedienst mit begrenzter Kapazität. Viele Anfragen oder Missbrauch können ihn vorübergehend unerreichbar machen.
+
+**Was das für dich bedeuten kann**
+
+Du könntest kurz vor einem Meeting dein Telefon nicht verbinden können. Auch eine Sitzung kann unterbrochen oder gestört werden. Ein Ausfall bedeutet für sich genommen nicht, dass jemand deine Bilder gesehen hat; halte eventuell die normale PC-Webcam als Ersatz bereit.
+<!-- plain:end -->
 
 ## Verbindungsdaten und lokales Netzwerk
 
@@ -46,11 +106,31 @@ Server- und Nachrichtenlimits begrenzen Missbrauch, aber Anfragen erreichen weit
 
 Cloudflare und GitHub können IP-Adressen und technische Verbindungsdaten verarbeiten. WebRTC tauscht Netzwerkinformationen zwischen Geräten aus. Kein Benutzerkonto ist erforderlich, der Dienst ist aber nicht anonym. Dasselbe WLAN ist keine Sicherheitsgarantie; Gastnetztrennung, Firewalls und Unterbrechungen können die Verbindung blockieren.
 
+<!-- plain:start -->
+**Einfach erklärt**
+
+Auch ohne Anmeldung hinterlässt die Nutzung technische Spuren, etwa deine Internetadresse. Zwei Geräte im selben WLAN können außerdem daran gehindert sein, miteinander zu kommunizieren.
+
+**Was das für dich bedeuten kann**
+
+Dienstanbieter können Verbindungsinformationen haben; die Lösung macht dich nicht anonym. Gast-WLAN oder Netzwerkregeln können die Kopplung verhindern. Diese Verbindungsdaten sind nicht dasselbe wie Zugriff auf das Kamerabild selbst.
+<!-- plain:end -->
+
 ## Kamerazugriff und Aufzeichnung durch den Empfänger
 
 **Aufmerksamkeit erforderlich**
 
 Die Kamera versucht nach PC-Bestätigung zu starten, sobald die Browserfreigabe vorliegt. Kameraanzeige beachten und nach Gebrauch trennen. Die App hat keine Aufnahmefunktion; Besprechungsprogramme, Bildschirmaufzeichnung oder der gekoppelte Empfänger können das Bild dennoch speichern. Verschlüsselung kann das nicht verhindern.
+
+<!-- plain:start -->
+**Einfach erklärt**
+
+Sobald du am PC bestätigst und dem Browser Kamerazugriff erlaubt hast, versucht das Telefon Video zu senden. Ein Programm oder eine Person, die das Bild am PC sehen kann, kann es speichern.
+
+**Was das für dich bedeuten kann**
+
+Du könntest versehentlich einen privaten Raum oder Personen zeigen, die du nicht filmen wolltest. Bilder können aufgezeichnet oder weitergegeben werden, obwohl Extruda keine Aufnahmetaste hat. Richte die Kamera vor der Bestätigung richtig aus und trenne die Verbindung und schließe die Seite danach.
+<!-- plain:end -->
 
 ## Unbekannte Fehler und Updates
 
@@ -58,8 +138,28 @@ Die Kamera versucht nach PC-Bestätigung zu starten, sobald die Browserfreigabe 
 
 Funktionstests und eine npm-Prüfung ersetzen weder Penetrationstests noch Fuzzing und bieten keine Garantie. Native C++-, WebView2- und Systemkomponenten können unbekannte Fehler enthalten; schwere Fehler können möglicherweise einen Prozess kompromittieren. Windows, Browser und App aktuell halten. Der Telefon-Client wird online aktualisiert; die lokale Windows-Oberfläche benötigt eine neue App-Version.
 
-[Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases)
+<!-- plain:start -->
+**Einfach erklärt**
+
+Wir haben bestimmte Funktionen getestet, aber kein unabhängiger Experte hat die gesamte Lösung auf Sicherheitslücken geprüft. Es kann weiterhin unbekannte Fehler geben.
+
+**Was das für dich bedeuten kann**
+
+Ein Fehler kann ein schwarzes Bild oder einen Absturz verursachen. Eine schwere Sicherheitslücke könnte im schlimmsten Fall das Lesen von Daten oder das Ausführen schädlichen Codes ermöglichen. Das sind mögliche Folgen, keine Behauptung, dass eine solche Lücke gefunden wurde. Halte App, Windows und Browser aktuell.
+<!-- plain:end -->
 
 ## KI-gestützte Entwicklung
 
 Der Prototyp wurde mit KI-Unterstützung und Codex vibe-gecodet. Automatisierte und fortlaufende Tests können Fehler und falsche Annahmen in Code und Dokumentation übersehen. Es gibt keine unabhängige Sicherheitszertifizierung oder Gewährleistung. Lies auch [FAQ und Anleitungen](FAQ.de.md) und die [Hinweise zur Meldung von Sicherheitsfehlern](../SECURITY.md).
+
+<!-- plain:start -->
+**Einfach erklärt**
+
+KI hat beim Schreiben des Programms und der Anleitungen geholfen. KI kann etwas erzeugen, das richtig aussieht und dennoch Fehler enthält.
+
+**Was das für dich bedeuten kann**
+
+Eine Anleitung könnte ein falsches Menü nennen, eine Funktion könnte versagen oder eine Sicherheitslücke übersehen worden sein. Ein bestandener Test oder überzeugender Text beweist keine Sicherheit. Vermeide den Einsatz, wenn ein Bildleck oder Ausfall ernste Folgen hätte.
+<!-- plain:end -->
+
+[Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases)
