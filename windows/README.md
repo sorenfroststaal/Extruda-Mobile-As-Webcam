@@ -1,4 +1,4 @@
-# extruda Camera 0.5.0
+# extruda Camera 0.5.1
 
 Language and theme follow the operating system by default. Use the globe and sun icons to override them; choices are stored per device. The information icon shows known security risks without leaving the session.
 

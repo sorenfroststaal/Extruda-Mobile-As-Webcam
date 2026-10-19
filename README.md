@@ -7,7 +7,7 @@
 
 Use an Android or iPhone camera as a Windows webcam, without OBS or a user account.
 
-**[Download Windows installer 0.5.0](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases/download/camera-v0.5.0/ExtrudaCamera-Setup-0.5.0-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases/tag/camera-v0.5.0) · [Camera website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
+**[Download Windows installer 0.5.1](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases/download/camera-v0.5.1/ExtrudaCamera-Setup-0.5.1-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases/tag/camera-v0.5.1) · [Camera website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
 
 ## Use
 
