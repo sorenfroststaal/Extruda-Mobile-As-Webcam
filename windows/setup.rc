@@ -22,3 +22,5 @@
 311 RCDATA "dist/ui/i18n.js"
 312 RCDATA "dist/ui/i18n-core.js"
 313 RCDATA "dist/ui/brand/logo-white.svg"
+314 RCDATA "dist/ui/fonts/Manrope-Variable.woff2"
+315 RCDATA "dist/ui/fonts/Manrope-OFL.txt"

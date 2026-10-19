@@ -56,6 +56,8 @@ if not exist windows\dist\ui\fonts mkdir windows\dist\ui\fonts
 copy /y public\fonts\Nunito-OFL.txt windows\dist\ui\fonts\Nunito-OFL.txt >nul
 if not exist windows\dist\ui\fonts mkdir windows\dist\ui\fonts
 copy /y public\fonts\Inter-OFL.txt windows\dist\ui\fonts\Inter-OFL.txt >nul
+copy /y public\fonts\Manrope-Variable.woff2 windows\dist\ui\fonts\Manrope-Variable.woff2 >nul
+copy /y public\fonts\Manrope-OFL.txt windows\dist\ui\fonts\Manrope-OFL.txt >nul
 cl %COMMON% windows\test\CameraTests.cpp /Fowindows\build\test.obj /Fewindows\dist\CameraTests.exe /link mfplat.lib mf.lib mfuuid.lib mfreadwrite.lib mfsensorgroup.lib ole32.lib advapi32.lib user32.lib
 if errorlevel 1 exit /b 1
 copy /y windows\Install.ps1 windows\dist\ >nul
