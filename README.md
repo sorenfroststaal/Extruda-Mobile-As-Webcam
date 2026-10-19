@@ -1,8 +1,13 @@
 # extruda Camera
 
+> **SECURITY: Experimental software. A compromised phone client, device or installer can expose camera images or compromise a PC. The protected frame file, hosting metadata, service quotas and unknown code flaws remain risks. No independent penetration test has been completed.**
+
+**Security documentation:** [English](docs/SECURITY.en.md) · [Deutsch](docs/SECURITY.de.md) · [Français](docs/SECURITY.fr.md) · [Dansk](docs/SECURITY.da.md).
+
+
 Use an Android or iPhone camera as a Windows webcam, without OBS or a user account.
 
-**[Download Windows installer 0.4.0](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases/download/camera-v0.4.0/ExtrudaCamera-Setup-0.4.0-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases/tag/camera-v0.4.0) · [Camera website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
+**[Download Windows installer 0.5.0](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases/download/camera-v0.5.0/ExtrudaCamera-Setup-0.5.0-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases/tag/camera-v0.5.0) · [Camera website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
 
 ## Use
 
@@ -48,3 +53,7 @@ Previous Cloudflare download URLs redirect to GitHub for compatibility.
 Code: MIT; upstream camera source and SDK notices accompany distributions.
 Fonts carry their OFL licences. Brand assets are covered separately by
 [BRAND-NOTICE.txt](BRAND-NOTICE.txt).
+
+## Language and appearance
+
+Use the globe icon to choose Danish, English, German or French. Automatic uses the Windows UI language in the desktop app and the browser’s preferred languages on the phone, falling back to English. Manual choices are stored only on that device. The theme icon offers Automatic, Light and Dark; Automatic follows the OS colour preference and updates when it changes. The information icon opens the known security risks without leaving the connection.

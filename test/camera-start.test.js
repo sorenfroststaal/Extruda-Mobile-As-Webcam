@@ -7,7 +7,7 @@ const source=readFileSync(new URL('../public/app.js',import.meta.url),'utf8').sp
 function setup(getUserMedia) {
   const elements=new Map();
   const element=id=>{if(!elements.has(id))elements.set(id,{hidden:false,disabled:false,value:'environment',textContent:'',addEventListener(){},getContext(){return{clearRect(){}}},close(){this.open=false}});return elements.get(id)};
-  const context=vm.createContext({console,CustomEvent,TextEncoder,TextDecoder,Uint8Array,URLSearchParams,URL,atob,btoa,setTimeout,clearTimeout,
+  const context=vm.createContext({console:{...console,error(){}},CustomEvent,TextEncoder,TextDecoder,Uint8Array,URLSearchParams,URL,atob,btoa,setTimeout,clearTimeout,
     crypto:{getRandomValues:a=>a,subtle:{decrypt:async(_a,_b,data)=>data,encrypt:async()=>new Uint8Array(),digest:(...args)=>webcrypto.subtle.digest(...args)}},
     location:{hash:'',pathname:'/',origin:'https://example.test',protocol:'https:'},history:{replaceState(){}},
     document:{getElementById:element,addEventListener(){},body:{classList:{remove(){}}}},window:{addEventListener(){},dispatchEvent(){}},

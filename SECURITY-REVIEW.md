@@ -1,3 +1,7 @@
+> **CURRENT RISK SUMMARY:** [English](docs/SECURITY.en.md) · [Deutsch](docs/SECURITY.de.md) · [Français](docs/SECURITY.fr.md) · [Dansk](docs/SECURITY.da.md).
+>
+> **This document retains the original findings and their later remediation. Read the current risk summary first: original findings below are not all outstanding defects. Tests are not an independent security certification.**
+
 # Sikkerhedsgennemgang — 19. oktober 2026
 
 Omfang: statisk gennemgang af Cloudflare Worker, browserklient, WebView2-vært,

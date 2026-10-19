@@ -9,11 +9,13 @@ if not exist "%VSDEVCMD%" (
 )
 call "%VSDEVCMD%" -arch=x64 -host_arch=x64 >nul
 if errorlevel 1 exit /b 1
+node scripts\build-i18n.mjs
+if errorlevel 1 exit /b 1
 if not exist windows\build mkdir windows\build
 if not exist windows\dist mkdir windows\dist
 .tools\cppwinrt\bin\cppwinrt.exe -base -output windows\build\generated
 if errorlevel 1 exit /b 1
-set "COMMON=/nologo /std:c++20 /EHsc /O2 /MT /W3 /MP4 /DUNICODE /D_UNICODE /DNOMINMAX /DWIN32_LEAN_AND_MEAN /I.tools\wil\include /Iwindows\build\generated %EXTRUDA_CFLAGS%"
+set "COMMON=/nologo /utf-8 /std:c++20 /EHsc /O2 /MT /W3 /MP4 /DUNICODE /D_UNICODE /DNOMINMAX /DWIN32_LEAN_AND_MEAN /I.tools\wil\include /Iwindows\build\generated %EXTRUDA_CFLAGS%"
 if /I "%~1"=="finish" goto tests
 if /I "%~1"=="app" goto app
 cl %COMMON% /LD windows\camera\*.cpp /Fowindows\build\ /Fewindows\dist\ExtrudaCamera.dll /link /DEF:windows\camera\ExtrudaCamera.def mfplat.lib mf.lib mfuuid.lib mfsensorgroup.lib ole32.lib oleaut32.lib propsys.lib advapi32.lib user32.lib shlwapi.lib windowsapp.lib
@@ -23,9 +25,15 @@ pushd windows\app
 rc /nologo /fo ..\build\app.res app.rc
 popd
 if errorlevel 1 exit /b 1
-cl %COMMON% /I.tools\webview2\build\native\include windows\app\main.cpp windows\build\app.res /Fowindows\build\app.obj /Fewindows\dist\ExtrudaCamera.exe /link /SUBSYSTEM:WINDOWS .tools\webview2\build\native\x64\WebView2LoaderStatic.lib mfplat.lib mf.lib mfuuid.lib mfsensorgroup.lib ole32.lib oleaut32.lib advapi32.lib user32.lib shell32.lib shlwapi.lib version.lib
+cl %COMMON% /I.tools\webview2\build\native\include windows\app\main.cpp windows\build\app.res /Fowindows\build\app.obj /Fewindows\dist\ExtrudaCamera.exe /link /SUBSYSTEM:WINDOWS .tools\webview2\build\native\x64\WebView2LoaderStatic.lib mfplat.lib mf.lib mfuuid.lib mfsensorgroup.lib ole32.lib oleaut32.lib advapi32.lib user32.lib shell32.lib shlwapi.lib version.lib dwmapi.lib
 if errorlevel 1 exit /b 1
 :tests
+if not exist windows\dist\ui\brand mkdir windows\dist\ui\brand
+node scripts\build-i18n.mjs
+if errorlevel 1 exit /b 1
+copy /y public\i18n.js windows\dist\ui\i18n.js >nul
+copy /y public\i18n-core.js windows\dist\ui\i18n-core.js >nul
+copy /y public\brand\logo-white.svg windows\dist\ui\brand\logo-white.svg >nul
 if not exist windows\dist\ui\. mkdir windows\dist\ui\.
 copy /y public\index.html windows\dist\ui\index.html >nul
 if not exist windows\dist\ui\. mkdir windows\dist\ui\.

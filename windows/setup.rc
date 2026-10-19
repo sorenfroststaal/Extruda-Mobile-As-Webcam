@@ -17,3 +17,7 @@
 308 RCDATA "dist/ui/fonts/Inter-Variable.woff2"
 309 RCDATA "dist/ui/fonts/Nunito-OFL.txt"
 310 RCDATA "dist/ui/fonts/Inter-OFL.txt"
+
+311 RCDATA "dist/ui/i18n.js"
+312 RCDATA "dist/ui/i18n-core.js"
+313 RCDATA "dist/ui/brand/logo-white.svg"

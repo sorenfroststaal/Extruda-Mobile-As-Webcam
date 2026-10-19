@@ -1,3 +1,11 @@
+# extruda Camera 0.5.0
+
+Language and theme follow the operating system by default. Use the globe and sun icons to override them; choices are stored per device. The information icon shows known security risks without leaving the session.
+
+> **KNOWN SECURITY RISKS:** This prototype is not independently security audited. Hosting/client compromise, an unsigned administrator installer, leaked pairing secrets, compromised devices, a protected file buffer, quota exhaustion, metadata exposure, recording by the receiver and unknown native/runtime flaws remain relevant. Compare the code before accepting and avoid sensitive situations.
+>
+> Read the full risk documentation: [English](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/blob/main/docs/SECURITY.en.md) · [Deutsch](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/blob/main/docs/SECURITY.de.md) · [Français](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/blob/main/docs/SECURITY.fr.md) · [Dansk](https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/blob/main/docs/SECURITY.da.md).
+
 # Security revision 0.4.0
 
 The Windows interface is packaged locally. Compare the six-digit code on the phone and PC before accepting. No user account is required. The protected temporary frame file remains; releases are unsigned.

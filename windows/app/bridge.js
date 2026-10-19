@@ -1,6 +1,7 @@
 (() => {
   if (location.origin !== 'https://app.extruda.local' || window.extrudaNative) return;
   window.extrudaNative = true; document.body.classList.add('native');
+  const tr = (key,params) => window.ExtrudaI18n?.t(key,params) || key.replace(/\{(\w+)\}/g,(all,name)=>params?.[name] ?? all);
   let pixels, busy = false, running = false, lastFrame = 0, changing = false;
   const sizes = [[640,480,'480p · 640 × 480'],[1280,720,'720p · 1280 × 720'],[1920,1080,'1080p · 1920 × 1080'],[2560,1440,'1440p · 2560 × 1440'],[3840,2160,'4K · 3840 × 2160']];
   const canvas = document.createElement('canvas'); canvas.width = window.extrudaCaptureSize?.width || 1920; canvas.height = window.extrudaCaptureSize?.height || 1080;
@@ -12,8 +13,8 @@
   select.value = `${canvas.width}x${canvas.height}`;
   const hint = document.createElement('p'); hint.textContent = 'Skift under video. Vælg eventuelt kameraet igen i Teams.';
   const actual = document.createElement('p'); actual.id = 'resolution-info';
-  let captureInfo = '', receivedInfo = '';
-  const showResolution = () => { actual.textContent = `${captureInfo}${receivedInfo}Windows-kamera: ${canvas.width} × ${canvas.height}. Teams kan nedskalere.`; };
+  let captureInfo = null, receivedInfo = null;
+  const showResolution = () => { actual.textContent = (captureInfo ? tr('Telefonkamera: {w} × {h} · ',captureInfo) : '') + (receivedInfo ? tr('Modtaget video: {w} × {h} · ',receivedInfo) : '') + tr('Windows-kamera: {w} × {h}. Teams kan nedskalere.',{w:canvas.width,h:canvas.height}); };
   control.append(label, select, hint, actual); document.getElementById('create').before(control);
   const updateEnabled = () => { select.disabled = changing; };
   window.addEventListener('extruda-connection', event => { control.hidden = !event.detail.connected; });
@@ -23,16 +24,16 @@
     const changed = canvas.width !== width || canvas.height !== height;
     canvas.width = width; canvas.height = height; changing = false; select.value = `${width}x${height}`;
     window.extrudaCaptureSize = {width,height}; if (changed) window.extrudaSetCaptureSize?.({width,height}).catch(() => { hint.textContent = 'Videoen fortsætter. Opløsningen på telefonen kunne ikke ændres.'; }); showResolution(); document.getElementById('create').disabled = false; updateEnabled();
-    if (document.getElementById('native-camera-guide')) document.getElementById('native-camera-guide').textContent = `Vælg “Extruda Phone Camera (${width}x${height}) Windows Virtual Camera” i dit mødeprogram. Hold appen åben.`;
+    if (document.getElementById('native-camera-guide')) document.getElementById('native-camera-guide').textContent = tr('Vælg “Extruda Phone Camera ({w}x{h}) Windows Virtual Camera” i dit mødeprogram. Hold appen åben.',{w:width,h:height});
   };
   window.extrudaResolutionApplied(canvas.width, canvas.height);
-  window.addEventListener('extruda-capture-info', event => { const {width,height} = event.detail; captureInfo = `Telefonkamera: ${width} × ${height} · `; showResolution(); });
+  window.addEventListener('extruda-capture-info', event => { const {width,height} = event.detail; captureInfo = {w:width,h:height}; showResolution(); });
   window.extrudaFrameAck = () => { busy = false; };
   chrome.webview.addEventListener('sharedbufferreceived', event => { pixels = new Uint32Array(event.getBuffer()); chrome.webview.postMessage('buffer-ready'); if (window.extrudaSelectorTest) { select.value = '3840x2160'; select.onchange(); } });
   function frame(now) {
     const video = document.getElementById('remote');
-    const received = video?.srcObject && video.videoWidth ? `Modtaget video: ${video.videoWidth} × ${video.videoHeight} · ` : '';
-    if (received !== receivedInfo) { receivedInfo = received; if (!received) captureInfo = ''; showResolution(); }
+    const received = video?.srcObject && video.videoWidth ? {w:video.videoWidth,h:video.videoHeight} : null;
+    if (received?.w !== receivedInfo?.w || received?.h !== receivedInfo?.h) { receivedInfo = received; if (!received) captureInfo = null; showResolution(); }
     if (pixels && !busy && !changing && video?.srcObject && video.readyState >= 2 && !video.paused && now - lastFrame >= 32) {
       try {
         const width = canvas.width, height = canvas.height;
@@ -49,7 +50,8 @@
     setTimeout(() => frame(performance.now()), 33);
   }
   const guide = document.getElementById('guide');
-  if (guide) { guide.replaceChildren(); const text = document.createElement('p'); text.id = 'native-camera-guide'; text.textContent = `Vælg “Extruda Phone Camera (${canvas.width}x${canvas.height}) Windows Virtual Camera” i dit mødeprogram. Hold appen åben.`; guide.append(text); }
+  if (guide) { guide.replaceChildren(); const text = document.createElement('p'); text.id = 'native-camera-guide'; text.textContent = tr('Vælg “Extruda Phone Camera ({w}x{h}) Windows Virtual Camera” i dit mødeprogram. Hold appen åben.',{w:canvas.width,h:canvas.height}); guide.append(text); }
+  window.addEventListener('extruda-language',()=>{showResolution();if(document.getElementById('native-camera-guide'))document.getElementById('native-camera-guide').textContent=tr('Vælg “Extruda Phone Camera ({w}x{h}) Windows Virtual Camera” i dit mødeprogram. Hold appen åben.',{w:canvas.width,h:canvas.height});});
   document.title = 'Extruda Phone Camera · Windows';
   if (window.extrudaTestPattern) {
     const pattern = document.createElement('canvas'); pattern.width = canvas.width; pattern.height = canvas.height;

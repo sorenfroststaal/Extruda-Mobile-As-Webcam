@@ -1,5 +1,6 @@
 #include <windows.h>
 #include <mfapi.h>
+#include <dwmapi.h>
 #include <mfvirtualcamera.h>
 #include <wrl.h>
 #include <shlobj.h>
@@ -11,6 +12,7 @@
 #include "WebView2.h"
 #include "WebView2EnvironmentOptions.h"
 #include "FrameWriter.h"
+#include "NativeTranslations.h"
 using namespace Microsoft::WRL;
 static constexpr wchar_t Site[] = L"https://app.extruda.local/index.html";
 HWND window;
@@ -39,7 +41,7 @@ bool Trusted(const wchar_t* uri) {
 }
 void Error(const wchar_t* message, HRESULT hr) {
     if (pairingSmokeTest) { std::ofstream out("pairing-native-error.txt"); out << std::hex << static_cast<unsigned>(hr); for(auto p=message;*p;++p)out << static_cast<char>(*p<128?*p:'?'); PostQuitMessage(1); return; }
-    wchar_t text[1024]{}; swprintf_s(text, L"%s\n\nFejlkode: 0x%08X", message, static_cast<unsigned>(hr));
+    wchar_t text[1024]{}; swprintf_s(text, L"%s\n\n%s: 0x%08X", NativeText(message), NativeText(L"Fejlkode"), static_cast<unsigned>(hr));
     MessageBoxW(window, text, L"Extruda Phone Camera", MB_OK | MB_ICONERROR);
 }
 HRESULT StartCamera() {
@@ -93,7 +95,11 @@ void InitWeb() {
                 LPWSTR raw = nullptr; if (FAILED(e->TryGetWebMessageAsString(&raw))) return S_OK;
                 if (wcsnlen_s(raw,129) > 128) { CoTaskMemFree(raw); return S_OK; }
                 std::wstring message(raw); CoTaskMemFree(raw);
-                if (message.rfind(L"pairing-failed:",0) == 0 && pairingSmokeTest) {
+                if (message.rfind(L"language:",0) == 0) {
+                    SetNativeLanguage(message.c_str()+9);
+                } else if (message == L"theme:dark" || message == L"theme:light") {
+                    BOOL dark = message == L"theme:dark"; DwmSetWindowAttribute(window,DWMWA_USE_IMMERSIVE_DARK_MODE,&dark,sizeof(dark));
+                } else if (message.rfind(L"pairing-failed:",0) == 0 && pairingSmokeTest) {
                     std::ofstream output("pairing-smoke-error.txt"); for (auto ch : message) output << static_cast<char>(ch < 128 ? ch : '?');
                     std::ofstream("pairing-smoke-result.json") << "{\"ok\":false}";
                     PostMessageW(window,WM_CLOSE,0,0);
@@ -135,7 +141,10 @@ void InitWeb() {
                 } else if (message == L"clear" && writer) writer->Clear();
                 return S_OK;
             }).Get(), &token);
-            return web->Navigate(Site);
+            wchar_t locale[LOCALE_NAME_MAX_LENGTH]{};
+            LCIDToLocaleName(MAKELCID(GetUserDefaultUILanguage(),SORT_DEFAULT),locale,LOCALE_NAME_MAX_LENGTH,0);
+            auto languageScript = std::wstring(L"window.extrudaSystemLanguage='") + locale + L"';";
+            return web->AddScriptToExecuteOnDocumentCreated(languageScript.c_str(),Callback<ICoreWebView2AddScriptToExecuteOnDocumentCreatedCompletedHandler>([](HRESULT hr,LPCWSTR)->HRESULT { if(FAILED(hr))return hr; return web->Navigate(Site); }).Get());
         }).Get());
     }).Get());
     if (FAILED(hr)) Error(L"Microsoft Edge WebView2 Runtime kunne ikke indlæses.", hr);
@@ -148,6 +157,7 @@ LRESULT CALLBACK Proc(HWND hwnd, UINT msg, WPARAM w, LPARAM l) {
     return DefWindowProcW(hwnd, msg, w, l);
 }
 int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR, int show) {
+    wchar_t userLocale[LOCALE_NAME_MAX_LENGTH]{}; LCIDToLocaleName(MAKELCID(GetUserDefaultUILanguage(),SORT_DEFAULT),userLocale,LOCALE_NAME_MAX_LENGTH,0); SetNativeLanguage(userLocale);
     pairingSmokeTest = wcsstr(GetCommandLineW(), L"--pairing-smoke") != nullptr;
     smokeTest = wcsstr(GetCommandLineW(), L"--smoke-test") != nullptr;
     const bool systemSelectorTest = wcsstr(GetCommandLineW(), L"--system-selector-smoke") != nullptr;
@@ -167,7 +177,7 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR, int show) {
     if (FAILED(CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED))) return 1;
     MFStartup(MF_VERSION);
     HANDLE single = CreateMutexW(nullptr, TRUE, L"Local\\ExtrudaPhoneCameraReceiver");
-    if (!single || GetLastError() == ERROR_ALREADY_EXISTS) { MessageBoxW(nullptr, L"Extruda Phone Camera er allerede åben.", L"Extruda", MB_OK); if (single) CloseHandle(single); return 1; }
+    if (!single || GetLastError() == ERROR_ALREADY_EXISTS) { MessageBoxW(nullptr, NativeText(L"Extruda Phone Camera er allerede åben."), L"Extruda", MB_OK); if (single) CloseHandle(single); return 1; }
     auto resource = FindResourceW(instance, MAKEINTRESOURCEW(101), RT_RCDATA);
     auto bytes = SizeofResource(instance, resource); auto ptr = static_cast<const char*>(LockResource(LoadResource(instance, resource)));
     int count = MultiByteToWideChar(CP_UTF8, 0, ptr, bytes, nullptr, 0); bridge.resize(count); MultiByteToWideChar(CP_UTF8, 0, ptr, bytes, bridge.data(), count);
@@ -187,7 +197,7 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR, int show) {
         width, height, nullptr, nullptr, instance, nullptr);
     try { writer = std::make_unique<FrameWriter>(outputWidth, outputHeight); } catch (...) { Error(L"Kunne ikke oprette den lokale videoforbindelse.", HRESULT_FROM_WIN32(GetLastError())); return 1; }
     auto hr = smokeTest ? S_OK : StartCamera();
-    if (FAILED(hr)) { Error(L"Det virtuelle kamera kunne ikke startes. Kør Install.ps1 én gang som administrator. Kontrollér også Windows’ kameratilladelser.", hr); return 1; }
+    if (FAILED(hr)) { Error(L"Det virtuelle kamera kunne ikke startes. Kør installationsprogrammet igen og kontrollér Windows’ kameratilladelser.", hr); return 1; }
     ShowWindow(window, show); InitWeb();
     if (systemSmokeTest) SetTimer(window, 1, 30000, nullptr);
     MSG msg; while (GetMessageW(&msg, nullptr, 0, 0) > 0) { TranslateMessage(&msg); DispatchMessageW(&msg); }

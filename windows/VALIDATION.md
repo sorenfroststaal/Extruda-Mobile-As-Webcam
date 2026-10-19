@@ -76,3 +76,11 @@ Installed local UI passed automatic pairing. All ten native RGB32/NV12 format
 checks passed; installed app -> Windows Frame Server -> separate webcam client
 passed 30 frames at 4K. npm audit reported zero known advisories in its 120-package
 scope. No physical Android/iOS security penetration test was performed.
+
+0.5.0: 24 JS/security/localisation/integration tests passed locally. Browser UI
+verified English, German and French; dark/light themes and 320px layout checked.
+Automatic preferences, Windows UI-language precedence, manual persistence and
+system-theme changes covered by tests. Native pairing smoke passed with the
+packaged local dictionaries and Windows locale bootstrap. Four language risk
+guides and in-app risk information are included. Real-device locale behaviour
+still requires Android/iPhone testing.
