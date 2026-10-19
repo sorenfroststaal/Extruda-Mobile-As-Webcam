@@ -24,19 +24,19 @@ Open the link in Chrome and allow the camera when asked. If blocked: Chrome → 
 
 ## How do I select the camera in Teams?
 
-Connect the phone first. In Teams on the PC: Settings → Devices → Camera → choose extruda mobile as webcam. The name may include the resolution and Windows Virtual Camera. During a meeting, use the arrow beside the camera icon to choose the camera. Turn video on. If it is missing, restart Teams while Extruda stays open.
+Connect the phone first. In Teams on the PC: Settings → Devices → Camera → choose extruda - mobile as webcam. The name may include the resolution and Windows Virtual Camera. During a meeting, use the arrow beside the camera icon to choose the camera. Turn video on. If it is missing, restart Teams while Extruda stays open.
 
 [Microsoft · Teams](https://support.microsoft.com/en-us/teams/notifications-settings/manage-your-device-settings-in-microsoft-teams)
 
 ## How do I select the camera in Zoom?
 
-Connect the phone first. In Zoom on the PC: Settings → Video & effects (or Video) → Camera → extruda mobile as webcam. In a meeting: use the arrow beside Video → select the camera and start video. Restart Zoom if it is not listed. Zoom and meeting settings may limit the actual resolution.
+Connect the phone first. In Zoom on the PC: Settings → Video & effects (or Video) → Camera → extruda - mobile as webcam. In a meeting: use the arrow beside Video → select the camera and start video. Restart Zoom if it is not listed. Zoom and meeting settings may limit the actual resolution.
 
 [Zoom · Video](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0061836)
 
 ## Other apps and a missing camera
 
-Choose extruda mobile as webcam in the app’s camera settings. A browser meeting site also needs camera permission. On Windows: Settings → Privacy & security → Camera → enable camera access and access for desktop apps. Work PCs may be restricted by IT policy. Compatibility is not guaranteed in every app; this version has no macOS or Linux receiver.
+Choose extruda - mobile as webcam in the app’s camera settings. A browser meeting site also needs camera permission. On Windows: Settings → Privacy & security → Camera → enable camera access and access for desktop apps. Work PCs may be restricted by IT policy. Compatibility is not guaranteed in every app; this version has no macOS or Linux receiver.
 
 [Microsoft · Camera](https://support.microsoft.com/en-us/teams/meetings/my-camera-isn-t-working-in-microsoft-teams)
 

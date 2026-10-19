@@ -1,4 +1,4 @@
-# extruda mobile as webcam 0.6.0
+# extruda - mobile as webcam 0.6.1
 
 Language and theme follow the operating system by default. Use the globe and sun icons to override them; choices are stored per device. The information icon opens Security risks and FAQ and guides without leaving the session.
 
@@ -10,7 +10,7 @@ Language and theme follow the operating system by default. Use the globe and sun
 
 The Windows interface is packaged locally. Compare the six-digit code on the phone and PC before accepting. No user account is required. The protected temporary frame file remains; releases are unsigned.
 
-# extruda mobile as webcam for Windows — prototype 0.4
+# extruda - mobile as webcam for Windows — prototype 0.4
 
 Windows 11 x64 receiver with its own Media Foundation virtual camera. No OBS.
 Microsoft Edge WebView2 Runtime is required (normally present on Windows 11).
@@ -27,12 +27,12 @@ See VALIDATION.md in the source tree for the precise verification scope.
    the app and camera DLL into Program Files, registers this one COM class in
    HKLM, and adds a Start menu shortcut. No kernel driver or Windows service is
    installed. PowerShell execution policy is not changed or required.
-3. Open extruda mobile as webcam from Start as your normal Windows user. The app starts
+3. Open extruda - mobile as webcam from Start as your normal Windows user. The app starts
    at 1920 × 1080 and automatically shows a QR code.
 4. Scan the QR on the same Wi-Fi, compare the six-digit code and accept on the PC.
    The phone starts its camera automatically; grant camera permission if prompted.
    Resolution can be changed after video connects, without a new pairing.
-5. In the meeting program select **extruda mobile as webcam Windows Virtual Camera**.
+5. In the meeting program select **extruda - mobile as webcam Windows Virtual Camera**.
    Restart the meeting program if the new camera is not in its list.
 6. Keep the receiver app open. Closing it removes the session camera. Stop on
    the phone clears the output; a stalled receiver goes black after 2 seconds.

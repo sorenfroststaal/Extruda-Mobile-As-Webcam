@@ -24,19 +24,19 @@ Ouvrez le lien dans Chrome et autorisez la caméra à la demande. Si elle est bl
 
 ## Comment choisir la caméra dans Teams ?
 
-Connectez d’abord le téléphone. Dans Teams sur PC : Paramètres → Appareils → Caméra → choisissez extruda mobile as webcam. Le nom peut inclure la résolution et Windows Virtual Camera. En réunion, utilisez la flèche près de l’icône caméra pour la choisir. Activez la vidéo. Si elle manque, redémarrez Teams en laissant Extruda ouvert.
+Connectez d’abord le téléphone. Dans Teams sur PC : Paramètres → Appareils → Caméra → choisissez extruda - mobile as webcam. Le nom peut inclure la résolution et Windows Virtual Camera. En réunion, utilisez la flèche près de l’icône caméra pour la choisir. Activez la vidéo. Si elle manque, redémarrez Teams en laissant Extruda ouvert.
 
 [Microsoft · Teams](https://support.microsoft.com/en-us/teams/notifications-settings/manage-your-device-settings-in-microsoft-teams)
 
 ## Comment choisir la caméra dans Zoom ?
 
-Connectez d’abord le téléphone. Dans Zoom sur PC : Paramètres → Vidéo et effets (ou Vidéo) → Caméra → extruda mobile as webcam. En réunion : flèche près de Vidéo → choisissez la caméra et démarrez la vidéo. Redémarrez Zoom si elle manque. Zoom et les réglages de réunion peuvent limiter la résolution réelle.
+Connectez d’abord le téléphone. Dans Zoom sur PC : Paramètres → Vidéo et effets (ou Vidéo) → Caméra → extruda - mobile as webcam. En réunion : flèche près de Vidéo → choisissez la caméra et démarrez la vidéo. Redémarrez Zoom si elle manque. Zoom et les réglages de réunion peuvent limiter la résolution réelle.
 
 [Zoom · Video](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0061836)
 
 ## Autres applications et caméra introuvable
 
-Choisissez extruda mobile as webcam dans les réglages caméra de l’application. Un site de réunion a aussi besoin d’une autorisation caméra. Sous Windows : Paramètres → Confidentialité et sécurité → Caméra → activez l’accès et celui des applications de bureau. Les PC professionnels peuvent être restreints par l’IT. La compatibilité n’est pas garantie partout ; cette version n’a pas de récepteur macOS ou Linux.
+Choisissez extruda - mobile as webcam dans les réglages caméra de l’application. Un site de réunion a aussi besoin d’une autorisation caméra. Sous Windows : Paramètres → Confidentialité et sécurité → Caméra → activez l’accès et celui des applications de bureau. Les PC professionnels peuvent être restreints par l’IT. La compatibilité n’est pas garantie partout ; cette version n’a pas de récepteur macOS ou Linux.
 
 [Microsoft · Camera](https://support.microsoft.com/en-us/teams/meetings/my-camera-isn-t-working-in-microsoft-teams)
 

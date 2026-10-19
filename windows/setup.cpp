@@ -16,7 +16,7 @@ HRESULT ExportRegistration(const std::wstring& path, bool remove) {
 }
 HRESULT RunSetup(HINSTANCE instance, bool remove) {
     auto folder = KnownFolder(FOLDERID_ProgramFiles) + L"\\Extruda Phone Camera";
-    auto shortcut = KnownFolder(FOLDERID_CommonPrograms) + L"\\extruda mobile as webcam.lnk";
+    auto shortcut = KnownFolder(FOLDERID_CommonPrograms) + L"\\extruda - mobile as webcam.lnk";
     auto appMutex = OpenMutexW(SYNCHRONIZE, FALSE, L"Local\\ExtrudaPhoneCameraReceiver");
     if (appMutex) { CloseHandle(appMutex); return HRESULT_FROM_WIN32(ERROR_BUSY); }
     if (remove) {
@@ -64,7 +64,10 @@ HRESULT RunSetup(HINSTANCE instance, bool remove) {
     link->SetDescription(L"Telefon som Windows-webcam uden OBS");
     ComPtr<IPersistFile> persisted; link.As(&persisted);
     hr = persisted->Save(shortcut.c_str(), TRUE);
-    if(SUCCEEDED(hr))DeleteFileW((KnownFolder(FOLDERID_CommonPrograms)+L"\\Extruda Phone Camera.lnk").c_str());
+    if(SUCCEEDED(hr)){
+        DeleteFileW((KnownFolder(FOLDERID_CommonPrograms)+L"\\Extruda Phone Camera.lnk").c_str());
+        DeleteFileW((KnownFolder(FOLDERID_CommonPrograms)+L"\\extruda mobile as webcam.lnk").c_str());
+    }
     return hr;
 }
 int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR arguments, int) {
@@ -74,9 +77,9 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR arguments, int) {
     auto hr = RunSetup(instance, remove);
     if (!quiet) {
         wchar_t message[512]{};
-        if (SUCCEEDED(hr)) swprintf_s(message, remove ? L"extruda mobile as webcam er afinstalleret." : L"Installeret. Åbn extruda mobile as webcam fra Start-menuen som din almindelige Windows-bruger.");
+        if (SUCCEEDED(hr)) swprintf_s(message, remove ? L"extruda - mobile as webcam er afinstalleret." : L"Installeret. Åbn extruda - mobile as webcam fra Start-menuen som din almindelige Windows-bruger.");
         else swprintf_s(message, L"Installationen kunne ikke gennemføres. Luk Extruda-appen og prøv igen.\nFejlkode: 0x%08X", static_cast<unsigned>(hr));
-        MessageBoxW(nullptr, message, L"extruda mobile as webcam Setup", MB_OK | (SUCCEEDED(hr) ? MB_ICONINFORMATION : MB_ICONERROR));
+        MessageBoxW(nullptr, message, L"extruda - mobile as webcam Setup", MB_OK | (SUCCEEDED(hr) ? MB_ICONINFORMATION : MB_ICONERROR));
     }
     CoUninitialize(); return SUCCEEDED(hr) ? 0 : static_cast<int>(hr);
 }

@@ -1,4 +1,4 @@
-# extruda mobile as webcam
+# extruda - mobile as webcam
 
 > **SECURITY: Experimental software. A compromised phone client, device or installer can expose camera images or compromise a PC. The protected frame file, hosting metadata, service quotas and unknown code flaws remain risks. No independent penetration test has been completed.**
 
@@ -7,12 +7,12 @@
 
 Use an Android or iPhone camera as a Windows webcam, without OBS or a user account.
 
-**[Download Windows installer 0.6.0](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.6.0/ExtrudaMobileAsWebcam-Setup-0.6.0-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/tag/mobile-as-webcam-v0.6.0) · [mobile as webcam website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
+**[Download Windows installer 0.6.1](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.6.1/ExtrudaMobileAsWebcam-Setup-0.6.1-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/tag/mobile-as-webcam-v0.6.1) · [mobile as webcam website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
 
 ## Use
 
 Windows 11 x64 and Microsoft Edge WebView2 Runtime are required. Run the installer,
-open extruda mobile as webcam, and scan the QR code with your phone on the same Wi-Fi.
+open extruda - mobile as webcam, and scan the QR code with your phone on the same Wi-Fi.
 Compare the six-digit code on the two devices and accept on the PC. The phone
 starts its camera after acceptance; grant camera permission if prompted.
 

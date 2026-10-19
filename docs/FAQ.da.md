@@ -24,19 +24,19 @@ Hvis indstillingen mangler, se Indstillinger → Apps → Safari → Kamera (på
 
 ## Hvordan vælger jeg kameraet i Teams?
 
-Forbind telefonen først. I Teams på pc: Indstillinger → Enheder → Kamera → vælg extruda mobile as webcam. Navnet kan indeholde opløsning og Windows Virtual Camera. Under et møde kan du bruge pilen ved kameraikonet til at vælge kamera. Tænd videoen. Hvis kameraet mangler, genstart Teams, mens Extruda er åben.
+Forbind telefonen først. I Teams på pc: Indstillinger → Enheder → Kamera → vælg extruda - mobile as webcam. Navnet kan indeholde opløsning og Windows Virtual Camera. Under et møde kan du bruge pilen ved kameraikonet til at vælge kamera. Tænd videoen. Hvis kameraet mangler, genstart Teams, mens Extruda er åben.
 
 [Microsoft · Teams](https://support.microsoft.com/en-us/teams/notifications-settings/manage-your-device-settings-in-microsoft-teams)
 
 ## Hvordan vælger jeg kameraet i Zoom?
 
-Forbind telefonen først. I Zoom på pc: Indstillinger → Video og effekter (eller Video) → Kamera → extruda mobile as webcam. I et møde: pilen ved Video → vælg kameraet, og start video. Genstart Zoom, hvis kameraet ikke er på listen. Zoom og mødeindstillinger kan begrænse den faktiske opløsning.
+Forbind telefonen først. I Zoom på pc: Indstillinger → Video og effekter (eller Video) → Kamera → extruda - mobile as webcam. I et møde: pilen ved Video → vælg kameraet, og start video. Genstart Zoom, hvis kameraet ikke er på listen. Zoom og mødeindstillinger kan begrænse den faktiske opløsning.
 
 [Zoom · Video](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0061836)
 
 ## Andre programmer og et kamera, der mangler
 
-Vælg extruda mobile as webcam i programmets kameraindstillinger. I en browser skal mødesiden også have kameratilladelse. På Windows: Indstillinger → Beskyttelse af personlige oplysninger og sikkerhed → Kamera → slå kameraadgang og adgang for skrivebordsapps til. Arbejds-pc’er kan være begrænset af IT. Kompatibilitet er ikke garanteret i alle programmer; macOS og Linux har ingen modtagerapp i denne version.
+Vælg extruda - mobile as webcam i programmets kameraindstillinger. I en browser skal mødesiden også have kameratilladelse. På Windows: Indstillinger → Beskyttelse af personlige oplysninger og sikkerhed → Kamera → slå kameraadgang og adgang for skrivebordsapps til. Arbejds-pc’er kan være begrænset af IT. Kompatibilitet er ikke garanteret i alle programmer; macOS og Linux har ingen modtagerapp i denne version.
 
 [Microsoft · Camera](https://support.microsoft.com/en-us/teams/meetings/my-camera-isn-t-working-in-microsoft-teams)
 

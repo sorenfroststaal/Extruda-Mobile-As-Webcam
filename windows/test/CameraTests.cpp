@@ -76,7 +76,7 @@ int wmain(int argc, wchar_t** argv) {
         ComPtr<IMFAttributes> attributes; MFCreateAttributes(&attributes, 1); attributes->SetGUID(MF_DEVSOURCE_ATTRIBUTE_SOURCE_TYPE, MF_DEVSOURCE_ATTRIBUTE_SOURCE_TYPE_VIDCAP_GUID);
         IMFActivate** devices = nullptr; UINT32 count = 0; Check(MFEnumDeviceSources(attributes.Get(), &devices, &count), "enumerate running camera");
         ComPtr<IMFMediaSource> source;
-        for (UINT32 i = 0; i < count; ++i) { wchar_t name[512]{}; devices[i]->GetString(MF_DEVSOURCE_ATTRIBUTE_FRIENDLY_NAME, name, 512, nullptr); if (wcsstr(name, L"extruda mobile as webcam")) Check(devices[i]->ActivateObject(IID_PPV_ARGS(&source)), "activate running camera"); devices[i]->Release(); }
+        for (UINT32 i = 0; i < count; ++i) { wchar_t name[512]{}; devices[i]->GetString(MF_DEVSOURCE_ATTRIBUTE_FRIENDLY_NAME, name, 512, nullptr); if (wcsstr(name, L"extruda - mobile as webcam")) Check(devices[i]->ActivateObject(IID_PPV_ARGS(&source)), "activate running camera"); devices[i]->Release(); }
         CoTaskMemFree(devices); Expect(source != nullptr, "Extruda camera is listed by Windows");
         ComPtr<IMFSourceReader> reader; Check(MFCreateSourceReaderFromMediaSource(source.Get(), nullptr, &reader), "open running camera");
         ComPtr<IMFMediaType> type; MFCreateMediaType(&type); type->SetGUID(MF_MT_MAJOR_TYPE, MFMediaType_Video); type->SetGUID(MF_MT_SUBTYPE, MFVideoFormat_RGB32); MFSetAttributeSize(type.Get(), MF_MT_FRAME_SIZE, requestedWidth, requestedHeight);
@@ -100,7 +100,7 @@ int wmain(int argc, wchar_t** argv) {
     FrameWriter writer(requestedWidth, requestedHeight);
     if (argc > 1 && !wcscmp(argv[1], L"--system")) {
         ComPtr<IMFVirtualCamera> camera;
-        Check(MFCreateVirtualCamera(MFVirtualCameraType_SoftwareCameraSource, MFVirtualCameraLifetime_Session, MFVirtualCameraAccess_CurrentUser, L"extruda mobile as webcam", CameraClassId, nullptr, 0, &camera), "create OS virtual camera");
+        Check(MFCreateVirtualCamera(MFVirtualCameraType_SoftwareCameraSource, MFVirtualCameraLifetime_Session, MFVirtualCameraAccess_CurrentUser, L"extruda - mobile as webcam", CameraClassId, nullptr, 0, &camera), "create OS virtual camera");
         Check(camera->SetString(FramePathAttribute, writer.path.c_str()), "configure OS frame transport");
         Check(camera->SetUINT64(FrameSizeAttribute, (static_cast<UINT64>(requestedWidth) << 32) | requestedHeight), "configure OS output size");
         Check(camera->Start(nullptr), "start OS virtual camera");
