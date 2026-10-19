@@ -31,20 +31,21 @@ export default {
 };
 async function route(request,env) {
     const url = new URL(request.url);
-    if (url.pathname === '/api/health') return Response.json({ ok: true, version: '0.5.5', mediaRelay: false }, { headers: { 'Cache-Control': 'no-store' } });
+    if (url.pathname === '/api/health') return Response.json({ ok: true, version: '0.5.6', mediaRelay: false }, { headers: { 'Cache-Control': 'no-store' } });
     const downloads = {
-      '/downloads/ExtrudaCamera-Setup-0.5.4-x64.exe':'ExtrudaCamera-Setup-0.5.5-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.3-x64.exe':'ExtrudaCamera-Setup-0.5.5-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.2-x64.exe':'ExtrudaCamera-Setup-0.5.5-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.1-x64.exe':'ExtrudaCamera-Setup-0.5.5-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.0-x64.exe':'ExtrudaCamera-Setup-0.5.5-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.5-x64.exe':'ExtrudaCamera-Setup-0.5.5-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.3.0-x64.exe':'ExtrudaCamera-Setup-0.5.5-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.4.0-x64.exe':'ExtrudaCamera-Setup-0.5.5-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.5-x64.exe':'ExtrudaCamera-Setup-0.5.6-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.4-x64.exe':'ExtrudaCamera-Setup-0.5.6-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.3-x64.exe':'ExtrudaCamera-Setup-0.5.6-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.2-x64.exe':'ExtrudaCamera-Setup-0.5.6-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.1-x64.exe':'ExtrudaCamera-Setup-0.5.6-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.0-x64.exe':'ExtrudaCamera-Setup-0.5.6-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.6-x64.exe':'ExtrudaCamera-Setup-0.5.6-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.3.0-x64.exe':'ExtrudaCamera-Setup-0.5.6-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.4.0-x64.exe':'ExtrudaCamera-Setup-0.5.6-x64.exe',
       '/downloads/SHA256SUMS.txt':'SHA256SUMS.txt',
       '/downloads/extruda-camera.ico':'extruda-camera.ico'
     };
-    if (['GET','HEAD'].includes(request.method) && downloads[url.pathname]) return new Response(null,{status:302,headers:{Location:'https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases/download/camera-v0.5.5/'+downloads[url.pathname],'Cache-Control':'no-store'}});
+    if (['GET','HEAD'].includes(request.method) && downloads[url.pathname]) return new Response(null,{status:302,headers:{Location:'https://github.com/sorenfroststaal/Extruda-Phone-As-Webcam/releases/download/camera-v0.5.6/'+downloads[url.pathname],'Cache-Control':'no-store'}});
     const match = url.pathname.match(/^\/api\/rooms\/([a-f0-9]{32})(\/ws)?$/);
     if (match) {
       if (![url.origin,LOCAL_ORIGIN].includes(request.headers.get('Origin'))) return response('Origin rejected', 403);

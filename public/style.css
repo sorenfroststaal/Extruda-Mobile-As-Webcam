@@ -16,3 +16,6 @@ body.native header{min-height:56px;padding:8px 24px}body.native header .logo{wid
 
 /* Keep the wordmark and product name together; wrap the toolbar instead. */
 header .brand-link{flex-wrap:nowrap;gap:clamp(8px,2vw,20px);flex:none}.product-name{white-space:nowrap}@media(max-width:600px){header .brand-link,body.native header .brand-link{--brand-logo-width:clamp(88px,24vw,140px)}header{padding-inline:16px}.product-name{font-size:calc(var(--brand-logo-width) * .192)}}
+
+/* Align the text baseline with the outlined logo baseline (SVG y=182/1138; Manrope ascent=2132, descent=600 per 2000 em). */
+.product-name{transform:translateY(calc(var(--brand-logo-width) * -.0261))}
