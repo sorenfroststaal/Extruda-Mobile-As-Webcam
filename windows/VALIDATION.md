@@ -105,3 +105,7 @@ signals. Actual phone permission screens, device/browser behaviour, acoustic
 quality and a live Teams/Zoom call still need user testing. VB-CABLE was not
 installed or validated on this machine; support uses the same virtual rendering
 path but must be checked on a machine with that separate driver.
+
+## Microphone fix 0.7.1
+
+The production Permissions-Policy still denied microphone capture in 0.7.0. It now permits microphone=(self), preserving browser consent and denying geolocation. The production-header integration test checks this explicitly. Microphone status now distinguishes waiting, silence, phone input, received audio and PCM acknowledged by Windows. A regression test covers these states, including a rejected native packet. No live phone/Teams call was available to verify acoustic output.

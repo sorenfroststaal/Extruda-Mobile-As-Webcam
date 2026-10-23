@@ -6,6 +6,7 @@
   let context,source,analyser,processor,silent,animation,lastPaint=0,nativeBusy=0;
   let devices=[],route=-1,connected=false;
   let gain=1,routingActive=false;
+  let lastNativeAck=0;
   let cameraOnly=false,driverPrompted=false,devicesKnown=false;
   try{cameraOnly=localStorage.getItem('extruda-camera-only')==='true';}catch{}
   const driverDialog=$('audio-setup');
@@ -48,7 +49,7 @@
     routingText();
   }
   async function clearGraph(){
-    cancelAnimationFrame(animation);paint();nativeBusy=0;
+    cancelAnimationFrame(animation);paint();nativeBusy=0;lastNativeAck=0;
     source?.disconnect();processor?.disconnect();silent?.disconnect();
     if(processor)processor.port.onmessage=null;
     const old=context;context=source=analyser=processor=silent=null;
@@ -79,7 +80,16 @@
     const values=new Float32Array(analyser.fftSize);
     const tick=now=>{
       if(context!==ctx)return;
-      if(now-lastPaint>80){lastPaint=now;analyser.getFloatTimeDomainData(values);let sum=0;for(const value of values)sum+=value*value;paint(Math.min(1,Math.sqrt(sum/values.length)*4));}
+      if(now-lastPaint>80){
+        lastPaint=now;analyser.getFloatTimeDomainData(values);let sum=0;for(const value of values)sum+=value*value;
+        const level=Math.sqrt(sum/values.length);paint(Math.min(1,level*4));
+        if(level<0.0001)state('Intet mikrofonsignal registreret. Tal, og kontrollér tilladelsen på telefonen.');
+        else if(!forward)state('Mikrofonsignal registreres på telefonen');
+        else if(!native())state('Lyd modtages. Windows-mikrofon kræver Windows-appen.');
+        else if(route<0)state('Lyd modtages. Vælg en virtuel lydenhed.');
+        else if(routingActive&&lastNativeAck&&performance.now()-lastNativeAck<2000)state('Lyd sendes til Windows. Vælg den virtuelle mikrofon i Teams eller Zoom.');
+        else state('Lyd modtages, men er endnu ikke sendt til Windows');
+      }
       animation=requestAnimationFrame(tick);
     };animation=requestAnimationFrame(tick);
   }
@@ -102,7 +112,7 @@
       capture=acquired;await sender.replaceTrack(track);
       if(token!==generation||!connected){await disablePhone(false);return;}
       track.onended=()=>{if(capture===acquired)void disablePhone();};
-      await graph(acquired,false);if(token!==generation||!capture)return;await sendControl({type:'microphone-state',enabled:true});state('Mikrofon aktiv');
+      await graph(acquired,false);if(token!==generation||!capture)return;await sendControl({type:'microphone-state',enabled:true});state('Afventer mikrofonsignal');
     }catch(error){await disablePhone();state(error.name==='NotAllowedError'?'Mikrofon blokeret. Tillad den i browseren, og prøv igen.':'Mikrofonen kunne ikke starte. Prøv igen.');}
     finally{pending=false;buttons();}
   }
@@ -111,7 +121,7 @@
   async function refreshHost(){
     const token=++generation;routingActive=false;post('audio-stop');
     if(!cameraOnly&&hostAllowed&&phoneEnabled&&remoteStream&&connected){
-      try{await graph(remoteStream,true);if(token!==generation)return;if(route>=0)post('audio-route:'+route);state(route>=0?'Mikrofon aktiv':native()?'Lyd modtages. Vælg en virtuel lydenhed.':'Lyd modtages. Windows-mikrofon kræver Windows-appen.');}
+      try{await graph(remoteStream,true);if(token!==generation)return;if(route>=0)post('audio-route:'+route);state('Afventer mikrofonsignal');}
       catch{state('Tryk Slå mikrofon til for at aktivere lyd.');}
     }else{await clearGraph();state('Mikrofon fra');}
     buttons();
@@ -141,7 +151,7 @@
     if(!devices.length&&connected&&role==='host'&&!cameraOnly&&!driverPrompted){driverPrompted=true;offerDriver();}
     if(connected&&role==='host')void refreshHost();
   };
-  window.extrudaAudioAck=()=>{nativeBusy=Math.max(0,nativeBusy-1);};
+  window.extrudaAudioAck=accepted=>{if(accepted&&nativeBusy>0)lastNativeAck=performance.now();nativeBusy=Math.max(0,nativeBusy-1);};
   window.extrudaAudioStarted=()=>{routingActive=connected&&hostAllowed&&phoneEnabled&&route>=0;};
   window.extrudaAudioError=()=>{route=-1;routingActive=false;post('audio-stop');state('Lydudgangen kunne ikke åbnes. Opdatér listen.');};
   window.addEventListener('extruda-connection',event=>{

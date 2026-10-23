@@ -226,5 +226,35 @@
     "Later",
     "Später",
     "Plus tard"
+  ],
+  [
+    "Afventer mikrofonsignal",
+    "Waiting for microphone signal",
+    "Warte auf Mikrofonsignal",
+    "En attente du signal du microphone"
+  ],
+  [
+    "Intet mikrofonsignal registreret. Tal, og kontrollér tilladelsen på telefonen.",
+    "No microphone signal detected. Speak and check permission on your phone.",
+    "Kein Mikrofonsignal erkannt. Sprich und prüfe die Berechtigung am Telefon.",
+    "Aucun signal détecté. Parlez et vérifiez l’autorisation sur le téléphone."
+  ],
+  [
+    "Mikrofonsignal registreres på telefonen",
+    "Microphone signal detected on phone",
+    "Mikrofonsignal am Telefon erkannt",
+    "Signal du microphone détecté sur le téléphone"
+  ],
+  [
+    "Lyd sendes til Windows. Vælg den virtuelle mikrofon i Teams eller Zoom.",
+    "Audio is being sent to Windows. Select the virtual microphone in Teams or Zoom.",
+    "Audio wird an Windows gesendet. Wähle das virtuelle Mikrofon in Teams oder Zoom.",
+    "Le son est envoyé à Windows. Sélectionnez le microphone virtuel dans Teams ou Zoom."
+  ],
+  [
+    "Lyd modtages, men er endnu ikke sendt til Windows",
+    "Audio received, but not yet sent to Windows",
+    "Audio empfangen, aber noch nicht an Windows gesendet",
+    "Son reçu, mais pas encore envoyé à Windows"
   ]
 ]

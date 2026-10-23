@@ -4,19 +4,19 @@ import vm from 'node:vm';
 import {readFileSync} from 'node:fs';
 const source=readFileSync(new URL('../public/audio.js',import.meta.url),'utf8');
 function setup(getUserMedia=async()=>{throw Error('unexpected capture')},role='phone'){
- const elements=new Map(),listeners={},messages=[],tracks=[],posts=[];let allowed=true;
+ const elements=new Map(),listeners={},messages=[],tracks=[],posts=[],processors=[];let allowed=true,frame,clock=0,input=0.1;
  const element=id=>{if(!elements.has(id))elements.set(id,{hidden:false,value:-1,textContent:'',disabled:false,open:false,showModal(){this.open=true},close(){this.open=false},setAttribute(){},replaceChildren(){},append(){}});return elements.get(id);};
- const node=()=>({connect(){},disconnect(){},gain:{value:1},fftSize:512,getFloatTimeDomainData(data){data.fill(0.1)}});
+ const node=()=>({connect(){},disconnect(){},gain:{value:1},fftSize:512,getFloatTimeDomainData(data){data.fill(input)}});
  const window={addEventListener:(type,fn)=>listeners[type]=fn,chrome:{webview:{postMessage:text=>posts.push(text)}}};
  const sender={async replaceTrack(track){tracks.push(track);this.track=track}};
  const peer={getSenders:()=>[sender],getTransceivers:()=>[{sender,receiver:{track:{kind:'audio'}}}]};
- const context=vm.createContext({window,document:{getElementById:element,createElement:()=>element('option')},location:{origin:'https://app.extruda.local'},navigator:{mediaDevices:{getUserMedia}},cancelAnimationFrame(){},requestAnimationFrame:()=>1,
-  AudioContext:class{constructor(){this.destination={};this.audioWorklet={addModule:async()=>{}};}createMediaStreamSource(){return node()}createAnalyser(){return node()}createGain(){return node()}async resume(){}async close(){}},AudioWorkletNode:class{constructor(){this.port={};}connect(){}disconnect(){}},Float32Array,Uint8Array,DataView,Math,Number,Array,String,btoa,MediaStream:class{constructor(tracks){this.tracks=tracks;}}});
+ const context=vm.createContext({window,document:{getElementById:element,createElement:()=>element('option')},location:{origin:'https://app.extruda.local'},navigator:{mediaDevices:{getUserMedia}},cancelAnimationFrame(){frame=null},requestAnimationFrame:fn=>{frame=fn;return 1},performance:{now:()=>clock},
+  AudioContext:class{constructor(){this.destination={};this.audioWorklet={addModule:async()=>{}};}createMediaStreamSource(){return node()}createAnalyser(){return node()}createGain(){return node()}async resume(){}async close(){}},AudioWorkletNode:class{constructor(){this.port={};processors.push(this)}connect(){}disconnect(){}},Float32Array,Uint8Array,DataView,Math,Number,Array,String,btoa,MediaStream:class{constructor(tracks){this.tracks=tracks;}}});
  vm.runInContext(source,context);
  window.ExtrudaAudio.session({role,peer,send:async data=>messages.push(data),approved:()=>allowed});
  const connect=value=>listeners['extruda-connection']({detail:{connected:value}});
  const click=()=>element('mic-toggle').onclick();
- return{api:window.ExtrudaAudio,window,element,messages,tracks,posts,connect,click,setApproved:value=>allowed=value};
+ return{api:window.ExtrudaAudio,window,element,messages,tracks,posts,processors,connect,click,setApproved:value=>allowed=value,tick(value){input=value;clock+=100;frame?.(clock)}};
 }
 const captured=()=>{let stopped=0;const track={kind:'audio',stop(){stopped++}};return{stream:{getAudioTracks:()=>[track],getTracks:()=>[track]},track,get stopped(){return stopped}}};
 test('microphone defaults off, requires a connected approved phone and never opens for a PC request',async()=>{
@@ -62,4 +62,19 @@ test('camera-only message stops an active phone microphone and blocks restart un
  const c=captured();let calls=0;const s=setup(async()=>{calls++;return c.stream});s.connect(true);await s.click();
  await s.api.control({type:'microphone-mode',enabled:false});assert.equal(c.stopped,1);assert.equal(s.element('mic-panel').hidden,true);
  await s.click();assert.equal(calls,1);await s.api.control({type:'microphone-mode',enabled:true});assert.equal(s.element('mic-panel').hidden,false);
+});
+
+test('status distinguishes permission, silence, received audio and native acknowledgement',async()=>{
+ const phone=setup(async()=>captured().stream);phone.connect(true);await phone.click();
+ assert.equal(phone.element('mic-status').textContent,'Afventer mikrofonsignal');
+ phone.tick(0);assert.match(phone.element('mic-status').textContent,/Intet mikrofonsignal/);
+ phone.tick(0.1);assert.match(phone.element('mic-status').textContent,/registreres på telefonen/);
+ const host=setup(undefined,'host');host.window.extrudaAudioDevices([{index:0,name:'CABLE Input (VB-Audio)'}]);host.connect(true);
+ host.api.track({kind:'audio'});await host.api.control({type:'microphone-state',enabled:true});host.window.extrudaAudioStarted();
+ host.tick(0.1);assert.match(host.element('mic-status').textContent,/endnu ikke sendt/);
+ host.processors.at(-1).port.onmessage({data:new Float32Array(960).fill(0.1)});host.window.extrudaAudioAck(false);
+ host.tick(0.1);assert.match(host.element('mic-status').textContent,/endnu ikke sendt/);
+ host.processors.at(-1).port.onmessage({data:new Float32Array(960).fill(0.1)});host.window.extrudaAudioAck(true);
+ host.tick(0.1);assert.match(host.element('mic-status').textContent,/Lyd sendes til Windows/);
+ host.tick(0);assert.match(host.element('mic-status').textContent,/Intet mikrofonsignal/);
 });

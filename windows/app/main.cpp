@@ -106,8 +106,8 @@ void InitWeb() {
                 if (wcsnlen_s(raw,4097) > 4096) { CoTaskMemFree(raw); return S_OK; }
                 std::wstring message(raw); CoTaskMemFree(raw);
                 if(message.rfind(L"audio-pcm:",0)==0){
-                    audioOutput.Push(message.substr(10));
-                    web->ExecuteScript(FAILED(audioOutput.Status())?L"window.extrudaAudioAck?.();window.extrudaAudioError?.()":L"window.extrudaAudioAck?.()",nullptr);return S_OK;
+                    const bool accepted=audioOutput.Push(message.substr(10));
+                    web->ExecuteScript(!accepted||FAILED(audioOutput.Status())?L"window.extrudaAudioAck?.(false);window.extrudaAudioError?.()":L"window.extrudaAudioAck?.(true)",nullptr);return S_OK;
                 }
                 if(message.size()>128)return S_OK;
                 if(message==L"audio-stop")audioOutput.Stop();

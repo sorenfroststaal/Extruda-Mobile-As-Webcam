@@ -212,5 +212,10 @@
   "Understøtter VB-CABLE og en allerede installeret Steam Streaming Microphone. Andre virtuelle drivere understøttes endnu ikke.": "Supports VB-CABLE and an already installed Steam Streaming Microphone. Other virtual drivers are not supported yet.",
   "Brug kun kamera": "Use camera only",
   "Skjul mikrofonen på begge enheder. Du kan slå den til igen under Information → Mikrofonopsætning.": "Hide the microphone on both devices. Enable it again under Information → Microphone setup.",
-  "Senere": "Later"
+  "Senere": "Later",
+  "Afventer mikrofonsignal": "Waiting for microphone signal",
+  "Intet mikrofonsignal registreret. Tal, og kontrollér tilladelsen på telefonen.": "No microphone signal detected. Speak and check permission on your phone.",
+  "Mikrofonsignal registreres på telefonen": "Microphone signal detected on phone",
+  "Lyd sendes til Windows. Vælg den virtuelle mikrofon i Teams eller Zoom.": "Audio is being sent to Windows. Select the virtual microphone in Teams or Zoom.",
+  "Lyd modtages, men er endnu ikke sendt til Windows": "Audio received, but not yet sent to Windows"
 }

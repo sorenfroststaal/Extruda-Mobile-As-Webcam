@@ -31,6 +31,8 @@ test('health and response security headers', async () => {
   assert.equal((await (await fetch(`${base}/api/health`)).json()).mediaRelay, false);
   const response = await fetch(base);
   assert.equal(response.status, 200);
+  assert.match(response.headers.get('permissions-policy'), /microphone=\(self\)/);
+  assert.match(response.headers.get('permissions-policy'), /geolocation=\(\)/);
   assert.match(response.headers.get('content-security-policy'), /frame-ancestors 'none'/);
   assert.equal(response.headers.get('referrer-policy'), 'no-referrer');
 });

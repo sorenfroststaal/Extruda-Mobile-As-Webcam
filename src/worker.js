@@ -31,25 +31,26 @@ export default {
 };
 async function route(request,env) {
     const url = new URL(request.url);
-    if (url.pathname === '/api/health') return Response.json({ ok: true, version: '0.7.0', mediaRelay: false }, { headers: { 'Cache-Control': 'no-store' } });
+    if (url.pathname === '/api/health') return Response.json({ ok: true, version: '0.7.1', mediaRelay: false }, { headers: { 'Cache-Control': 'no-store' } });
     const downloads = {
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.6.1-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.7.0-x64.exe',
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.6.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.7.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.6-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.7.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.5-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.7.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.4-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.7.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.3-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.7.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.2-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.7.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.1-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.7.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.7.0-x64.exe',
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.7.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.7.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.3.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.7.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.4.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.7.0-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.7.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.7.1-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.6.1-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.7.1-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.6.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.7.1-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.6-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.7.1-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.5-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.7.1-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.4-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.7.1-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.3-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.7.1-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.2-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.7.1-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.1-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.7.1-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.7.1-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.7.1-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.7.1-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.3.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.7.1-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.4.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.7.1-x64.exe',
       '/downloads/SHA256SUMS.txt':'SHA256SUMS.txt',
       '/downloads/extruda-camera.ico':'extruda-mobile-as-webcam.ico',
       '/downloads/extruda-mobile-as-webcam.ico':'extruda-mobile-as-webcam.ico'
     };
-    if (['GET','HEAD'].includes(request.method) && downloads[url.pathname]) return new Response(null,{status:302,headers:{Location:'https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.7.0/'+downloads[url.pathname],'Cache-Control':'no-store'}});
+    if (['GET','HEAD'].includes(request.method) && downloads[url.pathname]) return new Response(null,{status:302,headers:{Location:'https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.7.1/'+downloads[url.pathname],'Cache-Control':'no-store'}});
     const match = url.pathname.match(/^\/api\/rooms\/([a-f0-9]{32})(\/ws)?$/);
     if (match) {
       if (![url.origin,LOCAL_ORIGIN].includes(request.headers.get('Origin'))) return response('Origin rejected', 403);
@@ -73,7 +74,7 @@ async function route(request,env) {
     headers.set('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; media-src 'self' blob:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'");
     headers.set('Referrer-Policy', 'no-referrer');
     headers.set('X-Content-Type-Options', 'nosniff');
-    headers.set('Permissions-Policy', 'camera=(self), microphone=(), geolocation=()');
+    headers.set('Permissions-Policy', 'camera=(self), microphone=(self), geolocation=()');
     headers.set('Cache-Control', 'no-store');
     return new Response(result.body, { status: result.status, headers });
 }
