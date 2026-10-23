@@ -8,6 +8,7 @@ const unb64 = text => Uint8Array.from(atob(text), c => c.charCodeAt(0));
 const hash = async text => hex(new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text))));
 let socket, pc, stream, key, role = 'host', approved = false, pendingIce = [], stopped = false, serial = Promise.resolve(), wakeLock, expiryTimer;
 let startingCamera = false;
+let switchingCamera = false, cameraFacing = 'environment';
 let controlChannel, controlSerial = Promise.resolve(), controlQueued = 0, controlWindow = 0, controlCount = 0;
 let pairSecret = '', phoneNonce = '', peerVerified = false;
 let captureSize = {width:1280,height:720};
@@ -179,7 +180,7 @@ async function startCamera() {
     stream = captured;
     const settings = stream.getVideoTracks()[0].getSettings();
     await sendControl({type:'capture-info',width:settings.width,height:settings.height});
-    $('local').srcObject = stream; $('camera').disabled = true;
+    $('local').srcObject = stream; cameraFacing=settings.facingMode||$('camera').value; $('camera').disabled = false;
     for (const track of stream.getTracks()) pc.addTrack(track, stream);
     await pc.setLocalDescription(await pc.createOffer()); await send({ type: 'offer', sdp: pc.localDescription.toJSON() });
     if ('wakeLock' in navigator) try { wakeLock = await navigator.wakeLock.request('screen'); } catch {}
@@ -193,7 +194,39 @@ async function startCamera() {
     }
   } finally { startingCamera = false; $('start').disabled = !approved || stopped; }
 }
-$('start').onclick = startCamera;
+async function switchCamera() {
+  if(role!=='phone'||switchingCamera||startingCamera||!stream||!approved||!pc||stopped)return;
+  const connection=pc,previous=stream,previousFacing=cameraFacing,target=$('camera').value;
+  const sender=pc.getSenders().find(item=>item.track?.kind==='video');
+  if(!sender)return;
+  switchingCamera=true;$('camera').disabled=true;status('Skifter kamera…');
+  // iOS and some Android cameras need the old video capture released first.
+  // The independent microphone track and the peer connection stay untouched.
+  previous.getVideoTracks().forEach(track=>track.stop());
+  const current=()=>pc===connection&&stream===previous&&!stopped&&approved;
+  async function replace(facing){
+    const acquired=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{exact:facing},width:{ideal:captureSize.width},height:{ideal:captureSize.height},aspectRatio:{ideal:captureSize.width/captureSize.height},frameRate:{ideal:30,max:30}}});
+    const track=acquired.getVideoTracks()[0];
+    try{
+      if(!current()){acquired.getTracks().forEach(item=>item.stop());return false;}
+      if(!track)throw Error('No video track');
+      await sender.replaceTrack(track);
+      if(!current()){acquired.getTracks().forEach(item=>item.stop());return false;}
+    }catch(error){acquired.getTracks().forEach(item=>item.stop());throw error;}
+    stream=acquired;cameraFacing=track.getSettings().facingMode||facing;$('camera').value=cameraFacing;
+    $('local').srcObject=acquired;$('start').hidden=true;
+    const settings=track.getSettings();
+    await sendControl({type:'capture-info',width:settings.width,height:settings.height}).catch(()=>{});
+    return true;
+  }
+  try{if(await replace(target))status('Kamera skiftet');}
+  catch{
+    if(current())try{if(await replace(previousFacing))status('Kameraet kunne ikke skiftes. Det tidligere kamera er gendannet.');}
+    catch{if(current()){$('camera').value=previousFacing;$('start').hidden=false;$('start').disabled=false;status('Kameraet kunne ikke åbnes. Prøv igen eller vælg et andet kamera.');}}
+  }finally{switchingCamera=false;$('camera').disabled=false;}
+}
+$('camera').onchange=()=>{if(stream)void switchCamera();};
+$('start').onclick=()=>stream?switchCamera():startCamera();
 async function stop(notify = true) {
   if (notify && key) try { await sendControl({ type: 'stop' }); } catch {}
   stopped = true; clearTimeout(expiryTimer); controlChannel?.close(); controlChannel = null;

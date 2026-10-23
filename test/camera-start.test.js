@@ -59,3 +59,32 @@ test('oversized direct control message stops the session',async()=>{
  vm.runInContext("approved=true;bindControl({readyState:'open',send(){},close(){}});controlChannel.onmessage({data:'x'.repeat(1025)})",s.context);
  await settle();assert.equal(vm.runInContext('stopped',s.context),true);
 });
+
+test('phone switches camera with replaceTrack, keeps microphone and pairing, and reports new capture size',async()=>{
+ let requests=0,oldStops=0,audioStops=0,replaced;
+ const old={kind:'video',stop(){oldStops++},getSettings:()=>({width:1920,height:1080,facingMode:'environment'})};
+ const fresh={kind:'video',stop(){},getSettings:()=>({width:1920,height:1080,facingMode:'user'})};
+ const s=setup(async constraints=>{requests++;if(requests===2){assert.equal(constraints.audio,false);assert.equal(constraints.video.facingMode.exact,'user');assert.equal(oldStops,1)}const track=requests===1?old:fresh;return{getTracks:()=>[track],getVideoTracks:()=>[track]}});
+ await s.approve();await settle();const peer=vm.runInContext('pc',s.context);
+ peer.getSenders=()=>[{track:old,replaceTrack:async track=>{replaced=track}},{track:{kind:'audio',stop(){audioStops++}},replaceTrack(){throw Error('audio sender touched')}}];
+ s.element('camera').value='user';await vm.runInContext('switchCamera()',s.context);
+ assert.equal(replaced,fresh);assert.equal(audioStops,0);assert.equal(vm.runInContext('pc',s.context),peer);
+ assert.equal(s.element('camera').disabled,false);assert.equal(s.element('status').textContent,'Kamera skiftet');assert.equal(requests,2);
+});
+
+test('failed camera change restores the previous camera without closing the peer',async()=>{
+ let requests=0,replaced;const track=facing=>({kind:'video',stop(){},getSettings:()=>({width:1280,height:720,facingMode:facing})});const old=track('environment'),restored=track('environment');
+ const s=setup(async constraints=>{requests++;if(requests===2)throw Error('camera unavailable');if(requests===3)assert.equal(constraints.video.facingMode.exact,'environment');const t=requests===1?old:restored;return{getVideoTracks:()=>[t],getTracks:()=>[t]}});
+ await s.approve();await settle();vm.runInContext('pc.getSenders=()=>[sender]',Object.assign(s.context,{sender:{track:old,replaceTrack:async t=>{replaced=t}}}));
+ s.element('camera').value='user';await vm.runInContext('switchCamera()',s.context);
+ assert.equal(replaced,restored);assert.equal(s.element('camera').value,'environment');assert.match(s.element('status').textContent,/gendannet/);assert.equal(vm.runInContext('stopped',s.context),false);
+});
+
+test('stopping during camera change releases the late camera and does not replace a track',async()=>{
+ let requests=0,release,lateStops=0,replacements=0;const old={kind:'video',stop(){},getSettings:()=>({width:1280,height:720,facingMode:'environment'})};
+ const s=setup(async()=>{requests++;if(requests===1)return{getVideoTracks:()=>[old],getTracks:()=>[old]};return new Promise(resolve=>release=resolve)});
+ await s.approve();await settle();s.context.sender={track:old,replaceTrack:async()=>{replacements++}};vm.runInContext('pc.getSenders=()=>[sender]',s.context);
+ s.element('camera').value='user';const switching=vm.runInContext('switchCamera()',s.context);await vm.runInContext('stop(false)',s.context);
+ const late={kind:'video',stop(){lateStops++},getSettings:()=>({})};release({getVideoTracks:()=>[late],getTracks:()=>[late]});await switching;
+ assert.equal(lateStops,1);assert.equal(replacements,0);assert.equal(vm.runInContext('stream',s.context),null);
+});

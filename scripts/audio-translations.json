@@ -262,5 +262,29 @@
     "Waiting for phone audio track",
     "Warte auf die Audiospur des Telefons",
     "En attente de la piste audio du téléphone"
+  ],
+  [
+    "Skifter kamera…",
+    "Switching camera…",
+    "Kamera wird gewechselt…",
+    "Changement de caméra…"
+  ],
+  [
+    "Kamera skiftet",
+    "Camera switched",
+    "Kamera gewechselt",
+    "Caméra changée"
+  ],
+  [
+    "Kameraet kunne ikke skiftes. Det tidligere kamera er gendannet.",
+    "Could not switch cameras. The previous camera has been restored.",
+    "Kamerawechsel fehlgeschlagen. Die vorherige Kamera wurde wiederhergestellt.",
+    "Impossible de changer de caméra. La caméra précédente a été rétablie."
+  ],
+  [
+    "Kameraet kunne ikke åbnes. Prøv igen eller vælg et andet kamera.",
+    "Could not open the camera. Try again or choose another camera.",
+    "Kamera konnte nicht geöffnet werden. Versuche es erneut oder wähle eine andere Kamera.",
+    "Impossible d’ouvrir la caméra. Réessayez ou choisissez une autre caméra."
   ]
 ]

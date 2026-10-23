@@ -8,6 +8,8 @@
 
 Install the app on Windows 11 x64. Open it and scan the QR code with your phone on the same Wi-Fi. Compare the six-digit code and accept on the PC. Allow camera access on the phone. Keep both apps open.
 
+During a connection, select Front camera or Rear camera on your phone. Video may briefly pause while switching; the microphone and pairing are preserved. If the camera cannot be opened, the app tries to restore the previous camera.
+
 ## iPhone: how do I allow the camera?
 
 Open the pairing link in Safari and choose Allow when the site requests camera access. If previously denied: open the page menu by the address bar → Website Settings → Camera → Ask or Allow. Reload; scan a new QR code if pairing has expired.

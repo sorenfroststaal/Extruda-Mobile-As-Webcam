@@ -8,6 +8,8 @@
 
 Installez l’application sur Windows 11 x64. Ouvrez-la et scannez le QR code avec votre téléphone sur le même Wi-Fi. Comparez le code à six chiffres et acceptez sur le PC. Autorisez la caméra du téléphone. Gardez les deux applications ouvertes.
 
+Pendant la connexion, sélectionnez Caméra avant ou Caméra arrière sur le téléphone. La vidéo peut brièvement s’interrompre pendant le changement ; le microphone et l’appairage sont conservés. Si la caméra ne peut pas être ouverte, l’application tente de rétablir la caméra précédente.
+
 ## iPhone : comment autoriser la caméra ?
 
 Ouvrez le lien de jumelage dans Safari et choisissez Autoriser lorsque le site demande la caméra. Après un refus : menu de page près de la barre d’adresse → Réglages du site web → Appareil photo → Demander ou Autoriser. Rechargez ; scannez un nouveau QR code si le jumelage a expiré.

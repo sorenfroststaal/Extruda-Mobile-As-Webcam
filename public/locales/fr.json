@@ -218,5 +218,10 @@
   "Mikrofonsignal registreres på telefonen": "Signal du microphone détecté sur le téléphone",
   "Lyd sendes til Windows. Vælg den virtuelle mikrofon i Teams eller Zoom.": "Le son est envoyé à Windows. Sélectionnez le microphone virtuel dans Teams ou Zoom.",
   "Lyd modtages, men er endnu ikke sendt til Windows": "Son reçu, mais pas encore envoyé à Windows",
-  "Afventer telefonens lydspor": "En attente de la piste audio du téléphone"
+  "Afventer telefonens lydspor": "En attente de la piste audio du téléphone",
+  "Skifter kamera…": "Changement de caméra…",
+  "Kamera skiftet": "Caméra changée",
+  "Kameraet kunne ikke skiftes. Det tidligere kamera er gendannet.": "Impossible de changer de caméra. La caméra précédente a été rétablie.",
+  "Kameraet kunne ikke åbnes. Prøv igen eller vælg et andet kamera.": "Impossible d’ouvrir la caméra. Réessayez ou choisissez une autre caméra.",
+  "Under forbindelsen kan du vælge Frontkamera eller Bagkamera på telefonen. Videoen kan holde en kort pause under skiftet; mikrofon og parring bevares. Hvis kameraet ikke kan åbnes, forsøger appen at gendanne det tidligere kamera.": "Pendant la connexion, sélectionnez Caméra avant ou Caméra arrière sur le téléphone. La vidéo peut brièvement s’interrompre pendant le changement ; le microphone et l’appairage sont conservés. Si la caméra ne peut pas être ouverte, l’application tente de rétablir la caméra précédente."
 }

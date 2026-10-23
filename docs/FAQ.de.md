@@ -8,6 +8,8 @@
 
 Installiere die App unter Windows 11 x64. Öffne sie und scanne den QR-Code mit dem Telefon im selben WLAN. Vergleiche den sechsstelligen Code und bestätige am PC. Erlaube den Kamerazugriff am Telefon. Lass beide Anwendungen geöffnet.
 
+Während der Verbindung kannst du am Telefon Frontkamera oder Rückkamera wählen. Das Video kann beim Wechsel kurz pausieren; Mikrofon und Kopplung bleiben erhalten. Kann die Kamera nicht geöffnet werden, versucht die App, die vorherige Kamera wiederherzustellen.
+
 ## iPhone: Wie erlaube ich die Kamera?
 
 Öffne den Kopplungslink in Safari und wähle Erlauben, wenn die Seite Kamerazugriff anfordert. Nach einer Ablehnung: Seitenmenü an der Adressleiste → Website-Einstellungen → Kamera → Fragen oder Erlauben. Lade neu; scanne bei abgelaufener Kopplung einen neuen QR-Code.

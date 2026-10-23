@@ -218,5 +218,10 @@
   "Mikrofonsignal registreres på telefonen": "Mikrofonsignal registreres på telefonen",
   "Lyd sendes til Windows. Vælg den virtuelle mikrofon i Teams eller Zoom.": "Lyd sendes til Windows. Vælg den virtuelle mikrofon i Teams eller Zoom.",
   "Lyd modtages, men er endnu ikke sendt til Windows": "Lyd modtages, men er endnu ikke sendt til Windows",
-  "Afventer telefonens lydspor": "Afventer telefonens lydspor"
+  "Afventer telefonens lydspor": "Afventer telefonens lydspor",
+  "Skifter kamera…": "Skifter kamera…",
+  "Kamera skiftet": "Kamera skiftet",
+  "Kameraet kunne ikke skiftes. Det tidligere kamera er gendannet.": "Kameraet kunne ikke skiftes. Det tidligere kamera er gendannet.",
+  "Kameraet kunne ikke åbnes. Prøv igen eller vælg et andet kamera.": "Kameraet kunne ikke åbnes. Prøv igen eller vælg et andet kamera.",
+  "Under forbindelsen kan du vælge Frontkamera eller Bagkamera på telefonen. Videoen kan holde en kort pause under skiftet; mikrofon og parring bevares. Hvis kameraet ikke kan åbnes, forsøger appen at gendanne det tidligere kamera.": "Under forbindelsen kan du vælge Frontkamera eller Bagkamera på telefonen. Videoen kan holde en kort pause under skiftet; mikrofon og parring bevares. Hvis kameraet ikke kan åbnes, forsøger appen at gendanne det tidligere kamera."
 }

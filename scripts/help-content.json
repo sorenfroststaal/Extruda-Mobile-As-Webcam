@@ -13,6 +13,12 @@
         "Install the app on Windows 11 x64. Open it and scan the QR code with your phone on the same Wi-Fi. Compare the six-digit code and accept on the PC. Allow camera access on the phone. Keep both apps open.",
         "Installiere die App unter Windows 11 x64. Öffne sie und scanne den QR-Code mit dem Telefon im selben WLAN. Vergleiche den sechsstelligen Code und bestätige am PC. Erlaube den Kamerazugriff am Telefon. Lass beide Anwendungen geöffnet.",
         "Installez l’application sur Windows 11 x64. Ouvrez-la et scannez le QR code avec votre téléphone sur le même Wi-Fi. Comparez le code à six chiffres et acceptez sur le PC. Autorisez la caméra du téléphone. Gardez les deux applications ouvertes."
+      ],
+      [
+        "Under forbindelsen kan du vælge Frontkamera eller Bagkamera på telefonen. Videoen kan holde en kort pause under skiftet; mikrofon og parring bevares. Hvis kameraet ikke kan åbnes, forsøger appen at gendanne det tidligere kamera.",
+        "During a connection, select Front camera or Rear camera on your phone. Video may briefly pause while switching; the microphone and pairing are preserved. If the camera cannot be opened, the app tries to restore the previous camera.",
+        "Während der Verbindung kannst du am Telefon Frontkamera oder Rückkamera wählen. Das Video kann beim Wechsel kurz pausieren; Mikrofon und Kopplung bleiben erhalten. Kann die Kamera nicht geöffnet werden, versucht die App, die vorherige Kamera wiederherzustellen.",
+        "Pendant la connexion, sélectionnez Caméra avant ou Caméra arrière sur le téléphone. La vidéo peut brièvement s’interrompre pendant le changement ; le microphone et l’appairage sont conservés. Si la caméra ne peut pas être ouverte, l’application tente de rétablir la caméra précédente."
       ]
     ]
   },

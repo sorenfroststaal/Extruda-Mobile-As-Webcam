@@ -8,6 +8,8 @@
 
 Installér appen på Windows 11 x64. Åbn den, og scan QR-koden med telefonen på samme Wi-Fi. Sammenlign den sekscifrede kode, og acceptér på pc’en. Tillad kameraet på telefonen. Hold begge programmer åbne.
 
+Under forbindelsen kan du vælge Frontkamera eller Bagkamera på telefonen. Videoen kan holde en kort pause under skiftet; mikrofon og parring bevares. Hvis kameraet ikke kan åbnes, forsøger appen at gendanne det tidligere kamera.
+
 ## iPhone: hvordan tillader jeg kameraet?
 
 Åbn parringslinket i Safari, og vælg Tillad, når siden beder om kameraadgang. Ved en tidligere afvisning: åbn sidemenuen ved adresselinjen → Webstedsindstillinger → Kamera → Spørg eller Tillad. Genindlæs siden; scan en ny QR-kode, hvis parringen er udløbet.
