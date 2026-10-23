@@ -50,7 +50,7 @@ Die App startet mit 1920 × 1080. Nach dem Verbinden stehen 480p, 720p, 1080p, 1
 
 ## Internet, Ton, Aufnahme und sicheres Beenden
 
-Diese Version braucht Internet für Telefon-Client und Kopplung, auch im selben WLAN. Video läuft direkt über WebRTC zwischen den Geräten; Cloudflare vermittelt die Kopplung und leitet kein Video weiter. Es gibt keine Mikrofon- oder Aufnahmefunktion: Wähle in der Meeting-App das PC- oder Headset-Mikrofon. Empfänger oder Meeting-App können das Bild trotzdem aufzeichnen. Nutze Trennen/Abbrechen und schließe danach Telefonseite und App. Teile nie QR-Code oder Link. Alle bekannten Einschränkungen stehen unter Sicherheitsrisiken.
+Diese Version braucht Internet für Telefon-Client und Kopplung, auch im selben WLAN. Video und optionales Mikrofon-Audio laufen direkt über WebRTC; Cloudflare leitet keine Medien weiter. Das Mikrofon ist bei jeder neuen Verbindung aus und benötigt einen Tipp sowie die Browser-Erlaubnis am Telefon. Die App nimmt nicht auf, aber Meeting-Apps und Empfänger können Bild und Ton speichern. Nach Gebrauch trennen und beide Seiten schließen. QR-Code oder Link nie teilen. Siehe Sicherheitsrisiken.
 
 ## Sprache, Design und Updates
 
@@ -71,3 +71,15 @@ Ja. Der Prototyp wurde mit KI-gestützter Programmierung (Vibe Coding) und Codex
 Erstelle ein GitHub-Issue mit App-Version, Windows-Version, Telefon/Browser und Schritten zum Nachstellen. Teile nie aktive Kopplungslinks, QR-Codes, Zugangsschlüssel oder private Kamerabilder. Code, Übersetzungen und Verbesserungen sind willkommen; es gibt keine garantierte Antwortzeit oder Supportzusage. Lies bei Sicherheitsfehlern SECURITY.md für einen privaten Kontaktweg, bevor du Details veröffentlichst.
 
 [GitHub · Issues](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/issues) · [GitHub · Security](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/blob/main/SECURITY.md)
+
+## Wie nutze ich das Telefon als Mikrofon?
+
+Verbinde die Kamera und tippe am Telefon auf Mikrofon einschalten. Erlaube das Mikrofon in Safari oder Chrome; die Berechtigung liegt neben dem Kamerazugriff unter Mikrofon. Der PC kann Audio anfordern, aber nicht selbst erlauben. Ausschalten auf einem der Geräte stoppt den Ton; am Telefon wird auch die Mikrofonerfassung beendet. Der grüne Pegel zeigt das erfasste oder empfangene Signal, nicht ob Teams es tatsächlich nutzt.
+
+Ein Windows-Mikrofon benötigt den separaten VB-CABLE-Treiber. Lade ihn nur von vb-audio.com, entpacke ihn und starte den Installer als Administrator. Danach neu starten. Wähle CABLE Input in Extruda und CABLE Output als Mikrofon in Teams oder Zoom. Dein Standardmikrofon wird nicht geändert. VB-CABLE ist Donationware eines Drittanbieters mit eigener Lizenz; es gehört nicht zum MIT-Code und wird nicht automatisch installiert. Ohne Treiber funktioniert die Pegelanzeige, aber der Ton steht nicht als Windows-Mikrofon zur Wahl.
+
+Ist Steam Streaming Microphone bereits installiert, kannst du es statt VB-CABLE wählen. Wähle denselben Mikrofonnamen in Teams oder Zoom. Der Sendepegel startet für Steam niedriger, um dessen Verstärkung auszugleichen; bei leisem oder verzerrtem Ton unter Audioeinstellungen anpassen. Das virtuelle Gerät nicht als Windows-Standardlautsprecher festlegen.
+
+Wenn kein unterstütztes Audiogerät gefunden wird, bietet die App den VB-CABLE-Download des Herstellers, eine erneute Suche oder Nur Kamera verwenden an. Der Kameramodus wird am PC gespeichert und blendet die Mikrofontaste auf beiden Geräten aus. Erneut aktivieren unter Information → Mikrofon einrichten. Der Treiber wird separat heruntergeladen und installiert; Extruda umgeht keine Windows-Bestätigung.
+
+[VB-Audio · VB-CABLE](https://vb-audio.com/Cable/)

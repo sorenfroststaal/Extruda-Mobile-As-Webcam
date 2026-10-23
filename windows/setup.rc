@@ -24,3 +24,6 @@
 313 RCDATA "dist/ui/brand/logo-white.svg"
 314 RCDATA "dist/ui/fonts/Manrope-Variable.woff2"
 315 RCDATA "dist/ui/fonts/Manrope-OFL.txt"
+
+316 RCDATA "dist/ui/audio.js"
+317 RCDATA "dist/ui/audio-worklet.js"

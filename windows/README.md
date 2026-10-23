@@ -1,4 +1,4 @@
-# extruda - mobile as webcam 0.6.1
+# extruda - mobile as webcam 0.7.0
 
 Language and theme follow the operating system by default. Use the globe and sun icons to override them; choices are stored per device. The information icon opens Security risks and FAQ and guides without leaving the session.
 
@@ -39,7 +39,7 @@ See VALIDATION.md in the source tree for the precise verification scope.
 
 This is an unsigned development build, not a signed production installer.
 Compatibility with individual meeting programs and real Android/iOS devices
-must be checked. No microphone, background capture or audio device is included.
+must be checked. Optional phone microphone audio is available after separate user consent. There is no background capture or recording feature. A Windows microphone requires an already installed Steam Streaming Microphone or VB-CABLE virtual device.
 
 The phone is asked for the chosen resolution, but may deliver a smaller image.
 The app reports both actual phone capture size and configured Windows output.
@@ -105,3 +105,11 @@ Media Foundation Source Reader without installing or registering a camera.
 The in-app FAQ covers phone camera permissions, Teams, Zoom, troubleshooting and open-source terms. Read it on GitHub: [English](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/blob/main/docs/FAQ.en.md) · [Deutsch](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/blob/main/docs/FAQ.de.md) · [Français](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/blob/main/docs/FAQ.fr.md) · [Dansk](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/blob/main/docs/FAQ.da.md).
 
 This is an AI-assisted, vibe-coded prototype made with Codex. It has not undergone an independent security audit. Project code is MIT-licensed: use, change, share and sell it while preserving the copyright and permission notice. No warranty is provided. Third-party notices, font licences and the separate brand notice still apply.
+
+## Phone microphone
+
+The phone microphone defaults off on every new session. Enable it on the phone and grant the browser microphone permission. Either device can stop audio without stopping video. The level meter shows captured or received signal before output gain, not whether a meeting program selected it.
+
+Select Steam Streaming Microphone or VB-CABLE in Audio settings. In Teams/Zoom choose Steam Streaming Microphone or CABLE Output as the microphone. Steam send gain starts at 3% to compensate amplification; VB-CABLE starts at 100%. Adjust if too quiet or distorted. The app never changes Windows default devices or installs an audio driver automatically. If no supported virtual device exists, the meter works but microphone delivery to meeting apps needs a separately installed driver. VB-CABLE is third-party donationware with its own licence, outside the project MIT licence.
+
+PCM audio uses bounded in-memory queues with a stale-input silence timeout; no audio file or recording is created. Other applications can listen to or inject into the same virtual audio device if Windows permissions allow. Do not make the virtual cable the default speaker. Read the updated microphone security section and FAQ.

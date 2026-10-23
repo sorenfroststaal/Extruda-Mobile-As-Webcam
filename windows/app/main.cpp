@@ -14,6 +14,8 @@
 #include "FrameWriter.h"
 #include "NativeTranslations.h"
 #include "HelpLinks.h"
+#include "AudioOutput.h"
+AudioOutput audioOutput;
 using namespace Microsoft::WRL;
 static constexpr wchar_t Site[] = L"https://app.extruda.local/index.html";
 HWND window;
@@ -77,7 +79,7 @@ void InitWeb() {
             ComPtr<ICoreWebView2Settings> settings; web->get_Settings(&settings);
             settings->put_AreDevToolsEnabled(FALSE); settings->put_AreDefaultContextMenusEnabled(FALSE); settings->put_IsStatusBarEnabled(FALSE);
             EventRegistrationToken token;
-            web->add_NavigationStarting(Callback<ICoreWebView2NavigationStartingEventHandler>([](ICoreWebView2*, ICoreWebView2NavigationStartingEventArgs* e) -> HRESULT { LPWSTR uri = nullptr; e->get_Uri(&uri); bool allowed = Trusted(uri); CoTaskMemFree(uri); if (!allowed) e->put_Cancel(TRUE); if (writer) writer->Clear(); shared.Reset(); frameData = nullptr; return S_OK; }).Get(), &token);
+            web->add_NavigationStarting(Callback<ICoreWebView2NavigationStartingEventHandler>([](ICoreWebView2*, ICoreWebView2NavigationStartingEventArgs* e) -> HRESULT { LPWSTR uri = nullptr; e->get_Uri(&uri); bool allowed = Trusted(uri); CoTaskMemFree(uri); if (!allowed) e->put_Cancel(TRUE); audioOutput.Stop(); if (writer) writer->Clear(); shared.Reset(); frameData = nullptr; return S_OK; }).Get(), &token);
             web->add_NewWindowRequested(Callback<ICoreWebView2NewWindowRequestedEventHandler>([](ICoreWebView2*, ICoreWebView2NewWindowRequestedEventArgs* e) -> HRESULT {
                 e->put_Handled(TRUE);
                 BOOL userInitiated=FALSE; e->get_IsUserInitiated(&userInitiated);
@@ -101,9 +103,21 @@ void InitWeb() {
             web->add_WebMessageReceived(Callback<ICoreWebView2WebMessageReceivedEventHandler>([](ICoreWebView2*, ICoreWebView2WebMessageReceivedEventArgs* e) -> HRESULT {
                 LPWSTR source = nullptr; e->get_Source(&source); bool trusted = Trusted(source); CoTaskMemFree(source); if (!trusted || closing) return S_OK;
                 LPWSTR raw = nullptr; if (FAILED(e->TryGetWebMessageAsString(&raw))) return S_OK;
-                if (wcsnlen_s(raw,129) > 128) { CoTaskMemFree(raw); return S_OK; }
+                if (wcsnlen_s(raw,4097) > 4096) { CoTaskMemFree(raw); return S_OK; }
                 std::wstring message(raw); CoTaskMemFree(raw);
-                if (message.rfind(L"language:",0) == 0) {
+                if(message.rfind(L"audio-pcm:",0)==0){
+                    audioOutput.Push(message.substr(10));
+                    web->ExecuteScript(FAILED(audioOutput.Status())?L"window.extrudaAudioAck?.();window.extrudaAudioError?.()":L"window.extrudaAudioAck?.()",nullptr);return S_OK;
+                }
+                if(message.size()>128)return S_OK;
+                if(message==L"audio-stop")audioOutput.Stop();
+                else if(message==L"audio-devices")web->ExecuteScript(audioOutput.DeviceScript().c_str(),nullptr);
+                else if(message.rfind(L"audio-route:",0)==0){
+                    wchar_t* end=nullptr;const auto index=wcstoul(message.c_str()+12,&end,10);
+                    if(!end||end==message.c_str()+12||*end||index>=32||FAILED(audioOutput.Start(static_cast<unsigned>(index))))web->ExecuteScript(L"window.extrudaAudioError?.()",nullptr);
+                    else web->ExecuteScript(L"window.extrudaAudioStarted?.()",nullptr);
+                }
+                else if (message.rfind(L"language:",0) == 0) {
                     SetNativeLanguage(message.c_str()+9);
                 } else if (message == L"theme:dark" || message == L"theme:light") {
                     BOOL dark = message == L"theme:dark"; DwmSetWindowAttribute(window,DWMWA_USE_IMMERSIVE_DARK_MODE,&dark,sizeof(dark));
@@ -160,7 +174,7 @@ void InitWeb() {
 LRESULT CALLBACK Proc(HWND hwnd, UINT msg, WPARAM w, LPARAM l) {
     if (msg == WM_TIMER && systemSmokeTest) { PostMessageW(hwnd, WM_CLOSE, 0, 0); return 0; }
     if (msg == WM_SIZE && controller) { RECT rect; GetClientRect(hwnd, &rect); controller->put_Bounds(rect); return 0; }
-    if (msg == WM_CLOSE) { closing = true; if (writer) writer->Clear(); if (controller) controller->Close(); if (camera) { camera->Stop(); camera->Shutdown(); } DestroyWindow(hwnd); return 0; }
+    if (msg == WM_CLOSE) { closing = true; audioOutput.Stop(); if (writer) writer->Clear(); if (controller) controller->Close(); if (camera) { camera->Stop(); camera->Shutdown(); } DestroyWindow(hwnd); return 0; }
     if (msg == WM_DESTROY) { PostQuitMessage(0); return 0; }
     return DefWindowProcW(hwnd, msg, w, l);
 }

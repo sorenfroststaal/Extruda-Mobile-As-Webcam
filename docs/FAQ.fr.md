@@ -50,7 +50,7 @@ L’application démarre en 1920 × 1080. Une fois connecté, choisissez 480p, 7
 
 ## Internet, son, enregistrement et arrêt
 
-Cette version nécessite internet pour le client téléphone et le jumelage, même sur le même Wi-Fi. La vidéo passe directement entre appareils par WebRTC ; Cloudflare gère le jumelage, sans relais vidéo. Aucun microphone ni enregistrement n’est intégré : choisissez le micro du PC ou du casque dans l’application de réunion. Le récepteur ou l’application peut toutefois enregistrer l’image. Appuyez sur Déconnecter/Annuler puis fermez la page et l’application après usage. Ne partagez jamais le QR code ni le lien. Consultez Risques de sécurité pour les limites connues.
+Cette version nécessite internet pour le client téléphone et le jumelage, même sur le même Wi-Fi. La vidéo et le son microphone facultatif passent directement par WebRTC ; Cloudflare ne relaie pas les médias. Le microphone est désactivé à chaque nouvelle connexion et exige un geste et une autorisation du navigateur sur le téléphone. L’application n’enregistre pas, mais les applications de réunion et destinataires peuvent sauvegarder image et son. Déconnectez et fermez les deux côtés après usage. Ne partagez jamais le QR code ni le lien. Voir Risques de sécurité.
 
 ## Langue, thème et mises à jour
 
@@ -71,3 +71,15 @@ Oui. Le prototype a été développé avec la programmation assistée par IA («
 Ouvrez une issue GitHub avec la version de l’application, de Windows, le téléphone/navigateur et les étapes de reproduction. Ne partagez jamais de lien de jumelage actif, QR code, secret d’accès ou image privée. Code, traductions et améliorations sont bienvenus ; aucun délai de réponse ni support n’est garanti. Pour une faille, consultez SECURITY.md pour un contact privé avant de publier les détails.
 
 [GitHub · Issues](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/issues) · [GitHub · Security](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/blob/main/SECURITY.md)
+
+## Comment utiliser le téléphone comme microphone ?
+
+Connectez la caméra puis touchez Activer le microphone sur le téléphone. Autorisez le microphone dans Safari ou Chrome ; les autorisations se gèrent près de celles de la caméra, sous Microphone. Le PC peut demander du son mais ne peut pas autoriser à votre place. Le bouton de désactivation de chaque appareil arrête le son ; sur le téléphone, il arrête aussi la capture. La jauge verte montre le signal capté ou reçu, pas si Teams l’utilise réellement.
+
+Un microphone Windows nécessite le pilote VB-CABLE séparé. Téléchargez-le uniquement depuis vb-audio.com, extrayez-le et lancez son installateur en administrateur. Redémarrez ensuite. Choisissez CABLE Input dans Extruda et CABLE Output comme microphone dans Teams ou Zoom. Votre microphone par défaut ne change pas. VB-CABLE est un logiciel tiers à contribution libre avec sa propre licence ; il ne fait pas partie du code MIT et ne s’installe pas automatiquement. Sans pilote, la jauge fonctionne mais le son ne peut pas être choisi comme microphone Windows.
+
+Si Steam Streaming Microphone est déjà installé, vous pouvez le choisir à la place de VB-CABLE. Choisissez le même microphone dans Teams ou Zoom. Le niveau envoyé démarre plus bas pour Steam afin de compenser son amplification ; ajustez les Réglages audio si le son est faible ou déformé. Ne définissez pas ce périphérique comme haut-parleur Windows par défaut.
+
+Si aucun périphérique compatible n’est détecté, l’application propose le téléchargement de VB-CABLE chez l’éditeur, une nouvelle recherche ou Utiliser uniquement la caméra. Ce choix est mémorisé sur le PC et masque le bouton du microphone sur les deux appareils. Réactivez-le dans Informations → Configurer le microphone. Le pilote est téléchargé et installé séparément ; Extruda ne contourne pas l’autorisation de Windows.
+
+[VB-Audio · VB-CABLE](https://vb-audio.com/Cable/)

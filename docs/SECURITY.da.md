@@ -162,4 +162,18 @@ AI har hjulpet med at skrive programmet og vejledningerne. AI kan skrive noget, 
 En vejledning kan vise en forkert menu, en funktion kan svigte, eller en sikkerhedsfejl kan være overset. At en test består eller en tekst lyder overbevisende er ikke et bevis på sikkerhed. Undgå brug, hvor et lækket billede eller et driftsstop kan få alvorlige følger.
 <!-- plain:end -->
 
+## Mikrofonlyd og virtuel lyddriver
+
+Mikrofonen er fra ved hver ny forbindelse og aktiveres på telefonen med særskilt browseradgang. Lyden sendes krypteret via WebRTC og føres i afgrænsede hukommelsesbuffere til en valgt, allerede installeret virtuel lydenhed. Appen ændrer ikke standardlydenheder og installerer ingen lyddriver automatisk. Steam Streaming Microphone eller VB-CABLE er tredjepartssoftware med egen licens og sikkerhedsrisiko. En ny driver kræver administratorgodkendelse og kan kræve genstart.
+
+<!-- plain:start -->
+**Kort fortalt**
+
+Når du tænder mikrofonen, kan den også opfange andre personer og lyde i rummet. Den virtuelle mikrofon er en fælles lydforbindelse i Windows, som andre programmer også kan bruge.
+
+**Det kan betyde for dig**
+
+Private samtaler kan blive hørt eller optaget af et mødeprogram eller en anden app med adgang til den virtuelle mikrofon. Andre programmers lyd kan blandes ind, hvis de sender til samme virtuelle lydenhed. Slå mikrofonen fra efter brug; grøn niveauindikator betyder signal i appen, ikke at kun Teams kan høre det. Hent eventuelle drivere fra den officielle udgiver, og undlad at gøre det virtuelle kabel til pc’ens standardhøjttaler.
+<!-- plain:end -->
+
 [Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases)

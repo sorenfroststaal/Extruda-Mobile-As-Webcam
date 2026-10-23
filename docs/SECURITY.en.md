@@ -162,4 +162,18 @@ AI helped write the program and its guides. AI can produce something that looks 
 A guide could name the wrong menu, a feature could fail or a security flaw could be overlooked. A passing test or convincing text is not proof of security. Avoid use where a leaked image or an outage could have serious consequences.
 <!-- plain:end -->
 
+## Microphone audio and virtual audio driver
+
+The microphone starts off for each new connection and is enabled on the phone with separate browser permission. Audio is encrypted using WebRTC and passed through bounded memory buffers to a selected, already installed virtual audio device. The app does not change default audio devices or automatically install an audio driver. Steam Streaming Microphone or VB-CABLE is third-party software with its own licence and security risks. A new driver requires administrator approval and may require a restart.
+
+<!-- plain:start -->
+**In plain language**
+
+When you turn the microphone on, it can also pick up other people and sounds in the room. The virtual microphone is a shared audio connection in Windows that other apps can also use.
+
+**What could happen to you**
+
+Private conversations may be heard or recorded by a meeting app or another app with access to the virtual microphone. Other apps’ audio may be mixed in if they send to the same virtual device. Turn the microphone off after use; a green meter means signal in the app, not that only Teams can hear it. Get drivers from their official publisher and do not make the virtual cable your PC’s default speaker.
+<!-- plain:end -->
+
 [Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases)

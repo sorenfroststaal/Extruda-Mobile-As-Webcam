@@ -33,6 +33,10 @@ async function sendControl(message) {
 async function receiveControl(data) {
   if (!approved || stopped) return;
   if (data.type === 'stop') { await stop(false); return; }
+  if (['microphone-request','microphone-state','microphone-mode'].includes(data.type)) {
+    if (typeof data.enabled !== 'boolean') { await stop(); return; }
+    await window.ExtrudaAudio?.control(data);return;
+  }
   if (data.type === 'capture-size' && role === 'phone' && supportedCaptureSize(data.size)) {
     const track = stream?.getVideoTracks()[0];
     if (!track) return;
@@ -57,7 +61,7 @@ function bindControl(channel) {
     const now = Date.now(); if (now-controlWindow >= 1000) {controlWindow=now;controlCount=0;}
     if (typeof event.data !== 'string' || event.data.length > 1024 || ++controlCount > 12 || controlQueued >= 4) { void stop(); return; }
     let data; try { data=JSON.parse(event.data); } catch { void stop(); return; }
-    if (!data || !['capture-size','capture-info','stop'].includes(data.type)) { void stop(); return; }
+    if (!data || !['capture-size','capture-info','microphone-request','microphone-state','microphone-mode','stop'].includes(data.type)) { void stop(); return; }
     if (data.type === 'stop') { void stop(false); return; }
     controlQueued++;
     controlSerial = controlSerial.then(() => pc === connection && !stopped ? receiveControl(data) : undefined).catch(() => {}).finally(() => {controlQueued--;});
@@ -72,9 +76,14 @@ function makePeer() {
   pc = new RTCPeerConnection({ iceServers: [] });
   const connection = pc;
   if (role === 'host') bindControl(pc.createDataChannel('camera-control'));
-  else pc.ondatachannel = event => { if (event.channel.label === 'camera-control') bindControl(event.channel); };
+  else { pc.addTransceiver('audio',{direction:'sendonly'}); pc.ondatachannel = event => { if (event.channel.label === 'camera-control') bindControl(event.channel); }; }
+  window.ExtrudaAudio?.session({role,peer:pc,send:sendControl,approved:()=>approved&&!stopped});
   pc.onicecandidate = event => { if (event.candidate) send({ type: 'ice', candidate: event.candidate.toJSON() }).catch(fail); };
-  pc.ontrack = event => { $('remote').srcObject = event.streams[0]; $('placeholder').hidden = true; $('fullscreen').hidden = false; };
+  pc.ontrack = event => {
+    if (pc !== connection || stopped) return;
+    if (event.track.kind === 'audio') {window.ExtrudaAudio?.track(event.track);return;}
+    $('remote').srcObject = event.streams[0]; $('placeholder').hidden = true; $('fullscreen').hidden = false;
+  };
   pc.onconnectionstatechange = () => {
     if (pc !== connection) return;
     window.dispatchEvent(new CustomEvent('extruda-connection',{detail:{connected:pc.connectionState === 'connected'}}));
@@ -103,7 +112,7 @@ async function receive(payload) {
     // Do not block incoming stop messages while the browser asks for camera permission.
     void startCamera();
   }
-  else if (['capture-info','capture-size'].includes(data.type)) await receiveControl(data);
+  else if (['capture-info','capture-size','microphone-request','microphone-state','microphone-mode'].includes(data.type)) await receiveControl(data);
   else if (data.type === 'offer' && role === 'host' && approved) { await pc.setRemoteDescription(data.sdp); await flushIce(); await pc.setLocalDescription(await pc.createAnswer()); await send({ type: 'answer', sdp: pc.localDescription.toJSON() }); }
   else if (data.type === 'answer' && role === 'phone' && approved) { await pc.setRemoteDescription(data.sdp); await flushIce(); }
   else if (data.type === 'ice' && approved) { if (pc.remoteDescription) await pc.addIceCandidate(data.candidate); else pendingIce.push(data.candidate); }
@@ -188,6 +197,7 @@ $('start').onclick = startCamera;
 async function stop(notify = true) {
   if (notify && key) try { await sendControl({ type: 'stop' }); } catch {}
   stopped = true; clearTimeout(expiryTimer); controlChannel?.close(); controlChannel = null;
+  void window.ExtrudaAudio?.stop();
   window.dispatchEvent(new CustomEvent('extruda-connection',{detail:{connected:false}}));
   $('create').hidden = false;
   stream?.getTracks().forEach(t => t.stop()); stream = null;

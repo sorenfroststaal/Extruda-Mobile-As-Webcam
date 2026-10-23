@@ -25,9 +25,11 @@ pushd windows\app
 rc /nologo /fo ..\build\app.res app.rc
 popd
 if errorlevel 1 exit /b 1
-cl %COMMON% /I.tools\webview2\build\native\include windows\app\main.cpp windows\build\app.res /Fowindows\build\app.obj /Fewindows\dist\ExtrudaCamera.exe /link /SUBSYSTEM:WINDOWS .tools\webview2\build\native\x64\WebView2LoaderStatic.lib mfplat.lib mf.lib mfuuid.lib mfsensorgroup.lib ole32.lib oleaut32.lib advapi32.lib user32.lib shell32.lib shlwapi.lib version.lib dwmapi.lib
+cl %COMMON% /I.tools\webview2\build\native\include windows\app\main.cpp windows\build\app.res /Fowindows\build\app.obj /Fewindows\dist\ExtrudaCamera.exe /link /SUBSYSTEM:WINDOWS .tools\webview2\build\native\x64\WebView2LoaderStatic.lib mfplat.lib mf.lib mfuuid.lib mfsensorgroup.lib ole32.lib oleaut32.lib advapi32.lib user32.lib shell32.lib shlwapi.lib version.lib dwmapi.lib uuid.lib propsys.lib crypt32.lib
 if errorlevel 1 exit /b 1
 :tests
+cl %COMMON% windows\test\AudioTests.cpp /Fowindows\build\audio-test.obj /Fewindows\dist\AudioTests.exe /link ole32.lib uuid.lib propsys.lib crypt32.lib
+if errorlevel 1 exit /b 1
 if not exist windows\dist\ui\brand mkdir windows\dist\ui\brand
 node scripts\build-i18n.mjs
 if errorlevel 1 exit /b 1
@@ -40,6 +42,8 @@ if not exist windows\dist\ui\. mkdir windows\dist\ui\.
 copy /y public\style.css windows\dist\ui\style.css >nul
 if not exist windows\dist\ui\. mkdir windows\dist\ui\.
 copy /y public\app.js windows\dist\ui\app.js >nul
+copy /y public\audio.js windows\dist\ui\audio.js >nul
+copy /y public\audio-worklet.js windows\dist\ui\audio-worklet.js >nul
 if not exist windows\dist\ui\. mkdir windows\dist\ui\.
 copy /y public\qr.js windows\dist\ui\qr.js >nul
 if not exist windows\dist\ui\brand mkdir windows\dist\ui\brand

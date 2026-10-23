@@ -7,7 +7,7 @@
 
 Use an Android or iPhone camera as a Windows webcam, without OBS or a user account.
 
-**[Download Windows installer 0.6.1](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.6.1/ExtrudaMobileAsWebcam-Setup-0.6.1-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/tag/mobile-as-webcam-v0.6.1) · [mobile as webcam website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
+**[Download Windows installer 0.7.0](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.7.0/ExtrudaMobileAsWebcam-Setup-0.7.0-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/tag/mobile-as-webcam-v0.7.0) · [mobile as webcam website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
 
 ## Use
 
@@ -27,7 +27,7 @@ an output change. The phone and meeting app can deliver a lower actual resolutio
 - The phone client and temporary pairing service are hosted on Cloudflare.
   This version needs internet for loading/pairing; video travels directly via WebRTC.
 - Pairing uses encrypted signalling, one-time tokens, a comparison code and
-  cross-room rate limits. No microphone or video recording feature is included.
+  cross-room rate limits. Optional phone microphone audio uses the same direct WebRTC connection; no recording feature is included.
 - A protected temporary file transports decoded frames to Windows Frame Server.
 
 See [Windows build and installation](windows/README.md),
@@ -70,3 +70,13 @@ This prototype is **vibe-coded with AI assistance and Codex**, guided by the own
 The project code is MIT-licensed. You may use, copy, modify, publish, distribute, sublicense and sell it, including commercially, while retaining the copyright and permission notice in copies or substantial portions. It is supplied without warranty. Preserve third-party notices; fonts and brand assets have separate terms listed above.
 
 Each security topic includes a plain-language explanation and concrete possible consequences, in the app and all four security guides. These distinguish service outages from image disclosure and describe hypothetical severe outcomes without claiming a vulnerability has been found.
+
+## Optional phone microphone
+
+Connect first, then press **Turn microphone on** on the phone and grant its separate microphone permission. Audio starts off in every new session. Either device can stop it; the PC cannot grant phone permission remotely. The live input meter shows capture/received signal, not proof of delivery to a meeting app. Video stays connected when microphone audio is toggled.
+
+For a Windows microphone, select an already installed **Steam Streaming Microphone** or **VB-CABLE** device in Audio settings and select its recording endpoint in Teams/Zoom (Steam Streaming Microphone or CABLE Output). There is no local audio monitoring through PC speakers and default Windows devices are unchanged. Steam send level starts at 3% to compensate its amplification; adjust if needed. VB-CABLE starts at 100%.
+
+If neither is installed, the meter still works, but the phone audio is not exposed as a Windows microphone. VB-CABLE is optional, separately licensed third-party donationware from [VB-Audio](https://vb-audio.com/Cable/); download only from the official publisher, install with administrator approval and restart. No third-party driver is bundled or installed automatically. The project’s MIT licence does not cover these external drivers. See the microphone FAQ and security notes in all four languages.
+
+If no supported virtual audio device is detected, a setup dialog links to the official VB-CABLE installer, offers another device scan, or lets you use the camera only. Camera-only mode hides audio controls on both devices and is remembered on the PC. Restore audio under Information → Microphone setup. External drivers are installed separately with normal Windows administrator approval.

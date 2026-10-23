@@ -84,3 +84,24 @@ system-theme changes covered by tests. Native pairing smoke passed with the
 packaged local dictionaries and Windows locale bootstrap. Four language risk
 guides and in-app risk information are included. Real-device locale behaviour
 still requires Android/iPhone testing.
+
+## Microphone validation — 23 October 2026
+
+`AudioTests.exe` sends a synthetic 48 kHz mono PCM tone through the selected
+virtual rendering endpoint and reads the matching Windows virtual microphone.
+On this PC, the existing Steam Streaming Microphone received RMS 0.1672 at the
+app's 3% send level and returned to RMS 0.0000 after stop. No physical microphone
+was captured and no audio driver was installed for this test.
+
+`node scripts/serve-audio-test.mjs` serves a local-only synthetic browser fixture
+on http://127.0.0.1:8789/. Its button negotiates WebRTC with a reserved, initially
+empty audio transceiver, enables audio using replaceTrack after connection,
+checks the actual received meter and 960-sample/20 ms AudioWorklet blocks, then
+checks that the off button clears the meter. It passed in the in-app Chromium
+browser (34% level, 70 valid blocks during a 1.4 second interval).
+
+The browser and native tests validate the transport components with synthetic
+signals. Actual phone permission screens, device/browser behaviour, acoustic
+quality and a live Teams/Zoom call still need user testing. VB-CABLE was not
+installed or validated on this machine; support uses the same virtual rendering
+path but must be checked on a machine with that separate driver.

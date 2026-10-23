@@ -62,6 +62,7 @@
     document.getElementById('placeholder').hidden = true;
   }
   chrome.webview.postMessage('ready');
+  chrome.webview.postMessage('audio-devices');
   if (!window.extrudaTestPattern) {
     // Run the same pairing flow as the button, once per app launch/navigation.
     Promise.resolve(document.getElementById('create').onclick()).then(() => {

@@ -1,5 +1,6 @@
 // Keep plain-language risk explanations identical in the app and GitHub docs.
-import {readFile,writeFile} from 'node:fs/promises';
+import {readFile} from 'node:fs/promises';
+import {writeGenerated as writeFile} from './write-generated.mjs';
 const languages=['da','en','de','fr'];
 const content=JSON.parse(await readFile('scripts/security-plain.json','utf8'));
 const help=JSON.parse(await readFile('scripts/help-content.json','utf8'));
@@ -9,7 +10,7 @@ const escape=s=>s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>',
 for(const [i,lang] of languages.entries()){
  const path=`public/locales/${lang}.json`;const dictionary=JSON.parse(await readFile(path,'utf8'));
  for(const row of labels)dictionary[row[0]]=row[i];
- for(const item of content)for(const row of [item.meaning,item.impact])dictionary[row[0]]=row[i];
+ for(const item of content)for(const row of [item.title,item.meaning,item.impact,...(item.technical?[item.technical]:[])])dictionary[row[0]]=row[i];
  dictionary[content.at(-1).title[0]]=content.at(-1).title[i];
  await writeFile(path,JSON.stringify(dictionary,null,2)+'\n');
  const docPath=`docs/SECURITY.${lang}.md`;
@@ -29,7 +30,7 @@ for(const [i,lang] of languages.entries()){
 }
 const path='public/index.html';let html=await readFile(path,'utf8');
 const cards=[...html.matchAll(/<article class="risk-card">([\s\S]*?)<\/article>/g)];
-if(cards.length===content.length-1){const last=cards.at(-1)[0];html=html.replace(last,last+`<article class="risk-card"><h3>${escape(content.at(-1).title[0])}</h3><p>${escape(development[0])}</p></article>`);}
+if(cards.length<content.length){const last=cards.at(-1)[0];html=html.replace(last,last+content.slice(cards.length).map(item=>`<article class="risk-card"><h3>${escape(item.title[0])}</h3><p>${escape((item.technical||development)[0])}</p></article>`).join(''));}
 let index=0;
 html=html.replace(/<article class="risk-card">([\s\S]*?)<\/article>/g,(_,body)=>{
  const item=content[index++];if(!item)throw Error('Unexpected risk card');

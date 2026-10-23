@@ -1,0 +1,230 @@
+[
+  [
+    "Mikrofon",
+    "Microphone",
+    "Mikrofon",
+    "Microphone"
+  ],
+  [
+    "Mikrofoninput",
+    "Microphone input",
+    "Mikrofoneingang",
+    "Niveau du microphone"
+  ],
+  [
+    "Mikrofon fra",
+    "Microphone off",
+    "Mikrofon aus",
+    "Microphone désactivé"
+  ],
+  [
+    "Mikrofon aktiv",
+    "Microphone active",
+    "Mikrofon aktiv",
+    "Microphone actif"
+  ],
+  [
+    "Slå mikrofon til",
+    "Turn microphone on",
+    "Mikrofon einschalten",
+    "Activer le microphone"
+  ],
+  [
+    "Slå mikrofon fra",
+    "Turn microphone off",
+    "Mikrofon ausschalten",
+    "Désactiver le microphone"
+  ],
+  [
+    "Virtuel mikrofon",
+    "Virtual microphone",
+    "Virtuelles Mikrofon",
+    "Microphone virtuel"
+  ],
+  [
+    "Vælg virtuel lydenhed",
+    "Select a virtual audio device",
+    "Virtuelles Audiogerät wählen",
+    "Choisir un périphérique audio virtuel"
+  ],
+  [
+    "Opdatér lydenheder",
+    "Refresh audio devices",
+    "Audiogeräte aktualisieren",
+    "Actualiser les périphériques audio"
+  ],
+  [
+    "Tillad mikrofonen på telefonen",
+    "Allow the microphone on your phone",
+    "Mikrofon am Telefon erlauben",
+    "Autorisez le microphone sur le téléphone"
+  ],
+  [
+    "Mikrofon blokeret. Tillad den i browseren, og prøv igen.",
+    "Microphone blocked. Allow it in the browser and try again.",
+    "Mikrofon blockiert. Im Browser erlauben und erneut versuchen.",
+    "Microphone bloqué. Autorisez-le dans le navigateur et réessayez."
+  ],
+  [
+    "Mikrofonen kunne ikke starte. Prøv igen.",
+    "The microphone could not start. Try again.",
+    "Das Mikrofon konnte nicht starten. Erneut versuchen.",
+    "Impossible de démarrer le microphone. Réessayez."
+  ],
+  [
+    "Mikrofonforbindelsen mangler. Opret en ny parring.",
+    "The microphone connection is missing. Create a new pairing.",
+    "Die Mikrofonverbindung fehlt. Neu koppeln.",
+    "La connexion microphone manque. Créez un nouveau jumelage."
+  ],
+  [
+    "Lyd modtages. Vælg en virtuel lydenhed.",
+    "Receiving audio. Select a virtual audio device.",
+    "Audio wird empfangen. Virtuelles Audiogerät wählen.",
+    "Audio reçu. Choisissez un périphérique audio virtuel."
+  ],
+  [
+    "Tryk Slå mikrofon til for at aktivere lyd.",
+    "Press Turn microphone on to enable audio.",
+    "Zum Aktivieren auf Mikrofon einschalten drücken.",
+    "Appuyez sur Activer le microphone pour activer le son."
+  ],
+  [
+    "Slå mikrofonen til på telefonen",
+    "Turn on the microphone on your phone",
+    "Mikrofon am Telefon einschalten",
+    "Activez le microphone sur le téléphone"
+  ],
+  [
+    "Pc’en beder om lyd. Tryk Slå mikrofon til.",
+    "Your PC requests audio. Press Turn microphone on.",
+    "Der PC bittet um Audio. Auf Mikrofon einschalten drücken.",
+    "Le PC demande du son. Appuyez sur Activer le microphone."
+  ],
+  [
+    "Lydudgangen kunne ikke åbnes. Opdatér listen.",
+    "Could not open audio output. Refresh the list.",
+    "Audioausgang konnte nicht geöffnet werden. Liste aktualisieren.",
+    "Impossible d’ouvrir la sortie audio. Actualisez la liste."
+  ],
+  [
+    "Installér VB-CABLE fra den officielle udgiver, og genstart pc’en. Vælg derefter CABLE Output som mikrofon i Teams eller Zoom.",
+    "Install VB-CABLE from its official publisher and restart the PC. Then select CABLE Output as the microphone in Teams or Zoom.",
+    "VB-CABLE vom offiziellen Anbieter installieren und den PC neu starten. Danach CABLE Output als Mikrofon in Teams oder Zoom wählen.",
+    "Installez VB-CABLE depuis son éditeur officiel et redémarrez le PC. Choisissez ensuite CABLE Output comme microphone dans Teams ou Zoom."
+  ],
+  [
+    "Lyd sendes til CABLE Input. Vælg CABLE Output i mødeprogrammet. Telefonens mikrofon kræver særskilt tilladelse.",
+    "Audio is sent to CABLE Input. Select CABLE Output in your meeting app. Your phone microphone requires separate permission.",
+    "Audio geht an CABLE Input. In der Meeting-App CABLE Output wählen. Das Telefonmikrofon benötigt eine separate Erlaubnis.",
+    "Le son est envoyé à CABLE Input. Choisissez CABLE Output dans l’application de réunion. Le microphone du téléphone exige une autorisation distincte."
+  ],
+  [
+    "Krypteret video og valgfri mikrofonlyd direkte mellem enhederne. Ingen optagefunktion. Cloudflare bruges til parring og kan behandle IP-adresser. Windows-installationen kræver administratoradgang og er endnu ikke digitalt signeret.",
+    "Encrypted video and optional microphone audio directly between devices. No recording feature. Cloudflare handles pairing and may process IP addresses. Windows installation requires administrator access and is not digitally signed.",
+    "Verschlüsseltes Video und optionales Mikrofon-Audio direkt zwischen den Geräten. Keine Aufnahmefunktion. Cloudflare übernimmt die Kopplung und kann IP-Adressen verarbeiten. Die Windows-Installation benötigt Administratorrechte und ist nicht digital signiert.",
+    "Vidéo chiffrée et audio microphone facultatif directement entre appareils. Aucune fonction d’enregistrement. Cloudflare gère le jumelage et peut traiter les adresses IP. L’installation Windows exige des droits administrateur et n’est pas signée numériquement."
+  ],
+  [
+    "Lydindstillinger",
+    "Audio settings",
+    "Audioeinstellungen",
+    "Réglages audio"
+  ],
+  [
+    "Sendestyrke til Windows",
+    "Send level to Windows",
+    "Sendepegel an Windows",
+    "Niveau envoyé à Windows"
+  ],
+  [
+    "Vælg {device} som mikrofon i Teams eller Zoom.",
+    "Select {device} as microphone in Teams or Zoom.",
+    "{device} als Mikrofon in Teams oder Zoom wählen.",
+    "Choisissez {device} comme microphone dans Teams ou Zoom."
+  ],
+  [
+    "Hvis lyden er for lav eller forvrænget, justér sendestyrken. Niveaumåleren viser telefonens input før denne justering.",
+    "If audio is too quiet or distorted, adjust the send level. The meter shows phone input before this adjustment.",
+    "Bei zu leisem oder verzerrtem Ton den Sendepegel anpassen. Die Anzeige zeigt das Telefonsignal vor dieser Anpassung.",
+    "Si le son est trop faible ou déformé, ajustez le niveau envoyé. La jauge indique le signal du téléphone avant ce réglage."
+  ],
+  [
+    "Lyd modtages. Windows-mikrofon kræver Windows-appen.",
+    "Receiving audio. A Windows microphone requires the Windows app.",
+    "Audio wird empfangen. Ein Windows-Mikrofon benötigt die Windows-App.",
+    "Audio reçu. Un microphone Windows nécessite l’application Windows."
+  ],
+  [
+    "Mikrofonopsætning",
+    "Microphone setup",
+    "Mikrofon einrichten",
+    "Configurer le microphone"
+  ],
+  [
+    "Tilføj mikrofon",
+    "Add microphone",
+    "Mikrofon hinzufügen",
+    "Ajouter un microphone"
+  ],
+  [
+    "Windows skal have en virtuel lydenhed, før Teams og Zoom kan bruge telefonens lyd.",
+    "Windows needs a virtual audio device before Teams and Zoom can use your phone’s audio.",
+    "Windows benötigt ein virtuelles Audiogerät, damit Teams und Zoom den Ton des Telefons nutzen können.",
+    "Windows nécessite un périphérique audio virtuel pour que Teams et Zoom utilisent le son du téléphone."
+  ],
+  [
+    "Ingen understøttet lydenhed fundet. Installér en driver, og søg igen.",
+    "No supported audio device found. Install a driver, then search again.",
+    "Kein unterstütztes Audiogerät gefunden. Installiere einen Treiber und suche erneut.",
+    "Aucun périphérique audio compatible détecté. Installez un pilote, puis relancez la recherche."
+  ],
+  [
+    "Lydenhed fundet. Vælg den under Lydindstillinger.",
+    "Audio device found. Select it under Audio settings.",
+    "Audiogerät gefunden. Wähle es unter Audioeinstellungen.",
+    "Périphérique audio détecté. Sélectionnez-le dans les paramètres audio."
+  ],
+  [
+    "Hent VB-CABLE",
+    "Get VB-CABLE",
+    "VB-CABLE herunterladen",
+    "Télécharger VB-CABLE"
+  ],
+  [
+    "Separat donationsbaseret driver med egen licens. Åbn Windows-downloaden på producentens side, udpak, installér som administrator, og genstart pc’en.",
+    "Separate donationware driver with its own license. Open the Windows download on the publisher’s site, extract it, install as administrator, then restart your PC.",
+    "Separater spendenbasierter Treiber mit eigener Lizenz. Lade die Windows-Version von der Herstellerseite herunter, entpacke sie, installiere sie als Administrator und starte den PC neu.",
+    "Pilote tiers financé par dons, avec sa propre licence. Téléchargez la version Windows sur le site de l’éditeur, décompressez-la, installez-la en tant qu’administrateur, puis redémarrez le PC."
+  ],
+  [
+    "Jeg har en driver · Søg igen",
+    "I have a driver · Search again",
+    "Treiber vorhanden · Erneut suchen",
+    "Pilote installé · Rechercher à nouveau"
+  ],
+  [
+    "Understøtter VB-CABLE og en allerede installeret Steam Streaming Microphone. Andre virtuelle drivere understøttes endnu ikke.",
+    "Supports VB-CABLE and an already installed Steam Streaming Microphone. Other virtual drivers are not supported yet.",
+    "Unterstützt VB-CABLE und ein bereits installiertes Steam Streaming Microphone. Andere virtuelle Treiber werden noch nicht unterstützt.",
+    "Compatible avec VB-CABLE et Steam Streaming Microphone déjà installé. Les autres pilotes virtuels ne sont pas encore pris en charge."
+  ],
+  [
+    "Brug kun kamera",
+    "Use camera only",
+    "Nur Kamera verwenden",
+    "Utiliser uniquement la caméra"
+  ],
+  [
+    "Skjul mikrofonen på begge enheder. Du kan slå den til igen under Information → Mikrofonopsætning.",
+    "Hide the microphone on both devices. Enable it again under Information → Microphone setup.",
+    "Blendet das Mikrofon auf beiden Geräten aus. Erneut aktivieren unter Information → Mikrofon einrichten.",
+    "Masque le microphone sur les deux appareils. Réactivez-le dans Informations → Configurer le microphone."
+  ],
+  [
+    "Senere",
+    "Later",
+    "Später",
+    "Plus tard"
+  ]
+]

@@ -19,3 +19,8 @@ header .brand-link{flex-wrap:nowrap;gap:clamp(8px,2vw,20px);flex:none}.product-n
 
 /* Align the text baseline with the outlined logo baseline (SVG y=182/1138; Manrope ascent=2132, descent=600 per 2000 em). */
 .product-name{transform:translateY(calc(var(--brand-logo-width) * -.0261))}
+
+.mic-panel{margin:16px 0;padding:16px 20px;border:1px solid var(--ex-border);border-radius:20px;background:var(--ex-surface)}.mic-panel h2{font-size:22px;margin:0 0 8px}.mic-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap}.mic-input{flex:1;min-width:160px}.mic-input meter{display:block;width:100%;height:20px;accent-color:var(--ex-action)}.mic-input p{font-size:14px;margin:4px 0}.mic-panel select{max-width:100%}.mic-panel #audio-routing p{font-size:14px}.mic-row button{min-width:180px}body.native .mic-panel{padding:12px 16px}body.native .mic-panel h2{font-size:20px}.phone .mic-panel{margin-top:12px}
+
+.driver-options{display:flex;flex-direction:column;align-items:stretch;gap:10px}.driver-options p{font-size:14px;line-height:1.5;margin:0 0 8px}.driver-options button,.driver-options .download-button{margin:0}.driver-options .download-button{display:block;text-decoration:none}
+#audio-setup{width:min(600px,calc(100% - 32px));padding:24px}#audio-setup>p{font-size:15px;line-height:1.4;margin:10px 0}.driver-options{gap:8px}.driver-options p{line-height:1.4;margin:0 0 4px}.driver-options button,.driver-options .download-button{padding:11px 16px}

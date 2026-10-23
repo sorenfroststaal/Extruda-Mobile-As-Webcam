@@ -50,7 +50,7 @@ Appen starter i 1920 × 1080. Når forbindelsen er aktiv, kan du vælge 480p, 72
 
 ## Internet, lyd, optagelse og sikker afslutning
 
-Denne version kræver internet til telefonklient og parring, selv på samme Wi-Fi. Video sendes direkte mellem enhederne med WebRTC; Cloudflare er parringsserver, ikke videorelæ. Der er ingen mikrofon eller optagefunktion: vælg pc’ens eller headsettets mikrofon i mødeprogrammet. Modtageren eller mødeprogrammet kan stadig optage billedet. Tryk Afbryd/Annuller, luk telefonsiden og appen efter brug. Del aldrig QR-koden eller linket. Se Sikkerhedsrisici for alle kendte begrænsninger.
+Denne version kræver internet til telefonklient og parring, selv på samme Wi-Fi. Video og valgfri mikrofonlyd sendes direkte med WebRTC; Cloudflare er ikke medieserver. Mikrofonen er fra ved hver ny forbindelse og kræver et tryk og browserens tilladelse på telefonen. Appen har ingen optagefunktion, men mødeprogrammer og modtagere kan gemme både billede og lyd. Afbryd og luk begge sider efter brug. Del aldrig QR-koden eller linket. Se Sikkerhedsrisici.
 
 ## Sprog, tema og opdateringer
 
@@ -71,3 +71,15 @@ Ja. Prototypen er udviklet med AI-assisteret programmering (vibe coding) og Code
 Opret et GitHub-issue med appversion, Windows-version, telefon/browser og trin til at genskabe fejlen. Del aldrig et aktivt parringslink, QR-kode, adgangsnøgler eller private kamerabilleder. Kodebidrag, oversættelser og forbedringer er velkomne; ingen svartid eller supportgaranti loves. Ved en sikkerhedsfejl: læs SECURITY.md for en privat kontaktvej, før detaljer offentliggøres.
 
 [GitHub · Issues](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/issues) · [GitHub · Security](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/blob/main/SECURITY.md)
+
+## Hvordan bruger jeg telefonen som mikrofon?
+
+Forbind kameraet, og tryk Slå mikrofon til på telefonen. Tillad mikrofonen i Safari eller Chrome; tilladelsen administreres samme sted som kameraadgang, men under Mikrofon. Pc-knappen kan bede telefonen om lyd, men kan ikke selv give tilladelsen. Slå fra-knappen på begge enheder stopper lyden; på telefonen stoppes også selve mikrofonoptagelsen. Den grønne niveaumåler viser det opfangede eller modtagne signal, ikke om Teams faktisk bruger det.
+
+Windows-mikrofon kræver den separate VB-CABLE-driver. Hent den kun fra vb-audio.com, udpak, og kør installationsprogrammet som administrator. Genstart efter installation. Vælg CABLE Input i Extruda og CABLE Output som mikrofon i Teams eller Zoom. Det ændrer ikke din standardmikrofon. VB-CABLE er donationsbaseret tredjepartssoftware med egen licens; den er ikke en del af projektets MIT-kode og installeres ikke automatisk. Uden driveren virker niveauindikatoren, men lyden kan ikke vælges som Windows-mikrofon.
+
+Har du allerede Steam Streaming Microphone, kan du vælge den i stedet for VB-CABLE. Vælg samme mikrofonnavn i Teams eller Zoom. Sendestyrken starter lavere for Steam for at modvirke dens forstærkning; justér under Lydindstillinger, hvis lyden er lav eller forvrænget. Slå ikke Windows’ standardhøjttaler over på den virtuelle lydenhed.
+
+Hvis ingen understøttet lydenhed findes, tilbyder appen et link til producentens VB-CABLE-installation, en ny søgning eller Brug kun kamera. Valget Kun kamera huskes på pc’en og skjuler mikrofonknappen på begge enheder. Gendan funktionen under Information → Mikrofonopsætning. Driveren hentes og installeres separat; Extruda omgår ikke Windows’ godkendelse.
+
+[VB-Audio · VB-CABLE](https://vb-audio.com/Cable/)

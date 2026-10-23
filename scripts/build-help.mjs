@@ -1,5 +1,6 @@
 // One source for the in-app FAQ, its translations and GitHub documentation.
-import {readFile,writeFile} from 'node:fs/promises';
+import {readFile} from 'node:fs/promises';
+import {writeGenerated as writeFile} from './write-generated.mjs';
 const languages=['da','en','de','fr'];
 const content=JSON.parse(await readFile('scripts/help-content.json','utf8'));
 const helpUrls=[...new Set(content.flatMap(item=>(item.sources||[]).map(row=>row[1])))];

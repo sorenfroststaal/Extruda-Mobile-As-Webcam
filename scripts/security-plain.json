@@ -1,12 +1,228 @@
 [
- {"title":["Hosting og klientkode","Hosting and client code","Hosting und Client-Code","Hébergement et code client"],"meaning":["Telefonens kameraside leveres fra vores websted. Hvis nogen overtager adgangen til at ændre webstedet, kan de ændre, hvad siden gør.","Your phone’s camera page comes from our website. Someone who takes over access to change the website could change what the page does.","Die Kameraseite auf deinem Telefon kommt von unserer Website. Wer den Zugang zum Ändern der Website übernimmt, könnte auch das Verhalten der Seite ändern.","La page caméra de votre téléphone vient de notre site. Une personne qui prend le contrôle des accès permettant de modifier le site pourrait changer son fonctionnement."],"impact":["En angriber kan i værste fald få siden til at sende dit kamerabillede til andre, mens du bruger den. At forbindelsen er krypteret hjælper ikke, hvis selve siden er blevet ændret.","In the worst case, an attacker could make the page send your camera image to someone else while you use it. Encryption does not help if the page itself has been changed.","Im schlimmsten Fall könnte ein Angreifer die Seite dazu bringen, dein Kamerabild während der Nutzung an andere zu senden. Verschlüsselung hilft nicht, wenn die Seite selbst verändert wurde.","Dans le pire des cas, un attaquant pourrait faire envoyer votre image à d’autres personnes pendant l’utilisation. Le chiffrement ne protège pas si la page elle-même a été modifiée."]},
- {"title":["Installation og downloads","Installation and downloads","Installation und Downloads","Installation et téléchargements"],"meaning":["Du giver installationsprogrammet lov til at ændre Windows. Windows kan endnu ikke bekræfte udgiveren med en digital signatur.","You allow the installer to make changes to Windows. Windows cannot yet verify its publisher using a digital signature.","Du erlaubst dem Installationsprogramm, Windows zu ändern. Windows kann den Herausgeber noch nicht anhand einer digitalen Signatur bestätigen.","Vous autorisez l’installateur à modifier Windows. Windows ne peut pas encore vérifier son éditeur au moyen d’une signature numérique."],"impact":["Henter du en falsk udgave, kan den i værste fald installere skadelig software, stjæle filer eller overtage pc’en. Brug projektets officielle GitHub-download; en fil med det rigtige navn er ikke i sig selv et bevis på, at den er ægte.","A fake copy could, in the worst case, install malware, steal files or take over your PC. Use the project’s official GitHub download; the correct filename alone does not prove a file is genuine.","Eine gefälschte Kopie könnte im schlimmsten Fall Schadsoftware installieren, Dateien stehlen oder den PC übernehmen. Nutze den offiziellen GitHub-Download des Projekts; der richtige Dateiname beweist nicht, dass eine Datei echt ist.","Une fausse copie pourrait, dans le pire des cas, installer un logiciel malveillant, voler des fichiers ou prendre le contrôle du PC. Utilisez le téléchargement GitHub officiel du projet ; le bon nom de fichier ne suffit pas à prouver son authenticité."]},
- {"title":["Adgang til QR-koden","Access to the QR code","Zugriff auf den QR-Code","Accès au code QR"],"meaning":["QR-koden er en midlertidig invitation med en hemmelig nøgle. En person, der får et billede af koden eller selve linket, kan forsøge at bruge invitationen.","The QR code is a temporary invitation containing a secret key. Someone who gets a picture of it or the link itself can try to use that invitation.","Der QR-Code ist eine vorübergehende Einladung mit einem geheimen Schlüssel. Wer ein Bild davon oder den Link erhält, kann versuchen, die Einladung zu nutzen.","Le QR code est une invitation temporaire contenant une clé secrète. Une personne qui en obtient une photo ou le lien peut essayer d’utiliser cette invitation."],"impact":["Hvis du samtidig accepterer uden at sammenligne koden på begge enheder, kan du forbinde en fremmed enhed. Det kan sende billeder fra en forkert telefon ind i dit møde. En lækket QR-kode giver ikke alene adgang til dit telefonkamera, men du bør aldrig dele den.","If you also accept without comparing the code on both devices, you could connect an unfamiliar device. Images from the wrong phone could then appear in your meeting. A leaked QR code alone does not grant access to your phone camera, but you should never share it.","Wenn du zusätzlich bestätigst, ohne den Code auf beiden Geräten zu vergleichen, könntest du ein fremdes Gerät verbinden. Dann könnten Bilder vom falschen Telefon in deinem Meeting erscheinen. Ein geleakter QR-Code allein gibt keinen Zugriff auf deine Telefonkamera; teile ihn trotzdem nie.","Si vous acceptez aussi sans comparer le code sur les deux appareils, vous pourriez connecter un appareil inconnu. Les images du mauvais téléphone pourraient apparaître dans votre réunion. Un QR code divulgué ne donne pas à lui seul accès à votre caméra, mais ne le partagez jamais."]},
- {"title":["Kompromitterede enheder","Compromised devices","Kompromittierte Geräte","Appareils compromis"],"meaning":["Hvis telefonen eller pc’en allerede har skadelig software, eller nogen kan bruge din ulåste enhed, kan de muligvis se det samme som dig.","If the phone or PC already has malware, or someone can use your unlocked device, they may be able to see what you see.","Wenn Telefon oder PC bereits Schadsoftware enthalten oder jemand dein entsperrtes Gerät benutzen kann, könnte diese Person sehen, was du siehst.","Si le téléphone ou le PC contient déjà un logiciel malveillant, ou si quelqu’un peut utiliser votre appareil déverrouillé, cette personne pourrait voir ce que vous voyez."],"impact":["Private billeder, parringsnøgler eller skærmens indhold kan blive kopieret uden din viden. Appens kryptering kan ikke gøre en allerede overtaget telefon eller pc sikker igen.","Private images, pairing secrets or screen contents could be copied without your knowledge. The app’s encryption cannot make an already compromised phone or PC safe again.","Private Bilder, Kopplungsschlüssel oder Bildschirminhalte könnten ohne dein Wissen kopiert werden. Die Verschlüsselung der App macht ein bereits übernommenes Gerät nicht wieder sicher.","Des images privées, secrets de jumelage ou contenus d’écran pourraient être copiés à votre insu. Le chiffrement de l’application ne peut pas rendre sûr un appareil déjà compromis."]},
- {"title":["Lokal billedbuffer","Local frame buffer","Lokaler Bildpuffer","Tampon vidéo local"],"meaning":["For at vise videoen som et Windows-kamera lægger appen kortvarigt billeder i en beskyttet, midlertidig fil på pc’en. Det er ikke en almindelig videooptagelse, men billederne findes kortvarigt uden for selve appen.","To present video as a Windows camera, the app briefly puts images in a protected temporary file on the PC. This is not a normal video recording, but the images briefly exist outside the app itself.","Um Video als Windows-Kamera bereitzustellen, legt die App Bilder kurzzeitig in einer geschützten temporären Datei auf dem PC ab. Das ist keine normale Videoaufnahme, aber die Bilder liegen kurz außerhalb der App vor.","Pour fournir une caméra Windows, l’application place brièvement les images dans un fichier temporaire protégé sur le PC. Ce n’est pas un enregistrement vidéo habituel, mais les images existent brièvement hors de l’application."],"impact":["Et andet program med dine brugerrettigheder eller administratoradgang kan muligvis kopiere billederne. Der kan også være rester på lageret, selv efter filen er slettet. Brug derfor ikke løsningen til billeder, hvor selv et muligt læk vil være alvorligt.","Another program with your user permissions or administrator access might copy the images. Traces may also remain on storage after the file is deleted. Avoid images for which even a possible leak would be serious.","Ein anderes Programm mit deinen Benutzerrechten oder Administratorzugriff könnte die Bilder kopieren. Auch nach dem Löschen können Spuren auf dem Speicher bleiben. Vermeide Bilder, bei denen schon ein mögliches Leck schwerwiegend wäre.","Un autre programme disposant de vos droits utilisateur ou d’un accès administrateur pourrait copier les images. Des traces peuvent aussi subsister sur le stockage après suppression. Évitez les images dont une fuite, même possible, aurait de graves conséquences."]},
- {"title":["Driftsstop og misbrug","Availability and abuse","Verfügbarkeit und Missbrauch","Disponibilité et abus"],"meaning":["Parringen bruger en fælles onlinetjeneste med begrænset kapacitet. Mange forespørgsler eller misbrug kan gøre tjenesten midlertidigt utilgængelig.","Pairing uses a shared online service with limited capacity. Many requests or abuse can make the service temporarily unavailable.","Die Kopplung nutzt einen gemeinsamen Onlinedienst mit begrenzter Kapazität. Viele Anfragen oder Missbrauch können ihn vorübergehend unerreichbar machen.","Le jumelage utilise un service en ligne partagé à capacité limitée. Trop de requêtes ou des abus peuvent le rendre temporairement indisponible."],"impact":["Du kan stå lige før et møde uden at kunne forbinde telefonen. En forbindelse kan også blive afbrudt eller forstyrret. Et driftsstop betyder ikke i sig selv, at nogen har set dine billeder; hav eventuelt pc’ens almindelige webcam som reserve.","You might be unable to connect your phone just before a meeting. A session could also be interrupted or disrupted. An outage does not itself mean anyone has seen your images; consider keeping the PC’s ordinary webcam as a backup.","Du könntest kurz vor einem Meeting dein Telefon nicht verbinden können. Auch eine Sitzung kann unterbrochen oder gestört werden. Ein Ausfall bedeutet für sich genommen nicht, dass jemand deine Bilder gesehen hat; halte eventuell die normale PC-Webcam als Ersatz bereit.","Vous pourriez ne pas pouvoir connecter le téléphone juste avant une réunion. Une session peut aussi être interrompue ou perturbée. Une panne ne signifie pas en soi que quelqu’un a vu vos images ; gardez éventuellement la webcam habituelle du PC en secours."]},
- {"title":["Forbindelsesdata og lokalt netværk","Connection metadata and local network","Verbindungsdaten und lokales Netzwerk","Métadonnées et réseau local"],"meaning":["Selv uden login efterlader brugen tekniske spor, for eksempel din internetadresse. To enheder på samme Wi-Fi kan desuden være forhindret i at tale sammen.","Even without a login, use leaves technical traces such as your internet address. Two devices on the same Wi-Fi may also be prevented from communicating.","Auch ohne Anmeldung hinterlässt die Nutzung technische Spuren, etwa deine Internetadresse. Zwei Geräte im selben WLAN können außerdem daran gehindert sein, miteinander zu kommunizieren.","Même sans compte, l’utilisation laisse des traces techniques, comme votre adresse internet. Deux appareils sur le même Wi-Fi peuvent aussi être empêchés de communiquer."],"impact":["Tjenesteudbydere kan have oplysninger om forbindelsen, og løsningen gør dig ikke anonym. Gæste-Wi-Fi eller netværksregler kan få parringen til at fejle. Disse forbindelsesoplysninger er ikke det samme som adgang til selve kamerabilledet.","Service providers may have connection information, and the solution does not make you anonymous. Guest Wi-Fi or network rules can prevent pairing. This connection information is not the same as access to the camera image itself.","Dienstanbieter können Verbindungsinformationen haben; die Lösung macht dich nicht anonym. Gast-WLAN oder Netzwerkregeln können die Kopplung verhindern. Diese Verbindungsdaten sind nicht dasselbe wie Zugriff auf das Kamerabild selbst.","Les prestataires peuvent disposer d’informations de connexion ; la solution ne vous rend pas anonyme. Le Wi-Fi invité ou les règles réseau peuvent empêcher le jumelage. Ces informations ne donnent pas, à elles seules, accès à l’image de la caméra." ]},
- {"title":["Kameraadgang og utilsigtet optagelse hos modparten","Camera permission and recording by the receiver","Kamerazugriff und Aufzeichnung durch den Empfänger","Autorisation caméra et enregistrement par le destinataire"],"meaning":["Når du accepterer på pc’en og har tilladt kameraet i browseren, forsøger telefonen at sende video. Et program eller en person, der kan se billedet på pc’en, kan gemme det.","Once you accept on the PC and have allowed the browser to use the camera, the phone attempts to send video. An app or person able to see the image on the PC can save it.","Sobald du am PC bestätigst und dem Browser Kamerazugriff erlaubt hast, versucht das Telefon Video zu senden. Ein Programm oder eine Person, die das Bild am PC sehen kann, kann es speichern.","Après votre acceptation sur le PC et l’autorisation caméra dans le navigateur, le téléphone tente d’envoyer la vidéo. Une application ou une personne pouvant voir l’image sur le PC peut la sauvegarder."],"impact":["Du kan komme til at vise et privat rum eller personer, du ikke ønskede at filme. Billeder kan blive optaget eller delt videre, selv om Extruda ikke har en optageknap. Ret kameraet rigtigt før accept, og afbryd og luk siden efter brug.","You could accidentally show a private room or people you did not intend to film. Images could be recorded or shared further even though Extruda has no record button. Point the camera appropriately before accepting, then disconnect and close the page after use.","Du könntest versehentlich einen privaten Raum oder Personen zeigen, die du nicht filmen wolltest. Bilder können aufgezeichnet oder weitergegeben werden, obwohl Extruda keine Aufnahmetaste hat. Richte die Kamera vor der Bestätigung richtig aus und trenne die Verbindung und schließe die Seite danach.","Vous pourriez montrer par erreur une pièce privée ou des personnes que vous ne souhaitiez pas filmer. Les images peuvent être enregistrées ou repartagées même sans bouton d’enregistrement dans Extruda. Orientez la caméra avant d’accepter, puis déconnectez et fermez la page après usage."]},
- {"title":["Ukendte fejl og opdateringer","Unknown flaws and updates","Unbekannte Fehler und Updates","Failles inconnues et mises à jour"],"meaning":["Vi har afprøvet bestemte funktioner, men ingen uafhængig ekspert har gennemgået hele løsningen for sikkerhedshuller. Der kan stadig være fejl, vi ikke kender.","We have tested specific functions, but no independent expert has reviewed the entire solution for security holes. There may still be flaws we do not know about.","Wir haben bestimmte Funktionen getestet, aber kein unabhängiger Experte hat die gesamte Lösung auf Sicherheitslücken geprüft. Es kann weiterhin unbekannte Fehler geben.","Nous avons testé certaines fonctions, mais aucun expert indépendant n’a examiné toute la solution pour rechercher des failles. Des défauts inconnus peuvent subsister."],"impact":["En fejl kan give sort billede eller nedbrud. En alvorlig sikkerhedsfejl kan i værste fald lade en angriber læse data eller køre skadelig kode på en enhed. Det er mulige konsekvenser, ikke en konstatering af, at nogen har fundet et sådant hul. Hold app, Windows og browser opdateret.","A bug could cause black video or a crash. In the worst case, a serious security flaw could let an attacker read data or run malicious code on a device. These are possible consequences, not a claim that such a hole has been found. Keep the app, Windows and browser updated.","Ein Fehler kann ein schwarzes Bild oder einen Absturz verursachen. Eine schwere Sicherheitslücke könnte im schlimmsten Fall das Lesen von Daten oder das Ausführen schädlichen Codes ermöglichen. Das sind mögliche Folgen, keine Behauptung, dass eine solche Lücke gefunden wurde. Halte App, Windows und Browser aktuell.","Un bug peut provoquer une image noire ou un plantage. Dans le pire des cas, une faille grave pourrait permettre de lire des données ou d’exécuter du code malveillant sur un appareil. Ce sont des conséquences possibles, pas l’affirmation qu’une telle faille a été trouvée. Maintenez l’application, Windows et le navigateur à jour."]},
- {"title":["Udvikling med AI","AI-assisted development","KI-gestützte Entwicklung","Développement assisté par IA"],"meaning":["AI har hjulpet med at skrive programmet og vejledningerne. AI kan skrive noget, der ser rigtigt ud, men stadig indeholder fejl.","AI helped write the program and its guides. AI can produce something that looks correct but still contains mistakes.","KI hat beim Schreiben des Programms und der Anleitungen geholfen. KI kann etwas erzeugen, das richtig aussieht und dennoch Fehler enthält.","L’IA a aidé à écrire le programme et ses guides. Elle peut produire un résultat qui semble correct tout en contenant des erreurs."],"impact":["En vejledning kan vise en forkert menu, en funktion kan svigte, eller en sikkerhedsfejl kan være overset. At en test består eller en tekst lyder overbevisende er ikke et bevis på sikkerhed. Undgå brug, hvor et lækket billede eller et driftsstop kan få alvorlige følger.","A guide could name the wrong menu, a feature could fail or a security flaw could be overlooked. A passing test or convincing text is not proof of security. Avoid use where a leaked image or an outage could have serious consequences.","Eine Anleitung könnte ein falsches Menü nennen, eine Funktion könnte versagen oder eine Sicherheitslücke übersehen worden sein. Ein bestandener Test oder überzeugender Text beweist keine Sicherheit. Vermeide den Einsatz, wenn ein Bildleck oder Ausfall ernste Folgen hätte.","Un guide peut indiquer le mauvais menu, une fonction peut échouer ou une faille peut avoir été oubliée. Un test réussi ou un texte convaincant ne prouve pas la sécurité. Évitez les usages où une fuite d’image ou une panne aurait de graves conséquences."]}
+  {
+    "title": [
+      "Hosting og klientkode",
+      "Hosting and client code",
+      "Hosting und Client-Code",
+      "Hébergement et code client"
+    ],
+    "meaning": [
+      "Telefonens kameraside leveres fra vores websted. Hvis nogen overtager adgangen til at ændre webstedet, kan de ændre, hvad siden gør.",
+      "Your phone’s camera page comes from our website. Someone who takes over access to change the website could change what the page does.",
+      "Die Kameraseite auf deinem Telefon kommt von unserer Website. Wer den Zugang zum Ändern der Website übernimmt, könnte auch das Verhalten der Seite ändern.",
+      "La page caméra de votre téléphone vient de notre site. Une personne qui prend le contrôle des accès permettant de modifier le site pourrait changer son fonctionnement."
+    ],
+    "impact": [
+      "En angriber kan i værste fald få siden til at sende dit kamerabillede til andre, mens du bruger den. At forbindelsen er krypteret hjælper ikke, hvis selve siden er blevet ændret.",
+      "In the worst case, an attacker could make the page send your camera image to someone else while you use it. Encryption does not help if the page itself has been changed.",
+      "Im schlimmsten Fall könnte ein Angreifer die Seite dazu bringen, dein Kamerabild während der Nutzung an andere zu senden. Verschlüsselung hilft nicht, wenn die Seite selbst verändert wurde.",
+      "Dans le pire des cas, un attaquant pourrait faire envoyer votre image à d’autres personnes pendant l’utilisation. Le chiffrement ne protège pas si la page elle-même a été modifiée."
+    ]
+  },
+  {
+    "title": [
+      "Installation og downloads",
+      "Installation and downloads",
+      "Installation und Downloads",
+      "Installation et téléchargements"
+    ],
+    "meaning": [
+      "Du giver installationsprogrammet lov til at ændre Windows. Windows kan endnu ikke bekræfte udgiveren med en digital signatur.",
+      "You allow the installer to make changes to Windows. Windows cannot yet verify its publisher using a digital signature.",
+      "Du erlaubst dem Installationsprogramm, Windows zu ändern. Windows kann den Herausgeber noch nicht anhand einer digitalen Signatur bestätigen.",
+      "Vous autorisez l’installateur à modifier Windows. Windows ne peut pas encore vérifier son éditeur au moyen d’une signature numérique."
+    ],
+    "impact": [
+      "Henter du en falsk udgave, kan den i værste fald installere skadelig software, stjæle filer eller overtage pc’en. Brug projektets officielle GitHub-download; en fil med det rigtige navn er ikke i sig selv et bevis på, at den er ægte.",
+      "A fake copy could, in the worst case, install malware, steal files or take over your PC. Use the project’s official GitHub download; the correct filename alone does not prove a file is genuine.",
+      "Eine gefälschte Kopie könnte im schlimmsten Fall Schadsoftware installieren, Dateien stehlen oder den PC übernehmen. Nutze den offiziellen GitHub-Download des Projekts; der richtige Dateiname beweist nicht, dass eine Datei echt ist.",
+      "Une fausse copie pourrait, dans le pire des cas, installer un logiciel malveillant, voler des fichiers ou prendre le contrôle du PC. Utilisez le téléchargement GitHub officiel du projet ; le bon nom de fichier ne suffit pas à prouver son authenticité."
+    ]
+  },
+  {
+    "title": [
+      "Adgang til QR-koden",
+      "Access to the QR code",
+      "Zugriff auf den QR-Code",
+      "Accès au code QR"
+    ],
+    "meaning": [
+      "QR-koden er en midlertidig invitation med en hemmelig nøgle. En person, der får et billede af koden eller selve linket, kan forsøge at bruge invitationen.",
+      "The QR code is a temporary invitation containing a secret key. Someone who gets a picture of it or the link itself can try to use that invitation.",
+      "Der QR-Code ist eine vorübergehende Einladung mit einem geheimen Schlüssel. Wer ein Bild davon oder den Link erhält, kann versuchen, die Einladung zu nutzen.",
+      "Le QR code est une invitation temporaire contenant une clé secrète. Une personne qui en obtient une photo ou le lien peut essayer d’utiliser cette invitation."
+    ],
+    "impact": [
+      "Hvis du samtidig accepterer uden at sammenligne koden på begge enheder, kan du forbinde en fremmed enhed. Det kan sende billeder fra en forkert telefon ind i dit møde. En lækket QR-kode giver ikke alene adgang til dit telefonkamera, men du bør aldrig dele den.",
+      "If you also accept without comparing the code on both devices, you could connect an unfamiliar device. Images from the wrong phone could then appear in your meeting. A leaked QR code alone does not grant access to your phone camera, but you should never share it.",
+      "Wenn du zusätzlich bestätigst, ohne den Code auf beiden Geräten zu vergleichen, könntest du ein fremdes Gerät verbinden. Dann könnten Bilder vom falschen Telefon in deinem Meeting erscheinen. Ein geleakter QR-Code allein gibt keinen Zugriff auf deine Telefonkamera; teile ihn trotzdem nie.",
+      "Si vous acceptez aussi sans comparer le code sur les deux appareils, vous pourriez connecter un appareil inconnu. Les images du mauvais téléphone pourraient apparaître dans votre réunion. Un QR code divulgué ne donne pas à lui seul accès à votre caméra, mais ne le partagez jamais."
+    ]
+  },
+  {
+    "title": [
+      "Kompromitterede enheder",
+      "Compromised devices",
+      "Kompromittierte Geräte",
+      "Appareils compromis"
+    ],
+    "meaning": [
+      "Hvis telefonen eller pc’en allerede har skadelig software, eller nogen kan bruge din ulåste enhed, kan de muligvis se det samme som dig.",
+      "If the phone or PC already has malware, or someone can use your unlocked device, they may be able to see what you see.",
+      "Wenn Telefon oder PC bereits Schadsoftware enthalten oder jemand dein entsperrtes Gerät benutzen kann, könnte diese Person sehen, was du siehst.",
+      "Si le téléphone ou le PC contient déjà un logiciel malveillant, ou si quelqu’un peut utiliser votre appareil déverrouillé, cette personne pourrait voir ce que vous voyez."
+    ],
+    "impact": [
+      "Private billeder, parringsnøgler eller skærmens indhold kan blive kopieret uden din viden. Appens kryptering kan ikke gøre en allerede overtaget telefon eller pc sikker igen.",
+      "Private images, pairing secrets or screen contents could be copied without your knowledge. The app’s encryption cannot make an already compromised phone or PC safe again.",
+      "Private Bilder, Kopplungsschlüssel oder Bildschirminhalte könnten ohne dein Wissen kopiert werden. Die Verschlüsselung der App macht ein bereits übernommenes Gerät nicht wieder sicher.",
+      "Des images privées, secrets de jumelage ou contenus d’écran pourraient être copiés à votre insu. Le chiffrement de l’application ne peut pas rendre sûr un appareil déjà compromis."
+    ]
+  },
+  {
+    "title": [
+      "Lokal billedbuffer",
+      "Local frame buffer",
+      "Lokaler Bildpuffer",
+      "Tampon vidéo local"
+    ],
+    "meaning": [
+      "For at vise videoen som et Windows-kamera lægger appen kortvarigt billeder i en beskyttet, midlertidig fil på pc’en. Det er ikke en almindelig videooptagelse, men billederne findes kortvarigt uden for selve appen.",
+      "To present video as a Windows camera, the app briefly puts images in a protected temporary file on the PC. This is not a normal video recording, but the images briefly exist outside the app itself.",
+      "Um Video als Windows-Kamera bereitzustellen, legt die App Bilder kurzzeitig in einer geschützten temporären Datei auf dem PC ab. Das ist keine normale Videoaufnahme, aber die Bilder liegen kurz außerhalb der App vor.",
+      "Pour fournir une caméra Windows, l’application place brièvement les images dans un fichier temporaire protégé sur le PC. Ce n’est pas un enregistrement vidéo habituel, mais les images existent brièvement hors de l’application."
+    ],
+    "impact": [
+      "Et andet program med dine brugerrettigheder eller administratoradgang kan muligvis kopiere billederne. Der kan også være rester på lageret, selv efter filen er slettet. Brug derfor ikke løsningen til billeder, hvor selv et muligt læk vil være alvorligt.",
+      "Another program with your user permissions or administrator access might copy the images. Traces may also remain on storage after the file is deleted. Avoid images for which even a possible leak would be serious.",
+      "Ein anderes Programm mit deinen Benutzerrechten oder Administratorzugriff könnte die Bilder kopieren. Auch nach dem Löschen können Spuren auf dem Speicher bleiben. Vermeide Bilder, bei denen schon ein mögliches Leck schwerwiegend wäre.",
+      "Un autre programme disposant de vos droits utilisateur ou d’un accès administrateur pourrait copier les images. Des traces peuvent aussi subsister sur le stockage après suppression. Évitez les images dont une fuite, même possible, aurait de graves conséquences."
+    ]
+  },
+  {
+    "title": [
+      "Driftsstop og misbrug",
+      "Availability and abuse",
+      "Verfügbarkeit und Missbrauch",
+      "Disponibilité et abus"
+    ],
+    "meaning": [
+      "Parringen bruger en fælles onlinetjeneste med begrænset kapacitet. Mange forespørgsler eller misbrug kan gøre tjenesten midlertidigt utilgængelig.",
+      "Pairing uses a shared online service with limited capacity. Many requests or abuse can make the service temporarily unavailable.",
+      "Die Kopplung nutzt einen gemeinsamen Onlinedienst mit begrenzter Kapazität. Viele Anfragen oder Missbrauch können ihn vorübergehend unerreichbar machen.",
+      "Le jumelage utilise un service en ligne partagé à capacité limitée. Trop de requêtes ou des abus peuvent le rendre temporairement indisponible."
+    ],
+    "impact": [
+      "Du kan stå lige før et møde uden at kunne forbinde telefonen. En forbindelse kan også blive afbrudt eller forstyrret. Et driftsstop betyder ikke i sig selv, at nogen har set dine billeder; hav eventuelt pc’ens almindelige webcam som reserve.",
+      "You might be unable to connect your phone just before a meeting. A session could also be interrupted or disrupted. An outage does not itself mean anyone has seen your images; consider keeping the PC’s ordinary webcam as a backup.",
+      "Du könntest kurz vor einem Meeting dein Telefon nicht verbinden können. Auch eine Sitzung kann unterbrochen oder gestört werden. Ein Ausfall bedeutet für sich genommen nicht, dass jemand deine Bilder gesehen hat; halte eventuell die normale PC-Webcam als Ersatz bereit.",
+      "Vous pourriez ne pas pouvoir connecter le téléphone juste avant une réunion. Une session peut aussi être interrompue ou perturbée. Une panne ne signifie pas en soi que quelqu’un a vu vos images ; gardez éventuellement la webcam habituelle du PC en secours."
+    ]
+  },
+  {
+    "title": [
+      "Forbindelsesdata og lokalt netværk",
+      "Connection metadata and local network",
+      "Verbindungsdaten und lokales Netzwerk",
+      "Métadonnées et réseau local"
+    ],
+    "meaning": [
+      "Selv uden login efterlader brugen tekniske spor, for eksempel din internetadresse. To enheder på samme Wi-Fi kan desuden være forhindret i at tale sammen.",
+      "Even without a login, use leaves technical traces such as your internet address. Two devices on the same Wi-Fi may also be prevented from communicating.",
+      "Auch ohne Anmeldung hinterlässt die Nutzung technische Spuren, etwa deine Internetadresse. Zwei Geräte im selben WLAN können außerdem daran gehindert sein, miteinander zu kommunizieren.",
+      "Même sans compte, l’utilisation laisse des traces techniques, comme votre adresse internet. Deux appareils sur le même Wi-Fi peuvent aussi être empêchés de communiquer."
+    ],
+    "impact": [
+      "Tjenesteudbydere kan have oplysninger om forbindelsen, og løsningen gør dig ikke anonym. Gæste-Wi-Fi eller netværksregler kan få parringen til at fejle. Disse forbindelsesoplysninger er ikke det samme som adgang til selve kamerabilledet.",
+      "Service providers may have connection information, and the solution does not make you anonymous. Guest Wi-Fi or network rules can prevent pairing. This connection information is not the same as access to the camera image itself.",
+      "Dienstanbieter können Verbindungsinformationen haben; die Lösung macht dich nicht anonym. Gast-WLAN oder Netzwerkregeln können die Kopplung verhindern. Diese Verbindungsdaten sind nicht dasselbe wie Zugriff auf das Kamerabild selbst.",
+      "Les prestataires peuvent disposer d’informations de connexion ; la solution ne vous rend pas anonyme. Le Wi-Fi invité ou les règles réseau peuvent empêcher le jumelage. Ces informations ne donnent pas, à elles seules, accès à l’image de la caméra."
+    ]
+  },
+  {
+    "title": [
+      "Kameraadgang og utilsigtet optagelse hos modparten",
+      "Camera permission and recording by the receiver",
+      "Kamerazugriff und Aufzeichnung durch den Empfänger",
+      "Autorisation caméra et enregistrement par le destinataire"
+    ],
+    "meaning": [
+      "Når du accepterer på pc’en og har tilladt kameraet i browseren, forsøger telefonen at sende video. Et program eller en person, der kan se billedet på pc’en, kan gemme det.",
+      "Once you accept on the PC and have allowed the browser to use the camera, the phone attempts to send video. An app or person able to see the image on the PC can save it.",
+      "Sobald du am PC bestätigst und dem Browser Kamerazugriff erlaubt hast, versucht das Telefon Video zu senden. Ein Programm oder eine Person, die das Bild am PC sehen kann, kann es speichern.",
+      "Après votre acceptation sur le PC et l’autorisation caméra dans le navigateur, le téléphone tente d’envoyer la vidéo. Une application ou une personne pouvant voir l’image sur le PC peut la sauvegarder."
+    ],
+    "impact": [
+      "Du kan komme til at vise et privat rum eller personer, du ikke ønskede at filme. Billeder kan blive optaget eller delt videre, selv om Extruda ikke har en optageknap. Ret kameraet rigtigt før accept, og afbryd og luk siden efter brug.",
+      "You could accidentally show a private room or people you did not intend to film. Images could be recorded or shared further even though Extruda has no record button. Point the camera appropriately before accepting, then disconnect and close the page after use.",
+      "Du könntest versehentlich einen privaten Raum oder Personen zeigen, die du nicht filmen wolltest. Bilder können aufgezeichnet oder weitergegeben werden, obwohl Extruda keine Aufnahmetaste hat. Richte die Kamera vor der Bestätigung richtig aus und trenne die Verbindung und schließe die Seite danach.",
+      "Vous pourriez montrer par erreur une pièce privée ou des personnes que vous ne souhaitiez pas filmer. Les images peuvent être enregistrées ou repartagées même sans bouton d’enregistrement dans Extruda. Orientez la caméra avant d’accepter, puis déconnectez et fermez la page après usage."
+    ]
+  },
+  {
+    "title": [
+      "Ukendte fejl og opdateringer",
+      "Unknown flaws and updates",
+      "Unbekannte Fehler und Updates",
+      "Failles inconnues et mises à jour"
+    ],
+    "meaning": [
+      "Vi har afprøvet bestemte funktioner, men ingen uafhængig ekspert har gennemgået hele løsningen for sikkerhedshuller. Der kan stadig være fejl, vi ikke kender.",
+      "We have tested specific functions, but no independent expert has reviewed the entire solution for security holes. There may still be flaws we do not know about.",
+      "Wir haben bestimmte Funktionen getestet, aber kein unabhängiger Experte hat die gesamte Lösung auf Sicherheitslücken geprüft. Es kann weiterhin unbekannte Fehler geben.",
+      "Nous avons testé certaines fonctions, mais aucun expert indépendant n’a examiné toute la solution pour rechercher des failles. Des défauts inconnus peuvent subsister."
+    ],
+    "impact": [
+      "En fejl kan give sort billede eller nedbrud. En alvorlig sikkerhedsfejl kan i værste fald lade en angriber læse data eller køre skadelig kode på en enhed. Det er mulige konsekvenser, ikke en konstatering af, at nogen har fundet et sådant hul. Hold app, Windows og browser opdateret.",
+      "A bug could cause black video or a crash. In the worst case, a serious security flaw could let an attacker read data or run malicious code on a device. These are possible consequences, not a claim that such a hole has been found. Keep the app, Windows and browser updated.",
+      "Ein Fehler kann ein schwarzes Bild oder einen Absturz verursachen. Eine schwere Sicherheitslücke könnte im schlimmsten Fall das Lesen von Daten oder das Ausführen schädlichen Codes ermöglichen. Das sind mögliche Folgen, keine Behauptung, dass eine solche Lücke gefunden wurde. Halte App, Windows und Browser aktuell.",
+      "Un bug peut provoquer une image noire ou un plantage. Dans le pire des cas, une faille grave pourrait permettre de lire des données ou d’exécuter du code malveillant sur un appareil. Ce sont des conséquences possibles, pas l’affirmation qu’une telle faille a été trouvée. Maintenez l’application, Windows et le navigateur à jour."
+    ]
+  },
+  {
+    "title": [
+      "Udvikling med AI",
+      "AI-assisted development",
+      "KI-gestützte Entwicklung",
+      "Développement assisté par IA"
+    ],
+    "meaning": [
+      "AI har hjulpet med at skrive programmet og vejledningerne. AI kan skrive noget, der ser rigtigt ud, men stadig indeholder fejl.",
+      "AI helped write the program and its guides. AI can produce something that looks correct but still contains mistakes.",
+      "KI hat beim Schreiben des Programms und der Anleitungen geholfen. KI kann etwas erzeugen, das richtig aussieht und dennoch Fehler enthält.",
+      "L’IA a aidé à écrire le programme et ses guides. Elle peut produire un résultat qui semble correct tout en contenant des erreurs."
+    ],
+    "impact": [
+      "En vejledning kan vise en forkert menu, en funktion kan svigte, eller en sikkerhedsfejl kan være overset. At en test består eller en tekst lyder overbevisende er ikke et bevis på sikkerhed. Undgå brug, hvor et lækket billede eller et driftsstop kan få alvorlige følger.",
+      "A guide could name the wrong menu, a feature could fail or a security flaw could be overlooked. A passing test or convincing text is not proof of security. Avoid use where a leaked image or an outage could have serious consequences.",
+      "Eine Anleitung könnte ein falsches Menü nennen, eine Funktion könnte versagen oder eine Sicherheitslücke übersehen worden sein. Ein bestandener Test oder überzeugender Text beweist keine Sicherheit. Vermeide den Einsatz, wenn ein Bildleck oder Ausfall ernste Folgen hätte.",
+      "Un guide peut indiquer le mauvais menu, une fonction peut échouer ou une faille peut avoir été oubliée. Un test réussi ou un texte convaincant ne prouve pas la sécurité. Évitez les usages où une fuite d’image ou une panne aurait de graves conséquences."
+    ]
+  },
+  {
+    "title": [
+      "Mikrofonlyd og virtuel lyddriver",
+      "Microphone audio and virtual audio driver",
+      "Mikrofon-Audio und virtueller Audiotreiber",
+      "Audio microphone et pilote audio virtuel"
+    ],
+    "technical": [
+      "Mikrofonen er fra ved hver ny forbindelse og aktiveres på telefonen med særskilt browseradgang. Lyden sendes krypteret via WebRTC og føres i afgrænsede hukommelsesbuffere til en valgt, allerede installeret virtuel lydenhed. Appen ændrer ikke standardlydenheder og installerer ingen lyddriver automatisk. Steam Streaming Microphone eller VB-CABLE er tredjepartssoftware med egen licens og sikkerhedsrisiko. En ny driver kræver administratorgodkendelse og kan kræve genstart.",
+      "The microphone starts off for each new connection and is enabled on the phone with separate browser permission. Audio is encrypted using WebRTC and passed through bounded memory buffers to a selected, already installed virtual audio device. The app does not change default audio devices or automatically install an audio driver. Steam Streaming Microphone or VB-CABLE is third-party software with its own licence and security risks. A new driver requires administrator approval and may require a restart.",
+      "Das Mikrofon ist bei jeder neuen Verbindung aus und wird am Telefon mit separater Browser-Erlaubnis eingeschaltet. Audio wird per WebRTC verschlüsselt und über begrenzte Speicherpuffer an ein ausgewähltes, bereits installiertes virtuelles Audiogerät geleitet. Die App ändert keine Standardgeräte und installiert keinen Audiotreiber automatisch. Steam Streaming Microphone oder VB-CABLE ist Drittsoftware mit eigener Lizenz und Sicherheitsrisiken. Ein neuer Treiber benötigt Administratorfreigabe und eventuell einen Neustart.",
+      "Le microphone est désactivé à chaque nouvelle connexion et activé sur le téléphone avec une autorisation distincte du navigateur. Le son est chiffré par WebRTC et passe par des tampons mémoire limités vers un périphérique audio virtuel sélectionné et déjà installé. L’application ne change pas les périphériques par défaut et n’installe aucun pilote audio automatiquement. Steam Streaming Microphone ou VB-CABLE est un logiciel tiers avec sa propre licence et ses risques. Un nouveau pilote exige une autorisation administrateur et peut nécessiter un redémarrage."
+    ],
+    "meaning": [
+      "Når du tænder mikrofonen, kan den også opfange andre personer og lyde i rummet. Den virtuelle mikrofon er en fælles lydforbindelse i Windows, som andre programmer også kan bruge.",
+      "When you turn the microphone on, it can also pick up other people and sounds in the room. The virtual microphone is a shared audio connection in Windows that other apps can also use.",
+      "Wenn du das Mikrofon einschaltest, kann es auch andere Personen und Geräusche im Raum erfassen. Das virtuelle Mikrofon ist eine gemeinsame Audioverbindung in Windows, die auch andere Programme nutzen können.",
+      "Lorsque vous activez le microphone, il peut aussi capter d’autres personnes et les sons de la pièce. Le microphone virtuel est une connexion audio partagée dans Windows que d’autres applications peuvent utiliser."
+    ],
+    "impact": [
+      "Private samtaler kan blive hørt eller optaget af et mødeprogram eller en anden app med adgang til den virtuelle mikrofon. Andre programmers lyd kan blandes ind, hvis de sender til samme virtuelle lydenhed. Slå mikrofonen fra efter brug; grøn niveauindikator betyder signal i appen, ikke at kun Teams kan høre det. Hent eventuelle drivere fra den officielle udgiver, og undlad at gøre det virtuelle kabel til pc’ens standardhøjttaler.",
+      "Private conversations may be heard or recorded by a meeting app or another app with access to the virtual microphone. Other apps’ audio may be mixed in if they send to the same virtual device. Turn the microphone off after use; a green meter means signal in the app, not that only Teams can hear it. Get drivers from their official publisher and do not make the virtual cable your PC’s default speaker.",
+      "Private Gespräche können von einer Meeting-App oder einer anderen App mit Zugriff auf das virtuelle Mikrofon gehört oder aufgenommen werden. Senden andere Programme an dasselbe virtuelle Gerät, kann ihr Ton beigemischt werden. Schalte das Mikrofon danach aus; ein grüner Pegel bedeutet Signal in der App, nicht dass nur Teams mithört. Treiber nur vom offiziellen Anbieter beziehen und das virtuelle Kabel nicht zum Standardlautsprecher machen.",
+      "Des conversations privées peuvent être entendues ou enregistrées par une application de réunion ou une autre application ayant accès au microphone virtuel. Le son d’autres applications peut se mélanger si elles utilisent le même périphérique. Désactivez le microphone après usage ; une jauge verte indique un signal dans l’application, pas que seul Teams l’entend. Obtenez les pilotes auprès de leur éditeur officiel et ne définissez pas le câble virtuel comme haut-parleur par défaut."
+    ]
+  }
 ]

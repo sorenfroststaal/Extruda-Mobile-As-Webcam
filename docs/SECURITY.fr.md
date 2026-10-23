@@ -162,4 +162,18 @@ L’IA a aidé à écrire le programme et ses guides. Elle peut produire un rés
 Un guide peut indiquer le mauvais menu, une fonction peut échouer ou une faille peut avoir été oubliée. Un test réussi ou un texte convaincant ne prouve pas la sécurité. Évitez les usages où une fuite d’image ou une panne aurait de graves conséquences.
 <!-- plain:end -->
 
+## Audio microphone et pilote audio virtuel
+
+Le microphone est désactivé à chaque nouvelle connexion et activé sur le téléphone avec une autorisation distincte du navigateur. Le son est chiffré par WebRTC et passe par des tampons mémoire limités vers un périphérique audio virtuel sélectionné et déjà installé. L’application ne change pas les périphériques par défaut et n’installe aucun pilote audio automatiquement. Steam Streaming Microphone ou VB-CABLE est un logiciel tiers avec sa propre licence et ses risques. Un nouveau pilote exige une autorisation administrateur et peut nécessiter un redémarrage.
+
+<!-- plain:start -->
+**En termes simples**
+
+Lorsque vous activez le microphone, il peut aussi capter d’autres personnes et les sons de la pièce. Le microphone virtuel est une connexion audio partagée dans Windows que d’autres applications peuvent utiliser.
+
+**Ce que cela peut entraîner pour vous**
+
+Des conversations privées peuvent être entendues ou enregistrées par une application de réunion ou une autre application ayant accès au microphone virtuel. Le son d’autres applications peut se mélanger si elles utilisent le même périphérique. Désactivez le microphone après usage ; une jauge verte indique un signal dans l’application, pas que seul Teams l’entend. Obtenez les pilotes auprès de leur éditeur officiel et ne définissez pas le câble virtuel comme haut-parleur par défaut.
+<!-- plain:end -->
+
 [Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases)
