@@ -7,9 +7,10 @@ run.onclick=async()=>{run.disabled=true;try{
  const phone=new RTCPeerConnection({iceServers:[]}),host=new RTCPeerConnection({iceServers:[]});
  phone.onicecandidate=e=>{if(e.candidate)host.addIceCandidate(e.candidate).catch(()=>{})};host.onicecandidate=e=>{if(e.candidate)phone.addIceCandidate(e.candidate).catch(()=>{})};
  window.ExtrudaAudio.session({role:'host',peer:host,approved:()=>true,send:async message=>{if(message.enabled===false){osc.stop();dest.stream.getTracks().forEach(t=>t.stop());await window.ExtrudaAudio.control({type:'microphone-state',enabled:false});}}});
- const received=new Promise(resolve=>host.ontrack=e=>{if(e.track.kind==='audio')resolve(e.track)});
+ host.addEventListener('connectionstatechange',()=>window.dispatchEvent(new CustomEvent('extruda-connection',{detail:{connected:host.connectionState==='connected'}})));
+ const received=new Promise(resolve=>host.ontrack=e=>{if(e.track.kind==='audio'){window.ExtrudaAudio.track(e.track);resolve(e.track)}});
  const audioSender=phone.addTransceiver('audio',{direction:'sendonly'}).sender;await phone.setLocalDescription(await phone.createOffer());await host.setRemoteDescription(phone.localDescription);await host.setLocalDescription(await host.createAnswer());await phone.setRemoteDescription(host.localDescription);
- const track=await received;window.ExtrudaAudio.track(track);
+ const track=await received;
  await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('connection timeout')),8000);host.onconnectionstatechange=()=>{if(host.connectionState==='connected'){clearTimeout(timer);resolve()}};if(host.connectionState==='connected'){clearTimeout(timer);resolve()}});
  await audioSender.replaceTrack(dest.stream.getAudioTracks()[0]);
  window.dispatchEvent(new CustomEvent('extruda-connection',{detail:{connected:true}}));await window.ExtrudaAudio.control({type:'microphone-state',enabled:true});

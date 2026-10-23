@@ -78,3 +78,13 @@ test('status distinguishes permission, silence, received audio and native acknow
  host.tick(0.1);assert.match(host.element('mic-status').textContent,/Lyd sendes til Windows/);
  host.tick(0);assert.match(host.element('mic-status').textContent,/Intet mikrofonsignal/);
 });
+
+test('audio track received before connecting survives initial false connection event',async()=>{
+ const s=setup(undefined,'host');s.window.extrudaAudioDevices([{index:0,name:'CABLE Input (VB-Audio)'}]);
+ const track={kind:'audio'};s.api.track(track);s.connect(false);s.connect(true);
+ await s.api.control({type:'microphone-state',enabled:true});
+ assert.equal(s.processors.length,1);assert.ok(s.posts.includes('audio-route:0'));
+ s.tick(0.1);assert.ok(s.element('mic-level').value>0);
+ s.connect(false);assert.equal(s.element('mic-level').value,0);
+ assert.equal(s.element('remote-audio').srcObject,null);
+});

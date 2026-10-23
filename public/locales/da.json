@@ -217,5 +217,6 @@
   "Intet mikrofonsignal registreret. Tal, og kontrollér tilladelsen på telefonen.": "Intet mikrofonsignal registreret. Tal, og kontrollér tilladelsen på telefonen.",
   "Mikrofonsignal registreres på telefonen": "Mikrofonsignal registreres på telefonen",
   "Lyd sendes til Windows. Vælg den virtuelle mikrofon i Teams eller Zoom.": "Lyd sendes til Windows. Vælg den virtuelle mikrofon i Teams eller Zoom.",
-  "Lyd modtages, men er endnu ikke sendt til Windows": "Lyd modtages, men er endnu ikke sendt til Windows"
+  "Lyd modtages, men er endnu ikke sendt til Windows": "Lyd modtages, men er endnu ikke sendt til Windows",
+  "Afventer telefonens lydspor": "Afventer telefonens lydspor"
 }

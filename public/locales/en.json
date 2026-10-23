@@ -217,5 +217,6 @@
   "Intet mikrofonsignal registreret. Tal, og kontrollér tilladelsen på telefonen.": "No microphone signal detected. Speak and check permission on your phone.",
   "Mikrofonsignal registreres på telefonen": "Microphone signal detected on phone",
   "Lyd sendes til Windows. Vælg den virtuelle mikrofon i Teams eller Zoom.": "Audio is being sent to Windows. Select the virtual microphone in Teams or Zoom.",
-  "Lyd modtages, men er endnu ikke sendt til Windows": "Audio received, but not yet sent to Windows"
+  "Lyd modtages, men er endnu ikke sendt til Windows": "Audio received, but not yet sent to Windows",
+  "Afventer telefonens lydspor": "Waiting for phone audio track"
 }

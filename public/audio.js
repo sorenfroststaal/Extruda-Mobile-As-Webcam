@@ -123,7 +123,7 @@
     if(!cameraOnly&&hostAllowed&&phoneEnabled&&remoteStream&&connected){
       try{await graph(remoteStream,true);if(token!==generation)return;if(route>=0)post('audio-route:'+route);state('Afventer mikrofonsignal');}
       catch{state('Tryk Slå mikrofon til for at aktivere lyd.');}
-    }else{await clearGraph();state('Mikrofon fra');}
+    }else{await clearGraph();state(phoneEnabled&&hostAllowed&&!cameraOnly?'Afventer telefonens lydspor':'Mikrofon fra');}
     buttons();
   }
   $('mic-toggle').onclick=async()=>{
@@ -155,8 +155,11 @@
   window.extrudaAudioStarted=()=>{routingActive=connected&&hostAllowed&&phoneEnabled&&route>=0;};
   window.extrudaAudioError=()=>{route=-1;routingActive=false;post('audio-stop');state('Lydudgangen kunne ikke åbnes. Opdatér listen.');};
   window.addEventListener('extruda-connection',event=>{
+    const wasConnected=connected;
     connected=!!event.detail.connected;
-    if(!connected){++generation;capture?.getTracks().forEach(t=>t.stop());capture=null;phoneEnabled=false;remoteStream=null;if(playback)playback.srcObject=null;hostAllowed=true;routingActive=false;post('audio-stop');void clearGraph();state('Mikrofon fra');}
+    // ontrack precedes the initial connecting event. Preserve that track until
+    // connected; only a connection that actually drops should clear it here.
+    if(!connected&&wasConnected){++generation;capture?.getTracks().forEach(t=>t.stop());capture=null;phoneEnabled=false;remoteStream=null;if(playback)playback.srcObject=null;hostAllowed=true;routingActive=false;post('audio-stop');void clearGraph();state('Mikrofon fra');}
     $('audio-routing').hidden=role!=='host'||!native();buttons();
     if(connected&&role==='host'){
       void sendControl?.({type:'microphone-mode',enabled:!cameraOnly}).catch(()=>{});

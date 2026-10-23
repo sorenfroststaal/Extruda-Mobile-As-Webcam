@@ -109,3 +109,7 @@ path but must be checked on a machine with that separate driver.
 ## Microphone fix 0.7.1
 
 The production Permissions-Policy still denied microphone capture in 0.7.0. It now permits microphone=(self), preserving browser consent and denying geolocation. The production-header integration test checks this explicitly. Microphone status now distinguishes waiting, silence, phone input, received audio and PCM acknowledged by Windows. A regression test covers these states, including a rejected native packet. No live phone/Teams call was available to verify acoustic output.
+
+## Microphone connection lifecycle fix 0.7.2
+
+The initial RTCPeerConnection connecting event reports connected=false after ontrack. The audio controller incorrectly cleared the received track then, leaving the toggle on with status off and no audio graph. It now clears only when an established connection drops or the session explicitly stops. A regression test covers track → initial false event → connected → microphone enabled → signal processing → disconnect cleanup. The browser fixture now forwards actual connection state events and handles ontrack immediately. AudioTests --monitor measures only the supported virtual capture endpoint without injecting a tone, saving audio or reading a physical microphone.

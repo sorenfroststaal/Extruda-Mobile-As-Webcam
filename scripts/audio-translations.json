@@ -256,5 +256,11 @@
     "Audio received, but not yet sent to Windows",
     "Audio empfangen, aber noch nicht an Windows gesendet",
     "Son reçu, mais pas encore envoyé à Windows"
+  ],
+  [
+    "Afventer telefonens lydspor",
+    "Waiting for phone audio track",
+    "Warte auf die Audiospur des Telefons",
+    "En attente de la piste audio du téléphone"
   ]
 ]
