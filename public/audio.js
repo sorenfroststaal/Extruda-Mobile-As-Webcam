@@ -170,6 +170,7 @@
   window.addEventListener('extruda-language',buttons);
   window.addEventListener('pagehide',()=>{void window.ExtrudaAudio.stop();post('audio-stop');});
   window.ExtrudaAudio={
+    health(){const track=(role==='phone'?capture:remoteStream)?.getAudioTracks?.()[0];return{enabled:role==='phone'?!!capture:phoneEnabled&&hostAllowed&&!cameraOnly,signal:Number($('mic-level').value)>0,paused:!!track?.muted||track?.readyState==='ended',context:context?.state||'closed',windowsAccepted:routingActive&&lastNativeAck>0&&performance.now()-lastNativeAck<2000};},
     session(options){role=options.role;peer=options.peer;sendControl=options.send;isApproved=options.approved;},
     track(track){
       if(role!=='host'||track.kind!=='audio')return;remoteStream=new MediaStream([track]);

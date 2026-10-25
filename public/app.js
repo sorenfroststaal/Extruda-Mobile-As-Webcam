@@ -12,6 +12,26 @@ let switchingCamera = false, cameraFacing = 'environment';
 let controlChannel, controlSerial = Promise.resolve(), controlQueued = 0, controlWindow = 0, controlCount = 0;
 let pairSecret = '', phoneNonce = '', peerVerified = false;
 let captureSize = {width:1280,height:720};
+let recoveryTimer, restartTimer, recovering=false;
+function clearRecovery(){clearTimeout(recoveryTimer);clearTimeout(restartTimer);recoveryTimer=restartTimer=null;recovering=false;}
+function handleConnectionState(connection){
+  if(pc!==connection||stopped)return;
+  const state=connection.connectionState;
+  window.ExtrudaHealth?.transport(state);
+  if(state==='connected'){
+    clearRecovery();window.dispatchEvent(new CustomEvent('extruda-connection',{detail:{connected:true}}));
+    $('pairing').hidden=true;status('Forbundet · Video sendes direkte mellem telefon og pc');return;
+  }
+  if(!['failed','disconnected'].includes(state)||recovering)return;
+  recovering=true;status('Genopretter forbindelse…');
+  // Preserve existing media/consent through a transient outage. Only the phone
+  // offers an ICE restart to avoid simultaneous-offer collisions.
+  restartTimer=setTimeout(async()=>{
+    if(pc!==connection||stopped||connection.connectionState==='connected'||role!=='phone'||socket?.readyState!==WebSocket.OPEN)return;
+    try{await connection.setLocalDescription(await connection.createOffer({iceRestart:true}));if(pc===connection&&!stopped)await send({type:'offer',sdp:connection.localDescription.toJSON()});}catch{}
+  },3000);
+  recoveryTimer=setTimeout(()=>{if(pc===connection&&!stopped&&connection.connectionState!=='connected')void stop(false).then(()=>status('Forbindelsen kunne ikke genoprettes. Scan en ny QR-kode.'));},15000);
+}
 const supportedCaptureSize = size => [[640,480],[1280,720],[1920,1080],[2560,1440],[3840,2160]].some(([w,h]) => size?.width === w && size?.height === h);
 const fragment = new URLSearchParams(location.hash.slice(1));
 const valid = /^[a-f0-9]{64}$/;
@@ -79,24 +99,14 @@ function makePeer() {
   if (role === 'host') bindControl(pc.createDataChannel('camera-control'));
   else { pc.addTransceiver('audio',{direction:'sendonly'}); pc.ondatachannel = event => { if (event.channel.label === 'camera-control') bindControl(event.channel); }; }
   window.ExtrudaAudio?.session({role,peer:pc,send:sendControl,approved:()=>approved&&!stopped});
+  window.ExtrudaHealth?.session({role,peer:pc,video:()=>role==='phone'?$('local'):$('remote')});
   pc.onicecandidate = event => { if (event.candidate) send({ type: 'ice', candidate: event.candidate.toJSON() }).catch(fail); };
   pc.ontrack = event => {
     if (pc !== connection || stopped) return;
     if (event.track.kind === 'audio') {window.ExtrudaAudio?.track(event.track);return;}
     $('remote').srcObject = event.streams[0]; $('placeholder').hidden = true; $('fullscreen').hidden = false;
   };
-  pc.onconnectionstatechange = () => {
-    if (pc !== connection) return;
-    window.dispatchEvent(new CustomEvent('extruda-connection',{detail:{connected:pc.connectionState === 'connected'}}));
-    if (pc.connectionState === 'connected') {
-      status('Forbundet · Video sendes direkte mellem telefon og pc');
-      // The direct WebRTC session survives signalling expiry; no keep-alive traffic needed.
-      $('pairing').hidden = true;
-    }
-    if (['failed', 'disconnected'].includes(pc.connectionState)) {
-      stop(false).then(() => status('Videoforbindelsen er afbrudt, og kameraet er stoppet. Opret en ny parring. Tjek Wi-Fi.'));
-    }
-  };
+  pc.onconnectionstatechange = () => handleConnectionState(connection);
 }
 async function flushIce() { for (const candidate of pendingIce.splice(0)) await pc.addIceCandidate(candidate); }
 async function receive(payload) {
@@ -126,13 +136,13 @@ async function connect(room, token) {
   await new Promise((resolve, reject) => {
     socket.onopen = () => { socket.send(JSON.stringify({ type: 'auth', role, token })); };
     socket.onerror = () => reject(new Error('Kan ikke nå parringsserveren. Prøv igen.'));
-    socket.onclose = () => { reject(new Error('Parringen er lukket eller udløbet. Opret en ny parring.')); if (!stopped && pc?.connectionState !== 'connected') { $('start').disabled = true; closeApproval(); status('Parringen er lukket. Opret en ny parring på pc’en.'); } };
+    socket.onclose = () => { reject(new Error('Parringen er lukket eller udløbet. Opret en ny parring.')); if (!stopped && !recovering && pc?.connectionState !== 'connected') { $('start').disabled = true; closeApproval(); status('Parringen er lukket. Opret en ny parring på pc’en.'); } };
     socket.onmessage = event => {
       serial = serial.then(async () => {
         const message = JSON.parse(event.data);
         if (message.type === 'ready') { clearTimeout(expiryTimer); expiryTimer = setTimeout(() => { if (pc?.connectionState !== 'connected') { $('start').disabled = true; closeApproval(); status('Parringen er udløbet. Opret en ny på pc’en.'); } }, Math.max(0, message.expires - Date.now())); resolve(); }
         if (message.type === 'peer-joined') { if (role === 'host') { if (!approved && !$('approval').open) { $('approve').disabled = !peerVerified; $('approval-code').textContent = peerVerified ? $('approval-code').textContent : '…'; $('approval').showModal(); } status('Afventer din accept'); } else { $('phone-info').textContent = 'Afventer accept på pc'; status('Afventer accept på pc'); } }
-        if (message.type === 'peer-left' && pc?.connectionState !== 'connected') { await stop(false); status('Parring annulleret'); }
+        if (message.type === 'peer-left' && !recovering && pc?.connectionState !== 'connected') { await stop(false); status('Parring annulleret'); }
         if (message.type === 'signal') await receive(message);
       }).catch(error => { fail(new Error('Parringsdata kunne ikke bekræftes. Opret en ny parring.')); });
     };
@@ -178,6 +188,7 @@ async function startCamera() {
     const captured = await navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode: { ideal: $('camera').value }, width: { ideal: captureSize.width }, height: { ideal: captureSize.height }, aspectRatio: {ideal: captureSize.width/captureSize.height}, frameRate: { ideal: 30, max: 30 } } });
     if (stopped || !approved || pc !== connection) { captured.getTracks().forEach(track => track.stop()); return; }
     stream = captured;
+    watchCamera(stream.getVideoTracks()[0]);
     const settings = stream.getVideoTracks()[0].getSettings();
     await sendControl({type:'capture-info',width:settings.width,height:settings.height});
     $('local').srcObject = stream; cameraFacing=settings.facingMode||$('camera').value; $('camera').disabled = false;
@@ -213,7 +224,7 @@ async function switchCamera() {
       await sender.replaceTrack(track);
       if(!current()){acquired.getTracks().forEach(item=>item.stop());return false;}
     }catch(error){acquired.getTracks().forEach(item=>item.stop());throw error;}
-    stream=acquired;cameraFacing=track.getSettings().facingMode||facing;$('camera').value=cameraFacing;
+    stream=acquired;watchCamera(track);cameraFacing=track.getSettings().facingMode||facing;$('camera').value=cameraFacing;
     $('local').srcObject=acquired;$('start').hidden=true;
     const settings=track.getSettings();
     await sendControl({type:'capture-info',width:settings.width,height:settings.height}).catch(()=>{});
@@ -227,7 +238,14 @@ async function switchCamera() {
 }
 $('camera').onchange=()=>{if(stream)void switchCamera();};
 $('start').onclick=()=>stream?switchCamera():startCamera();
+function watchCamera(track){
+  const current=()=>!stopped&&stream?.getVideoTracks()[0]===track;
+  track.onmute=()=>{if(current())$('phone-info').textContent='Kameraet er sat på pause af telefonen. Hold siden åben.';};
+  track.onunmute=()=>{if(current())$('phone-info').textContent='Kamera startet';};
+  track.onended=()=>{if(current()){$('phone-info').textContent='Kameraet er stoppet. Tryk Start kamera for at genoptage.';$('start').hidden=false;$('start').disabled=false;}};
+}
 async function stop(notify = true) {
+  clearRecovery();window.ExtrudaHealth?.stop();
   if (notify && key) try { await sendControl({ type: 'stop' }); } catch {}
   stopped = true; clearTimeout(expiryTimer); controlChannel?.close(); controlChannel = null;
   void window.ExtrudaAudio?.stop();

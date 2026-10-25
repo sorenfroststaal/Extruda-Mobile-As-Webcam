@@ -85,3 +85,11 @@ Ist Steam Streaming Microphone bereits installiert, kannst du es statt VB-CABLE 
 Wenn kein unterstütztes Audiogerät gefunden wird, bietet die App den VB-CABLE-Download des Herstellers, eine erneute Suche oder Nur Kamera verwenden an. Der Kameramodus wird am PC gespeichert und blendet die Mikrofontaste auf beiden Geräten aus. Erneut aktivieren unter Information → Mikrofon einrichten. Der Treiber wird separat heruntergeladen und installiert; Extruda umgeht keine Windows-Bestätigung.
 
 [VB-Audio · VB-CABLE](https://vb-audio.com/Cable/)
+
+## Wie prüfe ich die Verbindung?
+
+Öffne Information → Verbindung prüfen. Neue Videobilder, Mikrofonsignal und Windows-Bestätigungen werden getrennt angezeigt. Fünf Sekunden ohne neue Videobilder lösen eine Warnung aus; die Windows-App löscht ein eingefrorenes Bild. Stille allein ist kein Netzwerkfehler. Windows-Bestätigungen zeigen, dass die Windows-Komponente Daten angenommen hat, nicht dass Teams, Zoom oder OBS das richtige Gerät gewählt hat.
+
+Eine kurze Netzwerkunterbrechung erhält bis zu 15 Sekunden zur Wiederherstellung. Das Telefon versucht einen ICE-Neustart, wenn die Signalisierung noch verfügbar ist. Eine abgelaufene Einladung, ein unerreichbares Netzwerk oder ein längerer Ausfall kann einen neuen QR-Code erfordern. Nach einer Unterbrechung am Telefon musst du eventuell die Seite öffnen oder Kamera starten antippen. Die Mikrofonfreigabe erteilst weiterhin du am Telefon.
+
+Fehlerbericht kopieren erstellt lokal einen Bericht nur mit Version, Zuständen und Zählern. Er enthält keine Bilder, Audiodaten, IP-Adressen, Gerätenamen, Browserkennungen, Kopplungslinks oder Schlüssel. Er wird nie automatisch gesendet und zur Prüfung vor dem Teilen angezeigt.

@@ -24,3 +24,5 @@ header .brand-link{flex-wrap:nowrap;gap:clamp(8px,2vw,20px);flex:none}.product-n
 
 .driver-options{display:flex;flex-direction:column;align-items:stretch;gap:10px}.driver-options p{font-size:14px;line-height:1.5;margin:0 0 8px}.driver-options button,.driver-options .download-button{margin:0}.driver-options .download-button{display:block;text-decoration:none}
 #audio-setup{width:min(600px,calc(100% - 32px));padding:24px}#audio-setup>p{font-size:15px;line-height:1.4;margin:10px 0}.driver-options{gap:8px}.driver-options p{line-height:1.4;margin:0 0 4px}.driver-options button,.driver-options .download-button{padding:11px 16px}
+
+.health-summary{font-size:14px;margin:8px 0;color:var(--ex-text)}.health-stages{display:grid;grid-template-columns:1fr 1.5fr;gap:12px}.health-stages dt{font-weight:600}.health-stages dd{margin:0}#health-report{width:100%;font:13px monospace;padding:12px;background:var(--ex-bg);color:var(--ex-text)}@media(max-width:520px){.health-stages{grid-template-columns:1fr;gap:6px}.health-stages dd{margin-bottom:12px}}

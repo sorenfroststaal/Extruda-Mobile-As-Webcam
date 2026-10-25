@@ -326,5 +326,34 @@
         "https://vb-audio.com/Cable/"
       ]
     ]
+  },
+  {
+    "id": "diagnostics",
+    "title": [
+      "Hvordan kontrollerer jeg forbindelsen?",
+      "How do I check the connection?",
+      "Wie prüfe ich die Verbindung?",
+      "Comment vérifier la connexion ?"
+    ],
+    "paragraphs": [
+      [
+        "Åbn Information → Kontrollér forbindelse. Kontrollen viser nye videobilleder, mikrofonsignal og Windows-bekræftelser separat. Fem sekunder uden nye videobilleder udløser en advarsel, og Windows-appen rydder et fastfrosset billede. Stilhed er ikke i sig selv en netværksfejl. Windows-bekræftelser betyder, at data er accepteret af appens Windows-del; de beviser ikke, at Teams, Zoom eller OBS har valgt den rigtige enhed.",
+        "Open Information → Check connection. New video frames, microphone signal and Windows acknowledgements are shown separately. Five seconds without new video frames triggers a warning and the Windows app clears a frozen image. Silence alone does not mean a network failure. Windows acknowledgements mean data was accepted by the app’s Windows component; they do not prove that Teams, Zoom or OBS selected the correct device.",
+        "Öffne Information → Verbindung prüfen. Neue Videobilder, Mikrofonsignal und Windows-Bestätigungen werden getrennt angezeigt. Fünf Sekunden ohne neue Videobilder lösen eine Warnung aus; die Windows-App löscht ein eingefrorenes Bild. Stille allein ist kein Netzwerkfehler. Windows-Bestätigungen zeigen, dass die Windows-Komponente Daten angenommen hat, nicht dass Teams, Zoom oder OBS das richtige Gerät gewählt hat.",
+        "Ouvrez Informations → Vérifier la connexion. Les nouvelles images, le signal du microphone et les confirmations Windows sont affichés séparément. Cinq secondes sans nouvelle image déclenchent un avertissement ; l’application Windows efface l’image figée. Le silence seul n’indique pas une panne réseau. Les confirmations Windows signifient que le composant Windows a accepté les données, sans garantir que Teams, Zoom ou OBS utilise le bon périphérique."
+      ],
+      [
+        "Et kort netværksudfald får op til 15 sekunder til at rette sig. Telefonen forsøger én ICE-genstart, hvis parringsserveren stadig er tilgængelig. En udløbet invitation, skift til et utilgængeligt netværk eller et længere udfald kan kræve en ny QR-kode. En afbrydelse på telefonen kan kræve, at du åbner siden igen eller trykker Start kamera. Mikrofonadgang gives fortsat af dig på telefonen.",
+        "A brief network interruption gets up to 15 seconds to recover. The phone attempts one ICE restart if signalling is still available. An expired invitation, an unreachable network or a longer interruption can require a new QR code. A phone interruption may require reopening the page or tapping Start camera. Microphone permission is still granted by you on the phone.",
+        "Eine kurze Netzwerkunterbrechung erhält bis zu 15 Sekunden zur Wiederherstellung. Das Telefon versucht einen ICE-Neustart, wenn die Signalisierung noch verfügbar ist. Eine abgelaufene Einladung, ein unerreichbares Netzwerk oder ein längerer Ausfall kann einen neuen QR-Code erfordern. Nach einer Unterbrechung am Telefon musst du eventuell die Seite öffnen oder Kamera starten antippen. Die Mikrofonfreigabe erteilst weiterhin du am Telefon.",
+        "Une brève interruption réseau dispose de 15 secondes pour se rétablir. Le téléphone tente un redémarrage ICE si la signalisation est disponible. Une invitation expirée, un réseau inaccessible ou une interruption prolongée peut nécessiter un nouveau QR code. Une interruption sur le téléphone peut nécessiter de rouvrir la page ou d’appuyer sur Démarrer la caméra. Vous autorisez toujours vous-même le microphone sur le téléphone."
+      ],
+      [
+        "Kopiér fejlrapport opretter kun en lokal rapport med version, tilstande og tællere. Rapporten indeholder ikke billeder, lyd, IP-adresser, enhedsnavne, browseridentifikatorer, parringslink eller nøgler. Den sendes ingen steder automatisk. Rapporten vises, så du kan kontrollere den før deling.",
+        "Copy diagnostic report creates a local report containing only version, states and counters. It contains no images, audio, IP addresses, device names, browser identifiers, pairing links or keys. It is never sent automatically. The report is displayed for your review before sharing.",
+        "Fehlerbericht kopieren erstellt lokal einen Bericht nur mit Version, Zuständen und Zählern. Er enthält keine Bilder, Audiodaten, IP-Adressen, Gerätenamen, Browserkennungen, Kopplungslinks oder Schlüssel. Er wird nie automatisch gesendet und zur Prüfung vor dem Teilen angezeigt.",
+        "Copier le rapport de diagnostic crée un rapport local limité à la version, aux états et aux compteurs. Il ne contient ni image, son, adresse IP, nom de périphérique, identifiant de navigateur, lien d’appairage ni clé. Il n’est jamais envoyé automatiquement et s’affiche pour vérification avant partage."
+      ]
+    ]
   }
 ]

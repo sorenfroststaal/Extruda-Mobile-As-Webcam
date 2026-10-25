@@ -7,7 +7,7 @@
 
 Use an Android or iPhone camera as a Windows webcam, without OBS or a user account.
 
-**[Download Windows installer 0.7.2](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.7.2/ExtrudaMobileAsWebcam-Setup-0.7.2-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/tag/mobile-as-webcam-v0.7.2) · [mobile as webcam website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
+**[Download Windows installer 0.8.0](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.8.0/ExtrudaMobileAsWebcam-Setup-0.8.0-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/tag/mobile-as-webcam-v0.8.0) · [mobile as webcam website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
 
 ## Use
 
@@ -80,3 +80,9 @@ For a Windows microphone, select an already installed **Steam Streaming Micropho
 If neither is installed, the meter still works, but the phone audio is not exposed as a Windows microphone. VB-CABLE is optional, separately licensed third-party donationware from [VB-Audio](https://vb-audio.com/Cable/); download only from the official publisher, install with administrator approval and restart. No third-party driver is bundled or installed automatically. The project’s MIT licence does not cover these external drivers. See the microphone FAQ and security notes in all four languages.
 
 If no supported virtual audio device is detected, a setup dialog links to the official VB-CABLE installer, offers another device scan, or lets you use the camera only. Camera-only mode hides audio controls on both devices and is remembered on the PC. Restore audio under Information → Microphone setup. External drivers are installed separately with normal Windows administrator approval.
+
+## Connection recovery and diagnostics
+
+Version 0.8.0 tolerates brief disconnects for up to 15 seconds without releasing phone capture or consent. The phone attempts one ICE restart if signalling remains available; expired invitations or unreachable networks still require a new pairing. Information > Check connection displays real frame progress, microphone signal and Windows acknowledgements separately. A five-second video stall clears frozen output in the Windows app. These checks do not verify a meeting application's device selection.
+
+Copy diagnostic report displays and copies an allowlisted local snapshot of version, states and counters. It excludes media, addresses, device names, browser identifiers and pairing material, and is never uploaded automatically.

@@ -85,3 +85,11 @@ Si Steam Streaming Microphone est déjà installé, vous pouvez le choisir à la
 Si aucun périphérique compatible n’est détecté, l’application propose le téléchargement de VB-CABLE chez l’éditeur, une nouvelle recherche ou Utiliser uniquement la caméra. Ce choix est mémorisé sur le PC et masque le bouton du microphone sur les deux appareils. Réactivez-le dans Informations → Configurer le microphone. Le pilote est téléchargé et installé séparément ; Extruda ne contourne pas l’autorisation de Windows.
 
 [VB-Audio · VB-CABLE](https://vb-audio.com/Cable/)
+
+## Comment vérifier la connexion ?
+
+Ouvrez Informations → Vérifier la connexion. Les nouvelles images, le signal du microphone et les confirmations Windows sont affichés séparément. Cinq secondes sans nouvelle image déclenchent un avertissement ; l’application Windows efface l’image figée. Le silence seul n’indique pas une panne réseau. Les confirmations Windows signifient que le composant Windows a accepté les données, sans garantir que Teams, Zoom ou OBS utilise le bon périphérique.
+
+Une brève interruption réseau dispose de 15 secondes pour se rétablir. Le téléphone tente un redémarrage ICE si la signalisation est disponible. Une invitation expirée, un réseau inaccessible ou une interruption prolongée peut nécessiter un nouveau QR code. Une interruption sur le téléphone peut nécessiter de rouvrir la page ou d’appuyer sur Démarrer la caméra. Vous autorisez toujours vous-même le microphone sur le téléphone.
+
+Copier le rapport de diagnostic crée un rapport local limité à la version, aux états et aux compteurs. Il ne contient ni image, son, adresse IP, nom de périphérique, identifiant de navigateur, lien d’appairage ni clé. Il n’est jamais envoyé automatiquement et s’affiche pour vérification avant partage.

@@ -28,13 +28,14 @@
   };
   window.extrudaResolutionApplied(canvas.width, canvas.height);
   window.addEventListener('extruda-capture-info', event => { const {width,height} = event.detail; captureInfo = {w:width,h:height}; showResolution(); });
-  window.extrudaFrameAck = () => { busy = false; };
+  window.extrudaFrameAck = () => { busy = false; window.ExtrudaHealth?.videoAck(); };
   chrome.webview.addEventListener('sharedbufferreceived', event => { pixels = new Uint32Array(event.getBuffer()); chrome.webview.postMessage('buffer-ready'); if (window.extrudaSelectorTest) { select.value = '3840x2160'; select.onchange(); } });
   function frame(now) {
     const video = document.getElementById('remote');
+    const healthy=!['stalled','paused','ended'].includes(window.ExtrudaHealth?.snapshot().video);
     const received = video?.srcObject && video.videoWidth ? {w:video.videoWidth,h:video.videoHeight} : null;
     if (received?.w !== receivedInfo?.w || received?.h !== receivedInfo?.h) { receivedInfo = received; if (!received) captureInfo = null; showResolution(); }
-    if (pixels && !busy && !changing && video?.srcObject && video.readyState >= 2 && !video.paused && now - lastFrame >= 32) {
+    if (healthy && pixels && !busy && !changing && video?.srcObject && video.readyState >= 2 && !video.paused && now - lastFrame >= 32) {
       try {
         const width = canvas.width, height = canvas.height;
         ctx.fillStyle = '#000'; ctx.fillRect(0, 0, width, height);
@@ -46,7 +47,7 @@
         for (let i = 0; i < rgba.length; i++) { const p = rgba[i]; pixels[i] = (p & 0xff00ff00) | ((p & 0xff) << 16) | ((p >>> 16) & 0xff); }
         busy = true; running = true; lastFrame = now; chrome.webview.postMessage('frame');
       } catch { running = false; chrome.webview.postMessage('clear'); }
-    } else if (running && !video?.srcObject) { running = false; chrome.webview.postMessage('clear'); }
+    } else if (running && (!video?.srcObject||!healthy)) { running = false; chrome.webview.postMessage('clear'); }
     setTimeout(() => frame(performance.now()), 33);
   }
   const guide = document.getElementById('guide');

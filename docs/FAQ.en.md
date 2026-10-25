@@ -85,3 +85,11 @@ If Steam Streaming Microphone is already installed, you can select it instead of
 If no supported audio device is found, the app offers the publisher’s VB-CABLE download, another search, or Use camera only. Camera-only mode is remembered on the PC and hides the microphone button on both devices. Restore it under Information → Microphone setup. The driver is downloaded and installed separately; Extruda does not bypass Windows approval.
 
 [VB-Audio · VB-CABLE](https://vb-audio.com/Cable/)
+
+## How do I check the connection?
+
+Open Information → Check connection. New video frames, microphone signal and Windows acknowledgements are shown separately. Five seconds without new video frames triggers a warning and the Windows app clears a frozen image. Silence alone does not mean a network failure. Windows acknowledgements mean data was accepted by the app’s Windows component; they do not prove that Teams, Zoom or OBS selected the correct device.
+
+A brief network interruption gets up to 15 seconds to recover. The phone attempts one ICE restart if signalling is still available. An expired invitation, an unreachable network or a longer interruption can require a new QR code. A phone interruption may require reopening the page or tapping Start camera. Microphone permission is still granted by you on the phone.
+
+Copy diagnostic report creates a local report containing only version, states and counters. It contains no images, audio, IP addresses, device names, browser identifiers, pairing links or keys. It is never sent automatically. The report is displayed for your review before sharing.

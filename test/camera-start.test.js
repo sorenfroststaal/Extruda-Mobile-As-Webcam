@@ -4,10 +4,10 @@ import vm from 'node:vm';
 import {webcrypto} from 'node:crypto';
 import {readFileSync} from 'node:fs';
 const source=readFileSync(new URL('../public/app.js',import.meta.url),'utf8').split("if (fragment.has('room')) {")[0];
-function setup(getUserMedia) {
+function setup(getUserMedia,timers={setTimeout,clearTimeout}) {
   const elements=new Map();
   const element=id=>{if(!elements.has(id))elements.set(id,{hidden:false,disabled:false,value:'environment',textContent:'',addEventListener(){},getContext(){return{clearRect(){}}},close(){this.open=false}});return elements.get(id)};
-  const context=vm.createContext({console:{...console,error(){}},CustomEvent,TextEncoder,TextDecoder,Uint8Array,URLSearchParams,URL,atob,btoa,setTimeout,clearTimeout,
+  const context=vm.createContext({console:{...console,error(){}},CustomEvent,TextEncoder,TextDecoder,Uint8Array,URLSearchParams,URL,atob,btoa,setTimeout:timers.setTimeout,clearTimeout:timers.clearTimeout,
     crypto:{getRandomValues:a=>a,subtle:{decrypt:async(_a,_b,data)=>data,encrypt:async()=>new Uint8Array(),digest:(...args)=>webcrypto.subtle.digest(...args)}},
     location:{hash:'',pathname:'/',origin:'https://example.test',protocol:'https:'},history:{replaceState(){}},
     document:{getElementById:element,addEventListener(){},body:{classList:{remove(){}}}},window:{addEventListener(){},dispatchEvent(){}},
@@ -87,4 +87,19 @@ test('stopping during camera change releases the late camera and does not replac
  s.element('camera').value='user';const switching=vm.runInContext('switchCamera()',s.context);await vm.runInContext('stop(false)',s.context);
  const late={kind:'video',stop(){lateStops++},getSettings:()=>({})};release({getVideoTracks:()=>[late],getTracks:()=>[late]});await switching;
  assert.equal(lateStops,1);assert.equal(replacements,0);assert.equal(vm.runInContext('stream',s.context),null);
+});
+
+test('transient disconnect preserves capture and reconnect cancels recovery deadlines',async()=>{
+ const tasks=new Map();let id=0;const timers={setTimeout(fn,delay){tasks.set(++id,{fn,delay});return id},clearTimeout(key){tasks.delete(key)}};
+ let stopped=0;const track={kind:'video',getSettings:()=>({width:1280,height:720}),stop(){stopped++}};
+ const s=setup(async()=>({getVideoTracks:()=>[track],getTracks:()=>[track]}),timers);await s.approve();await settle();
+ vm.runInContext("pc.connectionState='disconnected';handleConnectionState(pc)",s.context);assert.equal(stopped,0);assert.equal(tasks.size,2);assert.match(s.element('status').textContent,/Genopretter/);
+ vm.runInContext("pc.connectionState='connected';handleConnectionState(pc)",s.context);assert.equal(tasks.size,0);assert.equal(stopped,0);
+});
+test('phone offers one ICE restart and closes only after recovery deadline',async()=>{
+ const tasks=[];const timers={setTimeout(fn,delay){tasks.push({fn,delay});return tasks.length},clearTimeout(){}};
+ let constraints,stops=0;const track={getSettings:()=>({}),stop(){stops++}};const s=setup(async()=>({getVideoTracks:()=>[track],getTracks:()=>[track]}),timers);await s.approve();await settle();
+ s.context.offer=async options=>{constraints=options;return{}};vm.runInContext("pc.createOffer=offer;pc.connectionState='failed';handleConnectionState(pc);handleConnectionState(pc)",s.context);
+ assert.equal(tasks.length,2);await tasks.find(x=>x.delay===3000).fn();assert.equal(constraints.iceRestart,true);assert.equal(stops,0);
+ await tasks.find(x=>x.delay===15000).fn();await settle();assert.equal(stops,1);assert.equal(vm.runInContext('stopped',s.context),true);
 });

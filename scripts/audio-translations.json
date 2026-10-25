@@ -286,5 +286,209 @@
     "Could not open the camera. Try again or choose another camera.",
     "Kamera konnte nicht geöffnet werden. Versuche es erneut oder wähle eine andere Kamera.",
     "Impossible d’ouvrir la caméra. Réessayez ou choisissez une autre caméra."
+  ],
+  [
+    "Genopretter forbindelse…",
+    "Reconnecting…",
+    "Verbindung wird wiederhergestellt…",
+    "Reconnexion…"
+  ],
+  [
+    "Forbindelsen kunne ikke genoprettes. Scan en ny QR-kode.",
+    "Could not reconnect. Scan a new QR code.",
+    "Verbindung konnte nicht wiederhergestellt werden. Scanne einen neuen QR-Code.",
+    "Impossible de rétablir la connexion. Scannez un nouveau QR code."
+  ],
+  [
+    "Kameraet er sat på pause af telefonen. Hold siden åben.",
+    "The phone paused the camera. Keep this page open.",
+    "Das Telefon hat die Kamera pausiert. Lass diese Seite geöffnet.",
+    "Le téléphone a mis la caméra en pause. Gardez cette page ouverte."
+  ],
+  [
+    "Kameraet er stoppet. Tryk Start kamera for at genoptage.",
+    "The camera stopped. Tap Start camera to resume.",
+    "Die Kamera wurde gestoppt. Tippe zum Fortsetzen auf Kamera starten.",
+    "La caméra s’est arrêtée. Appuyez sur Démarrer la caméra pour reprendre."
+  ],
+  [
+    "Kontrollér forbindelse",
+    "Check connection",
+    "Verbindung prüfen",
+    "Vérifier la connexion"
+  ],
+  [
+    "Forbindelse og fejlfinding",
+    "Connection and troubleshooting",
+    "Verbindung und Fehlerbehebung",
+    "Connexion et dépannage"
+  ],
+  [
+    "Video fra telefonen",
+    "Video from phone",
+    "Video vom Telefon",
+    "Vidéo du téléphone"
+  ],
+  [
+    "Mikrofon fra telefonen",
+    "Microphone from phone",
+    "Mikrofon vom Telefon",
+    "Microphone du téléphone"
+  ],
+  [
+    "Video til Windows",
+    "Video to Windows",
+    "Video an Windows",
+    "Vidéo vers Windows"
+  ],
+  [
+    "Lyd til Windows",
+    "Audio to Windows",
+    "Audio an Windows",
+    "Son vers Windows"
+  ],
+  [
+    "Kontrollen ser efter nye billeder, mikrofonsignal og Windows-bekræftelser. Den kan ikke bekræfte, at Teams, Zoom eller OBS bruger den rigtige enhed.",
+    "The check looks for new frames, microphone signal and Windows acknowledgements. It cannot confirm that Teams, Zoom or OBS uses the correct device.",
+    "Die Prüfung sucht nach neuen Bildern, Mikrofonsignal und Windows-Bestätigungen. Sie kann nicht bestätigen, dass Teams, Zoom oder OBS das richtige Gerät verwendet.",
+    "Le contrôle recherche de nouvelles images, un signal de microphone et des confirmations Windows. Il ne peut pas confirmer que Teams, Zoom ou OBS utilise le bon périphérique."
+  ],
+  [
+    "Kontrollér nu",
+    "Check now",
+    "Jetzt prüfen",
+    "Vérifier maintenant"
+  ],
+  [
+    "Kopiér fejlrapport",
+    "Copy diagnostic report",
+    "Fehlerbericht kopieren",
+    "Copier le rapport de diagnostic"
+  ],
+  [
+    "Fejlrapport",
+    "Diagnostic report",
+    "Fehlerbericht",
+    "Rapport de diagnostic"
+  ],
+  [
+    "Ikke forbundet",
+    "Not connected",
+    "Nicht verbunden",
+    "Non connecté"
+  ],
+  [
+    "Kamera stoppet",
+    "Camera stopped",
+    "Kamera gestoppt",
+    "Caméra arrêtée"
+  ],
+  [
+    "Kamera sat på pause",
+    "Camera paused",
+    "Kamera pausiert",
+    "Caméra en pause"
+  ],
+  [
+    "Video kan ikke måles endnu",
+    "Video cannot be measured yet",
+    "Video kann noch nicht gemessen werden",
+    "Vidéo pas encore mesurable"
+  ],
+  [
+    "Nye videobilleder modtages",
+    "New video frames received",
+    "Neue Videobilder empfangen",
+    "Nouvelles images vidéo reçues"
+  ],
+  [
+    "Ingen nye videobilleder i mindst 5 sekunder",
+    "No new video frames for at least 5 seconds",
+    "Seit mindestens 5 Sekunden keine neuen Videobilder",
+    "Aucune nouvelle image vidéo depuis au moins 5 secondes"
+  ],
+  [
+    "Afventer video",
+    "Waiting for video",
+    "Warte auf Video",
+    "En attente de vidéo"
+  ],
+  [
+    "Forbindelsen leverer nye videobilleder",
+    "Connection delivers new video frames",
+    "Verbindung liefert neue Videobilder",
+    "La connexion fournit de nouvelles images vidéo"
+  ],
+  [
+    "Forbundet · Kontrollér video og lyd",
+    "Connected · Check video and audio",
+    "Verbunden · Video und Audio prüfen",
+    "Connecté · Vérifier la vidéo et le son"
+  ],
+  [
+    "Mikrofon sat på pause af telefonen",
+    "Microphone paused by phone",
+    "Mikrofon vom Telefon pausiert",
+    "Microphone mis en pause par le téléphone"
+  ],
+  [
+    "Mikrofonsignal registreres",
+    "Microphone signal detected",
+    "Mikrofonsignal erkannt",
+    "Signal du microphone détecté"
+  ],
+  [
+    "Ingen mikrofonlyd registreret",
+    "No microphone audio detected",
+    "Kein Mikrofonton erkannt",
+    "Aucun son du microphone détecté"
+  ],
+  [
+    "Windows-kontrol kræver Windows-appen",
+    "Windows check requires the Windows app",
+    "Windows-Prüfung erfordert die Windows-App",
+    "Le contrôle Windows nécessite l’application Windows"
+  ],
+  [
+    "Windows har accepteret videobilleder",
+    "Windows accepted video frames",
+    "Windows hat Videobilder angenommen",
+    "Windows a accepté des images vidéo"
+  ],
+  [
+    "Afventer videobekræftelse fra Windows",
+    "Waiting for video acknowledgement from Windows",
+    "Warte auf Videobestätigung von Windows",
+    "En attente de confirmation vidéo de Windows"
+  ],
+  [
+    "Windows har accepteret lyddata",
+    "Windows accepted audio data",
+    "Windows hat Audiodaten angenommen",
+    "Windows a accepté des données audio"
+  ],
+  [
+    "Lyddata er endnu ikke bekræftet af Windows",
+    "Audio data not yet acknowledged by Windows",
+    "Audiodaten noch nicht von Windows bestätigt",
+    "Données audio pas encore confirmées par Windows"
+  ],
+  [
+    "Kontrol afsluttet. Se hvert led ovenfor. Mødeprogrammets valg kan ikke kontrolleres her.",
+    "Check complete. Review each stage above. Meeting app device selection cannot be checked here.",
+    "Prüfung abgeschlossen. Siehe die einzelnen Schritte oben. Die Geräteauswahl der Konferenz-App kann hier nicht geprüft werden.",
+    "Contrôle terminé. Consultez chaque étape ci-dessus. Le choix du périphérique dans l’application de réunion ne peut pas être vérifié ici."
+  ],
+  [
+    "Fejlrapport kopieret. Ingen billeder, lyd eller parringsnøgler.",
+    "Report copied. No images, audio or pairing keys.",
+    "Bericht kopiert. Keine Bilder, Audiodaten oder Kopplungsschlüssel.",
+    "Rapport copié. Aucune image, aucun son ni clé d’appairage."
+  ],
+  [
+    "Markér og kopiér rapporten manuelt.",
+    "Select and copy the report manually.",
+    "Bericht markieren und manuell kopieren.",
+    "Sélectionnez et copiez le rapport manuellement."
   ]
 ]

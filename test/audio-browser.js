@@ -6,9 +6,11 @@ run.onclick=async()=>{run.disabled=true;try{
  const context=new AudioContext({sampleRate:48000});await context.resume();const osc=context.createOscillator(),gain=context.createGain(),dest=context.createMediaStreamDestination();gain.gain.value=0.12;osc.connect(gain);gain.connect(dest);const keepAlive=context.createGain();keepAlive.gain.value=0;gain.connect(keepAlive);keepAlive.connect(context.destination);osc.start();
  const phone=new RTCPeerConnection({iceServers:[]}),host=new RTCPeerConnection({iceServers:[]});
  phone.onicecandidate=e=>{if(e.candidate)host.addIceCandidate(e.candidate).catch(()=>{})};host.onicecandidate=e=>{if(e.candidate)phone.addIceCandidate(e.candidate).catch(()=>{})};
+ window.ExtrudaHealth?.session({role:'host',peer:host,video:()=>document.getElementById('remote')});
+ const camera=document.createElement('canvas');camera.width=320;camera.height=180;const paint=camera.getContext('2d');let count=0;const painting=setInterval(()=>{paint.fillStyle=count++%2?'#28645f':'#619b98';paint.fillRect(0,0,320,180)},100);const videoStream=camera.captureStream(10);phone.addTrack(videoStream.getVideoTracks()[0],videoStream);
  window.ExtrudaAudio.session({role:'host',peer:host,approved:()=>true,send:async message=>{if(message.enabled===false){osc.stop();dest.stream.getTracks().forEach(t=>t.stop());await window.ExtrudaAudio.control({type:'microphone-state',enabled:false});}}});
- host.addEventListener('connectionstatechange',()=>window.dispatchEvent(new CustomEvent('extruda-connection',{detail:{connected:host.connectionState==='connected'}})));
- const received=new Promise(resolve=>host.ontrack=e=>{if(e.track.kind==='audio'){window.ExtrudaAudio.track(e.track);resolve(e.track)}});
+ host.addEventListener('connectionstatechange',()=>{window.ExtrudaHealth?.transport(host.connectionState);window.dispatchEvent(new CustomEvent('extruda-connection',{detail:{connected:host.connectionState==='connected'}}))});
+ const received=new Promise(resolve=>host.ontrack=e=>{if(e.track.kind==='video'){const preview=document.getElementById('remote');preview.srcObject=e.streams[0];preview.play();}if(e.track.kind==='audio'){window.ExtrudaAudio.track(e.track);resolve(e.track)}});
  const audioSender=phone.addTransceiver('audio',{direction:'sendonly'}).sender;await phone.setLocalDescription(await phone.createOffer());await host.setRemoteDescription(phone.localDescription);await host.setLocalDescription(await host.createAnswer());await phone.setRemoteDescription(host.localDescription);
  const track=await received;
  await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('connection timeout')),8000);host.onconnectionstatechange=()=>{if(host.connectionState==='connected'){clearTimeout(timer);resolve()}};if(host.connectionState==='connected'){clearTimeout(timer);resolve()}});
@@ -18,6 +20,7 @@ run.onclick=async()=>{run.disabled=true;try{
  let blocks=0,bad=0,peak=0;pcm.port.onmessage=e=>{blocks++;if(e.data.length!==960)bad++;for(const v of e.data)peak=Math.max(peak,Math.abs(v))};
  await new Promise(r=>setTimeout(r,1400));const level=document.getElementById('mic-level').value;
  if(level<=0||blocks<20||bad)throw Error('meter/worklet check failed: '+JSON.stringify({level,blocks,bad,peak,context:context.state,enabled:track.enabled,muted:track.muted,stats:[...(await host.getStats()).values()].filter(x=>x.type==='inbound-rtp').map(x=>({packets:x.packetsReceived,level:x.audioLevel,total:x.totalAudioEnergy}))}));
+ if(window.ExtrudaHealth){await window.ExtrudaHealth.poll();if(window.ExtrudaHealth.snapshot().video!=='flowing')throw Error('Video health not flowing');}
  result.textContent='PASS: WebRTC-lyd modtaget, niveau '+level+'%, '+blocks+' PCM-blokke à 20 ms. Tryk Slå mikrofon fra for at teste mute.';
  const off=document.getElementById('mic-toggle');off.addEventListener('click',()=>{setTimeout(()=>{result.textContent=document.getElementById('mic-level').value===0?'PASS: WebRTC-lyd, niveauindikator, PCM og mute; ingen fysisk mikrofon eller højttaler brugt.':'FAIL: meter not silent';phone.close();host.close();context.close();},150)},{once:true});
 }catch(error){result.textContent='FAIL: '+error.message;console.error(error)}};

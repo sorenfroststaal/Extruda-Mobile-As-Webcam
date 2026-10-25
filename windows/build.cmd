@@ -43,6 +43,7 @@ copy /y public\style.css windows\dist\ui\style.css >nul
 if not exist windows\dist\ui\. mkdir windows\dist\ui\.
 copy /y public\app.js windows\dist\ui\app.js >nul
 copy /y public\audio.js windows\dist\ui\audio.js >nul
+copy /y public\health.js windows\dist\ui\health.js >nul
 copy /y public\audio-worklet.js windows\dist\ui\audio-worklet.js >nul
 if not exist windows\dist\ui\. mkdir windows\dist\ui\.
 copy /y public\qr.js windows\dist\ui\qr.js >nul
@@ -75,7 +76,7 @@ pushd windows
 rc /nologo /fo build\setup.res setup.rc
 popd
 if errorlevel 1 exit /b 1
-cl %COMMON% windows\setup.cpp windows\build\setup.res /Fowindows\build\setup.obj /Fewindows\dist\%EXTRUDA_SETUP_NAME% /link /SUBSYSTEM:WINDOWS /MANIFEST:EMBED /MANIFESTUAC:"level='requireAdministrator' uiAccess='false'" shell32.lib ole32.lib user32.lib advapi32.lib
+cl %COMMON% windows\setup.cpp windows\build\setup.res /Fowindows\build\setup.obj /Fewindows\dist\%EXTRUDA_SETUP_NAME% /link /SUBSYSTEM:WINDOWS /MANIFEST:EMBED /MANIFESTINPUT:windows\setup.manifest /MANIFESTUAC:NO shell32.lib ole32.lib user32.lib advapi32.lib
 if errorlevel 1 exit /b 1
 echo Windows build complete.
 

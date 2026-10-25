@@ -85,3 +85,11 @@ Har du allerede Steam Streaming Microphone, kan du vælge den i stedet for VB-CA
 Hvis ingen understøttet lydenhed findes, tilbyder appen et link til producentens VB-CABLE-installation, en ny søgning eller Brug kun kamera. Valget Kun kamera huskes på pc’en og skjuler mikrofonknappen på begge enheder. Gendan funktionen under Information → Mikrofonopsætning. Driveren hentes og installeres separat; Extruda omgår ikke Windows’ godkendelse.
 
 [VB-Audio · VB-CABLE](https://vb-audio.com/Cable/)
+
+## Hvordan kontrollerer jeg forbindelsen?
+
+Åbn Information → Kontrollér forbindelse. Kontrollen viser nye videobilleder, mikrofonsignal og Windows-bekræftelser separat. Fem sekunder uden nye videobilleder udløser en advarsel, og Windows-appen rydder et fastfrosset billede. Stilhed er ikke i sig selv en netværksfejl. Windows-bekræftelser betyder, at data er accepteret af appens Windows-del; de beviser ikke, at Teams, Zoom eller OBS har valgt den rigtige enhed.
+
+Et kort netværksudfald får op til 15 sekunder til at rette sig. Telefonen forsøger én ICE-genstart, hvis parringsserveren stadig er tilgængelig. En udløbet invitation, skift til et utilgængeligt netværk eller et længere udfald kan kræve en ny QR-kode. En afbrydelse på telefonen kan kræve, at du åbner siden igen eller trykker Start kamera. Mikrofonadgang gives fortsat af dig på telefonen.
+
+Kopiér fejlrapport opretter kun en lokal rapport med version, tilstande og tællere. Rapporten indeholder ikke billeder, lyd, IP-adresser, enhedsnavne, browseridentifikatorer, parringslink eller nøgler. Den sendes ingen steder automatisk. Rapporten vises, så du kan kontrollere den før deling.
