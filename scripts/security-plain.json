@@ -153,10 +153,10 @@
       "Après votre acceptation sur le PC et l’autorisation caméra dans le navigateur, le téléphone tente d’envoyer la vidéo. Une application ou une personne pouvant voir l’image sur le PC peut la sauvegarder."
     ],
     "impact": [
-      "Du kan komme til at vise et privat rum eller personer, du ikke ønskede at filme. Billeder kan blive optaget eller delt videre, selv om Extruda ikke har en optageknap. Ret kameraet rigtigt før accept, og afbryd og luk siden efter brug.",
-      "You could accidentally show a private room or people you did not intend to film. Images could be recorded or shared further even though Extruda has no record button. Point the camera appropriately before accepting, then disconnect and close the page after use.",
-      "Du könntest versehentlich einen privaten Raum oder Personen zeigen, die du nicht filmen wolltest. Bilder können aufgezeichnet oder weitergegeben werden, obwohl Extruda keine Aufnahmetaste hat. Richte die Kamera vor der Bestätigung richtig aus und trenne die Verbindung und schließe die Seite danach.",
-      "Vous pourriez montrer par erreur une pièce privée ou des personnes que vous ne souhaitiez pas filmer. Les images peuvent être enregistrées ou repartagées même sans bouton d’enregistrement dans Extruda. Orientez la caméra avant d’accepter, puis déconnectez et fermez la page après usage."
+      "Du kan komme til at vise et privat rum eller personer, du ikke ønskede at filme. Billeder kan blive optaget eller delt videre, både med Extrudas optageknap og andre programmer. Ret kameraet rigtigt før accept, og afbryd og luk siden efter brug.",
+      "You could accidentally show a private room or people you did not intend to film. Images could be recorded or shared further using Extruda’s record button or other software. Point the camera appropriately before accepting, then disconnect and close the page after use.",
+      "Du könntest versehentlich einen privaten Raum oder Personen zeigen, die du nicht filmen wolltest. Bilder können aufgezeichnet oder weitergegeben werden, mit Extrudas Aufnahmetaste oder anderer Software. Richte die Kamera vor der Bestätigung richtig aus und trenne die Verbindung und schließe die Seite danach.",
+      "Vous pourriez montrer par erreur une pièce privée ou des personnes que vous ne souhaitiez pas filmer. Les images peuvent être enregistrées ou repartagées avec le bouton d’enregistrement d’Extruda ou d’autres logiciels. Orientez la caméra avant d’accepter, puis déconnectez et fermez la page après usage."
     ]
   },
   {
@@ -223,6 +223,32 @@
       "Private conversations may be heard or recorded by a meeting app or another app with access to the virtual microphone. Other apps’ audio may be mixed in if they send to the same virtual device. Turn the microphone off after use; a green meter means signal in the app, not that only Teams can hear it. Get drivers from their official publisher and do not make the virtual cable your PC’s default speaker.",
       "Private Gespräche können von einer Meeting-App oder einer anderen App mit Zugriff auf das virtuelle Mikrofon gehört oder aufgenommen werden. Senden andere Programme an dasselbe virtuelle Gerät, kann ihr Ton beigemischt werden. Schalte das Mikrofon danach aus; ein grüner Pegel bedeutet Signal in der App, nicht dass nur Teams mithört. Treiber nur vom offiziellen Anbieter beziehen und das virtuelle Kabel nicht zum Standardlautsprecher machen.",
       "Des conversations privées peuvent être entendues ou enregistrées par une application de réunion ou une autre application ayant accès au microphone virtuel. Le son d’autres applications peut se mélanger si elles utilisent le même périphérique. Désactivez le microphone après usage ; une jauge verte indique un signal dans l’application, pas que seul Teams l’entend. Obtenez les pilotes auprès de leur éditeur officiel et ne définissez pas le câble virtuel comme haut-parleur par défaut."
+    ]
+  },
+  {
+    "title": [
+      "Lokale optagelser og mobilstyring",
+      "Local recordings and phone controls",
+      "Lokale Aufnahmen und Telefonsteuerung",
+      "Enregistrements locaux et commandes du téléphone"
+    ],
+    "technical": [
+      "Optagelser gemmes ukrypteret i den mappe, du vælger. Mapper kan synkroniseres af OneDrive eller andre programmer. Appen uploader ikke optagelser. Optagekommandoer fra telefonen accepteres kun i den godkendte parring; start kræver valg og bekræftelse på pc’en. Pause, fortsæt og stop kan styres af den parrede telefon. En kompromitteret parret enhed kan misbruge disse funktioner. Diskfejl og nedbrud kan efterlade ufuldstændige .partial-filer. Optag kun med de medvirkendes accept.",
+      "Recordings are stored unencrypted in the folder you choose. Folders may be synced by OneDrive or other software. The app does not upload recordings. Phone recording commands are accepted only within the approved pairing; starting requires selection and confirmation on the PC. The paired phone can pause, resume and stop. A compromised paired device can misuse these controls. Disk errors or crashes may leave incomplete .partial files. Record only with participants’ consent.",
+      "Aufnahmen werden unverschlüsselt im gewählten Ordner gespeichert. OneDrive oder andere Software kann Ordner synchronisieren. Die App lädt Aufnahmen nicht hoch. Telefonbefehle werden nur in der bestätigten Kopplung akzeptiert; der Start erfordert Auswahl und Bestätigung am PC. Das gekoppelte Telefon kann pausieren, fortsetzen und stoppen. Ein kompromittiertes gekoppeltes Gerät kann dies missbrauchen. Fehler oder Abstürze können unvollständige .partial-Dateien hinterlassen. Nur mit Zustimmung der Beteiligten aufnehmen.",
+      "Les enregistrements sont sauvegardés sans chiffrement dans le dossier choisi, éventuellement synchronisé par OneDrive ou d’autres logiciels. L’application ne les envoie pas. Les commandes du téléphone sont limitées à l’appairage approuvé ; le démarrage exige une sélection et confirmation sur le PC. Le téléphone jumelé peut mettre en pause, reprendre et arrêter. Un appareil jumelé compromis peut abuser de ces commandes. Une panne peut laisser des fichiers .partial incomplets. Enregistrez avec l’accord des participants."
+    ],
+    "meaning": [
+      "Når du trykker optag, bliver billede og eventuel mikrofonlyd til en rigtig videofil. Den forsvinder ikke, når parringen slutter. Telefonknapperne er en fjernbetjening til den parrede pc, ikke et offentligt link.",
+      "When you record, video and optional microphone audio become a real file. It does not disappear when pairing ends. The phone buttons are a remote control for the paired PC, not a public link.",
+      "Beim Aufnehmen werden Video und optionaler Mikrofonton zu einer echten Datei. Sie verschwindet nicht beim Ende der Kopplung. Die Telefontasten steuern den gekoppelten PC und sind kein öffentlicher Link.",
+      "Enregistrer crée un véritable fichier vidéo avec le son facultatif du microphone. Il ne disparaît pas à la fin de l’appairage. Les boutons du téléphone commandent le PC jumelé, sans lien public."
+    ],
+    "impact": [
+      "Andre med adgang til pc’en, backup eller den synkroniserede mappe kan få adgang til optagelsen. En optagelse kan fylde disken eller blive beskadiget ved nedbrud. Vælg placeringen med omtanke, del ikke parringen, og kontrollér den gemte video, før du sletter en anden kopi.",
+      "Anyone with access to the PC, backups or the synced folder may access a recording. Recording can fill the disk or be damaged by a crash. Choose the location carefully, keep pairing private and check saved video before deleting another copy.",
+      "Wer Zugriff auf PC, Sicherung oder synchronisierten Ordner hat, kann die Aufnahme lesen. Aufnahmen können den Datenträger füllen oder durch Abstürze beschädigt werden. Speicherort sorgfältig wählen, Kopplung privat halten und die gespeicherte Datei vor dem Löschen anderer Kopien prüfen.",
+      "Une personne ayant accès au PC, aux sauvegardes ou au dossier synchronisé peut consulter la vidéo. Un enregistrement peut remplir le disque ou être endommagé par une panne. Choisissez le dossier avec soin, gardez l’appairage privé et vérifiez la vidéo avant de supprimer une autre copie."
     ]
   }
 ]

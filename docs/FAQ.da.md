@@ -52,7 +52,7 @@ Appen starter i 1920 × 1080. Når forbindelsen er aktiv, kan du vælge 480p, 72
 
 ## Internet, lyd, optagelse og sikker afslutning
 
-Denne version kræver internet til telefonklient og parring, selv på samme Wi-Fi. Video og valgfri mikrofonlyd sendes direkte med WebRTC; Cloudflare er ikke medieserver. Mikrofonen er fra ved hver ny forbindelse og kræver et tryk og browserens tilladelse på telefonen. Appen har ingen optagefunktion, men mødeprogrammer og modtagere kan gemme både billede og lyd. Afbryd og luk begge sider efter brug. Del aldrig QR-koden eller linket. Se Sikkerhedsrisici.
+Denne version kræver internet til telefonklient og parring, selv på samme Wi-Fi. Video og valgfri mikrofonlyd sendes direkte med WebRTC; Cloudflare er ikke medieserver. Mikrofonen er fra ved hver ny forbindelse og kræver et tryk og browserens tilladelse på telefonen. Appen kan optage lokalt på pc’en, og mødeprogrammer og modtagere kan gemme både billede og lyd. Afbryd og luk begge sider efter brug. Del aldrig QR-koden eller linket. Se Sikkerhedsrisici.
 
 ## Sprog, tema og opdateringer
 
@@ -101,3 +101,13 @@ Under en forbindelse er Windows-kontrollerne samlet ved siden af et afgrænset v
 Mikrofon til · Der er stille er en normal tilstand, ikke en tilladelsesfejl. Niveaumåleren bruger en dB-skala. Slå mikrofonen til, vælg Test mikrofon og tal normalt mod telefonen i fem sekunder. Testen vurderer signalniveau og mulige kraftige spidser; den genkender ikke tale og gemmer ingen lyd. På pc’en angives også, om Windows accepterede lyddata. Testen måler ikke lyden i Teams, Zoom eller OBS og ændrer ikke automatisk sendestyrken.
 
 Windows-opløsning er størrelsen på det virtuelle kameraoutput. Modtaget viser den faktiske videostørrelse, billedhastighed og bitrate; telefonen eller WebRTC kan levere en lavere kvalitet. Kontrollér forbindelse viser desuden video og lyd separat med bitrate, pakketab og jitter over de seneste cirka fem sekunder. — betyder endnu ikke målt. Tællere nulstilles ved en ny session eller et længere måleophold. Fejlrapporten indeholder fortsat ingen medier, adresser, enhedsnavne eller parringsnøgler.
+
+## Hvordan optager jeg video på pc’en?
+
+Forbind telefonen, og vælg Optag video i Windows-appen. Kvalitetsskyderen vælger et mål for opløsning, billedhastighed og bitrate og viser en anslået filstørrelse pr. minut. Vælg fil og start åbner Windows’ gem-dialog. Videoen skrives løbende til den valgte mappe; den uploades ikke af appen. En mappe under OneDrive eller andre synkroniseringstjenester kan dog blive uploadet af disse tjenester.
+
+Avanceret giver format (automatisk, MP4 eller WebM), codec (H.264, VP8 eller VP9), opløsning, 15/24/25/30 fps, video- og lyd-bitrate, optagelydens forstærkning, ønsket keyframeinterval og valgfrit automatisk stop efter et antal minutter. Understøttelse afhænger af WebView2 og pc’en. Bitrate og filstørrelse er vejledende; højere indstillinger skaber ikke detaljer, som telefonen ikke sender. Windows-kameraets opløsning låses under optagelsen. Beskæring og rotation følger det viste kameraoutput.
+
+Medtag mikrofon optager kun telefonens lyd, mens mikrofonen er tilladt og slået til. Den lokale optagelse kræver ikke en virtuel lyddriver. Den optager ikke Teams-, Zoom-, OBS- eller systemlyd. Pause og fortsæt beholder samme fil. Stop og gem færdiggør den. Ved afbrydelse eller lukning forsøger appen at stoppe og gemme. Der skrives først til en midlertidig .partial-fil i samme mappe; en eksisterende målfil erstattes først efter vellykket færdiggørelse. Et nedbrud, diskfejl eller for langsom lagring kan give en ufuldstændig fil, som ikke nødvendigvis kan afspilles.
+
+På en understøttet Windows-version af Extruda vises optageknapper også på den parrede telefon. Start åbner indstillinger og gem-dialog på pc’en og kræver din bekræftelse dér. Derefter kan telefonen pause, fortsætte og stoppe. Kommandoerne bruger den eksisterende godkendte, krypterede forbindelse; der oprettes ikke et offentligt optagelink eller en ny serverport. Ingen filstier sendes til telefonen. En kompromitteret parret enhed kan stadig misbruge styringen. Opdatér begge klienter ved manglende knapper. Optag kun med de medvirkendes accept.

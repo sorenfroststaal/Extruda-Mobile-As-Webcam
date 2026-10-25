@@ -31,3 +31,5 @@
 318 RCDATA "dist/ui/health.js"
 
 319 RCDATA "dist/ui/video.js"
+
+320 RCDATA "dist/ui/recording.js"

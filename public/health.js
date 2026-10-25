@@ -21,7 +21,7 @@
     const media=video(),track=media?.srcObject?.getVideoTracks?.()[0];
     const audio=window.ExtrudaAudio?.health?.()||{enabled:false};
     let picture=!peer?'off':track?.readyState==='ended'?'ended':track?.muted||media?.paused?'paused':!statsAvailable?'unknown':frameAt&&age(frameAt)<5000?'flowing':performance.now()-started>5000?'stalled':'waiting';
-    return {schema:2,version:'0.9.0',role,transport,video:picture,videoAgeMs:age(frameAt),windowsVideo:!native()?'not-app':ackAt&&age(ackAt)<5000?'accepted':'waiting',
+    return {schema:2,version:'0.10.0',role,transport,video:picture,videoAgeMs:age(frameAt),windowsVideo:!native()?'not-app':ackAt&&age(ackAt)<5000?'accepted':'waiting',
       audio:{enabled:!!audio.enabled,signal:!!audio.signal,paused:!!audio.paused,context:['running','suspended','closed'].includes(audio.context)?audio.context:'closed',windowsAccepted:!!audio.windowsAccepted},
       packets:number(packets),packetsLost:number(lost),jitterMs:Math.round(number(jitter)*1000),statsAvailable,
       received:{width:number(media?.videoWidth),height:number(media?.videoHeight)},recent:{video:recent.video,audio:recent.audio}};

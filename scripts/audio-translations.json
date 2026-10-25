@@ -120,10 +120,10 @@
     "Le son est envoyé à CABLE Input. Choisissez CABLE Output dans l’application de réunion. Le microphone du téléphone exige une autorisation distincte."
   ],
   [
-    "Krypteret video og valgfri mikrofonlyd direkte mellem enhederne. Ingen optagefunktion. Cloudflare bruges til parring og kan behandle IP-adresser. Windows-installationen kræver administratoradgang og er endnu ikke digitalt signeret.",
-    "Encrypted video and optional microphone audio directly between devices. No recording feature. Cloudflare handles pairing and may process IP addresses. Windows installation requires administrator access and is not digitally signed.",
-    "Verschlüsseltes Video und optionales Mikrofon-Audio direkt zwischen den Geräten. Keine Aufnahmefunktion. Cloudflare übernimmt die Kopplung und kann IP-Adressen verarbeiten. Die Windows-Installation benötigt Administratorrechte und ist nicht digital signiert.",
-    "Vidéo chiffrée et audio microphone facultatif directement entre appareils. Aucune fonction d’enregistrement. Cloudflare gère le jumelage et peut traiter les adresses IP. L’installation Windows exige des droits administrateur et n’est pas signée numériquement."
+    "Krypteret video og valgfri mikrofonlyd direkte mellem enhederne. Valgfri optagelse gemmes på pc’en. Cloudflare bruges til parring og kan behandle IP-adresser. Windows-installationen kræver administratoradgang og er endnu ikke digitalt signeret.",
+    "Encrypted video and optional microphone audio directly between devices. Optional recordings are saved on the PC. Cloudflare handles pairing and may process IP addresses. Windows installation requires administrator access and is not digitally signed.",
+    "Verschlüsseltes Video und optionales Mikrofon-Audio direkt zwischen den Geräten. Optionale Aufnahmen werden am PC gespeichert. Cloudflare übernimmt die Kopplung und kann IP-Adressen verarbeiten. Die Windows-Installation benötigt Administratorrechte und ist nicht digital signiert.",
+    "Vidéo chiffrée et audio microphone facultatif directement entre appareils. Les enregistrements facultatifs sont sauvegardés sur le PC. Cloudflare gère le jumelage et peut traiter les adresses IP. L’installation Windows exige des droits administrateur et n’est pas signée numériquement."
   ],
   [
     "Lydindstillinger",
@@ -604,5 +604,245 @@
     "Windows resolution",
     "Windows-Auflösung",
     "Résolution Windows"
+  ],
+  [
+    "Lokal optagelse",
+    "Local recording",
+    "Lokale Aufnahme",
+    "Enregistrement local"
+  ],
+  [
+    "Optag video",
+    "Record video",
+    "Video aufnehmen",
+    "Enregistrer une vidéo"
+  ],
+  [
+    "Optag video lokalt",
+    "Record video locally",
+    "Video lokal aufnehmen",
+    "Enregistrer une vidéo localement"
+  ],
+  [
+    "Ingen optagelse",
+    "Not recording",
+    "Keine Aufnahme",
+    "Aucun enregistrement"
+  ],
+  [
+    "Pause optagelse",
+    "Pause recording",
+    "Aufnahme pausieren",
+    "Mettre en pause"
+  ],
+  [
+    "Fortsæt optagelse",
+    "Resume recording",
+    "Aufnahme fortsetzen",
+    "Reprendre l’enregistrement"
+  ],
+  [
+    "Stop og gem",
+    "Stop and save",
+    "Stoppen und speichern",
+    "Arrêter et enregistrer"
+  ],
+  [
+    "Vis i mappe",
+    "Show in folder",
+    "Im Ordner anzeigen",
+    "Afficher dans le dossier"
+  ],
+  [
+    "Avanceret",
+    "Advanced",
+    "Erweitert",
+    "Avancé"
+  ],
+  [
+    "Kvalitet og filstørrelse",
+    "Quality and file size",
+    "Qualität und Dateigröße",
+    "Qualité et taille du fichier"
+  ],
+  [
+    "Lav kvalitet · Lille fil",
+    "Lower quality · Smaller file",
+    "Niedrige Qualität · Kleine Datei",
+    "Qualité basse · Petit fichier"
+  ],
+  [
+    "Høj kvalitet · Stor fil",
+    "Higher quality · Larger file",
+    "Hohe Qualität · Große Datei",
+    "Qualité élevée · Gros fichier"
+  ],
+  [
+    "Optagelsen gemmes i en mappe, du vælger på pc’en. Appen uploader ikke filen, men mappen kan være synkroniseret af fx OneDrive.",
+    "The recording is saved to a folder you choose on the PC. The app does not upload it, but the folder may be synced by services such as OneDrive.",
+    "Die Aufnahme wird in einem gewählten PC-Ordner gespeichert. Die App lädt sie nicht hoch; der Ordner kann jedoch z. B. von OneDrive synchronisiert werden.",
+    "L’enregistrement est sauvegardé dans un dossier choisi sur le PC. L’application ne l’envoie pas, mais ce dossier peut être synchronisé par OneDrive, par exemple."
+  ],
+  [
+    "Medtag telefonens mikrofon, når den er slået til",
+    "Include the phone microphone when enabled",
+    "Telefonmikrofon einschließen, wenn eingeschaltet",
+    "Inclure le microphone du téléphone lorsqu’il est activé"
+  ],
+  [
+    "Filformat",
+    "File format",
+    "Dateiformat",
+    "Format de fichier"
+  ],
+  [
+    "Videocodec",
+    "Video codec",
+    "Videocodec",
+    "Codec vidéo"
+  ],
+  [
+    "Optagelsens opløsning",
+    "Recording resolution",
+    "Aufnahmeauflösung",
+    "Résolution de l’enregistrement"
+  ],
+  [
+    "Samme som Windows-kameraet",
+    "Same as Windows camera",
+    "Wie Windows-Kamera",
+    "Identique à la caméra Windows"
+  ],
+  [
+    "Billedhastighed",
+    "Frame rate",
+    "Bildrate",
+    "Fréquence d’images"
+  ],
+  [
+    "Video-bitrate (Mbit/s)",
+    "Video bitrate (Mbit/s)",
+    "Video-Bitrate (Mbit/s)",
+    "Débit vidéo (Mbit/s)"
+  ],
+  [
+    "Lyd-bitrate (kbit/s)",
+    "Audio bitrate (kbit/s)",
+    "Audio-Bitrate (kbit/s)",
+    "Débit audio (kbit/s)"
+  ],
+  [
+    "Optagelyd · Forstærkning (dB)",
+    "Recording audio · Gain (dB)",
+    "Aufnahmeton · Verstärkung (dB)",
+    "Son enregistré · Gain (dB)"
+  ],
+  [
+    "Stop automatisk efter minutter · 0 er uden grænse",
+    "Auto-stop after minutes · 0 means unlimited",
+    "Automatisch nach Minuten stoppen · 0 ohne Grenze",
+    "Arrêter après ce nombre de minutes · 0 sans limite"
+  ],
+  [
+    "Keyframeinterval · Ønske",
+    "Keyframe interval · Requested",
+    "Keyframe-Intervall · Wunsch",
+    "Intervalle d’images clés · Souhaité"
+  ],
+  [
+    "Højere opløsning eller flere billeder end telefonen leverer skaber ikke flere detaljer. Bitrate, filstørrelse og keyframes er vejledende og afhænger af encoderen. Understøttede codecs afhænger af WebView2 og pc’en.",
+    "Higher resolution or frame rate than the phone delivers does not add detail. Bitrate, file size and keyframes are targets and depend on the encoder. Codec support depends on WebView2 and your PC.",
+    "Höhere Auflösung oder Bildrate als vom Telefon geliefert erzeugt keine zusätzlichen Details. Bitrate, Dateigröße und Keyframes sind Zielwerte und encoderabhängig. Codecs hängen von WebView2 und dem PC ab.",
+    "Une résolution ou fréquence supérieure à celle fournie par le téléphone n’ajoute pas de détails. Débit, taille et images clés sont indicatifs et dépendent de l’encodeur. Les codecs dépendent de WebView2 et du PC."
+  ],
+  [
+    "Vælg fil og start",
+    "Choose file and start",
+    "Datei wählen und starten",
+    "Choisir le fichier et démarrer"
+  ],
+  [
+    "Stop og gem færdiggør filen. Ved nedbrud eller diskfejl kan der ligge en ufuldstændig .partial-fil. Optag kun med de medvirkendes accept.",
+    "Stop and save finalizes the file. A crash or disk error may leave an incomplete .partial file. Record only with participants’ consent.",
+    "Stoppen und speichern schließt die Datei ab. Absturz oder Datenträgerfehler können eine unvollständige .partial-Datei hinterlassen. Nur mit Zustimmung der Beteiligten aufnehmen.",
+    "Arrêter et enregistrer finalise le fichier. Une panne peut laisser un fichier .partial incomplet. Enregistrez uniquement avec l’accord des participants."
+  ],
+  [
+    "Cirka {mb} MB pr. minut · {w} × {h} · {fps} fps",
+    "About {mb} MB per minute · {w} × {h} · {fps} fps",
+    "Etwa {mb} MB pro Minute · {w} × {h} · {fps} fps",
+    "Environ {mb} Mo par minute · {w} × {h} · {fps} fps"
+  ],
+  [
+    "Denne kombination understøttes ikke. Vælg et andet format eller codec.",
+    "This combination is not supported. Choose another format or codec.",
+    "Diese Kombination wird nicht unterstützt. Anderes Format oder anderen Codec wählen.",
+    "Cette combinaison n’est pas compatible. Choisissez un autre format ou codec."
+  ],
+  [
+    "Optagelsen kunne ikke fortsætte. En delvis fil kan være bevaret i den valgte mappe.",
+    "Recording could not continue. A partial file may remain in the selected folder.",
+    "Aufnahme konnte nicht fortgesetzt werden. Eine Teildatei kann im gewählten Ordner verbleiben.",
+    "L’enregistrement n’a pas pu continuer. Un fichier partiel peut rester dans le dossier choisi."
+  ],
+  [
+    "Gemmer optagelsen…",
+    "Saving recording…",
+    "Aufnahme wird gespeichert…",
+    "Enregistrement en cours de sauvegarde…"
+  ],
+  [
+    "Optager lokalt på pc’en",
+    "Recording locally on the PC",
+    "Lokale Aufnahme auf dem PC läuft",
+    "Enregistrement local sur le PC"
+  ],
+  [
+    "Optagelse på pause",
+    "Recording paused",
+    "Aufnahme pausiert",
+    "Enregistrement en pause"
+  ],
+  [
+    "Optagelsen er gemt lokalt",
+    "Recording saved locally",
+    "Aufnahme lokal gespeichert",
+    "Enregistrement sauvegardé localement"
+  ],
+  [
+    "Optagelsen kunne ikke starte. Kontrollér format og ledig diskplads.",
+    "Recording could not start. Check format and free disk space.",
+    "Aufnahme konnte nicht starten. Format und freien Speicherplatz prüfen.",
+    "Impossible de démarrer. Vérifiez le format et l’espace disque disponible."
+  ],
+  [
+    "Filen kunne ikke åbnes. Vælg en anden mappe.",
+    "Could not open the file. Choose another folder.",
+    "Datei konnte nicht geöffnet werden. Anderen Ordner wählen.",
+    "Impossible d’ouvrir le fichier. Choisissez un autre dossier."
+  ],
+  [
+    "Optagelsen kunne ikke færdiggøres. Se efter en .partial-fil i den valgte mappe.",
+    "Could not finalize the recording. Look for a .partial file in the selected folder.",
+    "Aufnahme konnte nicht abgeschlossen werden. Suche im gewählten Ordner nach einer .partial-Datei.",
+    "Impossible de finaliser. Cherchez un fichier .partial dans le dossier choisi."
+  ],
+  [
+    "Start optagelse på pc",
+    "Start recording on PC",
+    "Aufnahme am PC starten",
+    "Démarrer l’enregistrement sur le PC"
+  ],
+  [
+    "Bekræft optagelse og filplacering på pc’en",
+    "Confirm recording and file location on the PC",
+    "Aufnahme und Speicherort am PC bestätigen",
+    "Confirmez l’enregistrement et le fichier sur le PC"
+  ],
+  [
+    "Optagestyring er ikke tilgængelig. Brug pc’en.",
+    "Recording controls unavailable. Use the PC.",
+    "Aufnahmesteuerung nicht verfügbar. PC verwenden.",
+    "Commandes d’enregistrement indisponibles. Utilisez le PC."
   ]
 ]

@@ -103,3 +103,5 @@ test('phone offers one ICE restart and closes only after recovery deadline',asyn
  assert.equal(tasks.length,2);await tasks.find(x=>x.delay===3000).fn();assert.equal(constraints.iceRestart,true);assert.equal(stops,0);
  await tasks.find(x=>x.delay===15000).fn();await settle();assert.equal(stops,1);assert.equal(vm.runInContext('stopped',s.context),true);
 });
+
+test('invalid recording commands are rejected without exposing file operations',async()=>{const s=setup(async()=>{});vm.runInContext('approved=true',s.context);await vm.runInContext("receiveControl({type:'record-command',action:'write-file',path:'C:/arbitrary'})",s.context);assert.equal(vm.runInContext('stopped',s.context),true)});

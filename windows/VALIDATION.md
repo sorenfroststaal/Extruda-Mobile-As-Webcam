@@ -123,3 +123,9 @@ Installer DPI: the embedded manifest was extracted from the built EXE and verifi
 ## Usability package 0.9.0
 
 50 automated tests passed locally, covering portrait contain/crop/rotation geometry, silence classification, guided-test cancellation, rolling audio/video rates, counter resets and report privacy. A synthetic Windows camera passed 30 frames through Frame Server at 1080p. The compact native layout was visually inspected with a test image. The browser fixture verifies actual received video/audio and the five-second input-level test. Physical phone rotation/crop appearance in meeting apps and speech levels across different phones still require real-device testing.
+
+## Local recording 0.10.0
+
+Synthetic native recording produced a finalized MP4 at 1920x1080, duration 3.265 seconds after a half-second pause, with two 48 kHz audio channels. The test used a generated image and oscillator, not a physical camera or microphone. Windows shell metadata recognized the output. RecordingTests verifies bounded block validation, atomic target replacement and preservation of an existing target on abort. JS tests cover quality/codec validation, acknowledge-before-finish sequencing, pause/resume, remote permission boundaries, old-client negotiation, cancelled dialogs, disconnect and duration stop. Real phone sound, prolonged capture, disk exhaustion and recovery of incomplete files still require further testing.
+
+RecordingProbe decoded the resulting MP4 with Windows Media Foundation: 65 video frames and audio RMS 0.0706. This verifies actual video and audio decoding, beyond metadata recognition. Pause/resume was included in the recording fixture.

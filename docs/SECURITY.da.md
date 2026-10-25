@@ -120,7 +120,7 @@ Tjenesteudbydere kan have oplysninger om forbindelsen, og løsningen gør dig ik
 
 **Kræver opmærksomhed**
 
-Kameraet forsøger at starte efter pc-accept, når browserens tilladelse er givet. Hold øje med kameraindikatoren, og afbryd efter brug. Appen har ingen optagefunktion, men mødeprogrammer, skærmoptagelse eller den parrede modpart kan gemme billedet. Vi kan ikke forhindre det med kryptering.
+Kameraet forsøger at starte efter pc-accept, når browserens tilladelse er givet. Hold øje med kameraindikatoren, og afbryd efter brug. Appen kan optage lokalt på pc’en, og mødeprogrammer, skærmoptagelse eller den parrede modpart kan gemme billedet. Vi kan ikke forhindre det med kryptering.
 
 <!-- plain:start -->
 **Kort fortalt**
@@ -129,7 +129,7 @@ Når du accepterer på pc’en og har tilladt kameraet i browseren, forsøger te
 
 **Det kan betyde for dig**
 
-Du kan komme til at vise et privat rum eller personer, du ikke ønskede at filme. Billeder kan blive optaget eller delt videre, selv om Extruda ikke har en optageknap. Ret kameraet rigtigt før accept, og afbryd og luk siden efter brug.
+Du kan komme til at vise et privat rum eller personer, du ikke ønskede at filme. Billeder kan blive optaget eller delt videre, både med Extrudas optageknap og andre programmer. Ret kameraet rigtigt før accept, og afbryd og luk siden efter brug.
 <!-- plain:end -->
 
 ## Ukendte fejl og opdateringer
@@ -174,6 +174,20 @@ Når du tænder mikrofonen, kan den også opfange andre personer og lyde i rumme
 **Det kan betyde for dig**
 
 Private samtaler kan blive hørt eller optaget af et mødeprogram eller en anden app med adgang til den virtuelle mikrofon. Andre programmers lyd kan blandes ind, hvis de sender til samme virtuelle lydenhed. Slå mikrofonen fra efter brug; grøn niveauindikator betyder signal i appen, ikke at kun Teams kan høre det. Hent eventuelle drivere fra den officielle udgiver, og undlad at gøre det virtuelle kabel til pc’ens standardhøjttaler.
+<!-- plain:end -->
+
+## Lokale optagelser og mobilstyring
+
+Optagelser gemmes ukrypteret i den mappe, du vælger. Mapper kan synkroniseres af OneDrive eller andre programmer. Appen uploader ikke optagelser. Optagekommandoer fra telefonen accepteres kun i den godkendte parring; start kræver valg og bekræftelse på pc’en. Pause, fortsæt og stop kan styres af den parrede telefon. En kompromitteret parret enhed kan misbruge disse funktioner. Diskfejl og nedbrud kan efterlade ufuldstændige .partial-filer. Optag kun med de medvirkendes accept.
+
+<!-- plain:start -->
+**Kort fortalt**
+
+Når du trykker optag, bliver billede og eventuel mikrofonlyd til en rigtig videofil. Den forsvinder ikke, når parringen slutter. Telefonknapperne er en fjernbetjening til den parrede pc, ikke et offentligt link.
+
+**Det kan betyde for dig**
+
+Andre med adgang til pc’en, backup eller den synkroniserede mappe kan få adgang til optagelsen. En optagelse kan fylde disken eller blive beskadiget ved nedbrud. Vælg placeringen med omtanke, del ikke parringen, og kontrollér den gemte video, før du sletter en anden kopi.
 <!-- plain:end -->
 
 [Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases)

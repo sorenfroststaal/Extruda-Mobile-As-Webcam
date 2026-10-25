@@ -52,7 +52,7 @@ The app starts at 1920 × 1080. Once connected, choose 480p, 720p, 1080p, 1440p 
 
 ## Internet, audio, recording and stopping safely
 
-This version needs internet for the phone client and pairing, even on the same Wi-Fi. Video and optional microphone audio travel directly using WebRTC; Cloudflare does not relay media. The microphone starts off for every new connection and needs a tap and browser permission on the phone. The app has no recording feature, but meeting apps and receivers can save video and sound. Disconnect and close both sides after use. Never share the QR code or link. See Security risks.
+This version needs internet for the phone client and pairing, even on the same Wi-Fi. Video and optional microphone audio travel directly using WebRTC; Cloudflare does not relay media. The microphone starts off for every new connection and needs a tap and browser permission on the phone. The app can record locally on the PC, and meeting apps and receivers can save video and sound. Disconnect and close both sides after use. Never share the QR code or link. See Security risks.
 
 ## Language, theme and updates
 
@@ -101,3 +101,13 @@ During a connection, Windows controls sit beside a bounded preview. Show entire 
 Microphone on · Quiet is normal, not a permission error. The meter uses a dB scale. Enable the microphone, choose Test microphone and speak normally towards the phone for five seconds. The test assesses signal level and possible strong peaks; it does not recognise speech or save audio. On the PC it also reports whether Windows accepted audio data. It does not measure sound in Teams, Zoom or OBS or automatically change send level.
 
 Windows resolution is the virtual camera output size. Received shows actual video dimensions, frame rate and bitrate; the phone or WebRTC can deliver lower quality. Check connection also separates video and audio rates, packet loss and jitter over the last roughly five seconds. — means not measured yet. Counters reset for new sessions or longer sampling gaps. Reports still contain no media, addresses, device names or pairing keys.
+
+## How do I record video on the PC?
+
+Connect the phone and choose Record video in the Windows app. The quality slider selects resolution, frame rate and bitrate targets and estimates file size per minute. Choose file and start opens the Windows save dialog. Video is written incrementally to the selected folder; the app does not upload it. A folder under OneDrive or another sync service may nevertheless be uploaded by that service.
+
+Advanced offers format (automatic, MP4 or WebM), codec (H.264, VP8 or VP9), resolution, 15/24/25/30 fps, video/audio bitrates, recording audio gain, requested keyframe interval and optional duration limit. Support depends on WebView2 and the PC. Bitrate and size are targets; higher settings do not create detail absent from the phone feed. Windows camera resolution is locked while recording. Crop and rotation follow the displayed camera output.
+
+Include microphone records phone audio only while permission is granted and the microphone is on. Local recording needs no virtual audio driver. It does not capture Teams, Zoom, OBS or system audio. Pause/resume retains the same file. Stop and save finalizes it. Disconnecting or closing attempts to stop and save. Data is first written to a temporary .partial file in the same folder; an existing target is replaced only after successful finalization. A crash, disk failure or storage that is too slow may leave an incomplete file that may not play.
+
+A supported Extruda Windows version also exposes recording controls on the paired phone. Start opens settings and the save dialog on the PC and requires confirmation there. The phone can then pause, resume and stop. Commands use the existing approved encrypted connection; no public recording link or new server port is created. File paths are not sent to the phone. A compromised paired device can still misuse controls. Update both clients if buttons are missing. Record only with participants’ consent.

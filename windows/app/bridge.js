@@ -24,7 +24,9 @@
   const fit=document.createElement('select');fit.id='video-fit';for(const [value,text] of [['contain','Vis hele billedet'],['cover','Fyld billedet · Beskær']]){const option=document.createElement('option');option.value=value;option.textContent=text;fit.append(option)}fit.value=framing;
   const turnLabel=document.createElement('label');turnLabel.textContent='Rotation';turnLabel.htmlFor='video-rotation';const turn=document.createElement('select');turn.id='video-rotation';for(const angle of [0,90,180,270]){const option=document.createElement('option');option.value=String(angle);option.textContent=angle+'°';turn.append(option)}turn.value=String(rotation);
   const saveFraming=()=>{framing=fit.value;rotation=Number(turn.value);try{localStorage.setItem('extruda-framing',JSON.stringify({mode:framing,rotation}));}catch{}};fit.onchange=turn.onchange=saveFraming;control.append(fitLabel,fit,turnLabel,turn);
-  const updateEnabled = () => { select.disabled = changing; };
+  const updateEnabled = () => { select.disabled = changing||!!window.ExtrudaRecording?.active; };
+  window.addEventListener('extruda-recording',updateEnabled);
+  window.ExtrudaRecording?.ready(canvas);
   window.addEventListener('extruda-connection', event => { control.hidden = !event.detail.connected;document.body.classList.toggle('session-active',event.detail.connected); });
   select.onchange = () => { changing = true; updateEnabled(); document.getElementById('create').disabled = true; chrome.webview.postMessage(`resolution:${select.value}`); };
   window.extrudaResolutionApplied = (width,height) => {
@@ -47,12 +49,13 @@
       try {
         const width = canvas.width, height = canvas.height;
         if(!window.ExtrudaVideo.draw(ctx,video,width,height,framing,rotation))throw Error('No video dimensions');
+        window.ExtrudaRecording?.frame(canvas);
         const image = ctx.getImageData(0, 0, width, height);
         const rgba = new Uint32Array(image.data.buffer);
         for (let i = 0; i < rgba.length; i++) { const p = rgba[i]; pixels[i] = (p & 0xff00ff00) | ((p & 0xff) << 16) | ((p >>> 16) & 0xff); }
         busy = true; running = true; lastFrame = now; chrome.webview.postMessage('frame');
       } catch { running = false; chrome.webview.postMessage('clear'); }
-    } else if (running && (!video?.srcObject||!healthy)) { running = false; chrome.webview.postMessage('clear'); }
+    } else if (running && (!video?.srcObject||!healthy)) { running = false;ctx.fillStyle='#000';ctx.fillRect(0,0,canvas.width,canvas.height);window.ExtrudaRecording?.frame(canvas,true);chrome.webview.postMessage('clear'); }
     setTimeout(() => frame(performance.now()), 33);
   }
   const guide = document.getElementById('guide');

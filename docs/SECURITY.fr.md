@@ -120,7 +120,7 @@ Les prestataires peuvent disposer d’informations de connexion ; la solution ne
 
 **Vigilance nécessaire**
 
-La caméra tente de démarrer après l’acceptation sur le PC et l’autorisation du navigateur. Surveillez l’indicateur et déconnectez après utilisation. Cette application n’enregistre pas, mais les applications de réunion, la capture d’écran ou le destinataire jumelé peuvent conserver l’image. Le chiffrement ne l’empêche pas.
+La caméra tente de démarrer après l’acceptation sur le PC et l’autorisation du navigateur. Surveillez l’indicateur et déconnectez après utilisation. Cette application peut enregistrer localement sur le PC ; les applications de réunion, la capture d’écran ou le destinataire jumelé peuvent conserver l’image. Le chiffrement ne l’empêche pas.
 
 <!-- plain:start -->
 **En termes simples**
@@ -129,7 +129,7 @@ Après votre acceptation sur le PC et l’autorisation caméra dans le navigateu
 
 **Ce que cela peut entraîner pour vous**
 
-Vous pourriez montrer par erreur une pièce privée ou des personnes que vous ne souhaitiez pas filmer. Les images peuvent être enregistrées ou repartagées même sans bouton d’enregistrement dans Extruda. Orientez la caméra avant d’accepter, puis déconnectez et fermez la page après usage.
+Vous pourriez montrer par erreur une pièce privée ou des personnes que vous ne souhaitiez pas filmer. Les images peuvent être enregistrées ou repartagées avec le bouton d’enregistrement d’Extruda ou d’autres logiciels. Orientez la caméra avant d’accepter, puis déconnectez et fermez la page après usage.
 <!-- plain:end -->
 
 ## Failles inconnues et mises à jour
@@ -174,6 +174,20 @@ Lorsque vous activez le microphone, il peut aussi capter d’autres personnes et
 **Ce que cela peut entraîner pour vous**
 
 Des conversations privées peuvent être entendues ou enregistrées par une application de réunion ou une autre application ayant accès au microphone virtuel. Le son d’autres applications peut se mélanger si elles utilisent le même périphérique. Désactivez le microphone après usage ; une jauge verte indique un signal dans l’application, pas que seul Teams l’entend. Obtenez les pilotes auprès de leur éditeur officiel et ne définissez pas le câble virtuel comme haut-parleur par défaut.
+<!-- plain:end -->
+
+## Enregistrements locaux et commandes du téléphone
+
+Les enregistrements sont sauvegardés sans chiffrement dans le dossier choisi, éventuellement synchronisé par OneDrive ou d’autres logiciels. L’application ne les envoie pas. Les commandes du téléphone sont limitées à l’appairage approuvé ; le démarrage exige une sélection et confirmation sur le PC. Le téléphone jumelé peut mettre en pause, reprendre et arrêter. Un appareil jumelé compromis peut abuser de ces commandes. Une panne peut laisser des fichiers .partial incomplets. Enregistrez avec l’accord des participants.
+
+<!-- plain:start -->
+**En termes simples**
+
+Enregistrer crée un véritable fichier vidéo avec le son facultatif du microphone. Il ne disparaît pas à la fin de l’appairage. Les boutons du téléphone commandent le PC jumelé, sans lien public.
+
+**Ce que cela peut entraîner pour vous**
+
+Une personne ayant accès au PC, aux sauvegardes ou au dossier synchronisé peut consulter la vidéo. Un enregistrement peut remplir le disque ou être endommagé par une panne. Choisissez le dossier avec soin, gardez l’appairage privé et vérifiez la vidéo avant de supprimer une autre copie.
 <!-- plain:end -->
 
 [Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases)

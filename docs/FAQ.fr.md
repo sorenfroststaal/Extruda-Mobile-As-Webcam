@@ -52,7 +52,7 @@ L’application démarre en 1920 × 1080. Une fois connecté, choisissez 480p, 7
 
 ## Internet, son, enregistrement et arrêt
 
-Cette version nécessite internet pour le client téléphone et le jumelage, même sur le même Wi-Fi. La vidéo et le son microphone facultatif passent directement par WebRTC ; Cloudflare ne relaie pas les médias. Le microphone est désactivé à chaque nouvelle connexion et exige un geste et une autorisation du navigateur sur le téléphone. L’application n’enregistre pas, mais les applications de réunion et destinataires peuvent sauvegarder image et son. Déconnectez et fermez les deux côtés après usage. Ne partagez jamais le QR code ni le lien. Voir Risques de sécurité.
+Cette version nécessite internet pour le client téléphone et le jumelage, même sur le même Wi-Fi. La vidéo et le son microphone facultatif passent directement par WebRTC ; Cloudflare ne relaie pas les médias. Le microphone est désactivé à chaque nouvelle connexion et exige un geste et une autorisation du navigateur sur le téléphone. L’application peut enregistrer localement sur le PC ; les applications de réunion et destinataires peuvent sauvegarder image et son. Déconnectez et fermez les deux côtés après usage. Ne partagez jamais le QR code ni le lien. Voir Risques de sécurité.
 
 ## Langue, thème et mises à jour
 
@@ -101,3 +101,13 @@ Pendant la connexion, les commandes Windows sont à côté d’un aperçu de tai
 Microphone activé · Silence est un état normal, pas une erreur d’autorisation. Le niveau utilise une échelle en dB. Activez le microphone, choisissez le test et parlez normalement vers le téléphone pendant cinq secondes. Le test évalue le niveau et les fortes crêtes possibles ; il ne reconnaît pas la parole et n’enregistre aucun son. Sur le PC, il indique aussi si Windows a accepté les données audio. Il ne mesure pas le son dans Teams, Zoom ou OBS et ne change pas automatiquement le niveau d’envoi.
 
 Résolution Windows correspond à la sortie de la caméra virtuelle. Reçu indique la taille, la fréquence et le débit vidéo réels ; le téléphone ou WebRTC peut fournir une qualité inférieure. Vérifier la connexion sépare aussi les débits, pertes et gigues vidéo et audio sur environ cinq secondes. — signifie pas encore mesuré. Les compteurs sont réinitialisés pour une nouvelle session ou une longue pause. Les rapports ne contiennent toujours ni média, adresse, nom de périphérique ni clé d’appairage.
+
+## Comment enregistrer une vidéo sur le PC ?
+
+Connectez le téléphone et choisissez Enregistrer une vidéo dans l’application Windows. Le curseur sélectionne des objectifs de résolution, fréquence et débit, avec une taille estimée par minute. Choisir le fichier et démarrer ouvre la boîte de sauvegarde Windows. La vidéo est écrite progressivement dans le dossier choisi, sans envoi par l’application. OneDrive ou un autre service peut toutefois synchroniser ce dossier.
+
+Avancé propose format (automatique, MP4 ou WebM), codec (H.264, VP8 ou VP9), résolution, 15/24/25/30 images/s, débits vidéo/audio, gain audio, intervalle souhaité d’images clés et durée maximale facultative. La compatibilité dépend de WebView2 et du PC. Débit et taille restent indicatifs ; augmenter les valeurs ne crée pas de détails absents du téléphone. La résolution de la caméra Windows est verrouillée pendant l’enregistrement. Cadrage et rotation suivent la sortie affichée.
+
+Inclure le microphone enregistre uniquement le son autorisé et activé du téléphone. Aucun pilote audio virtuel n’est nécessaire. Le son de Teams, Zoom, OBS ou du système n’est pas capturé. Pause/reprise conserve le même fichier. Arrêter et enregistrer le finalise. Déconnexion ou fermeture tente d’arrêter et sauvegarder. Les données passent d’abord par un fichier .partial dans le même dossier ; une cible existante n’est remplacée qu’après finalisation réussie. Une panne ou un stockage trop lent peut laisser un fichier incomplet, parfois illisible.
+
+Une version Windows compatible affiche les commandes sur le téléphone jumelé. Démarrer ouvre les paramètres et la sauvegarde sur le PC, avec confirmation obligatoire sur celui-ci. Le téléphone peut ensuite mettre en pause, reprendre et arrêter. Les commandes utilisent la connexion chiffrée approuvée existante, sans lien public ni nouveau port serveur. Les chemins de fichiers ne sont pas envoyés au téléphone. Un appareil jumelé compromis peut néanmoins abuser des commandes. Mettez les deux clients à jour si les boutons manquent. Enregistrez avec l’accord des participants.

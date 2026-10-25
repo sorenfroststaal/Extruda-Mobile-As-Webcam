@@ -7,7 +7,7 @@
 
 Use an Android or iPhone camera as a Windows webcam, without OBS or a user account.
 
-**[Download Windows installer 0.9.0](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.9.0/ExtrudaMobileAsWebcam-Setup-0.9.0-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/tag/mobile-as-webcam-v0.9.0) · [mobile as webcam website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
+**[Download Windows installer 0.10.0](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.10.0/ExtrudaMobileAsWebcam-Setup-0.10.0-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/tag/mobile-as-webcam-v0.10.0) · [mobile as webcam website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
 
 ## Use
 
@@ -27,7 +27,7 @@ an output change. The phone and meeting app can deliver a lower actual resolutio
 - The phone client and temporary pairing service are hosted on Cloudflare.
   This version needs internet for loading/pairing; video travels directly via WebRTC.
 - Pairing uses encrypted signalling, one-time tokens, a comparison code and
-  cross-room rate limits. Optional phone microphone audio uses the same direct WebRTC connection; no recording feature is included.
+  cross-room rate limits. Optional phone microphone audio uses the same direct WebRTC connection; optional local recording saves to a user-selected PC folder.
 - A protected temporary file transports decoded frames to Windows Frame Server.
 
 See [Windows build and installation](windows/README.md),
@@ -83,12 +83,20 @@ If no supported virtual audio device is detected, a setup dialog links to the of
 
 ## Connection recovery and diagnostics
 
-Version 0.9.0 tolerates brief disconnects for up to 15 seconds without releasing phone capture or consent. The phone attempts one ICE restart if signalling remains available; expired invitations or unreachable networks still require a new pairing. Information > Check connection displays real frame progress, microphone signal and Windows acknowledgements separately. A five-second video stall clears frozen output in the Windows app. These checks do not verify a meeting application's device selection.
+Version 0.10.0 tolerates brief disconnects for up to 15 seconds without releasing phone capture or consent. The phone attempts one ICE restart if signalling remains available; expired invitations or unreachable networks still require a new pairing. Information > Check connection displays real frame progress, microphone signal and Windows acknowledgements separately. A five-second video stall clears frozen output in the Windows app. These checks do not verify a meeting application's device selection.
 
 Copy diagnostic report displays and copies an allowlisted local snapshot of version, states and counters. It excludes media, addresses, device names, browser identifiers and pairing material, and is never uploaded automatically.
 
-## Framing, level test and recent quality (0.9.0)
+## Framing, level test and recent quality (0.10.0)
 
 Connected Windows controls use a compact layout with a bounded preview. Audio settings open separately. Framing offers contain, centre crop and 0/90/180/270-degree rotation; the same canvas is previewed and delivered to Windows. Choices persist locally. Small windows may still scroll.
 
 Silence is a normal microphone state. The input meter uses a logarithmic scale and displays dBFS. The five-second test evaluates a bounded collection of level measurements, not speech content or recordings, and gives level guidance. It does not automatically adjust gain or verify a meeting app's input. Actual received dimensions, frame rate and bitrate are displayed separately from Windows output resolution. Diagnostics split recent audio/video rates, loss and jitter over about five seconds; unknown values remain unknown and discontinuities reset the interval.
+
+## Local recording (0.10.0)
+
+Record video writes the framed Windows camera image and optional enabled phone microphone to a file chosen in the Windows save dialog. A quality slider estimates file size; Advanced exposes container, codec, resolution, frame rate, bitrates, audio gain, keyframe target and duration limit. Supported encoders are detected at runtime; requested settings are targets, not guarantees. This is an original MediaRecorder-based implementation and does not bundle OBS or require its installation.
+
+Pause/resume retains one file. Data is streamed through an acknowledged bounded queue to a worker writing a temporary file; successful stop flushes and renames it to the selected target. Existing files remain untouched until commit. Crashes, full disks and slow storage can leave incomplete .partial files. No automatic recovery is promised. The app uploads no recordings, but a user-selected folder may be cloud-synced by another service.
+
+Paired-phone controls request PC confirmation for each new recording and can then pause, resume and stop. Commands use the existing authenticated encrypted session, with no public control link, new port, file path or recording data exposed to the phone. Capability negotiation keeps old clients from receiving unsupported commands. Read the updated multilingual recording and security guides.

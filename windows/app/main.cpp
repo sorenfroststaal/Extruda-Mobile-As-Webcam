@@ -15,7 +15,12 @@
 #include "NativeTranslations.h"
 #include "HelpLinks.h"
 #include "AudioOutput.h"
+#include "RecordingFile.h"
 AudioOutput audioOutput;
+RecordingFile recordingFile;
+bool closeAfterRecording=false;
+bool recordingSmokeTest=false;
+bool recordingAudioTest=false;
 using namespace Microsoft::WRL;
 static constexpr wchar_t Site[] = L"https://app.extruda.local/index.html";
 HWND window;
@@ -79,7 +84,7 @@ void InitWeb() {
             ComPtr<ICoreWebView2Settings> settings; web->get_Settings(&settings);
             settings->put_AreDevToolsEnabled(FALSE); settings->put_AreDefaultContextMenusEnabled(FALSE); settings->put_IsStatusBarEnabled(FALSE);
             EventRegistrationToken token;
-            web->add_NavigationStarting(Callback<ICoreWebView2NavigationStartingEventHandler>([](ICoreWebView2*, ICoreWebView2NavigationStartingEventArgs* e) -> HRESULT { LPWSTR uri = nullptr; e->get_Uri(&uri); bool allowed = Trusted(uri); CoTaskMemFree(uri); if (!allowed) e->put_Cancel(TRUE); audioOutput.Stop(); if (writer) writer->Clear(); shared.Reset(); frameData = nullptr; return S_OK; }).Get(), &token);
+            web->add_NavigationStarting(Callback<ICoreWebView2NavigationStartingEventHandler>([](ICoreWebView2*, ICoreWebView2NavigationStartingEventArgs* e) -> HRESULT { if(recordingFile.Active()){e->put_Cancel(TRUE);return S_OK;} LPWSTR uri = nullptr; e->get_Uri(&uri); bool allowed = Trusted(uri); CoTaskMemFree(uri); if (!allowed) e->put_Cancel(TRUE); audioOutput.Stop(); if (writer) writer->Clear(); shared.Reset(); frameData = nullptr; return S_OK; }).Get(), &token);
             web->add_NewWindowRequested(Callback<ICoreWebView2NewWindowRequestedEventHandler>([](ICoreWebView2*, ICoreWebView2NewWindowRequestedEventArgs* e) -> HRESULT {
                 e->put_Handled(TRUE);
                 BOOL userInitiated=FALSE; e->get_IsUserInitiated(&userInitiated);
@@ -103,13 +108,23 @@ void InitWeb() {
             web->add_WebMessageReceived(Callback<ICoreWebView2WebMessageReceivedEventHandler>([](ICoreWebView2*, ICoreWebView2WebMessageReceivedEventArgs* e) -> HRESULT {
                 LPWSTR source = nullptr; e->get_Source(&source); bool trusted = Trusted(source); CoTaskMemFree(source); if (!trusted || closing) return S_OK;
                 LPWSTR raw = nullptr; if (FAILED(e->TryGetWebMessageAsString(&raw))) return S_OK;
-                if (wcsnlen_s(raw,4097) > 4096) { CoTaskMemFree(raw); return S_OK; }
+                if (wcsnlen_s(raw,262157) > 262156) { CoTaskMemFree(raw); return S_OK; }
                 std::wstring message(raw); CoTaskMemFree(raw);
+                if(message.rfind(L"record-data:",0)==0){if(!recordingFile.Push(message.substr(12)))web->ExecuteScript(L"window.ExtrudaRecording?.ack(false)",nullptr);return S_OK;}
+                if(message.size()>4096)return S_OK;
                 if(message.rfind(L"audio-pcm:",0)==0){
                     const bool accepted=audioOutput.Push(message.substr(10));
                     web->ExecuteScript(!accepted||FAILED(audioOutput.Status())?L"window.extrudaAudioAck?.(false);window.extrudaAudioError?.()":L"window.extrudaAudioAck?.(true)",nullptr);return S_OK;
                 }
                 if(message.size()>128)return S_OK;
+                if(message==L"record-open:mp4"||message==L"record-open:webm"){
+                    const auto hr=recordingSmokeTest?recordingFile.OpenPath(window,message==L"record-open:mp4"?L"recording-smoke.mp4":L"recording-smoke.webm"):recordingFile.Choose(window,message==L"record-open:mp4");
+                    const auto script=L"window.ExtrudaRecording?.opened("+std::wstring(SUCCEEDED(hr)?L"true,":L"false,")+RecordingFile::Quote(SUCCEEDED(hr)?recordingFile.DisplayPath():hr==HRESULT_FROM_WIN32(ERROR_CANCELLED)?L"":L"save-error")+L")";
+                    web->ExecuteScript(script.c_str(),nullptr);return S_OK;
+                }
+                if(message==L"record-finish"||message==L"record-abort"){recordingFile.Finish(message==L"record-finish");return S_OK;}
+                if(message==L"record-window-close"){PostMessageW(window,WM_CLOSE,0,0);return S_OK;}
+                if(message==L"record-reveal"&&!recordingFile.Active()&&!recordingFile.DisplayPath().empty()&&GetFileAttributesW(recordingFile.DisplayPath().c_str())!=INVALID_FILE_ATTRIBUTES){const auto arguments=L"/select,\""+recordingFile.DisplayPath()+L"\"";ShellExecuteW(window,L"open",L"explorer.exe",arguments.c_str(),nullptr,SW_SHOWNORMAL);return S_OK;}
                 if(message==L"audio-stop")audioOutput.Stop();
                 else if(message==L"audio-devices")web->ExecuteScript(audioOutput.DeviceScript().c_str(),nullptr);
                 else if(message.rfind(L"audio-route:",0)==0){
@@ -172,20 +187,26 @@ void InitWeb() {
     if (FAILED(hr)) Error(L"Microsoft Edge WebView2 Runtime kunne ikke indlæses.", hr);
 }
 LRESULT CALLBACK Proc(HWND hwnd, UINT msg, WPARAM w, LPARAM l) {
+    if(msg==WM_APP+82&&web){
+        if(w==1)web->ExecuteScript(SUCCEEDED(recordingFile.Status())?L"window.ExtrudaRecording?.ack(true)":L"window.ExtrudaRecording?.ack(false)",nullptr);
+        else {const auto script=std::wstring(L"window.ExtrudaRecording?.saved(")+(SUCCEEDED(recordingFile.Status())?L"true)":L"false)");web->ExecuteScript(script.c_str(),nullptr);if(closeAfterRecording&&SUCCEEDED(recordingFile.Status()))PostMessageW(hwnd,WM_CLOSE,0,0);else closeAfterRecording=false;}return 0;
+    }
     if (msg == WM_TIMER && systemSmokeTest) { PostMessageW(hwnd, WM_CLOSE, 0, 0); return 0; }
     if (msg == WM_SIZE && controller) { RECT rect; GetClientRect(hwnd, &rect); controller->put_Bounds(rect); return 0; }
-    if (msg == WM_CLOSE) { closing = true; audioOutput.Stop(); if (writer) writer->Clear(); if (controller) controller->Close(); if (camera) { camera->Stop(); camera->Shutdown(); } DestroyWindow(hwnd); return 0; }
+    if (msg == WM_CLOSE) {if(recordingFile.Active()){closeAfterRecording=true;if(web)web->ExecuteScript(L"window.ExtrudaRecording?.stop()",nullptr);return 0;} closing = true; audioOutput.Stop(); if (writer) writer->Clear(); if (controller) controller->Close(); if (camera) { camera->Stop(); camera->Shutdown(); } DestroyWindow(hwnd); return 0; }
     if (msg == WM_DESTROY) { PostQuitMessage(0); return 0; }
     return DefWindowProcW(hwnd, msg, w, l);
 }
 int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR, int show) {
     wchar_t userLocale[LOCALE_NAME_MAX_LENGTH]{}; LCIDToLocaleName(MAKELCID(GetUserDefaultUILanguage(),SORT_DEFAULT),userLocale,LOCALE_NAME_MAX_LENGTH,0); SetNativeLanguage(userLocale);
     pairingSmokeTest = wcsstr(GetCommandLineW(), L"--pairing-smoke") != nullptr;
+    recordingSmokeTest=wcsstr(GetCommandLineW(),L"--recording-smoke")!=nullptr;
+    recordingAudioTest=wcsstr(GetCommandLineW(),L"--recording-smoke-audio")!=nullptr;
     smokeTest = wcsstr(GetCommandLineW(), L"--smoke-test") != nullptr;
     const bool systemSelectorTest = wcsstr(GetCommandLineW(), L"--system-selector-smoke") != nullptr;
     selectorSmokeTest = wcsstr(GetCommandLineW(), L"--selector-smoke") != nullptr || systemSelectorTest;
     smokeTest = smokeTest || (selectorSmokeTest && !systemSelectorTest);
-    systemSmokeTest = wcsstr(GetCommandLineW(), L"--system-smoke") != nullptr || systemSelectorTest;
+    systemSmokeTest = wcsstr(GetCommandLineW(), L"--system-smoke") != nullptr || systemSelectorTest||recordingSmokeTest;
     PWSTR local = nullptr; SHGetKnownFolderPath(FOLDERID_LocalAppData, 0, nullptr, &local);
     auto settingsFolder = std::wstring(local ? local : L".") + L"\\ExtrudaPhoneCamera"; CoTaskMemFree(local); CreateDirectoryW(settingsFolder.c_str(), nullptr);
     settingsPath = settingsFolder + L"\\settings.ini";
@@ -204,6 +225,8 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR, int show) {
     auto bytes = SizeofResource(instance, resource); auto ptr = static_cast<const char*>(LockResource(LoadResource(instance, resource)));
     int count = MultiByteToWideChar(CP_UTF8, 0, ptr, bytes, nullptr, 0); bridge.resize(count); MultiByteToWideChar(CP_UTF8, 0, ptr, bytes, bridge.data(), count);
     if (smokeTest || systemSmokeTest) bridge = L"window.extrudaTestPattern = true;\n" + bridge;
+    if(recordingSmokeTest)bridge=L"window.extrudaRecordingTest=true;\n"+bridge;
+    if(recordingAudioTest)bridge=L"window.extrudaRecordingTestAudio=true;\n"+bridge;
     if (selectorSmokeTest) bridge = L"window.extrudaSelectorTest = true;\n" + bridge;
     if (pairingSmokeTest) bridge = L"window.extrudaPairingTest = true;\n" + bridge;
     WNDCLASSW cls{}; cls.hInstance = instance; cls.lpfnWndProc = Proc; cls.lpszClassName = L"ExtrudaPhoneCamera"; cls.hIcon = LoadIconW(instance, MAKEINTRESOURCEW(1)); cls.hCursor = LoadCursor(nullptr, IDC_ARROW); RegisterClassW(&cls);

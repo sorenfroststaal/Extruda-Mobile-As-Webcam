@@ -57,6 +57,7 @@
     $('mic-db').textContent=(rms>0?Math.max(-90,20*Math.log10(rms)).toFixed(1):'−∞')+' dBFS';
   }
   function buttons(){
+    window.ExtrudaRecording?.syncAudio();
     const enabled=role==='phone'?!!capture:phoneEnabled&&hostAllowed;
     $('mic-toggle').textContent=tr(enabled?'Slå mikrofon fra':'Slå mikrofon til');
     $('mic-toggle').setAttribute('aria-pressed',String(enabled));
@@ -142,6 +143,7 @@
   let remoteStream;
   const playback=$('remote-audio');
   async function refreshHost(){
+    window.ExtrudaRecording?.syncAudio();
     const token=++generation;routingActive=false;post('audio-stop');
     if(!cameraOnly&&hostAllowed&&phoneEnabled&&remoteStream&&connected){
       try{await graph(remoteStream,true);if(token!==generation)return;if(route>=0)post('audio-route:'+route);state('Afventer mikrofonsignal');}
@@ -185,7 +187,7 @@
     if(!connected&&wasConnected){++generation;capture?.getTracks().forEach(t=>t.stop());capture=null;phoneEnabled=false;remoteStream=null;if(playback)playback.srcObject=null;hostAllowed=true;routingActive=false;post('audio-stop');void clearGraph();state('Mikrofon fra');}
     $('audio-routing').hidden=role!=='host'||!native();buttons();
     if(connected&&role==='host'){
-      void sendControl?.({type:'microphone-mode',enabled:!cameraOnly}).catch(()=>{});
+      void sendControl?.({type:'microphone-mode',enabled:!cameraOnly,recording:native()&&!!window.ExtrudaRecording}).catch(()=>{});
       if(!cameraOnly&&devicesKnown&&!devices.length&&!driverPrompted){driverPrompted=true;offerDriver();}
     }
     if(connected&&role==='host'&&phoneEnabled&&remoteStream)void refreshHost();
@@ -193,6 +195,7 @@
   window.addEventListener('extruda-language',buttons);
   window.addEventListener('pagehide',()=>{void window.ExtrudaAudio.stop();post('audio-stop');});
   window.ExtrudaAudio={
+    recordingTrack(){return role==='host'&&connected&&!cameraOnly&&hostAllowed&&phoneEnabled?remoteStream?.getAudioTracks?.()[0]||null:null;},
     health(){const track=(role==='phone'?capture:remoteStream)?.getAudioTracks?.()[0];return{enabled:role==='phone'?!!capture:phoneEnabled&&hostAllowed&&!cameraOnly,signal:rms>=0.0001,levelDb:rms>0?Math.max(-90,20*Math.log10(rms)):-90,paused:!!track?.muted||track?.readyState==='ended',context:context?.state||'closed',windowsAccepted:routingActive&&lastNativeAck>0&&performance.now()-lastNativeAck<2000};},
     session(options){role=options.role;peer=options.peer;sendControl=options.send;isApproved=options.approved;},
     track(track){
@@ -201,7 +204,7 @@
       if(playback){playback.muted=true;playback.srcObject=remoteStream;playback.play?.().catch(()=>{});}
       track.onended=()=>{phoneEnabled=false;void refreshHost();};if(phoneEnabled)void refreshHost();
     },
-    async control(message){if(message.type==='microphone-mode'&&role==='phone'){await setCameraOnly(!message.enabled,false);}else if(message.type==='microphone-request'&&role==='phone'){if(message.enabled&&!cameraOnly)state('Pc’en beder om lyd. Tryk Slå mikrofon til.');else await disablePhone();}else if(message.type==='microphone-state'&&role==='host'){phoneEnabled=message.enabled;await refreshHost();}},
+    async control(message){if(message.type==='microphone-mode'&&role==='phone'){if(message.recording===true)window.ExtrudaRecording?.offer();await setCameraOnly(!message.enabled,false);}else if(message.type==='microphone-request'&&role==='phone'){if(message.enabled&&!cameraOnly)state('Pc’en beder om lyd. Tryk Slå mikrofon til.');else await disablePhone();}else if(message.type==='microphone-state'&&role==='host'){if(message.recording===true)window.ExtrudaRecording?.enableRemote();phoneEnabled=message.enabled;await refreshHost();}},
     stop(){connected=false;phoneEnabled=false;remoteStream=null;if(playback)playback.srcObject=null;hostAllowed=true;routingActive=false;post('audio-stop');return disablePhone(false);}
   };
   state('Mikrofon fra');buttons();

@@ -120,7 +120,7 @@ Dienstanbieter können Verbindungsinformationen haben; die Lösung macht dich ni
 
 **Aufmerksamkeit erforderlich**
 
-Die Kamera versucht nach PC-Bestätigung zu starten, sobald die Browserfreigabe vorliegt. Kameraanzeige beachten und nach Gebrauch trennen. Die App hat keine Aufnahmefunktion; Besprechungsprogramme, Bildschirmaufzeichnung oder der gekoppelte Empfänger können das Bild dennoch speichern. Verschlüsselung kann das nicht verhindern.
+Die Kamera versucht nach PC-Bestätigung zu starten, sobald die Browserfreigabe vorliegt. Kameraanzeige beachten und nach Gebrauch trennen. Die App kann lokal am PC aufnehmen; Besprechungsprogramme, Bildschirmaufzeichnung oder der gekoppelte Empfänger können das Bild dennoch speichern. Verschlüsselung kann das nicht verhindern.
 
 <!-- plain:start -->
 **Einfach erklärt**
@@ -129,7 +129,7 @@ Sobald du am PC bestätigst und dem Browser Kamerazugriff erlaubt hast, versucht
 
 **Was das für dich bedeuten kann**
 
-Du könntest versehentlich einen privaten Raum oder Personen zeigen, die du nicht filmen wolltest. Bilder können aufgezeichnet oder weitergegeben werden, obwohl Extruda keine Aufnahmetaste hat. Richte die Kamera vor der Bestätigung richtig aus und trenne die Verbindung und schließe die Seite danach.
+Du könntest versehentlich einen privaten Raum oder Personen zeigen, die du nicht filmen wolltest. Bilder können aufgezeichnet oder weitergegeben werden, mit Extrudas Aufnahmetaste oder anderer Software. Richte die Kamera vor der Bestätigung richtig aus und trenne die Verbindung und schließe die Seite danach.
 <!-- plain:end -->
 
 ## Unbekannte Fehler und Updates
@@ -174,6 +174,20 @@ Wenn du das Mikrofon einschaltest, kann es auch andere Personen und Geräusche i
 **Was das für dich bedeuten kann**
 
 Private Gespräche können von einer Meeting-App oder einer anderen App mit Zugriff auf das virtuelle Mikrofon gehört oder aufgenommen werden. Senden andere Programme an dasselbe virtuelle Gerät, kann ihr Ton beigemischt werden. Schalte das Mikrofon danach aus; ein grüner Pegel bedeutet Signal in der App, nicht dass nur Teams mithört. Treiber nur vom offiziellen Anbieter beziehen und das virtuelle Kabel nicht zum Standardlautsprecher machen.
+<!-- plain:end -->
+
+## Lokale Aufnahmen und Telefonsteuerung
+
+Aufnahmen werden unverschlüsselt im gewählten Ordner gespeichert. OneDrive oder andere Software kann Ordner synchronisieren. Die App lädt Aufnahmen nicht hoch. Telefonbefehle werden nur in der bestätigten Kopplung akzeptiert; der Start erfordert Auswahl und Bestätigung am PC. Das gekoppelte Telefon kann pausieren, fortsetzen und stoppen. Ein kompromittiertes gekoppeltes Gerät kann dies missbrauchen. Fehler oder Abstürze können unvollständige .partial-Dateien hinterlassen. Nur mit Zustimmung der Beteiligten aufnehmen.
+
+<!-- plain:start -->
+**Einfach erklärt**
+
+Beim Aufnehmen werden Video und optionaler Mikrofonton zu einer echten Datei. Sie verschwindet nicht beim Ende der Kopplung. Die Telefontasten steuern den gekoppelten PC und sind kein öffentlicher Link.
+
+**Was das für dich bedeuten kann**
+
+Wer Zugriff auf PC, Sicherung oder synchronisierten Ordner hat, kann die Aufnahme lesen. Aufnahmen können den Datenträger füllen oder durch Abstürze beschädigt werden. Speicherort sorgfältig wählen, Kopplung privat halten und die gespeicherte Datei vor dem Löschen anderer Kopien prüfen.
 <!-- plain:end -->
 
 [Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases)

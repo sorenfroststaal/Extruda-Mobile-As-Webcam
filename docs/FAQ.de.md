@@ -52,7 +52,7 @@ Die App startet mit 1920 × 1080. Nach dem Verbinden stehen 480p, 720p, 1080p, 1
 
 ## Internet, Ton, Aufnahme und sicheres Beenden
 
-Diese Version braucht Internet für Telefon-Client und Kopplung, auch im selben WLAN. Video und optionales Mikrofon-Audio laufen direkt über WebRTC; Cloudflare leitet keine Medien weiter. Das Mikrofon ist bei jeder neuen Verbindung aus und benötigt einen Tipp sowie die Browser-Erlaubnis am Telefon. Die App nimmt nicht auf, aber Meeting-Apps und Empfänger können Bild und Ton speichern. Nach Gebrauch trennen und beide Seiten schließen. QR-Code oder Link nie teilen. Siehe Sicherheitsrisiken.
+Diese Version braucht Internet für Telefon-Client und Kopplung, auch im selben WLAN. Video und optionales Mikrofon-Audio laufen direkt über WebRTC; Cloudflare leitet keine Medien weiter. Das Mikrofon ist bei jeder neuen Verbindung aus und benötigt einen Tipp sowie die Browser-Erlaubnis am Telefon. Die App kann lokal am PC aufnehmen; auch Meeting-Apps und Empfänger können Bild und Ton speichern. Nach Gebrauch trennen und beide Seiten schließen. QR-Code oder Link nie teilen. Siehe Sicherheitsrisiken.
 
 ## Sprache, Design und Updates
 
@@ -101,3 +101,13 @@ Während der Verbindung stehen die Windows-Steuerelemente neben einer begrenzten
 Mikrofon an · Stille ist normal und kein Berechtigungsfehler. Die Anzeige nutzt eine dB-Skala. Schalte das Mikrofon ein, wähle Mikrofon testen und sprich fünf Sekunden normal zum Telefon. Der Test beurteilt Pegel und mögliche starke Spitzen; er erkennt keine Sprache und speichert keinen Ton. Am PC zeigt er auch, ob Windows Audiodaten angenommen hat. Er misst keinen Ton in Teams, Zoom oder OBS und ändert den Sendepegel nicht automatisch.
 
 Windows-Auflösung ist die Ausgabegröße der virtuellen Kamera. Empfangen zeigt tatsächliche Videogröße, Bildrate und Bitrate; Telefon oder WebRTC können geringere Qualität liefern. Verbindung prüfen zeigt Video und Audio getrennt mit Bitrate, Paketverlust und Jitter über etwa fünf Sekunden. — bedeutet noch nicht gemessen. Zähler werden bei neuen Sitzungen oder längeren Messpausen zurückgesetzt. Berichte enthalten weiterhin keine Medien, Adressen, Gerätenamen oder Kopplungsschlüssel.
+
+## Wie nehme ich Video am PC auf?
+
+Verbinde das Telefon und wähle Video aufnehmen in der Windows-App. Der Qualitätsregler wählt Zielwerte für Auflösung, Bildrate und Bitrate und schätzt die Dateigröße pro Minute. Datei wählen und starten öffnet den Windows-Speicherdialog. Video wird fortlaufend im gewählten Ordner gespeichert und nicht von der App hochgeladen. OneDrive oder andere Dienste können den gewählten Ordner jedoch synchronisieren.
+
+Erweitert bietet Format (automatisch, MP4 oder WebM), Codec (H.264, VP8 oder VP9), Auflösung, 15/24/25/30 fps, Video-/Audio-Bitrate, Tonverstärkung, gewünschtes Keyframe-Intervall und optionale Dauergrenze. Unterstützung hängt von WebView2 und PC ab. Bitrate und Größe sind Zielwerte; höhere Werte erzeugen keine fehlenden Details. Die Windows-Kameraauflösung ist während der Aufnahme gesperrt. Zuschnitt und Drehung folgen dem angezeigten Kameraoutput.
+
+Mikrofon einschließen nimmt nur den freigegebenen und eingeschalteten Telefonton auf. Lokale Aufnahme benötigt keinen virtuellen Audiotreiber und erfasst keinen Ton von Teams, Zoom, OBS oder dem System. Pause/Fortsetzen behält dieselbe Datei. Stoppen und speichern schließt sie ab. Trennen oder Schließen versucht zu stoppen und speichern. Zunächst wird in eine .partial-Datei im selben Ordner geschrieben; ein vorhandenes Ziel wird erst nach erfolgreichem Abschluss ersetzt. Absturz, Speicherfehler oder zu langsamer Speicher können eine unvollständige, eventuell unspielbare Datei hinterlassen.
+
+Eine unterstützte Windows-Version zeigt Aufnahmetasten auch am gekoppelten Telefon. Start öffnet Einstellungen und Speicherdialog am PC und erfordert dort eine Bestätigung. Danach kann das Telefon pausieren, fortsetzen und stoppen. Befehle nutzen die bestehende bestätigte verschlüsselte Verbindung, ohne öffentlichen Aufnahmelink oder neuen Serverport. Dateipfade werden nicht ans Telefon gesendet. Ein kompromittiertes gekoppeltes Gerät kann die Steuerung dennoch missbrauchen. Bei fehlenden Tasten beide Clients aktualisieren. Nur mit Zustimmung der Beteiligten aufnehmen.

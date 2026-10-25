@@ -252,3 +252,5 @@ installed third-party software under their own licences. Their drivers are
 not included in this installer or covered by this project's MIT licence.
 The app can send audio to a supported device that is already installed;
 it does not install those drivers or change Windows default audio devices.
+
+Local recording uses the installed Edge WebView2 MediaRecorder implementation and Windows file APIs. No OBS code, OBS binaries, FFmpeg binaries or third-party audio driver is bundled for recording. Browser/system codec availability and licences are separate from this project's MIT source.

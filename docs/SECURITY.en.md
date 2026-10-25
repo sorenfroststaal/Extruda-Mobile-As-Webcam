@@ -120,7 +120,7 @@ Service providers may have connection information, and the solution does not mak
 
 **Requires attention**
 
-The camera attempts to start after PC approval once browser permission is granted. Watch the camera indicator and disconnect after use. This app has no recording feature, but meeting apps, screen capture or the paired receiver may record the image. Encryption cannot prevent that.
+The camera attempts to start after PC approval once browser permission is granted. Watch the camera indicator and disconnect after use. This app can record locally on the PC, and meeting apps, screen capture or the paired receiver may record the image. Encryption cannot prevent that.
 
 <!-- plain:start -->
 **In plain language**
@@ -129,7 +129,7 @@ Once you accept on the PC and have allowed the browser to use the camera, the ph
 
 **What could happen to you**
 
-You could accidentally show a private room or people you did not intend to film. Images could be recorded or shared further even though Extruda has no record button. Point the camera appropriately before accepting, then disconnect and close the page after use.
+You could accidentally show a private room or people you did not intend to film. Images could be recorded or shared further using Extruda’s record button or other software. Point the camera appropriately before accepting, then disconnect and close the page after use.
 <!-- plain:end -->
 
 ## Unknown flaws and updates
@@ -174,6 +174,20 @@ When you turn the microphone on, it can also pick up other people and sounds in 
 **What could happen to you**
 
 Private conversations may be heard or recorded by a meeting app or another app with access to the virtual microphone. Other apps’ audio may be mixed in if they send to the same virtual device. Turn the microphone off after use; a green meter means signal in the app, not that only Teams can hear it. Get drivers from their official publisher and do not make the virtual cable your PC’s default speaker.
+<!-- plain:end -->
+
+## Local recordings and phone controls
+
+Recordings are stored unencrypted in the folder you choose. Folders may be synced by OneDrive or other software. The app does not upload recordings. Phone recording commands are accepted only within the approved pairing; starting requires selection and confirmation on the PC. The paired phone can pause, resume and stop. A compromised paired device can misuse these controls. Disk errors or crashes may leave incomplete .partial files. Record only with participants’ consent.
+
+<!-- plain:start -->
+**In plain language**
+
+When you record, video and optional microphone audio become a real file. It does not disappear when pairing ends. The phone buttons are a remote control for the paired PC, not a public link.
+
+**What could happen to you**
+
+Anyone with access to the PC, backups or the synced folder may access a recording. Recording can fill the disk or be damaged by a crash. Choose the location carefully, keep pairing private and check saved video before deleting another copy.
 <!-- plain:end -->
 
 [Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases)
