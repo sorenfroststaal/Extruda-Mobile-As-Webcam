@@ -29,3 +29,5 @@
 317 RCDATA "dist/ui/audio-worklet.js"
 
 318 RCDATA "dist/ui/health.js"
+
+319 RCDATA "dist/ui/video.js"

@@ -7,7 +7,7 @@
 
 Use an Android or iPhone camera as a Windows webcam, without OBS or a user account.
 
-**[Download Windows installer 0.8.0](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.8.0/ExtrudaMobileAsWebcam-Setup-0.8.0-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/tag/mobile-as-webcam-v0.8.0) · [mobile as webcam website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
+**[Download Windows installer 0.9.0](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.9.0/ExtrudaMobileAsWebcam-Setup-0.9.0-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/tag/mobile-as-webcam-v0.9.0) · [mobile as webcam website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
 
 ## Use
 
@@ -83,6 +83,12 @@ If no supported virtual audio device is detected, a setup dialog links to the of
 
 ## Connection recovery and diagnostics
 
-Version 0.8.0 tolerates brief disconnects for up to 15 seconds without releasing phone capture or consent. The phone attempts one ICE restart if signalling remains available; expired invitations or unreachable networks still require a new pairing. Information > Check connection displays real frame progress, microphone signal and Windows acknowledgements separately. A five-second video stall clears frozen output in the Windows app. These checks do not verify a meeting application's device selection.
+Version 0.9.0 tolerates brief disconnects for up to 15 seconds without releasing phone capture or consent. The phone attempts one ICE restart if signalling remains available; expired invitations or unreachable networks still require a new pairing. Information > Check connection displays real frame progress, microphone signal and Windows acknowledgements separately. A five-second video stall clears frozen output in the Windows app. These checks do not verify a meeting application's device selection.
 
 Copy diagnostic report displays and copies an allowlisted local snapshot of version, states and counters. It excludes media, addresses, device names, browser identifiers and pairing material, and is never uploaded automatically.
+
+## Framing, level test and recent quality (0.9.0)
+
+Connected Windows controls use a compact layout with a bounded preview. Audio settings open separately. Framing offers contain, centre crop and 0/90/180/270-degree rotation; the same canvas is previewed and delivered to Windows. Choices persist locally. Small windows may still scroll.
+
+Silence is a normal microphone state. The input meter uses a logarithmic scale and displays dBFS. The five-second test evaluates a bounded collection of level measurements, not speech content or recordings, and gives level guidance. It does not automatically adjust gain or verify a meeting app's input. Actual received dimensions, frame rate and bitrate are displayed separately from Windows output resolution. Diagnostics split recent audio/video rates, loss and jitter over about five seconds; unknown values remain unknown and discontinuities reset the interval.

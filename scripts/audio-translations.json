@@ -490,5 +490,119 @@
     "Select and copy the report manually.",
     "Bericht markieren und manuell kopieren.",
     "Sélectionnez et copiez le rapport manuellement."
+  ],
+  [
+    "Billedtilpasning",
+    "Framing",
+    "Bildausschnitt",
+    "Cadrage"
+  ],
+  [
+    "Vis hele billedet",
+    "Show entire image",
+    "Ganzes Bild anzeigen",
+    "Afficher toute l’image"
+  ],
+  [
+    "Fyld billedet · Beskær",
+    "Fill frame · Crop",
+    "Bild füllen · Zuschneiden",
+    "Remplir · Recadrer"
+  ],
+  [
+    "Rotation",
+    "Rotation",
+    "Drehung",
+    "Rotation"
+  ],
+  [
+    "Mikrofon til · Der er stille",
+    "Microphone on · Quiet",
+    "Mikrofon an · Stille",
+    "Microphone activé · Silence"
+  ],
+  [
+    "Test mikrofon · 5 sekunder",
+    "Test microphone · 5 seconds",
+    "Mikrofon testen · 5 Sekunden",
+    "Tester le microphone · 5 secondes"
+  ],
+  [
+    "Slå mikrofonen til først",
+    "Turn the microphone on first",
+    "Zuerst das Mikrofon einschalten",
+    "Activez d’abord le microphone"
+  ],
+  [
+    "Tal normalt mod telefonen i 5 sekunder. Ingen lyd gemmes.",
+    "Speak normally towards the phone for 5 seconds. No audio is saved.",
+    "Sprich 5 Sekunden normal in Richtung Telefon. Es wird kein Ton gespeichert.",
+    "Parlez normalement vers le téléphone pendant 5 secondes. Aucun son n’est enregistré."
+  ],
+  [
+    "Mikrofontest afbrudt",
+    "Microphone test cancelled",
+    "Mikrofontest abgebrochen",
+    "Test du microphone interrompu"
+  ],
+  [
+    "Meget kraftigt signal. Tal længere fra mikrofonen.",
+    "Very strong signal. Speak further away from the microphone.",
+    "Sehr starkes Signal. Sprich weiter vom Mikrofon entfernt.",
+    "Signal très fort. Éloignez-vous du microphone pour parler."
+  ],
+  [
+    "Ingen tydelig tale målt. Prøv igen, og tal mod telefonen.",
+    "No clear speech level measured. Try again and speak towards the phone.",
+    "Kein deutliches Sprachsignal gemessen. Versuche es erneut und sprich zum Telefon.",
+    "Aucun niveau vocal clair mesuré. Réessayez en parlant vers le téléphone."
+  ],
+  [
+    "Lavt taleniveau. Flyt telefonen tættere på.",
+    "Low speech level. Move the phone closer.",
+    "Leises Sprachsignal. Bewege das Telefon näher heran.",
+    "Niveau vocal faible. Rapprochez le téléphone."
+  ],
+  [
+    "Taleniveauet ser brugbart ud.",
+    "The speech level looks usable.",
+    "Der Sprachpegel scheint brauchbar.",
+    "Le niveau vocal semble utilisable."
+  ],
+  [
+    "Seneste måleinterval · Højst cirka 5 sekunder",
+    "Recent measurement window · Up to about 5 seconds",
+    "Aktuelles Messintervall · Bis etwa 5 Sekunden",
+    "Intervalle récent · Jusqu’à environ 5 secondes"
+  ],
+  [
+    "Video",
+    "Video",
+    "Video",
+    "Vidéo"
+  ],
+  [
+    "Lyd",
+    "Audio",
+    "Audio",
+    "Audio"
+  ],
+  [
+    "Rækkefølge: billedhastighed, bitrate, pakketab og jitter. — betyder endnu ikke målt.",
+    "Order: frame rate, bitrate, packet loss and jitter. — means not measured yet.",
+    "Reihenfolge: Bildrate, Bitrate, Paketverlust und Jitter. — bedeutet noch nicht gemessen.",
+    "Ordre : fréquence d’images, débit, perte de paquets et gigue. — signifie pas encore mesuré."
+  ],
+  [
+    "Modtaget",
+    "Received",
+    "Empfangen",
+    "Reçu"
+  ],
+  [
+    "Windows-opløsning",
+    "Windows resolution",
+    "Windows-Auflösung",
+    "Résolution Windows"
   ]
 ]

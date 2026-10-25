@@ -93,3 +93,11 @@ Hvis ingen understøttet lydenhed findes, tilbyder appen et link til producenten
 Et kort netværksudfald får op til 15 sekunder til at rette sig. Telefonen forsøger én ICE-genstart, hvis parringsserveren stadig er tilgængelig. En udløbet invitation, skift til et utilgængeligt netværk eller et længere udfald kan kræve en ny QR-kode. En afbrydelse på telefonen kan kræve, at du åbner siden igen eller trykker Start kamera. Mikrofonadgang gives fortsat af dig på telefonen.
 
 Kopiér fejlrapport opretter kun en lokal rapport med version, tilstande og tællere. Rapporten indeholder ikke billeder, lyd, IP-adresser, enhedsnavne, browseridentifikatorer, parringslink eller nøgler. Den sendes ingen steder automatisk. Rapporten vises, så du kan kontrollere den før deling.
+
+## Billedtilpasning, mikrofontest og kvalitet
+
+Under en forbindelse er Windows-kontrollerne samlet ved siden af et afgrænset videofelt. Vis hele billedet bevarer hele motivet med kanter; Fyld billedet beskærer midten, så billedet fylder. Rotation drejer både forhåndsvisning og Windows-kamera. Valgene huskes på pc’en. På små vinduer kan scrolling fortsat være nødvendig. Lydindstillinger åbnes i en separat dialog.
+
+Mikrofon til · Der er stille er en normal tilstand, ikke en tilladelsesfejl. Niveaumåleren bruger en dB-skala. Slå mikrofonen til, vælg Test mikrofon og tal normalt mod telefonen i fem sekunder. Testen vurderer signalniveau og mulige kraftige spidser; den genkender ikke tale og gemmer ingen lyd. På pc’en angives også, om Windows accepterede lyddata. Testen måler ikke lyden i Teams, Zoom eller OBS og ændrer ikke automatisk sendestyrken.
+
+Windows-opløsning er størrelsen på det virtuelle kameraoutput. Modtaget viser den faktiske videostørrelse, billedhastighed og bitrate; telefonen eller WebRTC kan levere en lavere kvalitet. Kontrollér forbindelse viser desuden video og lyd separat med bitrate, pakketab og jitter over de seneste cirka fem sekunder. — betyder endnu ikke målt. Tællere nulstilles ved en ny session eller et længere måleophold. Fejlrapporten indeholder fortsat ingen medier, adresser, enhedsnavne eller parringsnøgler.

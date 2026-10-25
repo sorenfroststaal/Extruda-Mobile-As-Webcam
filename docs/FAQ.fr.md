@@ -93,3 +93,11 @@ Ouvrez Informations → Vérifier la connexion. Les nouvelles images, le signal 
 Une brève interruption réseau dispose de 15 secondes pour se rétablir. Le téléphone tente un redémarrage ICE si la signalisation est disponible. Une invitation expirée, un réseau inaccessible ou une interruption prolongée peut nécessiter un nouveau QR code. Une interruption sur le téléphone peut nécessiter de rouvrir la page ou d’appuyer sur Démarrer la caméra. Vous autorisez toujours vous-même le microphone sur le téléphone.
 
 Copier le rapport de diagnostic crée un rapport local limité à la version, aux états et aux compteurs. Il ne contient ni image, son, adresse IP, nom de périphérique, identifiant de navigateur, lien d’appairage ni clé. Il n’est jamais envoyé automatiquement et s’affiche pour vérification avant partage.
+
+## Cadrage, test du microphone et qualité
+
+Pendant la connexion, les commandes Windows sont à côté d’un aperçu de taille limitée. Afficher toute l’image conserve le sujet avec des bordures ; Remplir recadre au centre pour remplir l’image. La rotation affecte l’aperçu et la caméra Windows. Les choix sont mémorisés sur le PC. Les petites fenêtres peuvent nécessiter un défilement. Les paramètres audio s’ouvrent dans une boîte de dialogue séparée.
+
+Microphone activé · Silence est un état normal, pas une erreur d’autorisation. Le niveau utilise une échelle en dB. Activez le microphone, choisissez le test et parlez normalement vers le téléphone pendant cinq secondes. Le test évalue le niveau et les fortes crêtes possibles ; il ne reconnaît pas la parole et n’enregistre aucun son. Sur le PC, il indique aussi si Windows a accepté les données audio. Il ne mesure pas le son dans Teams, Zoom ou OBS et ne change pas automatiquement le niveau d’envoi.
+
+Résolution Windows correspond à la sortie de la caméra virtuelle. Reçu indique la taille, la fréquence et le débit vidéo réels ; le téléphone ou WebRTC peut fournir une qualité inférieure. Vérifier la connexion sépare aussi les débits, pertes et gigues vidéo et audio sur environ cinq secondes. — signifie pas encore mesuré. Les compteurs sont réinitialisés pour une nouvelle session ou une longue pause. Les rapports ne contiennent toujours ni média, adresse, nom de périphérique ni clé d’appairage.

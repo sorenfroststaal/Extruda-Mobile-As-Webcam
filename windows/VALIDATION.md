@@ -119,3 +119,7 @@ The initial RTCPeerConnection connecting event reports connected=false after ont
 Tests cover transient disconnect recovery, one phone ICE restart, bounded timeout, stalled video detection, acknowledgement expiry, late asynchronous results and a strict diagnostic report allowlist. This is component validation; prolonged real-device use, interruptions on iOS/Android and recovery across real network changes still require device testing.
 
 Installer DPI: the embedded manifest was extracted from the built EXE and verified to contain PerMonitorV2, a legacy per-monitor DPI fallback and requireAdministrator. Visual appearance across multiple monitors still needs user confirmation.
+
+## Usability package 0.9.0
+
+50 automated tests passed locally, covering portrait contain/crop/rotation geometry, silence classification, guided-test cancellation, rolling audio/video rates, counter resets and report privacy. A synthetic Windows camera passed 30 frames through Frame Server at 1080p. The compact native layout was visually inspected with a test image. The browser fixture verifies actual received video/audio and the five-second input-level test. Physical phone rotation/crop appearance in meeting apps and speech levels across different phones still require real-device testing.

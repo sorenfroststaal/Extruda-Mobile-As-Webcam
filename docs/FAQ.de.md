@@ -93,3 +93,11 @@ Wenn kein unterstütztes Audiogerät gefunden wird, bietet die App den VB-CABLE-
 Eine kurze Netzwerkunterbrechung erhält bis zu 15 Sekunden zur Wiederherstellung. Das Telefon versucht einen ICE-Neustart, wenn die Signalisierung noch verfügbar ist. Eine abgelaufene Einladung, ein unerreichbares Netzwerk oder ein längerer Ausfall kann einen neuen QR-Code erfordern. Nach einer Unterbrechung am Telefon musst du eventuell die Seite öffnen oder Kamera starten antippen. Die Mikrofonfreigabe erteilst weiterhin du am Telefon.
 
 Fehlerbericht kopieren erstellt lokal einen Bericht nur mit Version, Zuständen und Zählern. Er enthält keine Bilder, Audiodaten, IP-Adressen, Gerätenamen, Browserkennungen, Kopplungslinks oder Schlüssel. Er wird nie automatisch gesendet und zur Prüfung vor dem Teilen angezeigt.
+
+## Bildausschnitt, Mikrofontest und Qualität
+
+Während der Verbindung stehen die Windows-Steuerelemente neben einer begrenzten Vorschau. Ganzes Bild anzeigen erhält das Motiv mit Rändern; Bild füllen schneidet die Mitte bildfüllend zu. Drehung gilt für Vorschau und Windows-Kamera. Die Auswahl wird am PC gespeichert. Bei kleinen Fenstern kann Scrollen nötig sein. Audioeinstellungen öffnen sich in einem separaten Dialog.
+
+Mikrofon an · Stille ist normal und kein Berechtigungsfehler. Die Anzeige nutzt eine dB-Skala. Schalte das Mikrofon ein, wähle Mikrofon testen und sprich fünf Sekunden normal zum Telefon. Der Test beurteilt Pegel und mögliche starke Spitzen; er erkennt keine Sprache und speichert keinen Ton. Am PC zeigt er auch, ob Windows Audiodaten angenommen hat. Er misst keinen Ton in Teams, Zoom oder OBS und ändert den Sendepegel nicht automatisch.
+
+Windows-Auflösung ist die Ausgabegröße der virtuellen Kamera. Empfangen zeigt tatsächliche Videogröße, Bildrate und Bitrate; Telefon oder WebRTC können geringere Qualität liefern. Verbindung prüfen zeigt Video und Audio getrennt mit Bitrate, Paketverlust und Jitter über etwa fünf Sekunden. — bedeutet noch nicht gemessen. Zähler werden bei neuen Sitzungen oder längeren Messpausen zurückgesetzt. Berichte enthalten weiterhin keine Medien, Adressen, Gerätenamen oder Kopplungsschlüssel.

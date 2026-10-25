@@ -93,3 +93,11 @@ Open Information → Check connection. New video frames, microphone signal and W
 A brief network interruption gets up to 15 seconds to recover. The phone attempts one ICE restart if signalling is still available. An expired invitation, an unreachable network or a longer interruption can require a new QR code. A phone interruption may require reopening the page or tapping Start camera. Microphone permission is still granted by you on the phone.
 
 Copy diagnostic report creates a local report containing only version, states and counters. It contains no images, audio, IP addresses, device names, browser identifiers, pairing links or keys. It is never sent automatically. The report is displayed for your review before sharing.
+
+## Framing, microphone test and quality
+
+During a connection, Windows controls sit beside a bounded preview. Show entire image preserves the full image with borders; Fill frame crops the centre to fill the frame. Rotation affects both preview and Windows camera. Choices are remembered on the PC. Small windows can still require scrolling. Audio settings open in a separate dialog.
+
+Microphone on · Quiet is normal, not a permission error. The meter uses a dB scale. Enable the microphone, choose Test microphone and speak normally towards the phone for five seconds. The test assesses signal level and possible strong peaks; it does not recognise speech or save audio. On the PC it also reports whether Windows accepted audio data. It does not measure sound in Teams, Zoom or OBS or automatically change send level.
+
+Windows resolution is the virtual camera output size. Received shows actual video dimensions, frame rate and bitrate; the phone or WebRTC can deliver lower quality. Check connection also separates video and audio rates, packet loss and jitter over the last roughly five seconds. — means not measured yet. Counters reset for new sessions or longer sampling gaps. Reports still contain no media, addresses, device names or pairing keys.

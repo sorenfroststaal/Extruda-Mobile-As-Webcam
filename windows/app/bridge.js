@@ -5,9 +5,13 @@
   let pixels, busy = false, running = false, lastFrame = 0, changing = false;
   const sizes = [[640,480,'480p · 640 × 480'],[1280,720,'720p · 1280 × 720'],[1920,1080,'1080p · 1920 × 1080'],[2560,1440,'1440p · 2560 × 1440'],[3840,2160,'4K · 3840 × 2160']];
   const canvas = document.createElement('canvas'); canvas.width = window.extrudaCaptureSize?.width || 1920; canvas.height = window.extrudaCaptureSize?.height || 1080;
+  canvas.id='output-preview';document.querySelector('#desktop .screen').prepend(canvas);
+  let framing='contain',rotation=0;
+  try{const choice=JSON.parse(localStorage.getItem('extruda-framing'));if(['contain','cover'].includes(choice?.mode))framing=choice.mode;if([0,90,180,270].includes(choice?.rotation))rotation=choice.rotation;}catch{}
   const ctx = canvas.getContext('2d', { willReadFrequently: true });
   const control = document.createElement('div'); control.hidden = true;
-  const label = document.createElement('label'); label.htmlFor = 'resolution'; label.textContent = 'Opløsning';
+  control.id='video-controls';
+  const label = document.createElement('label'); label.htmlFor = 'resolution'; label.textContent = 'Windows-opløsning';
   const select = document.createElement('select'); select.id = 'resolution';
   for (const [w,h,title] of sizes) { const option = document.createElement('option'); option.value = `${w}x${h}`; option.textContent = title; select.append(option); }
   select.value = `${canvas.width}x${canvas.height}`;
@@ -16,8 +20,12 @@
   let captureInfo = null, receivedInfo = null;
   const showResolution = () => { actual.textContent = (captureInfo ? tr('Telefonkamera: {w} × {h} · ',captureInfo) : '') + (receivedInfo ? tr('Modtaget video: {w} × {h} · ',receivedInfo) : '') + tr('Windows-kamera: {w} × {h}. Teams kan nedskalere.',{w:canvas.width,h:canvas.height}); };
   control.append(label, select, hint, actual); document.getElementById('create').before(control);
+  const fitLabel=document.createElement('label');fitLabel.textContent='Billedtilpasning';fitLabel.htmlFor='video-fit';
+  const fit=document.createElement('select');fit.id='video-fit';for(const [value,text] of [['contain','Vis hele billedet'],['cover','Fyld billedet · Beskær']]){const option=document.createElement('option');option.value=value;option.textContent=text;fit.append(option)}fit.value=framing;
+  const turnLabel=document.createElement('label');turnLabel.textContent='Rotation';turnLabel.htmlFor='video-rotation';const turn=document.createElement('select');turn.id='video-rotation';for(const angle of [0,90,180,270]){const option=document.createElement('option');option.value=String(angle);option.textContent=angle+'°';turn.append(option)}turn.value=String(rotation);
+  const saveFraming=()=>{framing=fit.value;rotation=Number(turn.value);try{localStorage.setItem('extruda-framing',JSON.stringify({mode:framing,rotation}));}catch{}};fit.onchange=turn.onchange=saveFraming;control.append(fitLabel,fit,turnLabel,turn);
   const updateEnabled = () => { select.disabled = changing; };
-  window.addEventListener('extruda-connection', event => { control.hidden = !event.detail.connected; });
+  window.addEventListener('extruda-connection', event => { control.hidden = !event.detail.connected;document.body.classList.toggle('session-active',event.detail.connected); });
   select.onchange = () => { changing = true; updateEnabled(); document.getElementById('create').disabled = true; chrome.webview.postMessage(`resolution:${select.value}`); };
   window.extrudaResolutionApplied = (width,height) => {
     if (!sizes.some(([w,h]) => w === width && h === height)) return;
@@ -38,10 +46,7 @@
     if (healthy && pixels && !busy && !changing && video?.srcObject && video.readyState >= 2 && !video.paused && now - lastFrame >= 32) {
       try {
         const width = canvas.width, height = canvas.height;
-        ctx.fillStyle = '#000'; ctx.fillRect(0, 0, width, height);
-        const scale = Math.min(width / video.videoWidth, height / video.videoHeight);
-        const w = Math.round(video.videoWidth * scale), h = Math.round(video.videoHeight * scale);
-        ctx.drawImage(video, (width - w) / 2, (height - h) / 2, w, h);
+        if(!window.ExtrudaVideo.draw(ctx,video,width,height,framing,rotation))throw Error('No video dimensions');
         const image = ctx.getImageData(0, 0, width, height);
         const rgba = new Uint32Array(image.data.buffer);
         for (let i = 0; i < rgba.length; i++) { const p = rgba[i]; pixels[i] = (p & 0xff00ff00) | ((p & 0xff) << 16) | ((p >>> 16) & 0xff); }
@@ -60,6 +65,7 @@
     let tick = 0;
     setInterval(() => { paint.fillStyle = 'rgb(200,80,20)'; paint.fillRect(0, 0, pattern.width, pattern.height); paint.fillStyle = 'white'; paint.font = '48px sans-serif'; paint.fillText(`Extruda test ${++tick}`, 100, 300); }, 33);
     const video = document.getElementById('remote'); video.srcObject = pattern.captureStream(30); video.play();
+    window.dispatchEvent(new CustomEvent('extruda-connection',{detail:{connected:true}}));
     document.getElementById('placeholder').hidden = true;
   }
   chrome.webview.postMessage('ready');

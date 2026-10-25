@@ -11,7 +11,7 @@ function setup(getUserMedia=async()=>{throw Error('unexpected capture')},role='p
  const sender={async replaceTrack(track){tracks.push(track);this.track=track}};
  const peer={getSenders:()=>[sender],getTransceivers:()=>[{sender,receiver:{track:{kind:'audio'}}}]};
  const context=vm.createContext({window,document:{getElementById:element,createElement:()=>element('option')},location:{origin:'https://app.extruda.local'},navigator:{mediaDevices:{getUserMedia}},cancelAnimationFrame(){frame=null},requestAnimationFrame:fn=>{frame=fn;return 1},performance:{now:()=>clock},
-  AudioContext:class{constructor(){this.destination={};this.audioWorklet={addModule:async()=>{}};}createMediaStreamSource(){return node()}createAnalyser(){return node()}createGain(){return node()}async resume(){}async close(){}},AudioWorkletNode:class{constructor(){this.port={};processors.push(this)}connect(){}disconnect(){}},Float32Array,Uint8Array,DataView,Math,Number,Array,String,btoa,MediaStream:class{constructor(tracks){this.tracks=tracks;}}});
+  AudioContext:class{constructor(){this.destination={};this.audioWorklet={addModule:async()=>{}};}createMediaStreamSource(){return node()}createAnalyser(){return node()}createGain(){return node()}async resume(){}async close(){}},AudioWorkletNode:class{constructor(){this.port={};processors.push(this)}connect(){}disconnect(){}},setTimeout,clearTimeout,Float32Array,Uint8Array,DataView,Math,Number,Array,String,btoa,MediaStream:class{constructor(tracks){this.tracks=tracks;}}});
  vm.runInContext(source,context);
  window.ExtrudaAudio.session({role,peer,send:async data=>messages.push(data),approved:()=>allowed});
  const connect=value=>listeners['extruda-connection']({detail:{connected:value}});
@@ -67,7 +67,7 @@ test('camera-only message stops an active phone microphone and blocks restart un
 test('status distinguishes permission, silence, received audio and native acknowledgement',async()=>{
  const phone=setup(async()=>captured().stream);phone.connect(true);await phone.click();
  assert.equal(phone.element('mic-status').textContent,'Afventer mikrofonsignal');
- phone.tick(0);assert.match(phone.element('mic-status').textContent,/Intet mikrofonsignal/);
+ phone.tick(0);assert.match(phone.element('mic-status').textContent,/Der er stille/);
  phone.tick(0.1);assert.match(phone.element('mic-status').textContent,/registreres på telefonen/);
  const host=setup(undefined,'host');host.window.extrudaAudioDevices([{index:0,name:'CABLE Input (VB-Audio)'}]);host.connect(true);
  host.api.track({kind:'audio'});await host.api.control({type:'microphone-state',enabled:true});host.window.extrudaAudioStarted();
@@ -76,7 +76,7 @@ test('status distinguishes permission, silence, received audio and native acknow
  host.tick(0.1);assert.match(host.element('mic-status').textContent,/endnu ikke sendt/);
  host.processors.at(-1).port.onmessage({data:new Float32Array(960).fill(0.1)});host.window.extrudaAudioAck(true);
  host.tick(0.1);assert.match(host.element('mic-status').textContent,/Lyd sendes til Windows/);
- host.tick(0);assert.match(host.element('mic-status').textContent,/Intet mikrofonsignal/);
+ host.tick(0);assert.match(host.element('mic-status').textContent,/Der er stille/);
 });
 
 test('audio track received before connecting survives initial false connection event',async()=>{
@@ -87,4 +87,9 @@ test('audio track received before connecting survives initial false connection e
  s.tick(0.1);assert.ok(s.element('mic-level').value>0);
  s.connect(false);assert.equal(s.element('mic-level').value,0);
  assert.equal(s.element('remote-audio').srcObject,null);
+});
+
+test('guided microphone test requires enabled capture and is cancelled by stop',async()=>{
+ const s=setup(async()=>captured().stream);s.connect(true);await s.element('mic-test').onclick();assert.equal(s.element('mic-test-result').textContent,'Slå mikrofonen til først');
+ await s.click();await s.element('mic-test').onclick();assert.equal(s.element('mic-test').disabled,true);s.tick(0.1);await s.api.stop();assert.equal(s.element('mic-test-result').textContent,'Mikrofontest afbrudt');
 });

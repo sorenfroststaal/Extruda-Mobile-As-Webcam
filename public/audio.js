@@ -7,6 +7,22 @@
   let devices=[],route=-1,connected=false;
   let gain=1,routingActive=false;
   let lastNativeAck=0;
+  let rms=0,peak=0,micTest=null;
+  const routing=$('audio-routing'),settings=$('audio-settings-dialog');
+  if(settings&&routing){settings.append(routing);routing.open=true;}
+  $('audio-settings-open').onclick=()=>settings.showModal();
+  $('audio-settings-close').onclick=()=>settings.close();
+  function finishMicTest(cancelled=false){
+    if(!micTest)return;const test=micTest;micTest=null;clearTimeout(test.timer);$('mic-test').disabled=!connected;
+    const levels=test.levels.sort((a,b)=>a-b);test.rms=levels.length?levels[Math.floor((levels.length-1)*0.8)]:0;
+    const key=cancelled?'Mikrofontest afbrudt':test.peak>0.98?'Meget kraftigt signal. Tal længere fra mikrofonen.':test.rms<0.001?'Ingen tydelig tale målt. Prøv igen, og tal mod telefonen.':test.rms<0.016?'Lavt taleniveau. Flyt telefonen tættere på.':'Taleniveauet ser brugbart ud.';
+    $('mic-test-result').textContent=tr(key)+(role==='host'&&native()?' '+tr(test.accepted?'Windows har accepteret lyddata':'Lyddata er endnu ikke bekræftet af Windows'):'');
+  }
+  $('mic-test').onclick=()=>{
+    if(micTest||!connected)return;
+    if(!(role==='phone'?capture:phoneEnabled&&hostAllowed)){$('mic-test-result').textContent=tr('Slå mikrofonen til først');return;}
+    micTest={rms:0,levels:[],peak:0,accepted:false,timer:setTimeout(()=>finishMicTest(),5000)};$('mic-test').disabled=true;$('mic-test-result').textContent=tr('Tal normalt mod telefonen i 5 sekunder. Ingen lyd gemmes.');
+  };
   let cameraOnly=false,driverPrompted=false,devicesKnown=false;
   try{cameraOnly=localStorage.getItem('extruda-camera-only')==='true';}catch{}
   const driverDialog=$('audio-setup');
@@ -38,6 +54,7 @@
   function paint(level=0){
     const value=Math.min(100,Math.max(0,Math.round(level*100)));
     $('mic-level').value=value;$('mic-level').setAttribute('aria-valuetext',`${value}%`);
+    $('mic-db').textContent=(rms>0?Math.max(-90,20*Math.log10(rms)).toFixed(1):'−∞')+' dBFS';
   }
   function buttons(){
     const enabled=role==='phone'?!!capture:phoneEnabled&&hostAllowed;
@@ -45,11 +62,13 @@
     $('mic-toggle').setAttribute('aria-pressed',String(enabled));
     $('mic-toggle').disabled=!connected||pending;
     $('mic-panel').hidden=!connected||cameraOnly;
+    $('audio-settings-open').hidden=role!=='host'||!native();$('mic-test').disabled=!connected||!!micTest;
     $('audio-enable').hidden=role!=='host'||!native();
     routingText();
   }
   async function clearGraph(){
-    cancelAnimationFrame(animation);paint();nativeBusy=0;lastNativeAck=0;
+    cancelAnimationFrame(animation);rms=peak=0;paint();nativeBusy=0;lastNativeAck=0;
+    finishMicTest(true);
     source?.disconnect();processor?.disconnect();silent?.disconnect();
     if(processor)processor.port.onmessage=null;
     const old=context;context=source=analyser=processor=silent=null;
@@ -82,8 +101,12 @@
       if(context!==ctx)return;
       if(now-lastPaint>80){
         lastPaint=now;analyser.getFloatTimeDomainData(values);let sum=0;for(const value of values)sum+=value*value;
-        const level=Math.sqrt(sum/values.length);paint(Math.min(1,level*4));
-        if(level<0.0001)state('Intet mikrofonsignal registreret. Tal, og kontrollér tilladelsen på telefonen.');
+        const level=Math.sqrt(sum/values.length);rms=level;peak=0;for(const value of values)peak=Math.max(peak,Math.abs(value));
+        paint(level>0?Math.max(0,(20*Math.log10(level)+60)/60):0);
+        if(micTest){if(micTest.levels.length<100)micTest.levels.push(rms);micTest.peak=Math.max(micTest.peak,peak);micTest.accepted||=routingActive&&lastNativeAck>0&&performance.now()-lastNativeAck<2000;}
+        const track=(forward?remoteStream:capture)?.getAudioTracks?.()[0];
+        if(track?.muted)state('Mikrofon sat på pause af telefonen');
+        else if(level<0.0001)state('Mikrofon til · Der er stille');
         else if(!forward)state('Mikrofonsignal registreres på telefonen');
         else if(!native())state('Lyd modtages. Windows-mikrofon kræver Windows-appen.');
         else if(route<0)state('Lyd modtages. Vælg en virtuel lydenhed.');
@@ -170,7 +193,7 @@
   window.addEventListener('extruda-language',buttons);
   window.addEventListener('pagehide',()=>{void window.ExtrudaAudio.stop();post('audio-stop');});
   window.ExtrudaAudio={
-    health(){const track=(role==='phone'?capture:remoteStream)?.getAudioTracks?.()[0];return{enabled:role==='phone'?!!capture:phoneEnabled&&hostAllowed&&!cameraOnly,signal:Number($('mic-level').value)>0,paused:!!track?.muted||track?.readyState==='ended',context:context?.state||'closed',windowsAccepted:routingActive&&lastNativeAck>0&&performance.now()-lastNativeAck<2000};},
+    health(){const track=(role==='phone'?capture:remoteStream)?.getAudioTracks?.()[0];return{enabled:role==='phone'?!!capture:phoneEnabled&&hostAllowed&&!cameraOnly,signal:rms>=0.0001,levelDb:rms>0?Math.max(-90,20*Math.log10(rms)):-90,paused:!!track?.muted||track?.readyState==='ended',context:context?.state||'closed',windowsAccepted:routingActive&&lastNativeAck>0&&performance.now()-lastNativeAck<2000};},
     session(options){role=options.role;peer=options.peer;sendControl=options.send;isApproved=options.approved;},
     track(track){
       if(role!=='host'||track.kind!=='audio')return;remoteStream=new MediaStream([track]);

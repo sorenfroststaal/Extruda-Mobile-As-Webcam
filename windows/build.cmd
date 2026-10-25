@@ -44,6 +44,7 @@ if not exist windows\dist\ui\. mkdir windows\dist\ui\.
 copy /y public\app.js windows\dist\ui\app.js >nul
 copy /y public\audio.js windows\dist\ui\audio.js >nul
 copy /y public\health.js windows\dist\ui\health.js >nul
+copy /y public\video.js windows\dist\ui\video.js >nul
 copy /y public\audio-worklet.js windows\dist\ui\audio-worklet.js >nul
 if not exist windows\dist\ui\. mkdir windows\dist\ui\.
 copy /y public\qr.js windows\dist\ui\qr.js >nul

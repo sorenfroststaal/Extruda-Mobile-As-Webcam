@@ -355,5 +355,34 @@
         "Copier le rapport de diagnostic crée un rapport local limité à la version, aux états et aux compteurs. Il ne contient ni image, son, adresse IP, nom de périphérique, identifiant de navigateur, lien d’appairage ni clé. Il n’est jamais envoyé automatiquement et s’affiche pour vérification avant partage."
       ]
     ]
+  },
+  {
+    "id": "picture-and-level",
+    "title": [
+      "Billedtilpasning, mikrofontest og kvalitet",
+      "Framing, microphone test and quality",
+      "Bildausschnitt, Mikrofontest und Qualität",
+      "Cadrage, test du microphone et qualité"
+    ],
+    "paragraphs": [
+      [
+        "Under en forbindelse er Windows-kontrollerne samlet ved siden af et afgrænset videofelt. Vis hele billedet bevarer hele motivet med kanter; Fyld billedet beskærer midten, så billedet fylder. Rotation drejer både forhåndsvisning og Windows-kamera. Valgene huskes på pc’en. På små vinduer kan scrolling fortsat være nødvendig. Lydindstillinger åbnes i en separat dialog.",
+        "During a connection, Windows controls sit beside a bounded preview. Show entire image preserves the full image with borders; Fill frame crops the centre to fill the frame. Rotation affects both preview and Windows camera. Choices are remembered on the PC. Small windows can still require scrolling. Audio settings open in a separate dialog.",
+        "Während der Verbindung stehen die Windows-Steuerelemente neben einer begrenzten Vorschau. Ganzes Bild anzeigen erhält das Motiv mit Rändern; Bild füllen schneidet die Mitte bildfüllend zu. Drehung gilt für Vorschau und Windows-Kamera. Die Auswahl wird am PC gespeichert. Bei kleinen Fenstern kann Scrollen nötig sein. Audioeinstellungen öffnen sich in einem separaten Dialog.",
+        "Pendant la connexion, les commandes Windows sont à côté d’un aperçu de taille limitée. Afficher toute l’image conserve le sujet avec des bordures ; Remplir recadre au centre pour remplir l’image. La rotation affecte l’aperçu et la caméra Windows. Les choix sont mémorisés sur le PC. Les petites fenêtres peuvent nécessiter un défilement. Les paramètres audio s’ouvrent dans une boîte de dialogue séparée."
+      ],
+      [
+        "Mikrofon til · Der er stille er en normal tilstand, ikke en tilladelsesfejl. Niveaumåleren bruger en dB-skala. Slå mikrofonen til, vælg Test mikrofon og tal normalt mod telefonen i fem sekunder. Testen vurderer signalniveau og mulige kraftige spidser; den genkender ikke tale og gemmer ingen lyd. På pc’en angives også, om Windows accepterede lyddata. Testen måler ikke lyden i Teams, Zoom eller OBS og ændrer ikke automatisk sendestyrken.",
+        "Microphone on · Quiet is normal, not a permission error. The meter uses a dB scale. Enable the microphone, choose Test microphone and speak normally towards the phone for five seconds. The test assesses signal level and possible strong peaks; it does not recognise speech or save audio. On the PC it also reports whether Windows accepted audio data. It does not measure sound in Teams, Zoom or OBS or automatically change send level.",
+        "Mikrofon an · Stille ist normal und kein Berechtigungsfehler. Die Anzeige nutzt eine dB-Skala. Schalte das Mikrofon ein, wähle Mikrofon testen und sprich fünf Sekunden normal zum Telefon. Der Test beurteilt Pegel und mögliche starke Spitzen; er erkennt keine Sprache und speichert keinen Ton. Am PC zeigt er auch, ob Windows Audiodaten angenommen hat. Er misst keinen Ton in Teams, Zoom oder OBS und ändert den Sendepegel nicht automatisch.",
+        "Microphone activé · Silence est un état normal, pas une erreur d’autorisation. Le niveau utilise une échelle en dB. Activez le microphone, choisissez le test et parlez normalement vers le téléphone pendant cinq secondes. Le test évalue le niveau et les fortes crêtes possibles ; il ne reconnaît pas la parole et n’enregistre aucun son. Sur le PC, il indique aussi si Windows a accepté les données audio. Il ne mesure pas le son dans Teams, Zoom ou OBS et ne change pas automatiquement le niveau d’envoi."
+      ],
+      [
+        "Windows-opløsning er størrelsen på det virtuelle kameraoutput. Modtaget viser den faktiske videostørrelse, billedhastighed og bitrate; telefonen eller WebRTC kan levere en lavere kvalitet. Kontrollér forbindelse viser desuden video og lyd separat med bitrate, pakketab og jitter over de seneste cirka fem sekunder. — betyder endnu ikke målt. Tællere nulstilles ved en ny session eller et længere måleophold. Fejlrapporten indeholder fortsat ingen medier, adresser, enhedsnavne eller parringsnøgler.",
+        "Windows resolution is the virtual camera output size. Received shows actual video dimensions, frame rate and bitrate; the phone or WebRTC can deliver lower quality. Check connection also separates video and audio rates, packet loss and jitter over the last roughly five seconds. — means not measured yet. Counters reset for new sessions or longer sampling gaps. Reports still contain no media, addresses, device names or pairing keys.",
+        "Windows-Auflösung ist die Ausgabegröße der virtuellen Kamera. Empfangen zeigt tatsächliche Videogröße, Bildrate und Bitrate; Telefon oder WebRTC können geringere Qualität liefern. Verbindung prüfen zeigt Video und Audio getrennt mit Bitrate, Paketverlust und Jitter über etwa fünf Sekunden. — bedeutet noch nicht gemessen. Zähler werden bei neuen Sitzungen oder längeren Messpausen zurückgesetzt. Berichte enthalten weiterhin keine Medien, Adressen, Gerätenamen oder Kopplungsschlüssel.",
+        "Résolution Windows correspond à la sortie de la caméra virtuelle. Reçu indique la taille, la fréquence et le débit vidéo réels ; le téléphone ou WebRTC peut fournir une qualité inférieure. Vérifier la connexion sépare aussi les débits, pertes et gigues vidéo et audio sur environ cinq secondes. — signifie pas encore mesuré. Les compteurs sont réinitialisés pour une nouvelle session ou une longue pause. Les rapports ne contiennent toujours ni média, adresse, nom de périphérique ni clé d’appairage."
+      ]
+    ]
   }
 ]
