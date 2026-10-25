@@ -419,5 +419,34 @@
         "Une version Windows compatible affiche les commandes sur le téléphone jumelé. Démarrer ouvre les paramètres et la sauvegarde sur le PC, avec confirmation obligatoire sur celui-ci. Le téléphone peut ensuite mettre en pause, reprendre et arrêter. Les commandes utilisent la connexion chiffrée approuvée existante, sans lien public ni nouveau port serveur. Les chemins de fichiers ne sont pas envoyés au téléphone. Un appareil jumelé compromis peut néanmoins abuser des commandes. Mettez les deux clients à jour si les boutons manquent. Enregistrez avec l’accord des participants."
       ]
     ]
+  },
+  {
+    "id": "noise-reduction",
+    "title": [
+      "Hvordan virker lokal AI-støjreduktion?",
+      "How does local AI noise reduction work?",
+      "Wie funktioniert die lokale KI-Rauschunterdrückung?",
+      "Comment fonctionne la réduction de bruit IA locale ?"
+    ],
+    "paragraphs": [
+      [
+        "Åbn Lydindstillinger i Windows-appen, og slå Lokal AI-støjreduktion til. DeepFilterNet renser telefonens lyd lokalt på pc’en med en indbygget model. Funktionen kræver ingen konto, upload eller internet til lydrensningen. Parring bruger stadig den eksisterende onlineserver. Funktionen er slået fra ved hver opstart.",
+        "Open Audio settings in the Windows app and enable Local AI noise reduction. DeepFilterNet cleans phone audio on the PC using an embedded model. Processing requires no account, upload or internet. Pairing still uses the existing online server. The feature is off at every launch.",
+        "Öffne die Audioeinstellungen der Windows-App und aktiviere Lokale KI-Rauschunterdrückung. DeepFilterNet bereinigt den Telefonton auf dem PC mit einem eingebetteten Modell. Dafür sind kein Konto, Upload oder Internet nötig. Die Kopplung nutzt weiterhin den Onlineserver. Die Funktion ist bei jedem Start aus.",
+        "Dans les paramètres audio de l’application Windows, activez Réduction de bruit IA locale. DeepFilterNet traite le son du téléphone sur le PC avec un modèle intégré. Aucun compte, envoi ou accès Internet n’est nécessaire au traitement. L’appairage utilise toujours le serveur en ligne. La fonction est désactivée à chaque démarrage."
+      ],
+      [
+        "Rensningen gælder både den virtuelle mikrofon og optagelser med mikrofon. Niveaumåleren viser det oprindelige input. Filteret kan give forsinkelse, ændre stemmen eller fjerne lav tale. Prøv først en kort optagelse. En optagelse med filter indeholder den rensede lyd uden et separat originalspor. Eksisterende filer ændres ikke. Hvis filteret stopper eller svarer for langsomt, vises en advarsel, og original lyd genoptages; der kan være en kort pause.",
+        "Filtering applies to both the virtual microphone and recordings with microphone enabled. The meter shows original input. Filtering can add delay, change the voice or remove quiet speech. Try a short recording first. A filtered recording contains processed audio without a separate original track. Existing files are unchanged. On failure or timeout, a warning appears and original audio resumes; a brief gap may occur.",
+        "Der Filter gilt für das virtuelle Mikrofon und Aufnahmen mit Mikrofon. Die Anzeige misst das Originalsignal. Der Filter kann verzögern, die Stimme verändern oder leise Sprache entfernen. Teste eine kurze Aufnahme. Gefilterte Aufnahmen enthalten keine separate Originalspur. Vorhandene Dateien bleiben unverändert. Bei Fehlern oder Zeitüberschreitung erscheint eine Warnung und der Originalton kehrt zurück; eine kurze Pause ist möglich.",
+        "Le filtre s’applique au microphone virtuel et aux enregistrements avec microphone. La jauge mesure le signal original. Le filtre peut retarder le son, modifier la voix ou supprimer la parole faible. Testez un court enregistrement. Les enregistrements filtrés ne contiennent pas de piste originale séparée. Les fichiers existants restent inchangés. En cas d’échec ou de délai excessif, un avertissement apparaît et le son original reprend ; une brève coupure est possible."
+      ]
+    ],
+    "sources": [
+      [
+        "DeepFilterNet",
+        "https://github.com/Rikorose/DeepFilterNet"
+      ]
+    ]
   }
 ]

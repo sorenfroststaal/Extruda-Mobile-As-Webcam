@@ -111,3 +111,11 @@ Avanceret giver format (automatisk, MP4 eller WebM), codec (H.264, VP8 eller VP9
 Medtag mikrofon optager kun telefonens lyd, mens mikrofonen er tilladt og slået til. Den lokale optagelse kræver ikke en virtuel lyddriver. Den optager ikke Teams-, Zoom-, OBS- eller systemlyd. Pause og fortsæt beholder samme fil. Stop og gem færdiggør den. Ved afbrydelse eller lukning forsøger appen at stoppe og gemme. Der skrives først til en midlertidig .partial-fil i samme mappe; en eksisterende målfil erstattes først efter vellykket færdiggørelse. Et nedbrud, diskfejl eller for langsom lagring kan give en ufuldstændig fil, som ikke nødvendigvis kan afspilles.
 
 På en understøttet Windows-version af Extruda vises optageknapper også på den parrede telefon. Start åbner indstillinger og gem-dialog på pc’en og kræver din bekræftelse dér. Derefter kan telefonen pause, fortsætte og stoppe. Kommandoerne bruger den eksisterende godkendte, krypterede forbindelse; der oprettes ikke et offentligt optagelink eller en ny serverport. Ingen filstier sendes til telefonen. En kompromitteret parret enhed kan stadig misbruge styringen. Opdatér begge klienter ved manglende knapper. Optag kun med de medvirkendes accept.
+
+## Hvordan virker lokal AI-støjreduktion?
+
+Åbn Lydindstillinger i Windows-appen, og slå Lokal AI-støjreduktion til. DeepFilterNet renser telefonens lyd lokalt på pc’en med en indbygget model. Funktionen kræver ingen konto, upload eller internet til lydrensningen. Parring bruger stadig den eksisterende onlineserver. Funktionen er slået fra ved hver opstart.
+
+Rensningen gælder både den virtuelle mikrofon og optagelser med mikrofon. Niveaumåleren viser det oprindelige input. Filteret kan give forsinkelse, ændre stemmen eller fjerne lav tale. Prøv først en kort optagelse. En optagelse med filter indeholder den rensede lyd uden et separat originalspor. Eksisterende filer ændres ikke. Hvis filteret stopper eller svarer for langsomt, vises en advarsel, og original lyd genoptages; der kan være en kort pause.
+
+[DeepFilterNet](https://github.com/Rikorose/DeepFilterNet)

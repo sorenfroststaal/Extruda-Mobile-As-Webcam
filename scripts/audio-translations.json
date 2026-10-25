@@ -844,5 +844,41 @@
     "Recording controls unavailable. Use the PC.",
     "Aufnahmesteuerung nicht verfügbar. PC verwenden.",
     "Commandes d’enregistrement indisponibles. Utilisez le PC."
+  ],
+  [
+    "Lokal AI-støjreduktion",
+    "Local AI noise reduction",
+    "Lokale KI-Rauschunterdrückung",
+    "Réduction de bruit IA locale"
+  ],
+  [
+    "Lydrensning fra",
+    "Noise reduction off",
+    "Rauschunterdrückung aus",
+    "Réduction de bruit désactivée"
+  ],
+  [
+    "Starter lokal lydrensning…",
+    "Starting local noise reduction…",
+    "Lokale Rauschunterdrückung startet…",
+    "Démarrage de la réduction de bruit locale…"
+  ],
+  [
+    "DeepFilterNet aktiv · Behandles lokalt",
+    "DeepFilterNet active · Processed locally",
+    "DeepFilterNet aktiv · Lokale Verarbeitung",
+    "DeepFilterNet actif · Traitement local"
+  ],
+  [
+    "Lydrensning stoppede. Original lyd bruges.",
+    "Noise reduction stopped. Using original audio.",
+    "Rauschunterdrückung gestoppt. Originalton wird verwendet.",
+    "Réduction de bruit arrêtée. Utilisation du son original."
+  ],
+  [
+    "DeepFilterNet · Ingen upload. Kan give lidt forsinkelse og ændre stemmen.",
+    "DeepFilterNet · No upload. May add a small delay and change your voice.",
+    "DeepFilterNet · Kein Upload. Kann die Stimme verändern und etwas verzögern.",
+    "DeepFilterNet · Aucun envoi. Peut ajouter un léger délai et modifier la voix."
   ]
 ]

@@ -180,6 +180,10 @@ Private samtaler kan blive hørt eller optaget af et mødeprogram eller en anden
 
 Optagelser gemmes ukrypteret i den mappe, du vælger. Mapper kan synkroniseres af OneDrive eller andre programmer. Appen uploader ikke optagelser. Optagekommandoer fra telefonen accepteres kun i den godkendte parring; start kræver valg og bekræftelse på pc’en. Pause, fortsæt og stop kan styres af den parrede telefon. En kompromitteret parret enhed kan misbruge disse funktioner. Diskfejl og nedbrud kan efterlade ufuldstændige .partial-filer. Optag kun med de medvirkendes accept.
 
+
+
+Lokal AI-støjreduktion sender ikke lyd til en cloudtjeneste. Filteret kan ændre stemmen, fjerne lav tale og give forsinkelse. Ved fejl skifter appen tilbage til original lyd med en mulig kort pause. Optagelser med filter indeholder den behandlede lyd uden et separat originalspor.
+
 <!-- plain:start -->
 **Kort fortalt**
 
@@ -187,7 +191,7 @@ Når du trykker optag, bliver billede og eventuel mikrofonlyd til en rigtig vide
 
 **Det kan betyde for dig**
 
-Andre med adgang til pc’en, backup eller den synkroniserede mappe kan få adgang til optagelsen. En optagelse kan fylde disken eller blive beskadiget ved nedbrud. Vælg placeringen med omtanke, del ikke parringen, og kontrollér den gemte video, før du sletter en anden kopi.
+Andre med adgang til pc’en, backup eller den synkroniserede mappe kan få adgang til optagelsen. En optagelse kan fylde disken eller blive beskadiget ved nedbrud. Vælg placeringen med omtanke, del ikke parringen, og kontrollér den gemte video, før du sletter en anden kopi. Lokal AI-støjreduktion sender ikke lyd til en cloudtjeneste. Filteret kan ændre stemmen, fjerne lav tale og give forsinkelse. Ved fejl skifter appen tilbage til original lyd med en mulig kort pause. Optagelser med filter indeholder den behandlede lyd uden et separat originalspor.
 <!-- plain:end -->
 
 [Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases)

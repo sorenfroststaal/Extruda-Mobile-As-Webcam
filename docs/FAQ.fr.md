@@ -111,3 +111,11 @@ Avancé propose format (automatique, MP4 ou WebM), codec (H.264, VP8 ou VP9), r�
 Inclure le microphone enregistre uniquement le son autorisé et activé du téléphone. Aucun pilote audio virtuel n’est nécessaire. Le son de Teams, Zoom, OBS ou du système n’est pas capturé. Pause/reprise conserve le même fichier. Arrêter et enregistrer le finalise. Déconnexion ou fermeture tente d’arrêter et sauvegarder. Les données passent d’abord par un fichier .partial dans le même dossier ; une cible existante n’est remplacée qu’après finalisation réussie. Une panne ou un stockage trop lent peut laisser un fichier incomplet, parfois illisible.
 
 Une version Windows compatible affiche les commandes sur le téléphone jumelé. Démarrer ouvre les paramètres et la sauvegarde sur le PC, avec confirmation obligatoire sur celui-ci. Le téléphone peut ensuite mettre en pause, reprendre et arrêter. Les commandes utilisent la connexion chiffrée approuvée existante, sans lien public ni nouveau port serveur. Les chemins de fichiers ne sont pas envoyés au téléphone. Un appareil jumelé compromis peut néanmoins abuser des commandes. Mettez les deux clients à jour si les boutons manquent. Enregistrez avec l’accord des participants.
+
+## Comment fonctionne la réduction de bruit IA locale ?
+
+Dans les paramètres audio de l’application Windows, activez Réduction de bruit IA locale. DeepFilterNet traite le son du téléphone sur le PC avec un modèle intégré. Aucun compte, envoi ou accès Internet n’est nécessaire au traitement. L’appairage utilise toujours le serveur en ligne. La fonction est désactivée à chaque démarrage.
+
+Le filtre s’applique au microphone virtuel et aux enregistrements avec microphone. La jauge mesure le signal original. Le filtre peut retarder le son, modifier la voix ou supprimer la parole faible. Testez un court enregistrement. Les enregistrements filtrés ne contiennent pas de piste originale séparée. Les fichiers existants restent inchangés. En cas d’échec ou de délai excessif, un avertissement apparaît et le son original reprend ; une brève coupure est possible.
+
+[DeepFilterNet](https://github.com/Rikorose/DeepFilterNet)

@@ -254,3 +254,5 @@ The app can send audio to a supported device that is already installed;
 it does not install those drivers or change Windows default audio devices.
 
 Local recording uses the installed Edge WebView2 MediaRecorder implementation and Windows file APIs. No OBS code, OBS binaries, FFmpeg binaries or third-party audio driver is bundled for recording. Browser/system codec availability and licences are separate from this project's MIT source.
+
+DeepFilterNet 0.5.6, Copyright Hendrik Schroeter and contributors. Official Windows LADSPA runtime with embedded default low-latency model, distributed under its MIT license (selected from MIT/Apache-2.0). See DEEPFILTER-LICENSE.txt and https://github.com/Rikorose/DeepFilterNet/tree/v0.5.6. No Adobe code, service or cloud inference is used. Upstream bundled dependency notices are available in the pinned source and Cargo.lock.

@@ -9,6 +9,8 @@ if not exist "%VSDEVCMD%" (
 )
 call "%VSDEVCMD%" -arch=x64 -host_arch=x64 >nul
 if errorlevel 1 exit /b 1
+node scripts\fetch-deepfilter.mjs
+if errorlevel 1 exit /b 1
 node scripts\build-i18n.mjs
 if errorlevel 1 exit /b 1
 if not exist windows\build mkdir windows\build
@@ -25,9 +27,15 @@ pushd windows\app
 rc /nologo /fo ..\build\app.res app.rc
 popd
 if errorlevel 1 exit /b 1
+cl %COMMON% windows\app\FilterHost.cpp /Fowindows\build\filter-host.obj /Fewindows\dist\ExtrudaFilter.exe
+if errorlevel 1 exit /b 1
+copy /y windows\vendor\deepfilter\deep_filter.dll windows\dist\deep_filter.dll >nul
+copy /y windows\vendor\deepfilter\LICENSE-MIT.txt windows\dist\DEEPFILTER-LICENSE.txt >nul
 cl %COMMON% /I.tools\webview2\build\native\include windows\app\main.cpp windows\build\app.res /Fowindows\build\app.obj /Fewindows\dist\ExtrudaCamera.exe /link /SUBSYSTEM:WINDOWS .tools\webview2\build\native\x64\WebView2LoaderStatic.lib mfplat.lib mf.lib mfuuid.lib mfsensorgroup.lib ole32.lib oleaut32.lib advapi32.lib user32.lib shell32.lib shlwapi.lib version.lib dwmapi.lib uuid.lib propsys.lib crypt32.lib
 if errorlevel 1 exit /b 1
 :tests
+cl %COMMON% windows\test\FilterTests.cpp /Fowindows\build\filter-tests.obj /Fewindows\dist\FilterTests.exe /link crypt32.lib user32.lib
+if errorlevel 1 exit /b 1
 cl %COMMON% windows\test\RecordingTests.cpp /Fowindows\build\recording-test.obj /Fewindows\dist\RecordingTests.exe /link ole32.lib uuid.lib shell32.lib crypt32.lib user32.lib
 if errorlevel 1 exit /b 1
 cl %COMMON% windows\test\RecordingProbe.cpp /Fowindows\build\recording-probe.obj /Fewindows\dist\RecordingProbe.exe /link mfplat.lib mf.lib mfuuid.lib mfreadwrite.lib ole32.lib

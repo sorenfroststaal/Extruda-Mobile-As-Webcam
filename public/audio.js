@@ -7,6 +7,28 @@
   let devices=[],route=-1,connected=false;
   let gain=1,routingActive=false;
   let lastNativeAck=0;
+  let filterEnabled=false,filterPlayer,filterDestination,filterEpoch=0,filterBusy=0,filterTimer;
+  const filterToggle=$('audio-denoise'),filterStatus=$('audio-denoise-status');
+  function filterText(text){if(filterStatus)filterStatus.textContent=tr(text);}
+  function sendPcm(samples){
+    if(route<0||!routingActive||nativeBusy>=4)return;
+    const pcm=new Uint8Array(1920),view=new DataView(pcm.buffer);
+    for(let i=0;i<960;i++){const v=Math.max(-1,Math.min(1,samples[i]*gain));view.setInt16(i*2,Math.round(v<0?v*32768:v*32767),true);}
+    nativeBusy++;post('audio-pcm:'+btoa(String.fromCharCode(...pcm)));
+  }
+  window.extrudaFilteredAudio=(epoch,encoded)=>{
+    if(epoch!==filterEpoch||!filterEnabled||!filterPlayer||!connected||!hostAllowed||!phoneEnabled||cameraOnly)return;
+    if(typeof encoded!=='string'||encoded.length!==2560)return;
+    const raw=atob(encoded),view=new DataView(Uint8Array.from(raw,c=>c.charCodeAt(0)).buffer),samples=new Float32Array(960);
+    for(let i=0;i<960;i++)samples[i]=view.getInt16(i*2,true)/32768;
+    filterBusy=Math.max(0,filterBusy-1);clearTimeout(filterTimer);filterTimer=setTimeout(()=>window.extrudaFilterError(),2500);
+    filterPlayer.port.postMessage(samples);sendPcm(samples);filterText('DeepFilterNet aktiv · Behandles lokalt');
+  };
+  window.extrudaFilterError=()=>{
+    if(!filterEnabled)return;filterEnabled=false;if(filterToggle)filterToggle.checked=false;
+    filterText('Lydrensning stoppede. Original lyd bruges.');void refreshHost();
+  };
+  if(filterToggle)filterToggle.onchange=()=>{filterEnabled=!!filterToggle.checked;filterText(filterEnabled?'Starter lokal lydrensning…':'Lydrensning fra');if(role==='host'&&connected)void refreshHost();};
   let rms=0,peak=0,micTest=null;
   const routing=$('audio-routing'),settings=$('audio-settings-dialog');
   if(settings&&routing){settings.append(routing);routing.open=true;}
@@ -66,8 +88,11 @@
     $('audio-settings-open').hidden=role!=='host'||!native();$('mic-test').disabled=!connected||!!micTest;
     $('audio-enable').hidden=role!=='host'||!native();
     routingText();
+    if($('audio-denoise-control'))$('audio-denoise-control').hidden=role!=='host'||!native();
   }
   async function clearGraph(){
+    ++filterEpoch;filterBusy=0;clearTimeout(filterTimer);post('filter-stop');
+    filterPlayer?.disconnect();filterDestination?.stream.getTracks().forEach(track=>track.stop());filterPlayer=filterDestination=null;
     cancelAnimationFrame(animation);rms=peak=0;paint();nativeBusy=0;lastNativeAck=0;
     finishMicTest(true);
     source?.disconnect();processor?.disconnect();silent?.disconnect();
@@ -88,12 +113,19 @@
       await ctx.audioWorklet.addModule('/audio-worklet.js');
       if(token!==generation||context!==ctx)return;
       processor=new AudioWorkletNode(ctx,'extruda-pcm');source.connect(processor);processor.connect(silent);
+      if(filterEnabled){
+        filterDestination=ctx.createMediaStreamDestination();filterPlayer=new AudioWorkletNode(ctx,'extruda-filtered',{numberOfInputs:0,numberOfOutputs:1,outputChannelCount:[1]});filterPlayer.connect(filterDestination);
+        post('filter-start');filterText('Starter lokal lydrensning…');filterTimer=setTimeout(()=>window.extrudaFilterError(),16000);
+      }
       processor.port.onmessage=event=>{
-        if(token!==generation||!connected||cameraOnly||!hostAllowed||!phoneEnabled||route<0||!routingActive||nativeBusy>=4)return;
+        if(token!==generation||!connected||cameraOnly||!hostAllowed||!phoneEnabled)return;
         const samples=event.data;if(!(samples instanceof Float32Array)||samples.length!==960)return;
-        const pcm=new Uint8Array(1920);const view=new DataView(pcm.buffer);
-        for(let i=0;i<960;i++){const v=Math.max(-1,Math.min(1,samples[i]*gain));view.setInt16(i*2,Math.round(v<0?v*32768:v*32767),true);}
-        nativeBusy++;post('audio-pcm:'+btoa(String.fromCharCode(...pcm)));
+        if(filterEnabled){
+          if(filterBusy>=4)return;
+          const pcm=new Uint8Array(1920),view=new DataView(pcm.buffer);
+          for(let i=0;i<960;i++)view.setInt16(i*2,Math.round(Math.max(-1,Math.min(1,samples[i]))*32767),true);
+          filterBusy++;post('filter-pcm:'+filterEpoch+':'+btoa(String.fromCharCode(...pcm)));
+        }else sendPcm(samples);
       };
     }
     await ctx.resume();
@@ -195,7 +227,7 @@
   window.addEventListener('extruda-language',buttons);
   window.addEventListener('pagehide',()=>{void window.ExtrudaAudio.stop();post('audio-stop');});
   window.ExtrudaAudio={
-    recordingTrack(){return role==='host'&&connected&&!cameraOnly&&hostAllowed&&phoneEnabled?remoteStream?.getAudioTracks?.()[0]||null:null;},
+    recordingTrack(){return role==='host'&&connected&&!cameraOnly&&hostAllowed&&phoneEnabled?(filterEnabled?filterDestination?.stream.getAudioTracks?.()[0]:remoteStream?.getAudioTracks?.()[0])||null:null;},
     health(){const track=(role==='phone'?capture:remoteStream)?.getAudioTracks?.()[0];return{enabled:role==='phone'?!!capture:phoneEnabled&&hostAllowed&&!cameraOnly,signal:rms>=0.0001,levelDb:rms>0?Math.max(-90,20*Math.log10(rms)):-90,paused:!!track?.muted||track?.readyState==='ended',context:context?.state||'closed',windowsAccepted:routingActive&&lastNativeAck>0&&performance.now()-lastNativeAck<2000};},
     session(options){role=options.role;peer=options.peer;sendControl=options.send;isApproved=options.approved;},
     track(track){

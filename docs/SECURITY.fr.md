@@ -180,6 +180,10 @@ Des conversations privées peuvent être entendues ou enregistrées par une appl
 
 Les enregistrements sont sauvegardés sans chiffrement dans le dossier choisi, éventuellement synchronisé par OneDrive ou d’autres logiciels. L’application ne les envoie pas. Les commandes du téléphone sont limitées à l’appairage approuvé ; le démarrage exige une sélection et confirmation sur le PC. Le téléphone jumelé peut mettre en pause, reprendre et arrêter. Un appareil jumelé compromis peut abuser de ces commandes. Une panne peut laisser des fichiers .partial incomplets. Enregistrez avec l’accord des participants.
 
+
+
+La réduction de bruit IA locale n’envoie aucun son à un service cloud. Elle peut modifier la voix, supprimer la parole faible et ajouter du délai. En cas d’échec, l’application revient au son original avec une brève coupure possible. Les enregistrements filtrés ne contiennent pas de piste originale séparée.
+
 <!-- plain:start -->
 **En termes simples**
 
@@ -187,7 +191,7 @@ Enregistrer crée un véritable fichier vidéo avec le son facultatif du microph
 
 **Ce que cela peut entraîner pour vous**
 
-Une personne ayant accès au PC, aux sauvegardes ou au dossier synchronisé peut consulter la vidéo. Un enregistrement peut remplir le disque ou être endommagé par une panne. Choisissez le dossier avec soin, gardez l’appairage privé et vérifiez la vidéo avant de supprimer une autre copie.
+Une personne ayant accès au PC, aux sauvegardes ou au dossier synchronisé peut consulter la vidéo. Un enregistrement peut remplir le disque ou être endommagé par une panne. Choisissez le dossier avec soin, gardez l’appairage privé et vérifiez la vidéo avant de supprimer une autre copie. La réduction de bruit IA locale n’envoie aucun son à un service cloud. Elle peut modifier la voix, supprimer la parole faible et ajouter du délai. En cas d’échec, l’application revient au son original avec une brève coupure possible. Les enregistrements filtrés ne contiennent pas de piste originale séparée.
 <!-- plain:end -->
 
 [Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases)

@@ -33,3 +33,7 @@
 319 RCDATA "dist/ui/video.js"
 
 320 RCDATA "dist/ui/recording.js"
+
+321 RCDATA "dist/ExtrudaFilter.exe"
+322 RCDATA "dist/deep_filter.dll"
+323 RCDATA "dist/DEEPFILTER-LICENSE.txt"

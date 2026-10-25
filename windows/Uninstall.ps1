@@ -10,7 +10,7 @@ if (Test-Path -LiteralPath $dll) {
 $shortcut = Join-Path ([Environment]::GetFolderPath('CommonPrograms')) 'extruda - mobile as webcam.lnk'
 if (Test-Path -LiteralPath $shortcut) { Remove-Item -LiteralPath $shortcut }
 # Only known application files are removed, never a recursively computed folder.
-foreach ($name in @('ExtrudaCamera.exe','ExtrudaCamera.dll','UPSTREAM-LICENSE.txt','THIRD_PARTY_NOTICES.txt','LICENSE.txt','README.md','Uninstall.ps1')) {
+foreach ($name in @('ExtrudaFilter.exe','deep_filter.dll','DEEPFILTER-LICENSE.txt','ExtrudaCamera.exe','ExtrudaCamera.dll','UPSTREAM-LICENSE.txt','THIRD_PARTY_NOTICES.txt','LICENSE.txt','README.md','Uninstall.ps1')) {
     $item = Join-Path $destination $name
     if (Test-Path -LiteralPath $item) { Remove-Item -LiteralPath $item }
 }

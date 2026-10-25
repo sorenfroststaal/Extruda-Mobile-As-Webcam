@@ -111,3 +111,11 @@ Advanced offers format (automatic, MP4 or WebM), codec (H.264, VP8 or VP9), reso
 Include microphone records phone audio only while permission is granted and the microphone is on. Local recording needs no virtual audio driver. It does not capture Teams, Zoom, OBS or system audio. Pause/resume retains the same file. Stop and save finalizes it. Disconnecting or closing attempts to stop and save. Data is first written to a temporary .partial file in the same folder; an existing target is replaced only after successful finalization. A crash, disk failure or storage that is too slow may leave an incomplete file that may not play.
 
 A supported Extruda Windows version also exposes recording controls on the paired phone. Start opens settings and the save dialog on the PC and requires confirmation there. The phone can then pause, resume and stop. Commands use the existing approved encrypted connection; no public recording link or new server port is created. File paths are not sent to the phone. A compromised paired device can still misuse controls. Update both clients if buttons are missing. Record only with participants’ consent.
+
+## How does local AI noise reduction work?
+
+Open Audio settings in the Windows app and enable Local AI noise reduction. DeepFilterNet cleans phone audio on the PC using an embedded model. Processing requires no account, upload or internet. Pairing still uses the existing online server. The feature is off at every launch.
+
+Filtering applies to both the virtual microphone and recordings with microphone enabled. The meter shows original input. Filtering can add delay, change the voice or remove quiet speech. Try a short recording first. A filtered recording contains processed audio without a separate original track. Existing files are unchanged. On failure or timeout, a warning appears and original audio resumes; a brief gap may occur.
+
+[DeepFilterNet](https://github.com/Rikorose/DeepFilterNet)

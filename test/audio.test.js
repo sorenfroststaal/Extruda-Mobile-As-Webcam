@@ -7,11 +7,12 @@ function setup(getUserMedia=async()=>{throw Error('unexpected capture')},role='p
  const elements=new Map(),listeners={},messages=[],tracks=[],posts=[],processors=[];let allowed=true,frame,clock=0,input=0.1;
  const element=id=>{if(!elements.has(id))elements.set(id,{hidden:false,value:-1,textContent:'',disabled:false,open:false,showModal(){this.open=true},close(){this.open=false},setAttribute(){},replaceChildren(){},append(){}});return elements.get(id);};
  const node=()=>({connect(){},disconnect(){},gain:{value:1},fftSize:512,getFloatTimeDomainData(data){data.fill(input)}});
+ const filteredTrack={kind:'audio',stop(){this.stopped=true}};
  const window={addEventListener:(type,fn)=>listeners[type]=fn,chrome:{webview:{postMessage:text=>posts.push(text)}}};
  const sender={async replaceTrack(track){tracks.push(track);this.track=track}};
  const peer={getSenders:()=>[sender],getTransceivers:()=>[{sender,receiver:{track:{kind:'audio'}}}]};
  const context=vm.createContext({window,document:{getElementById:element,createElement:()=>element('option')},location:{origin:'https://app.extruda.local'},navigator:{mediaDevices:{getUserMedia}},cancelAnimationFrame(){frame=null},requestAnimationFrame:fn=>{frame=fn;return 1},performance:{now:()=>clock},
-  AudioContext:class{constructor(){this.destination={};this.audioWorklet={addModule:async()=>{}};}createMediaStreamSource(){return node()}createAnalyser(){return node()}createGain(){return node()}async resume(){}async close(){}},AudioWorkletNode:class{constructor(){this.port={};processors.push(this)}connect(){}disconnect(){}},setTimeout,clearTimeout,Float32Array,Uint8Array,DataView,Math,Number,Array,String,btoa,MediaStream:class{constructor(tracks){this.tracks=tracks;}}});
+  AudioContext:class{constructor(){this.destination={};this.audioWorklet={addModule:async()=>{}};}createMediaStreamDestination(){return {...node(),stream:{getAudioTracks:()=>[filteredTrack],getTracks:()=>[filteredTrack]}}}createMediaStreamSource(){return node()}createAnalyser(){return node()}createGain(){return node()}async resume(){}async close(){}},AudioWorkletNode:class{constructor(ctx,name){this.name=name;this.port={postMessage:data=>this.received=data};processors.push(this)}connect(){}disconnect(){}},setTimeout,clearTimeout,Float32Array,Uint8Array,DataView,Math,Number,Array,String,btoa,atob,MediaStream:class{constructor(tracks){this.tracks=tracks;}getAudioTracks(){return this.tracks}}});
  vm.runInContext(source,context);
  window.ExtrudaAudio.session({role,peer,send:async data=>messages.push(data),approved:()=>allowed});
  const connect=value=>listeners['extruda-connection']({detail:{connected:value}});
@@ -23,6 +24,35 @@ test('microphone defaults off, requires a connected approved phone and never ope
  let calls=0;const s=setup(async()=>{calls++;return captured().stream});assert.equal(s.element('mic-status').textContent,'Mikrofon fra');
  await s.click();assert.equal(calls,0);s.connect(true);s.setApproved(false);await s.click();assert.equal(calls,0);
  s.setApproved(true);await s.api.control({type:'microphone-request',enabled:true});assert.equal(calls,0);assert.match(s.element('mic-status').textContent,/Pc’en beder/);
+});
+
+test('local filter feeds recordings and Windows, rejects stale packets and falls back on failure',async()=>{
+ const s=setup(undefined,'host'),track={kind:'audio'};
+ s.window.extrudaAudioDevices([{index:0,name:'CABLE Input'}]);s.connect(true);s.api.track(track);
+ await s.api.control({type:'microphone-state',enabled:true});
+ assert.equal(s.api.recordingTrack(),track);
+ s.element('audio-denoise').checked=true;s.element('audio-denoise').onchange();
+ await new Promise(r=>setImmediate(r));
+ assert.ok(s.posts.includes('filter-start'));assert.notEqual(s.api.recordingTrack(),track);
+ s.window.extrudaAudioStarted();
+ const sampler=s.processors.filter(p=>p.name==='extruda-pcm').at(-1),player=s.processors.find(p=>p.name==='extruda-filtered');
+ sampler.port.onmessage({data:new Float32Array(960).fill(0.2)});
+ const message=s.posts.find(p=>p.startsWith('filter-pcm:'));assert.ok(message);
+ const [,epoch,encoded]=message.split(':');
+ s.window.extrudaFilteredAudio(Number(epoch)-1,encoded);assert.equal(player.received,undefined);
+ s.window.extrudaFilteredAudio(Number(epoch),encoded);assert.equal(player.received.length,960);
+ assert.ok(s.posts.some(p=>p.startsWith('audio-pcm:')));
+ s.window.extrudaFilterError();await new Promise(r=>setImmediate(r));assert.equal(s.api.recordingTrack(),track);
+ assert.match(s.element('audio-denoise-status').textContent,/Original lyd/);
+ await s.api.stop();s.window.extrudaFilteredAudio(Number(epoch),encoded);assert.equal(s.api.recordingTrack(),null);
+});
+
+test('filtered worklet outputs silence on starvation and bounds queued latency',()=>{
+ const context=vm.createContext({Float32Array,AudioWorkletProcessor:class{constructor(){this.port={}}},registerProcessor(name,Type){if(name==='extruda-filtered')context.Type=Type}});
+ vm.runInContext(readFileSync(new URL('../public/audio-worklet.js',import.meta.url),'utf8'),context);const player=new context.Type(),out=new Float32Array(128);
+ player.process([],[[out]]);assert.ok(out.every(v=>v===0));
+ for(let i=0;i<20;i++)player.port.onmessage({data:new Float32Array(960).fill(0.2)});
+ assert.ok(player.blocks.length<=4);player.process([],[[out]]);assert.ok(out.every(v=>Math.abs(v-0.2)<0.00001));
 });
 test('phone toggle sends audio without camera restart; off stops capture and detaches sender',async()=>{
  const c=captured();let constraints;const s=setup(async value=>{constraints=value;return c.stream});s.connect(true);await s.click();
@@ -42,7 +72,7 @@ test('PC toggle requests consent and stops native audio immediately when muted',
  await s.api.control({type:'microphone-state',enabled:true});await s.click();assert.equal(s.messages.at(-1).enabled,false);assert.ok(s.posts.includes('audio-stop'));assert.equal(s.element('mic-level').value,0);
 });
 test('worklet downmixes channels into bounded 20ms blocks without retaining sent data',()=>{
- const blocks=[];const context=vm.createContext({Float32Array,AudioWorkletProcessor:class{constructor(){this.port={postMessage:value=>blocks.push(value)}}},registerProcessor(name,Type){context.Type=Type}});
+ const blocks=[];const context=vm.createContext({Float32Array,AudioWorkletProcessor:class{constructor(){this.port={postMessage:value=>blocks.push(value)}}},registerProcessor(name,Type){if(name==='extruda-pcm')context.Type=Type}});
  vm.runInContext(readFileSync(new URL('../public/audio-worklet.js',import.meta.url),'utf8'),context);const processor=new context.Type();
  for(let i=0;i<15;i++)processor.process([[new Float32Array(128).fill(0.4),new Float32Array(128).fill(0.2)]]);
  assert.equal(blocks.length,2);assert.equal(blocks[0].length,960);assert.ok(Math.abs(blocks[0][959]-0.3)<0.00001);assert.notEqual(blocks[0].buffer,blocks[1].buffer);

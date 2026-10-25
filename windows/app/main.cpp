@@ -15,6 +15,8 @@
 #include "NativeTranslations.h"
 #include "HelpLinks.h"
 #include "AudioOutput.h"
+#include "AudioFilter.h"
+AudioFilter audioFilter;
 #include "RecordingFile.h"
 AudioOutput audioOutput;
 RecordingFile recordingFile;
@@ -84,7 +86,7 @@ void InitWeb() {
             ComPtr<ICoreWebView2Settings> settings; web->get_Settings(&settings);
             settings->put_AreDevToolsEnabled(FALSE); settings->put_AreDefaultContextMenusEnabled(FALSE); settings->put_IsStatusBarEnabled(FALSE);
             EventRegistrationToken token;
-            web->add_NavigationStarting(Callback<ICoreWebView2NavigationStartingEventHandler>([](ICoreWebView2*, ICoreWebView2NavigationStartingEventArgs* e) -> HRESULT { if(recordingFile.Active()){e->put_Cancel(TRUE);return S_OK;} LPWSTR uri = nullptr; e->get_Uri(&uri); bool allowed = Trusted(uri); CoTaskMemFree(uri); if (!allowed) e->put_Cancel(TRUE); audioOutput.Stop(); if (writer) writer->Clear(); shared.Reset(); frameData = nullptr; return S_OK; }).Get(), &token);
+            web->add_NavigationStarting(Callback<ICoreWebView2NavigationStartingEventHandler>([](ICoreWebView2*, ICoreWebView2NavigationStartingEventArgs* e) -> HRESULT { if(recordingFile.Active()){e->put_Cancel(TRUE);return S_OK;} LPWSTR uri = nullptr; e->get_Uri(&uri); bool allowed = Trusted(uri); CoTaskMemFree(uri); if (!allowed) e->put_Cancel(TRUE); audioOutput.Stop(); audioFilter.Stop(); if (writer) writer->Clear(); shared.Reset(); frameData = nullptr; return S_OK; }).Get(), &token);
             web->add_NewWindowRequested(Callback<ICoreWebView2NewWindowRequestedEventHandler>([](ICoreWebView2*, ICoreWebView2NewWindowRequestedEventArgs* e) -> HRESULT {
                 e->put_Handled(TRUE);
                 BOOL userInitiated=FALSE; e->get_IsUserInitiated(&userInitiated);
@@ -112,6 +114,7 @@ void InitWeb() {
                 std::wstring message(raw); CoTaskMemFree(raw);
                 if(message.rfind(L"record-data:",0)==0){if(!recordingFile.Push(message.substr(12)))web->ExecuteScript(L"window.ExtrudaRecording?.ack(false)",nullptr);return S_OK;}
                 if(message.size()>4096)return S_OK;
+                if(message.rfind(L"filter-pcm:",0)==0){if(!audioFilter.Push(message.substr(11)))web->ExecuteScript(L"window.extrudaFilterError?.()",nullptr);return S_OK;}
                 if(message.rfind(L"audio-pcm:",0)==0){
                     const bool accepted=audioOutput.Push(message.substr(10));
                     web->ExecuteScript(!accepted||FAILED(audioOutput.Status())?L"window.extrudaAudioAck?.(false);window.extrudaAudioError?.()":L"window.extrudaAudioAck?.(true)",nullptr);return S_OK;
@@ -125,7 +128,9 @@ void InitWeb() {
                 if(message==L"record-finish"||message==L"record-abort"){recordingFile.Finish(message==L"record-finish");return S_OK;}
                 if(message==L"record-window-close"){PostMessageW(window,WM_CLOSE,0,0);return S_OK;}
                 if(message==L"record-reveal"&&!recordingFile.Active()&&!recordingFile.DisplayPath().empty()&&GetFileAttributesW(recordingFile.DisplayPath().c_str())!=INVALID_FILE_ATTRIBUTES){const auto arguments=L"/select,\""+recordingFile.DisplayPath()+L"\"";ShellExecuteW(window,L"open",L"explorer.exe",arguments.c_str(),nullptr,SW_SHOWNORMAL);return S_OK;}
-                if(message==L"audio-stop")audioOutput.Stop();
+                if(message==L"filter-start"){if(!audioFilter.Start(window))web->ExecuteScript(L"window.extrudaFilterError?.()",nullptr);}
+                else if(message==L"filter-stop")audioFilter.Stop();
+                else if(message==L"audio-stop")audioOutput.Stop();
                 else if(message==L"audio-devices")web->ExecuteScript(audioOutput.DeviceScript().c_str(),nullptr);
                 else if(message.rfind(L"audio-route:",0)==0){
                     wchar_t* end=nullptr;const auto index=wcstoul(message.c_str()+12,&end,10);
@@ -187,6 +192,7 @@ void InitWeb() {
     if (FAILED(hr)) Error(L"Microsoft Edge WebView2 Runtime kunne ikke indlæses.", hr);
 }
 LRESULT CALLBACK Proc(HWND hwnd, UINT msg, WPARAM w, LPARAM l) {
+    if(msg==WM_APP+83&&web){if(w){audioFilter.Stop();web->ExecuteScript(L"window.extrudaFilterError?.()",nullptr);}else{auto script=audioFilter.Take();if(!script.empty())web->ExecuteScript(script.c_str(),nullptr);}return 0;}
     if(msg==WM_APP+82&&web){
         if(w==1)web->ExecuteScript(SUCCEEDED(recordingFile.Status())?L"window.ExtrudaRecording?.ack(true)":L"window.ExtrudaRecording?.ack(false)",nullptr);
         else {const auto script=std::wstring(L"window.ExtrudaRecording?.saved(")+(SUCCEEDED(recordingFile.Status())?L"true)":L"false)");web->ExecuteScript(script.c_str(),nullptr);if(closeAfterRecording&&SUCCEEDED(recordingFile.Status()))PostMessageW(hwnd,WM_CLOSE,0,0);else closeAfterRecording=false;}return 0;

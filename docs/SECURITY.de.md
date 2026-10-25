@@ -180,6 +180,10 @@ Private Gespräche können von einer Meeting-App oder einer anderen App mit Zugr
 
 Aufnahmen werden unverschlüsselt im gewählten Ordner gespeichert. OneDrive oder andere Software kann Ordner synchronisieren. Die App lädt Aufnahmen nicht hoch. Telefonbefehle werden nur in der bestätigten Kopplung akzeptiert; der Start erfordert Auswahl und Bestätigung am PC. Das gekoppelte Telefon kann pausieren, fortsetzen und stoppen. Ein kompromittiertes gekoppeltes Gerät kann dies missbrauchen. Fehler oder Abstürze können unvollständige .partial-Dateien hinterlassen. Nur mit Zustimmung der Beteiligten aufnehmen.
 
+
+
+Lokale KI-Rauschunterdrückung sendet keinen Ton an einen Cloud-Dienst. Sie kann Stimmen verändern, leise Sprache entfernen und verzögern. Bei Fehlern kehrt die App zum Originalton zurück; eine kurze Pause ist möglich. Gefilterte Aufnahmen enthalten keine separate Originalspur.
+
 <!-- plain:start -->
 **Einfach erklärt**
 
@@ -187,7 +191,7 @@ Beim Aufnehmen werden Video und optionaler Mikrofonton zu einer echten Datei. Si
 
 **Was das für dich bedeuten kann**
 
-Wer Zugriff auf PC, Sicherung oder synchronisierten Ordner hat, kann die Aufnahme lesen. Aufnahmen können den Datenträger füllen oder durch Abstürze beschädigt werden. Speicherort sorgfältig wählen, Kopplung privat halten und die gespeicherte Datei vor dem Löschen anderer Kopien prüfen.
+Wer Zugriff auf PC, Sicherung oder synchronisierten Ordner hat, kann die Aufnahme lesen. Aufnahmen können den Datenträger füllen oder durch Abstürze beschädigt werden. Speicherort sorgfältig wählen, Kopplung privat halten und die gespeicherte Datei vor dem Löschen anderer Kopien prüfen. Lokale KI-Rauschunterdrückung sendet keinen Ton an einen Cloud-Dienst. Sie kann Stimmen verändern, leise Sprache entfernen und verzögern. Bei Fehlern kehrt die App zum Originalton zurück; eine kurze Pause ist möglich. Gefilterte Aufnahmen enthalten keine separate Originalspur.
 <!-- plain:end -->
 
 [Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases)

@@ -180,6 +180,10 @@ Private conversations may be heard or recorded by a meeting app or another app w
 
 Recordings are stored unencrypted in the folder you choose. Folders may be synced by OneDrive or other software. The app does not upload recordings. Phone recording commands are accepted only within the approved pairing; starting requires selection and confirmation on the PC. The paired phone can pause, resume and stop. A compromised paired device can misuse these controls. Disk errors or crashes may leave incomplete .partial files. Record only with participants’ consent.
 
+
+
+Local AI noise reduction sends no audio to a cloud service. It can change the voice, remove quiet speech and add latency. On failure the app restores original audio, with a possible brief gap. Filtered recordings contain processed audio without a separate original track.
+
 <!-- plain:start -->
 **In plain language**
 
@@ -187,7 +191,7 @@ When you record, video and optional microphone audio become a real file. It does
 
 **What could happen to you**
 
-Anyone with access to the PC, backups or the synced folder may access a recording. Recording can fill the disk or be damaged by a crash. Choose the location carefully, keep pairing private and check saved video before deleting another copy.
+Anyone with access to the PC, backups or the synced folder may access a recording. Recording can fill the disk or be damaged by a crash. Choose the location carefully, keep pairing private and check saved video before deleting another copy. Local AI noise reduction sends no audio to a cloud service. It can change the voice, remove quiet speech and add latency. On failure the app restores original audio, with a possible brief gap. Filtered recordings contain processed audio without a separate original track.
 <!-- plain:end -->
 
 [Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases)

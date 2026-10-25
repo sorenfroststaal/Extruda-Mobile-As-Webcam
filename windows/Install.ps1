@@ -2,7 +2,7 @@
 $ErrorActionPreference = 'Stop'
 $destination = Join-Path $env:ProgramFiles 'Extruda Phone Camera'
 New-Item -ItemType Directory -Path $destination -Force | Out-Null
-foreach ($name in @('ExtrudaCamera.exe','ExtrudaCamera.dll','UPSTREAM-LICENSE.txt','THIRD_PARTY_NOTICES.txt','LICENSE.txt','README.md','Uninstall.ps1')) {
+foreach ($name in @('ExtrudaFilter.exe','deep_filter.dll','DEEPFILTER-LICENSE.txt','ExtrudaCamera.exe','ExtrudaCamera.dll','UPSTREAM-LICENSE.txt','THIRD_PARTY_NOTICES.txt','LICENSE.txt','README.md','Uninstall.ps1')) {
     Copy-Item -LiteralPath (Join-Path $PSScriptRoot $name) -Destination (Join-Path $destination $name) -Force
 }
 $register = Start-Process -FilePath "$env:SystemRoot\System32\regsvr32.exe" -ArgumentList '/s',('"' + (Join-Path $destination 'ExtrudaCamera.dll') + '"') -Wait -PassThru -WindowStyle Hidden

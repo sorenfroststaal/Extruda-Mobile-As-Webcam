@@ -18,3 +18,4 @@ public/downloads/*.exe
 
 public/downloads/
 .dev.vars*
+windows/vendor/deepfilter/deep_filter.dll

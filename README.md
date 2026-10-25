@@ -7,7 +7,7 @@
 
 Use an Android or iPhone camera as a Windows webcam, without OBS or a user account.
 
-**[Download Windows installer 0.10.0](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.10.0/ExtrudaMobileAsWebcam-Setup-0.10.0-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/tag/mobile-as-webcam-v0.10.0) · [mobile as webcam website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
+**[Download Windows installer 0.11.0](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.11.0/ExtrudaMobileAsWebcam-Setup-0.11.0-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/tag/mobile-as-webcam-v0.11.0) · [mobile as webcam website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
 
 ## Use
 
@@ -83,20 +83,28 @@ If no supported virtual audio device is detected, a setup dialog links to the of
 
 ## Connection recovery and diagnostics
 
-Version 0.10.0 tolerates brief disconnects for up to 15 seconds without releasing phone capture or consent. The phone attempts one ICE restart if signalling remains available; expired invitations or unreachable networks still require a new pairing. Information > Check connection displays real frame progress, microphone signal and Windows acknowledgements separately. A five-second video stall clears frozen output in the Windows app. These checks do not verify a meeting application's device selection.
+Version 0.11.0 tolerates brief disconnects for up to 15 seconds without releasing phone capture or consent. The phone attempts one ICE restart if signalling remains available; expired invitations or unreachable networks still require a new pairing. Information > Check connection displays real frame progress, microphone signal and Windows acknowledgements separately. A five-second video stall clears frozen output in the Windows app. These checks do not verify a meeting application's device selection.
 
 Copy diagnostic report displays and copies an allowlisted local snapshot of version, states and counters. It excludes media, addresses, device names, browser identifiers and pairing material, and is never uploaded automatically.
 
-## Framing, level test and recent quality (0.10.0)
+## Framing, level test and recent quality (0.11.0)
 
 Connected Windows controls use a compact layout with a bounded preview. Audio settings open separately. Framing offers contain, centre crop and 0/90/180/270-degree rotation; the same canvas is previewed and delivered to Windows. Choices persist locally. Small windows may still scroll.
 
 Silence is a normal microphone state. The input meter uses a logarithmic scale and displays dBFS. The five-second test evaluates a bounded collection of level measurements, not speech content or recordings, and gives level guidance. It does not automatically adjust gain or verify a meeting app's input. Actual received dimensions, frame rate and bitrate are displayed separately from Windows output resolution. Diagnostics split recent audio/video rates, loss and jitter over about five seconds; unknown values remain unknown and discontinuities reset the interval.
 
-## Local recording (0.10.0)
+## Local recording (0.11.0)
 
 Record video writes the framed Windows camera image and optional enabled phone microphone to a file chosen in the Windows save dialog. A quality slider estimates file size; Advanced exposes container, codec, resolution, frame rate, bitrates, audio gain, keyframe target and duration limit. Supported encoders are detected at runtime; requested settings are targets, not guarantees. This is an original MediaRecorder-based implementation and does not bundle OBS or require its installation.
 
 Pause/resume retains one file. Data is streamed through an acknowledged bounded queue to a worker writing a temporary file; successful stop flushes and renames it to the selected target. Existing files remain untouched until commit. Crashes, full disks and slow storage can leave incomplete .partial files. No automatic recovery is promised. The app uploads no recordings, but a user-selected folder may be cloud-synced by another service.
 
 Paired-phone controls request PC confirmation for each new recording and can then pause, resume and stop. Commands use the existing authenticated encrypted session, with no public control link, new port, file path or recording data exposed to the phone. Capability negotiation keeps old clients from receiving unsupported commands. Read the updated multilingual recording and security guides.
+
+## Optional local AI noise reduction (0.11.0)
+
+In the Windows app, open Audio settings and enable Local AI noise reduction. DeepFilterNet processes the approved phone microphone on the PC, with an embedded model and no runtime download or cloud inference. The same processed audio feeds the virtual microphone and new recordings with microphone enabled. It is off at launch. No Python or GPU is required by this bundled CPU runtime.
+
+Noise reduction adds latency and can alter or suppress speech. Test your voice before relying on it. The meter shows original phone input, not processed output. If processing fails or times out, the app disables the filter, shows a warning and restores original audio; a brief gap may occur. A recording made with filtering enabled contains the processed audio, not a separate original track. Existing recordings are not modified.
+
+Build prerequisite: `node scripts/fetch-deepfilter.mjs` downloads the pinned official Windows runtime if absent and verifies SHA256. Release packaging enforces a 400 MB installer ceiling. See windows/vendor/deepfilter/README.md for provenance.

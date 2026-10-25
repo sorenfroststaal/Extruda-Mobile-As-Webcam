@@ -111,3 +111,11 @@ Erweitert bietet Format (automatisch, MP4 oder WebM), Codec (H.264, VP8 oder VP9
 Mikrofon einschließen nimmt nur den freigegebenen und eingeschalteten Telefonton auf. Lokale Aufnahme benötigt keinen virtuellen Audiotreiber und erfasst keinen Ton von Teams, Zoom, OBS oder dem System. Pause/Fortsetzen behält dieselbe Datei. Stoppen und speichern schließt sie ab. Trennen oder Schließen versucht zu stoppen und speichern. Zunächst wird in eine .partial-Datei im selben Ordner geschrieben; ein vorhandenes Ziel wird erst nach erfolgreichem Abschluss ersetzt. Absturz, Speicherfehler oder zu langsamer Speicher können eine unvollständige, eventuell unspielbare Datei hinterlassen.
 
 Eine unterstützte Windows-Version zeigt Aufnahmetasten auch am gekoppelten Telefon. Start öffnet Einstellungen und Speicherdialog am PC und erfordert dort eine Bestätigung. Danach kann das Telefon pausieren, fortsetzen und stoppen. Befehle nutzen die bestehende bestätigte verschlüsselte Verbindung, ohne öffentlichen Aufnahmelink oder neuen Serverport. Dateipfade werden nicht ans Telefon gesendet. Ein kompromittiertes gekoppeltes Gerät kann die Steuerung dennoch missbrauchen. Bei fehlenden Tasten beide Clients aktualisieren. Nur mit Zustimmung der Beteiligten aufnehmen.
+
+## Wie funktioniert die lokale KI-Rauschunterdrückung?
+
+Öffne die Audioeinstellungen der Windows-App und aktiviere Lokale KI-Rauschunterdrückung. DeepFilterNet bereinigt den Telefonton auf dem PC mit einem eingebetteten Modell. Dafür sind kein Konto, Upload oder Internet nötig. Die Kopplung nutzt weiterhin den Onlineserver. Die Funktion ist bei jedem Start aus.
+
+Der Filter gilt für das virtuelle Mikrofon und Aufnahmen mit Mikrofon. Die Anzeige misst das Originalsignal. Der Filter kann verzögern, die Stimme verändern oder leise Sprache entfernen. Teste eine kurze Aufnahme. Gefilterte Aufnahmen enthalten keine separate Originalspur. Vorhandene Dateien bleiben unverändert. Bei Fehlern oder Zeitüberschreitung erscheint eine Warnung und der Originalton kehrt zurück; eine kurze Pause ist möglich.
+
+[DeepFilterNet](https://github.com/Rikorose/DeepFilterNet)
