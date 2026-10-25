@@ -26,3 +26,16 @@ run.onclick=async()=>{run.disabled=true;try{
 }catch(error){result.textContent='FAIL: '+error.message;console.error(error)}};
 const driverPreview=document.createElement('button');driverPreview.id='audio-test-driver';driverPreview.textContent='Vis driveropsætning';run.after(driverPreview);driverPreview.onclick=()=>document.getElementById('audio-setup').showModal();
 const recordingSettings=document.createElement('button');recordingSettings.id='test-recording-settings';recordingSettings.textContent='Vis optageindstillinger';run.after(recordingSettings);recordingSettings.onclick=()=>{document.body.classList.add('native');const output=document.createElement('canvas');output.width=1920;output.height=1080;window.ExtrudaRecording.ready(output);document.getElementById('record-open').onclick();};
+const noisePreview=document.createElement('button');noisePreview.id='test-noise-settings';noisePreview.textContent='Vis syntetisk støjtest';run.after(noisePreview);
+noisePreview.onclick=async()=>{
+ document.body.classList.add('native');document.getElementById('mic-panel').hidden=false;document.getElementById('noise-main').hidden=false;document.getElementById('audio-denoise-control').hidden=false;document.getElementById('audio-routing').hidden=false;
+ const context=new AudioContext({sampleRate:48000});await context.resume();await context.audioWorklet.addModule('/audio-worklet.js');window.ExtrudaNoise.bind(context,()=>{});
+ document.getElementById('audio-settings-dialog').showModal();let frame=0;
+ const timer=setInterval(()=>{
+  const s=window.ExtrudaNoise.snapshot();if(s.phase==='starting')window.ExtrudaNoise.ready(s.session);
+  const raw=new Float32Array(960),pcm=new Uint8Array(1920),view=new DataView(pcm.buffer);
+  for(let i=0;i<960;i++){const tone=Math.sin((frame*960+i)*2*Math.PI*220/48000)*0.1;raw[i]=tone+(Math.random()-0.5)*0.02;view.setInt16(i*2,Math.round(tone*32767),true);}frame++;
+  window.ExtrudaNoise.accept(raw);const next=window.ExtrudaNoise.snapshot();if(next.pending)window.ExtrudaNoise.result(next.session,next.lastSequence,btoa(String.fromCharCode(...pcm)));
+ },20);
+ window.addEventListener('pagehide',()=>{clearInterval(timer);void context.close();},{once:true});
+};

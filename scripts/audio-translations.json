@@ -880,5 +880,161 @@
     "DeepFilterNet · No upload. May add a small delay and change your voice.",
     "DeepFilterNet · Kein Upload. Kann die Stimme verändern und etwas verzögern.",
     "DeepFilterNet · Aucun envoi. Peut ajouter un léger délai et modifier la voix."
+  ],
+  [
+    "Støjreduktion fra",
+    "Noise reduction off",
+    "Rauschunterdrückung aus",
+    "Réduction de bruit désactivée"
+  ],
+  [
+    "Afventer mikrofon",
+    "Waiting for microphone",
+    "Warte auf Mikrofon",
+    "En attente du microphone"
+  ],
+  [
+    "Genstarter støjreduktion · Original lyd bruges",
+    "Restarting noise reduction · Using original audio",
+    "Rauschunterdrückung startet neu · Originalton wird verwendet",
+    "Redémarrage du filtre · Utilisation du son original"
+  ],
+  [
+    "Lydmotoren kunne ikke starte",
+    "Audio engine could not start",
+    "Audio-Engine konnte nicht starten",
+    "Le moteur audio n’a pas pu démarrer"
+  ],
+  [
+    "Lydmotoren svarede for langsomt",
+    "Audio engine response timed out",
+    "Audio-Engine hat nicht rechtzeitig geantwortet",
+    "Le moteur audio a mis trop de temps à répondre"
+  ],
+  [
+    "Lydkøen blev overfyldt",
+    "Audio queue was overloaded",
+    "Audiowarteschlange war überlastet",
+    "La file audio était surchargée"
+  ],
+  [
+    "Lydpakken blev afvist",
+    "Audio block was rejected",
+    "Audioblock wurde abgelehnt",
+    "Le bloc audio a été refusé"
+  ],
+  [
+    "Forbindelsen til lydmotoren blev afbrudt",
+    "Connection to audio engine was interrupted",
+    "Verbindung zur Audio-Engine wurde unterbrochen",
+    "La connexion au moteur audio a été interrompue"
+  ],
+  [
+    "Ukendt fejl i lydmotoren",
+    "Unknown audio engine error",
+    "Unbekannter Fehler der Audio-Engine",
+    "Erreur inconnue du moteur audio"
+  ],
+  [
+    "Op til {db} dB dæmpning",
+    "Up to {db} dB attenuation",
+    "Bis zu {db} dB Dämpfung",
+    "Jusqu’à {db} dB d’atténuation"
+  ],
+  [
+    "Styrke · Mild til kraftig",
+    "Strength · Mild to strong",
+    "Stärke · Mild bis stark",
+    "Intensité · Douce à forte"
+  ],
+  [
+    "Efter lydbehandling",
+    "After audio processing",
+    "Nach der Audiobearbeitung",
+    "Après traitement audio"
+  ],
+  [
+    "Før lydbehandling",
+    "Before audio processing",
+    "Vor der Audiobearbeitung",
+    "Avant traitement audio"
+  ],
+  [
+    "Lyttetest · Før og efter",
+    "Listening test · Before and after",
+    "Hörtest · Vorher und nachher",
+    "Test d’écoute · Avant et après"
+  ],
+  [
+    "Luk og slet testlyd",
+    "Close and discard test audio",
+    "Schließen und Testaudio verwerfen",
+    "Fermer et supprimer le son de test"
+  ],
+  [
+    "Brug hovedtelefoner. Afspilning kan ellers blive fanget af telefonen.",
+    "Use headphones. Otherwise playback may be picked up by the phone.",
+    "Nutze Kopfhörer. Sonst kann das Telefon die Wiedergabe erfassen.",
+    "Utilisez un casque. Sinon, le téléphone risque de capter la lecture."
+  ],
+  [
+    "10 sekunder i hukommelsen. Ingen fil, upload eller gemt kopi. Testlyden slettes, når du lukker testen.",
+    "10 seconds in memory. No file, upload or saved copy. Test audio is discarded when you close the test.",
+    "10 Sekunden im Arbeitsspeicher. Keine Datei, kein Upload und keine gespeicherte Kopie. Beim Schließen wird das Testaudio verworfen.",
+    "10 secondes en mémoire. Aucun fichier, envoi ou copie sauvegardée. Le son de test est supprimé à la fermeture."
+  ],
+  [
+    "Start 10 sekunders test",
+    "Start 10-second test",
+    "10-Sekunden-Test starten",
+    "Démarrer le test de 10 secondes"
+  ],
+  [
+    "Afspil original",
+    "Play original",
+    "Original abspielen",
+    "Écouter l’original"
+  ],
+  [
+    "Afspil renset",
+    "Play filtered",
+    "Gefiltertes Audio abspielen",
+    "Écouter le son filtré"
+  ],
+  [
+    "Stop afspilning",
+    "Stop playback",
+    "Wiedergabe stoppen",
+    "Arrêter la lecture"
+  ],
+  [
+    "Lyttetesten blev afbrudt. Ingen testlyd er bevaret.",
+    "Listening test interrupted. No test audio retained.",
+    "Hörtest unterbrochen. Kein Testaudio behalten.",
+    "Test d’écoute interrompu. Aucun son de test conservé."
+  ],
+  [
+    "Testlyden er slettet fra hukommelsen.",
+    "Test audio discarded from memory.",
+    "Testaudio aus dem Arbeitsspeicher verworfen.",
+    "Son de test supprimé de la mémoire."
+  ],
+  [
+    "Klar til sammenligning. Samme afspilningsniveau bruges.",
+    "Ready to compare. The same playback gain is used.",
+    "Bereit zum Vergleich. Gleiche Wiedergabelautstärke wird verwendet.",
+    "Prêt à comparer. Le même gain de lecture est utilisé."
+  ],
+  [
+    "For lidt lyd til sammenligning. Prøv igen.",
+    "Not enough audio to compare. Try again.",
+    "Zu wenig Audio zum Vergleichen. Versuche es erneut.",
+    "Pas assez de son pour comparer. Réessayez."
+  ],
+  [
+    "Tal normalt i 10 sekunder. Testlyden holdes kun i hukommelsen.",
+    "Speak normally for 10 seconds. Test audio stays in memory only.",
+    "Sprich 10 Sekunden normal. Testaudio bleibt nur im Arbeitsspeicher.",
+    "Parlez normalement pendant 10 secondes. Le son reste uniquement en mémoire."
   ]
 ]

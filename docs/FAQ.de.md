@@ -118,4 +118,6 @@ Eine unterstützte Windows-Version zeigt Aufnahmetasten auch am gekoppelten Tele
 
 Der Filter gilt für das virtuelle Mikrofon und Aufnahmen mit Mikrofon. Die Anzeige misst das Originalsignal. Der Filter kann verzögern, die Stimme verändern oder leise Sprache entfernen. Teste eine kurze Aufnahme. Gefilterte Aufnahmen enthalten keine separate Originalspur. Vorhandene Dateien bleiben unverändert. Bei Fehlern oder Zeitüberschreitung erscheint eine Warnung und der Originalton kehrt zurück; eine kurze Pause ist möglich.
 
+Der Filterstatus und Anzeigen vor und nach der Verarbeitung stehen auf dem Hauptbildschirm. Stärke wählt eine maximale Dämpfung von 6 bis 60 dB. Mehr Dämpfung ist nicht immer besser für die Stimme. Bei Fehlern versucht die App einen Neustart mit Originalton in der Zwischenzeit; nach einem zweiten Fehler bleibt der Originalton und der Grund wird angezeigt. Fehlende neue Blöcke allein sind kein Fehler. Nach Start hält der Hörtest höchstens 10 Sekunden Original und gefiltertes Audio im Arbeitsspeicher. Beide nutzen dieselbe niedrige Wiedergabelautstärke. Nutze Kopfhörer. Schließen, Stummschalten, Trennen oder Filterfehler gibt das Testaudio frei. Keine Datei und kein Upload.
+
 [DeepFilterNet](https://github.com/Rikorose/DeepFilterNet)

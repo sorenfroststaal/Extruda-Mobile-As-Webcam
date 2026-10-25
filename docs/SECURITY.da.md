@@ -184,6 +184,10 @@ Optagelser gemmes ukrypteret i den mappe, du vælger. Mapper kan synkroniseres a
 
 Lokal AI-støjreduktion sender ikke lyd til en cloudtjeneste. Filteret kan ændre stemmen, fjerne lav tale og give forsinkelse. Ved fejl skifter appen tilbage til original lyd med en mulig kort pause. Optagelser med filter indeholder den behandlede lyd uden et separat originalspor.
 
+
+
+Lyttetesten er frivillig og holder op til 10 sekunders original og behandlet tale i appens hukommelse. Der oprettes ingen testfil eller upload. Lukning, mute, forbindelsesbrud eller filterfejl stopper afspilning og frigiver lyddata; dette er ikke en garanti om sikker sletning af RAM eller Windows-sidefilen. Brug hovedtelefoner, så afspilning ikke fanges af telefonen.
+
 <!-- plain:start -->
 **Kort fortalt**
 
@@ -191,7 +195,7 @@ Når du trykker optag, bliver billede og eventuel mikrofonlyd til en rigtig vide
 
 **Det kan betyde for dig**
 
-Andre med adgang til pc’en, backup eller den synkroniserede mappe kan få adgang til optagelsen. En optagelse kan fylde disken eller blive beskadiget ved nedbrud. Vælg placeringen med omtanke, del ikke parringen, og kontrollér den gemte video, før du sletter en anden kopi. Lokal AI-støjreduktion sender ikke lyd til en cloudtjeneste. Filteret kan ændre stemmen, fjerne lav tale og give forsinkelse. Ved fejl skifter appen tilbage til original lyd med en mulig kort pause. Optagelser med filter indeholder den behandlede lyd uden et separat originalspor.
+Andre med adgang til pc’en, backup eller den synkroniserede mappe kan få adgang til optagelsen. En optagelse kan fylde disken eller blive beskadiget ved nedbrud. Vælg placeringen med omtanke, del ikke parringen, og kontrollér den gemte video, før du sletter en anden kopi. Lokal AI-støjreduktion sender ikke lyd til en cloudtjeneste. Filteret kan ændre stemmen, fjerne lav tale og give forsinkelse. Ved fejl skifter appen tilbage til original lyd med en mulig kort pause. Optagelser med filter indeholder den behandlede lyd uden et separat originalspor. Lyttetesten er frivillig og holder op til 10 sekunders original og behandlet tale i appens hukommelse. Der oprettes ingen testfil eller upload. Lukning, mute, forbindelsesbrud eller filterfejl stopper afspilning og frigiver lyddata; dette er ikke en garanti om sikker sletning af RAM eller Windows-sidefilen. Brug hovedtelefoner, så afspilning ikke fanges af telefonen.
 <!-- plain:end -->
 
 [Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases)

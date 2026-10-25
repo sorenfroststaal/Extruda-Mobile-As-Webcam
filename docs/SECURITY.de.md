@@ -184,6 +184,10 @@ Aufnahmen werden unverschlüsselt im gewählten Ordner gespeichert. OneDrive ode
 
 Lokale KI-Rauschunterdrückung sendet keinen Ton an einen Cloud-Dienst. Sie kann Stimmen verändern, leise Sprache entfernen und verzögern. Bei Fehlern kehrt die App zum Originalton zurück; eine kurze Pause ist möglich. Gefilterte Aufnahmen enthalten keine separate Originalspur.
 
+
+
+Der freiwillige Hörtest hält höchstens 10 Sekunden Original und bearbeitete Sprache im Arbeitsspeicher. Keine Testdatei und kein Upload. Schließen, Stummschalten, Trennen oder Filterfehler beendet die Wiedergabe und gibt Audiodaten frei; dies garantiert kein sicheres Löschen von RAM oder Windows-Auslagerungsdatei. Nutze Kopfhörer, damit das Telefon die Wiedergabe nicht erfasst.
+
 <!-- plain:start -->
 **Einfach erklärt**
 
@@ -191,7 +195,7 @@ Beim Aufnehmen werden Video und optionaler Mikrofonton zu einer echten Datei. Si
 
 **Was das für dich bedeuten kann**
 
-Wer Zugriff auf PC, Sicherung oder synchronisierten Ordner hat, kann die Aufnahme lesen. Aufnahmen können den Datenträger füllen oder durch Abstürze beschädigt werden. Speicherort sorgfältig wählen, Kopplung privat halten und die gespeicherte Datei vor dem Löschen anderer Kopien prüfen. Lokale KI-Rauschunterdrückung sendet keinen Ton an einen Cloud-Dienst. Sie kann Stimmen verändern, leise Sprache entfernen und verzögern. Bei Fehlern kehrt die App zum Originalton zurück; eine kurze Pause ist möglich. Gefilterte Aufnahmen enthalten keine separate Originalspur.
+Wer Zugriff auf PC, Sicherung oder synchronisierten Ordner hat, kann die Aufnahme lesen. Aufnahmen können den Datenträger füllen oder durch Abstürze beschädigt werden. Speicherort sorgfältig wählen, Kopplung privat halten und die gespeicherte Datei vor dem Löschen anderer Kopien prüfen. Lokale KI-Rauschunterdrückung sendet keinen Ton an einen Cloud-Dienst. Sie kann Stimmen verändern, leise Sprache entfernen und verzögern. Bei Fehlern kehrt die App zum Originalton zurück; eine kurze Pause ist möglich. Gefilterte Aufnahmen enthalten keine separate Originalspur. Der freiwillige Hörtest hält höchstens 10 Sekunden Original und bearbeitete Sprache im Arbeitsspeicher. Keine Testdatei und kein Upload. Schließen, Stummschalten, Trennen oder Filterfehler beendet die Wiedergabe und gibt Audiodaten frei; dies garantiert kein sicheres Löschen von RAM oder Windows-Auslagerungsdatei. Nutze Kopfhörer, damit das Telefon die Wiedergabe nicht erfasst.
 <!-- plain:end -->
 
 [Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases)

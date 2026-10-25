@@ -37,3 +37,5 @@
 321 RCDATA "dist/ExtrudaFilter.exe"
 322 RCDATA "dist/deep_filter.dll"
 323 RCDATA "dist/DEEPFILTER-LICENSE.txt"
+
+324 RCDATA "dist/ui/noise.js"

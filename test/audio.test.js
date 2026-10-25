@@ -3,16 +3,17 @@ import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import {readFileSync} from 'node:fs';
 const source=readFileSync(new URL('../public/audio.js',import.meta.url),'utf8');
-function setup(getUserMedia=async()=>{throw Error('unexpected capture')},role='phone'){
+function setup(getUserMedia=async()=>{throw Error('unexpected capture')},role='phone',withNoise=false){
  const elements=new Map(),listeners={},messages=[],tracks=[],posts=[],processors=[];let allowed=true,frame,clock=0,input=0.1;
- const element=id=>{if(!elements.has(id))elements.set(id,{hidden:false,value:-1,textContent:'',disabled:false,open:false,showModal(){this.open=true},close(){this.open=false},setAttribute(){},replaceChildren(){},append(){}});return elements.get(id);};
+ const element=id=>{if(!elements.has(id))elements.set(id,{dataset:{},addEventListener(){},hidden:false,value:-1,textContent:'',disabled:false,open:false,showModal(){this.open=true},close(){this.open=false},setAttribute(){},replaceChildren(){},append(){}});return elements.get(id);};
  const node=()=>({connect(){},disconnect(){},gain:{value:1},fftSize:512,getFloatTimeDomainData(data){data.fill(input)}});
  const filteredTrack={kind:'audio',stop(){this.stopped=true}};
  const window={addEventListener:(type,fn)=>listeners[type]=fn,chrome:{webview:{postMessage:text=>posts.push(text)}}};
  const sender={async replaceTrack(track){tracks.push(track);this.track=track}};
  const peer={getSenders:()=>[sender],getTransceivers:()=>[{sender,receiver:{track:{kind:'audio'}}}]};
  const context=vm.createContext({window,document:{getElementById:element,createElement:()=>element('option')},location:{origin:'https://app.extruda.local'},navigator:{mediaDevices:{getUserMedia}},cancelAnimationFrame(){frame=null},requestAnimationFrame:fn=>{frame=fn;return 1},performance:{now:()=>clock},
-  AudioContext:class{constructor(){this.destination={};this.audioWorklet={addModule:async()=>{}};}createMediaStreamDestination(){return {...node(),stream:{getAudioTracks:()=>[filteredTrack],getTracks:()=>[filteredTrack]}}}createMediaStreamSource(){return node()}createAnalyser(){return node()}createGain(){return node()}async resume(){}async close(){}},AudioWorkletNode:class{constructor(ctx,name){this.name=name;this.port={postMessage:data=>this.received=data};processors.push(this)}connect(){}disconnect(){}},setTimeout,clearTimeout,Float32Array,Uint8Array,DataView,Math,Number,Array,String,btoa,atob,MediaStream:class{constructor(tracks){this.tracks=tracks;}getAudioTracks(){return this.tracks}}});
+  AudioContext:class{constructor(){this.state="running";this.destination={};this.audioWorklet={addModule:async()=>{}};}createMediaStreamDestination(){return {...node(),stream:{getAudioTracks:()=>[filteredTrack],getTracks:()=>[filteredTrack]}}}createMediaStreamSource(){return node()}createAnalyser(){return node()}createGain(){return node()}async resume(){}async close(){}},AudioWorkletNode:class{constructor(ctx,name){this.name=name;this.port={postMessage:data=>this.received=data};processors.push(this)}connect(){}disconnect(){}},setTimeout,clearTimeout,Float32Array,Uint8Array,DataView,Math,Number,Array,String,btoa,atob,MediaStream:class{constructor(tracks){this.tracks=tracks;}getAudioTracks(){return this.tracks}}});
+ if(withNoise)vm.runInContext(readFileSync(new URL('../public/noise.js',import.meta.url),'utf8'),context);
  vm.runInContext(source,context);
  window.ExtrudaAudio.session({role,peer,send:async data=>messages.push(data),approved:()=>allowed});
  const connect=value=>listeners['extruda-connection']({detail:{connected:value}});
@@ -26,25 +27,20 @@ test('microphone defaults off, requires a connected approved phone and never ope
  s.setApproved(true);await s.api.control({type:'microphone-request',enabled:true});assert.equal(calls,0);assert.match(s.element('mic-status').textContent,/Pc’en beder/);
 });
 
-test('local filter feeds recordings and Windows, rejects stale packets and falls back on failure',async()=>{
- const s=setup(undefined,'host'),track={kind:'audio'};
+test('local processing feeds recordings and Windows through the same stable track',async()=>{
+ const s=setup(undefined,'host',true),track={kind:'audio'};
  s.window.extrudaAudioDevices([{index:0,name:'CABLE Input'}]);s.connect(true);s.api.track(track);
  await s.api.control({type:'microphone-state',enabled:true});
- assert.equal(s.api.recordingTrack(),track);
+ const stable=s.api.recordingTrack();assert.notEqual(stable,track);
  s.element('audio-denoise').checked=true;s.element('audio-denoise').onchange();
- await new Promise(r=>setImmediate(r));
- assert.ok(s.posts.includes('filter-start'));assert.notEqual(s.api.recordingTrack(),track);
+ const epoch=Number(s.posts.filter(p=>p.startsWith('filter-start:')).at(-1).split(':')[1]);s.window.ExtrudaNoise.ready(epoch);
  s.window.extrudaAudioStarted();
  const sampler=s.processors.filter(p=>p.name==='extruda-pcm').at(-1),player=s.processors.find(p=>p.name==='extruda-filtered');
  sampler.port.onmessage({data:new Float32Array(960).fill(0.2)});
  const message=s.posts.find(p=>p.startsWith('filter-pcm:'));assert.ok(message);
- const [,epoch,encoded]=message.split(':');
- s.window.extrudaFilteredAudio(Number(epoch)-1,encoded);assert.equal(player.received,undefined);
- s.window.extrudaFilteredAudio(Number(epoch),encoded);assert.equal(player.received.length,960);
- assert.ok(s.posts.some(p=>p.startsWith('audio-pcm:')));
- s.window.extrudaFilterError();await new Promise(r=>setImmediate(r));assert.equal(s.api.recordingTrack(),track);
- assert.match(s.element('audio-denoise-status').textContent,/Original lyd/);
- await s.api.stop();s.window.extrudaFilteredAudio(Number(epoch),encoded);assert.equal(s.api.recordingTrack(),null);
+ const [,e,seq,,encoded]=message.split(':');s.window.ExtrudaNoise.result(Number(e),Number(seq),encoded);
+ assert.equal(player.received.length,960);assert.ok(s.posts.some(p=>p.startsWith('audio-pcm:')));
+ assert.equal(s.api.recordingTrack(),stable);await s.api.stop();assert.equal(s.api.recordingTrack(),null);
 });
 
 test('filtered worklet outputs silence on starvation and bounds queued latency',()=>{

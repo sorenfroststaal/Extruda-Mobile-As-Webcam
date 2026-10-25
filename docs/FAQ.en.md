@@ -118,4 +118,6 @@ Open Audio settings in the Windows app and enable Local AI noise reduction. Deep
 
 Filtering applies to both the virtual microphone and recordings with microphone enabled. The meter shows original input. Filtering can add delay, change the voice or remove quiet speech. Try a short recording first. A filtered recording contains processed audio without a separate original track. Existing files are unchanged. On failure or timeout, a warning appears and original audio resumes; a brief gap may occur.
 
+Noise reduction status appears on the main screen with meters before and after processing. Strength selects a maximum attenuation from 6 to 60 dB. More attenuation is not always better for the voice. On failure the app tries one restart while using original audio; after a second failure original audio continues and the reason is shown. Idle input alone is not a failure. After you press Start, Listening test holds up to 10 seconds of original and filtered audio in memory. Both use the same low playback gain. Use headphones. Closing, muting, disconnecting or a filter failure releases test audio. No file or upload is created.
+
 [DeepFilterNet](https://github.com/Rikorose/DeepFilterNet)

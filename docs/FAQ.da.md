@@ -118,4 +118,6 @@ På en understøttet Windows-version af Extruda vises optageknapper også på de
 
 Rensningen gælder både den virtuelle mikrofon og optagelser med mikrofon. Niveaumåleren viser det oprindelige input. Filteret kan give forsinkelse, ændre stemmen eller fjerne lav tale. Prøv først en kort optagelse. En optagelse med filter indeholder den rensede lyd uden et separat originalspor. Eksisterende filer ændres ikke. Hvis filteret stopper eller svarer for langsomt, vises en advarsel, og original lyd genoptages; der kan være en kort pause.
 
+Støjreduktionens status vises på hovedskærmen sammen med målere før og efter behandling. Styrke vælger en maksimal dæmpning fra 6 til 60 dB. Mere dæmpning er ikke altid bedre for stemmen. Ved fejl forsøger appen én genstart med original lyd imens; ved endnu en fejl bruges original lyd, og årsagen vises. Ingen nye lydblokke er i sig selv ikke en fejl. Lyttetest holder højst 10 sekunders original og renset lyd i hukommelsen efter dit tryk på Start. Begge afspilles med samme lave afspilningsniveau. Brug hovedtelefoner. Lukning, mute, afbrudt forbindelse eller filterfejl frigiver testlyden. Der oprettes ingen fil eller upload.
+
 [DeepFilterNet](https://github.com/Rikorose/DeepFilterNet)

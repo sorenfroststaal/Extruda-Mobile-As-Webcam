@@ -32,7 +32,10 @@ int main(){
  const auto in=GetStdHandle(STD_INPUT_HANDLE),out=GetStdHandle(STD_OUTPUT_HANDLE);
  const DWORD ready=0x44464E33;if(!WriteExact(out,&ready,sizeof(ready)))return 5;
  short pcm[960];
- while(ReadExact(in,pcm,sizeof(pcm))){
+ float attenuation=36;
+ while(ReadExact(in,&attenuation,sizeof(attenuation))&&ReadExact(in,pcm,sizeof(pcm))){
+  if(!std::isfinite(attenuation)||attenuation<6||attenuation>60)return 6;
+  controls[0]=attenuation;
   for(int i=0;i<960;i++)input[i]=pcm[i]/32768.f;
   d->run(instance,960);
   for(int i=0;i<960;i++){const float v=std::isfinite(output[i])?std::clamp(output[i],-1.f,1.f):0;pcm[i]=static_cast<short>(v*32767);}

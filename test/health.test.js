@@ -5,7 +5,7 @@ function setup(){
  const window={addEventListener(){},chrome:{webview:{}},ExtrudaAudio:{health:()=>({enabled:true,signal:true,context:'running',windowsAccepted:true})}};
  vm.runInNewContext(readFileSync('public/health.js','utf8'),{window,document:{getElementById:element},location:{origin:'https://app.extruda.local'},performance:{now:()=>now},setInterval:()=>1,clearInterval(){},setTimeout,clearTimeout,navigator:{clipboard:{writeText:async text=>copied=text}}});
  window.ExtrudaHealth.session({role:'host',peer,video:()=>({srcObject:{getVideoTracks:()=>[track]}})});window.ExtrudaHealth.transport('connected');
- return{api:window.ExtrudaHealth,element,track,peer,setStats:value=>stats=value,advance:ms=>now+=ms,get copied(){return copied}};
+ return{window,api:window.ExtrudaHealth,element,track,peer,setStats:value=>stats=value,advance:ms=>now+=ms,get copied(){return copied}};
 }
 test('health detects real frame progress, stall, recovery and paused camera',async()=>{
  const s=setup();s.setStats([{type:'inbound-rtp',kind:'video',framesDecoded:10,packetsReceived:100}]);await s.api.poll();assert.equal(s.api.snapshot().video,'flowing');
@@ -20,6 +20,11 @@ test('diagnostic report allowlist excludes candidates, secrets, labels and media
 });
 test('native acknowledgements expire and stop clears diagnostics',async()=>{
  const s=setup();s.api.videoAck();assert.equal(s.api.snapshot().windowsVideo,'accepted');s.advance(6000);assert.equal(s.api.snapshot().windowsVideo,'waiting');s.api.stop();assert.equal(s.api.snapshot().video,'off');assert.equal(s.api.snapshot().transport,'closed');assert.equal(s.element('health-panel').hidden,true);
+});
+test('noise diagnostics retain only enumerated failures and numeric counters',async()=>{
+ const s=setup();s.window.ExtrudaNoise={snapshot:()=>({phase:'retrying',retries:1,reason:'timeout',processed:25,skipped:2,raw:'PRIVATE AUDIO',path:'PRIVATE PATH'})};
+ await s.element('health-copy').onclick();assert.doesNotMatch(s.copied,/PRIVATE|raw|path/);assert.equal(JSON.parse(s.copied).audio.noise.reason,'timeout');
+ s.window.ExtrudaNoise.snapshot=()=>({phase:'PRIVATE',reason:'PRIVATE',processed:Infinity});assert.equal(s.api.snapshot().audio.noise.phase,'off');assert.equal(s.api.snapshot().audio.noise.reason,'');
 });
 test('late stats result cannot resurrect a stopped session',async()=>{
  const s=setup();let finish;s.peer.getStats=()=>new Promise(resolve=>finish=resolve);const pending=s.api.poll();s.api.stop();finish(new Map([[1,{type:'inbound-rtp',kind:'video',framesDecoded:50}]]));await pending;assert.equal(s.api.snapshot().video,'off');assert.equal(s.api.snapshot().statsAvailable,false);

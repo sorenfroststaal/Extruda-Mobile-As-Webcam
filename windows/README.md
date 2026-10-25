@@ -1,4 +1,4 @@
-# extruda - mobile as webcam 0.11.0
+# extruda - mobile as webcam 0.12.0
 
 Language and theme follow the operating system by default. Use the globe and sun icons to override them; choices are stored per device. The information icon opens Security risks and FAQ and guides without leaving the session.
 

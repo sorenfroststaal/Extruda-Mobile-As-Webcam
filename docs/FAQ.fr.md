@@ -118,4 +118,6 @@ Dans les paramètres audio de l’application Windows, activez Réduction de bru
 
 Le filtre s’applique au microphone virtuel et aux enregistrements avec microphone. La jauge mesure le signal original. Le filtre peut retarder le son, modifier la voix ou supprimer la parole faible. Testez un court enregistrement. Les enregistrements filtrés ne contiennent pas de piste originale séparée. Les fichiers existants restent inchangés. En cas d’échec ou de délai excessif, un avertissement apparaît et le son original reprend ; une brève coupure est possible.
 
+Le statut du filtre et les jauges avant et après traitement apparaissent sur l’écran principal. L’intensité choisit une atténuation maximale de 6 à 60 dB. Une atténuation plus forte n’améliore pas toujours la voix. En cas d’échec, l’application tente un redémarrage avec le son original entre-temps ; après un second échec, elle conserve l’original et affiche la cause. L’absence de nouveaux blocs n’est pas une erreur en soi. Après Démarrer, le test d’écoute conserve au maximum 10 secondes de son original et filtré en mémoire. Le même gain de lecture faible est appliqué aux deux. Utilisez un casque. Fermer, couper le microphone, déconnecter ou une erreur du filtre libère le son de test. Aucun fichier ni envoi n’est créé.
+
 [DeepFilterNet](https://github.com/Rikorose/DeepFilterNet)

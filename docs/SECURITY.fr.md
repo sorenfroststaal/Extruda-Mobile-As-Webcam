@@ -184,6 +184,10 @@ Les enregistrements sont sauvegardés sans chiffrement dans le dossier choisi, �
 
 La réduction de bruit IA locale n’envoie aucun son à un service cloud. Elle peut modifier la voix, supprimer la parole faible et ajouter du délai. En cas d’échec, l’application revient au son original avec une brève coupure possible. Les enregistrements filtrés ne contiennent pas de piste originale séparée.
 
+
+
+Le test d’écoute facultatif garde au maximum 10 secondes de parole originale et traitée en mémoire. Aucun fichier de test ni envoi n’est créé. Fermer, couper le microphone, déconnecter ou une erreur du filtre arrête la lecture et libère les données ; cela ne garantit pas l’effacement sécurisé de la RAM ou du fichier d’échange Windows. Utilisez un casque pour éviter que le téléphone capte la lecture.
+
 <!-- plain:start -->
 **En termes simples**
 
@@ -191,7 +195,7 @@ Enregistrer crée un véritable fichier vidéo avec le son facultatif du microph
 
 **Ce que cela peut entraîner pour vous**
 
-Une personne ayant accès au PC, aux sauvegardes ou au dossier synchronisé peut consulter la vidéo. Un enregistrement peut remplir le disque ou être endommagé par une panne. Choisissez le dossier avec soin, gardez l’appairage privé et vérifiez la vidéo avant de supprimer une autre copie. La réduction de bruit IA locale n’envoie aucun son à un service cloud. Elle peut modifier la voix, supprimer la parole faible et ajouter du délai. En cas d’échec, l’application revient au son original avec une brève coupure possible. Les enregistrements filtrés ne contiennent pas de piste originale séparée.
+Une personne ayant accès au PC, aux sauvegardes ou au dossier synchronisé peut consulter la vidéo. Un enregistrement peut remplir le disque ou être endommagé par une panne. Choisissez le dossier avec soin, gardez l’appairage privé et vérifiez la vidéo avant de supprimer une autre copie. La réduction de bruit IA locale n’envoie aucun son à un service cloud. Elle peut modifier la voix, supprimer la parole faible et ajouter du délai. En cas d’échec, l’application revient au son original avec une brève coupure possible. Les enregistrements filtrés ne contiennent pas de piste originale séparée. Le test d’écoute facultatif garde au maximum 10 secondes de parole originale et traitée en mémoire. Aucun fichier de test ni envoi n’est créé. Fermer, couper le microphone, déconnecter ou une erreur du filtre arrête la lecture et libère les données ; cela ne garantit pas l’effacement sécurisé de la RAM ou du fichier d’échange Windows. Utilisez un casque pour éviter que le téléphone capte la lecture.
 <!-- plain:end -->
 
 [Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases)

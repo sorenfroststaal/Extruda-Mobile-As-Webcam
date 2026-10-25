@@ -184,6 +184,10 @@ Recordings are stored unencrypted in the folder you choose. Folders may be synce
 
 Local AI noise reduction sends no audio to a cloud service. It can change the voice, remove quiet speech and add latency. On failure the app restores original audio, with a possible brief gap. Filtered recordings contain processed audio without a separate original track.
 
+
+
+The optional listening test holds up to 10 seconds of original and processed speech in application memory. It creates no test file or upload. Closing, muting, disconnecting or filter failure stops playback and releases audio data; this is not a guarantee of secure erasure of RAM or the Windows pagefile. Use headphones so playback is not picked up by the phone.
+
 <!-- plain:start -->
 **In plain language**
 
@@ -191,7 +195,7 @@ When you record, video and optional microphone audio become a real file. It does
 
 **What could happen to you**
 
-Anyone with access to the PC, backups or the synced folder may access a recording. Recording can fill the disk or be damaged by a crash. Choose the location carefully, keep pairing private and check saved video before deleting another copy. Local AI noise reduction sends no audio to a cloud service. It can change the voice, remove quiet speech and add latency. On failure the app restores original audio, with a possible brief gap. Filtered recordings contain processed audio without a separate original track.
+Anyone with access to the PC, backups or the synced folder may access a recording. Recording can fill the disk or be damaged by a crash. Choose the location carefully, keep pairing private and check saved video before deleting another copy. Local AI noise reduction sends no audio to a cloud service. It can change the voice, remove quiet speech and add latency. On failure the app restores original audio, with a possible brief gap. Filtered recordings contain processed audio without a separate original track. The optional listening test holds up to 10 seconds of original and processed speech in application memory. It creates no test file or upload. Closing, muting, disconnecting or filter failure stops playback and releases audio data; this is not a guarantee of secure erasure of RAM or the Windows pagefile. Use headphones so playback is not picked up by the phone.
 <!-- plain:end -->
 
 [Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases)
