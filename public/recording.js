@@ -138,7 +138,7 @@
       const ctx=canvas.getContext('2d');ctx.drawImage(output,0,0,canvas.width,canvas.height);
     },
     syncAudio,stop,
-    opened(ok,value){path=ok?value:'';if(!ok&&value)state('Filen kunne ikke åbnes. Vælg en anden mappe.');openResolve?.(ok);openResolve=null;},
+    opened(ok,value,storageWarning=false){path=ok?value:'';if($('record-storage-warning')){$('record-storage-warning').hidden=!ok||!storageWarning;$('record-storage-warning').textContent=tr('Denne placering kan synkroniseres eller have andre adgangsrettigheder.');}if(!ok&&value)state('Filen kunne ikke åbnes. Vælg en anden mappe.');openResolve?.(ok);openResolve=null;},
     ack(ok){const pending=ack;ack=null;if(pending)(ok?pending.resolve:pending.reject)();},
     saved(ok){updateClock();state(ok&&!lastError?'Optagelsen er gemt lokalt':'Optagelsen kunne ikke færdiggøres. Se efter en .partial-fil i den valgte mappe.');$('record-reveal').hidden=!ok||lastError;clean();if(window.extrudaRecordingTest)post('record-window-close');},
     get active(){return opening||active||finishing;}

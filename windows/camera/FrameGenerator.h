@@ -8,7 +8,9 @@ class FrameGenerator {
     std::vector<BYTE> _pixels = std::vector<BYTE>(FrameBytes);
     bool Open();
     unsigned _width = FrameWidth, _height = FrameHeight;
+    FrameAuthorization _authorizationHash{};bool _authorized=false;
 public:
+    void SetFrameAuthorization(const FrameAuthorization& token){_authorized=HashFrameAuthorization(token,_authorizationHash);}
     ~FrameGenerator();
     void SetFramePath(std::wstring path) { _path = std::move(path); }
     HRESULT SetD3DManager(IUnknown*, UINT, UINT) { return S_OK; }

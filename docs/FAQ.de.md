@@ -121,3 +121,13 @@ Der Filter gilt für das virtuelle Mikrofon und Aufnahmen mit Mikrofon. Die Anze
 Der Filterstatus und Anzeigen vor und nach der Verarbeitung stehen auf dem Hauptbildschirm. Stärke wählt eine maximale Dämpfung von 6 bis 60 dB. Mehr Dämpfung ist nicht immer besser für die Stimme. Bei Fehlern versucht die App einen Neustart mit Originalton in der Zwischenzeit; nach einem zweiten Fehler bleibt der Originalton und der Grund wird angezeigt. Fehlende neue Blöcke allein sind kein Fehler. Nach Start hält der Hörtest höchstens 10 Sekunden Original und gefiltertes Audio im Arbeitsspeicher. Beide nutzen dieselbe niedrige Wiedergabelautstärke. Nutze Kopfhörer. Schließen, Stummschalten, Trennen oder Filterfehler gibt das Testaudio frei. Keine Datei und kein Upload.
 
 [DeepFilterNet](https://github.com/Rikorose/DeepFilterNet)
+
+## Was schützt das Sicherheitsupdate?
+
+Der Bildpuffer nutzt einen privaten Benutzer-/Sitzungsordner und einen zufälligen 256-Bit-Zugriffsschlüssel. Der Dateiname allein gibt kein Video frei. Fehlende oder falsche Schlüssel werden abgelehnt oder ergeben Schwarzbilder. Programme desselben Benutzers und Windows-Dienste bleiben Vertrauensgrenzen.
+
+Neue Kopplungen werden pro Quelle ohne gemeinsamen verbrauchbaren Zähler begrenzt. IPv6-Adressen werden pro /64-Netz gruppiert. Geteilte öffentliche IP-Adressen teilen weiter Grenzwerte; große Angriffe können Cloudflare-Kontingente treffen.
+
+DeepFilterNet läuft in einem Windows-AppContainer ohne Netzwerk-, Kamera- oder Mikrofonfähigkeiten, mit Speicher- und Prozesslimits. Startet die Sandbox nicht, wird Originalton genutzt. Die normale App verweigert den Start als Administrator.
+
+Der Standard-Aufnahmeordner liegt lokal in den Benutzer-Appdaten mit privaten Rechten. Neue Dateien sind für Benutzer und SYSTEM zugänglich; während des Schreibens wird der Dateizugriff nicht geteilt. Bekannte OneDrive-Orte und Laufwerke ohne entsprechende Rechte zeigen eine Warnung. Die App versucht mindestens 128 MB frei zu halten. Dateien bleiben unverschlüsselt; bei Fehlern können Teildateien bleiben.

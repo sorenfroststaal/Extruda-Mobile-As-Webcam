@@ -9,6 +9,9 @@
 
 HRESULT MediaSource::Initialize(IMFAttributes* attributes)
 {
+    FrameAuthorization authorization{};UINT32 bytes=0;
+    RETURN_HR_IF(E_ACCESSDENIED,!attributes||FAILED(attributes->GetBlob(FrameAuthorizationAttribute,authorization.data(),32,&bytes))||bytes!=32);
+    for(auto& stream:_streams)stream->SetFrameAuthorization(authorization);
 	if (attributes)
 	{
 		RETURN_IF_FAILED(attributes->CopyAllItems(this));

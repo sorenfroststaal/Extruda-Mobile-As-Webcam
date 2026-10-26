@@ -74,6 +74,8 @@ Private Bilder, Kopplungsschlüssel oder Bildschirminhalte könnten ohne dein Wi
 
 Dekodierte Bilder laufen durch eine temporäre Datei unter ProgramData. Sie ist zugriffsgeschützt, wird geleert und beim Schließen gelöscht, liegt aber nicht ausschließlich in anonymem RAM. Prozesse desselben Benutzers oder mit ausreichenden Systemrechten können Zugriff erhalten. Löschen garantiert kein sicheres Überschreiben von Datenträger- oder Auslagerungsdateidaten.
 
+Der Bildpuffer nutzt einen privaten Benutzer-/Sitzungsordner und einen zufälligen 256-Bit-Zugriffsschlüssel. Der Dateiname allein gibt kein Video frei. Fehlende oder falsche Schlüssel werden abgelehnt oder ergeben Schwarzbilder. Programme desselben Benutzers und Windows-Dienste bleiben Vertrauensgrenzen.
+
 <!-- plain:start -->
 **Einfach erklärt**
 
@@ -81,7 +83,7 @@ Um Video als Windows-Kamera bereitzustellen, legt die App Bilder kurzzeitig in e
 
 **Was das für dich bedeuten kann**
 
-Ein anderes Programm mit deinen Benutzerrechten oder Administratorzugriff könnte die Bilder kopieren. Auch nach dem Löschen können Spuren auf dem Speicher bleiben. Vermeide Bilder, bei denen schon ein mögliches Leck schwerwiegend wäre.
+Ein anderes Programm mit deinen Benutzerrechten oder Administratorzugriff könnte die Bilder kopieren. Auch nach dem Löschen können Spuren auf dem Speicher bleiben. Vermeide Bilder, bei denen schon ein mögliches Leck schwerwiegend wäre. Der Bildpuffer nutzt einen privaten Benutzer-/Sitzungsordner und einen zufälligen 256-Bit-Zugriffsschlüssel. Der Dateiname allein gibt kein Video frei. Fehlende oder falsche Schlüssel werden abgelehnt oder ergeben Schwarzbilder. Programme desselben Benutzers und Windows-Dienste bleiben Vertrauensgrenzen.
 <!-- plain:end -->
 
 ## Verfügbarkeit und Missbrauch
@@ -90,6 +92,8 @@ Ein anderes Programm mit deinen Benutzerrechten oder Administratorzugriff könnt
 
 Server- und Nachrichtenlimits begrenzen Missbrauch, aber Anfragen erreichen weiterhin Cloudflare. Größere Angriffe können Kontingente aufbrauchen und neue Kopplungen blockieren. Ein bereits gekoppeltes bösartiges Gerät kann die Sitzung ebenfalls stören. Dies allein gibt Außenstehenden keinen Zugriff auf Video.
 
+Neue Kopplungen werden pro Quelle ohne gemeinsamen verbrauchbaren Zähler begrenzt. IPv6-Adressen werden pro /64-Netz gruppiert. Geteilte öffentliche IP-Adressen teilen weiter Grenzwerte; große Angriffe können Cloudflare-Kontingente treffen.
+
 <!-- plain:start -->
 **Einfach erklärt**
 
@@ -97,7 +101,7 @@ Die Kopplung nutzt einen gemeinsamen Onlinedienst mit begrenzter Kapazität. Vie
 
 **Was das für dich bedeuten kann**
 
-Du könntest kurz vor einem Meeting dein Telefon nicht verbinden können. Auch eine Sitzung kann unterbrochen oder gestört werden. Ein Ausfall bedeutet für sich genommen nicht, dass jemand deine Bilder gesehen hat; halte eventuell die normale PC-Webcam als Ersatz bereit.
+Du könntest kurz vor einem Meeting dein Telefon nicht verbinden können. Auch eine Sitzung kann unterbrochen oder gestört werden. Ein Ausfall bedeutet für sich genommen nicht, dass jemand deine Bilder gesehen hat; halte eventuell die normale PC-Webcam als Ersatz bereit. Neue Kopplungen werden pro Quelle ohne gemeinsamen verbrauchbaren Zähler begrenzt. IPv6-Adressen werden pro /64-Netz gruppiert. Geteilte öffentliche IP-Adressen teilen weiter Grenzwerte; große Angriffe können Cloudflare-Kontingente treffen.
 <!-- plain:end -->
 
 ## Verbindungsdaten und lokales Netzwerk
@@ -166,6 +170,8 @@ Eine Anleitung könnte ein falsches Menü nennen, eine Funktion könnte versagen
 
 Das Mikrofon ist bei jeder neuen Verbindung aus und wird am Telefon mit separater Browser-Erlaubnis eingeschaltet. Audio wird per WebRTC verschlüsselt und über begrenzte Speicherpuffer an ein ausgewähltes, bereits installiertes virtuelles Audiogerät geleitet. Die App ändert keine Standardgeräte und installiert keinen Audiotreiber automatisch. Steam Streaming Microphone oder VB-CABLE ist Drittsoftware mit eigener Lizenz und Sicherheitsrisiken. Ein neuer Treiber benötigt Administratorfreigabe und eventuell einen Neustart.
 
+DeepFilterNet läuft in einem Windows-AppContainer ohne Netzwerk-, Kamera- oder Mikrofonfähigkeiten, mit Speicher- und Prozesslimits. Startet die Sandbox nicht, wird Originalton genutzt. Die normale App verweigert den Start als Administrator.
+
 <!-- plain:start -->
 **Einfach erklärt**
 
@@ -173,7 +179,7 @@ Wenn du das Mikrofon einschaltest, kann es auch andere Personen und Geräusche i
 
 **Was das für dich bedeuten kann**
 
-Private Gespräche können von einer Meeting-App oder einer anderen App mit Zugriff auf das virtuelle Mikrofon gehört oder aufgenommen werden. Senden andere Programme an dasselbe virtuelle Gerät, kann ihr Ton beigemischt werden. Schalte das Mikrofon danach aus; ein grüner Pegel bedeutet Signal in der App, nicht dass nur Teams mithört. Treiber nur vom offiziellen Anbieter beziehen und das virtuelle Kabel nicht zum Standardlautsprecher machen.
+Private Gespräche können von einer Meeting-App oder einer anderen App mit Zugriff auf das virtuelle Mikrofon gehört oder aufgenommen werden. Senden andere Programme an dasselbe virtuelle Gerät, kann ihr Ton beigemischt werden. Schalte das Mikrofon danach aus; ein grüner Pegel bedeutet Signal in der App, nicht dass nur Teams mithört. Treiber nur vom offiziellen Anbieter beziehen und das virtuelle Kabel nicht zum Standardlautsprecher machen. DeepFilterNet läuft in einem Windows-AppContainer ohne Netzwerk-, Kamera- oder Mikrofonfähigkeiten, mit Speicher- und Prozesslimits. Startet die Sandbox nicht, wird Originalton genutzt. Die normale App verweigert den Start als Administrator.
 <!-- plain:end -->
 
 ## Lokale Aufnahmen und Telefonsteuerung
@@ -188,6 +194,8 @@ Lokale KI-Rauschunterdrückung sendet keinen Ton an einen Cloud-Dienst. Sie kann
 
 Der freiwillige Hörtest hält höchstens 10 Sekunden Original und bearbeitete Sprache im Arbeitsspeicher. Keine Testdatei und kein Upload. Schließen, Stummschalten, Trennen oder Filterfehler beendet die Wiedergabe und gibt Audiodaten frei; dies garantiert kein sicheres Löschen von RAM oder Windows-Auslagerungsdatei. Nutze Kopfhörer, damit das Telefon die Wiedergabe nicht erfasst.
 
+Der Standard-Aufnahmeordner liegt lokal in den Benutzer-Appdaten mit privaten Rechten. Neue Dateien sind für Benutzer und SYSTEM zugänglich; während des Schreibens wird der Dateizugriff nicht geteilt. Bekannte OneDrive-Orte und Laufwerke ohne entsprechende Rechte zeigen eine Warnung. Die App versucht mindestens 128 MB frei zu halten. Dateien bleiben unverschlüsselt; bei Fehlern können Teildateien bleiben.
+
 <!-- plain:start -->
 **Einfach erklärt**
 
@@ -195,7 +203,7 @@ Beim Aufnehmen werden Video und optionaler Mikrofonton zu einer echten Datei. Si
 
 **Was das für dich bedeuten kann**
 
-Wer Zugriff auf PC, Sicherung oder synchronisierten Ordner hat, kann die Aufnahme lesen. Aufnahmen können den Datenträger füllen oder durch Abstürze beschädigt werden. Speicherort sorgfältig wählen, Kopplung privat halten und die gespeicherte Datei vor dem Löschen anderer Kopien prüfen. Lokale KI-Rauschunterdrückung sendet keinen Ton an einen Cloud-Dienst. Sie kann Stimmen verändern, leise Sprache entfernen und verzögern. Bei Fehlern kehrt die App zum Originalton zurück; eine kurze Pause ist möglich. Gefilterte Aufnahmen enthalten keine separate Originalspur. Der freiwillige Hörtest hält höchstens 10 Sekunden Original und bearbeitete Sprache im Arbeitsspeicher. Keine Testdatei und kein Upload. Schließen, Stummschalten, Trennen oder Filterfehler beendet die Wiedergabe und gibt Audiodaten frei; dies garantiert kein sicheres Löschen von RAM oder Windows-Auslagerungsdatei. Nutze Kopfhörer, damit das Telefon die Wiedergabe nicht erfasst.
+Wer Zugriff auf PC, Sicherung oder synchronisierten Ordner hat, kann die Aufnahme lesen. Aufnahmen können den Datenträger füllen oder durch Abstürze beschädigt werden. Speicherort sorgfältig wählen, Kopplung privat halten und die gespeicherte Datei vor dem Löschen anderer Kopien prüfen. Lokale KI-Rauschunterdrückung sendet keinen Ton an einen Cloud-Dienst. Sie kann Stimmen verändern, leise Sprache entfernen und verzögern. Bei Fehlern kehrt die App zum Originalton zurück; eine kurze Pause ist möglich. Gefilterte Aufnahmen enthalten keine separate Originalspur. Der freiwillige Hörtest hält höchstens 10 Sekunden Original und bearbeitete Sprache im Arbeitsspeicher. Keine Testdatei und kein Upload. Schließen, Stummschalten, Trennen oder Filterfehler beendet die Wiedergabe und gibt Audiodaten frei; dies garantiert kein sicheres Löschen von RAM oder Windows-Auslagerungsdatei. Nutze Kopfhörer, damit das Telefon die Wiedergabe nicht erfasst. Der Standard-Aufnahmeordner liegt lokal in den Benutzer-Appdaten mit privaten Rechten. Neue Dateien sind für Benutzer und SYSTEM zugänglich; während des Schreibens wird der Dateizugriff nicht geteilt. Bekannte OneDrive-Orte und Laufwerke ohne entsprechende Rechte zeigen eine Warnung. Die App versucht mindestens 128 MB frei zu halten. Dateien bleiben unverschlüsselt; bei Fehlern können Teildateien bleiben.
 <!-- plain:end -->
 
 [Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases)

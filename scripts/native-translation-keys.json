@@ -10,5 +10,6 @@
   "Microsoft Edge WebView2 Runtime kunne ikke indlæses.",
   "extruda - mobile as webcam er allerede åben.",
   "Kunne ikke oprette den lokale videoforbindelse.",
-  "Det virtuelle kamera kunne ikke startes. Kør installationsprogrammet igen og kontrollér Windows’ kameratilladelser."
+  "Det virtuelle kamera kunne ikke startes. Kør installationsprogrammet igen og kontrollér Windows’ kameratilladelser.",
+  "Åbn appen som almindelig bruger. Kun installationsprogrammet må køre som administrator."
 ]

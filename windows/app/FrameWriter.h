@@ -4,10 +4,14 @@
 #include <vector>
 #include <stdexcept>
 #include <wrl/client.h>
+#include "../PrivateStorage.h"
 class FrameWriter {
     HANDLE file = INVALID_HANDLE_VALUE, mapping = nullptr, mutex = nullptr;
     FrameHeader* view = nullptr;
+    FrameAuthorization authorization{};
+    std::wstring privateDirectory;
 public:
+    const FrameAuthorization& Authorization()const{return authorization;}
     std::wstring path;
     unsigned width, height;
     FrameWriter(unsigned w = FrameWidth, unsigned h = FrameHeight) : width(w), height(h) {
@@ -15,6 +19,13 @@ public:
         wchar_t data[MAX_PATH]{}; GetEnvironmentVariableW(L"ProgramData", data, MAX_PATH);
         std::wstring directory = std::wstring(data) + L"\\ExtrudaPhoneCamera";
         if (!CreateDirectoryW(directory.c_str(), nullptr) && GetLastError() != ERROR_ALREADY_EXISTS) throw std::runtime_error("Cannot create frame directory");
+        if(GetFileAttributesW(directory.c_str())&FILE_ATTRIBUTE_REPARSE_POINT)throw std::runtime_error("Unsafe frame directory");
+        GUID directoryId{};if(FAILED(CoCreateGuid(&directoryId)))throw std::runtime_error("Cannot create frame directory ID");wchar_t directoryName[40]{};StringFromGUID2(directoryId,directoryName,40);
+        directory+=L"\\"+CurrentUserSid()+L"-"+directoryName;
+        if(!EnsurePrivateDirectory(directory,true))throw std::runtime_error("Cannot secure user frame directory");
+        privateDirectory=directory;
+        FrameAuthorization authorizationHash{};
+        if(BCryptGenRandom(nullptr,authorization.data(),32,BCRYPT_USE_SYSTEM_PREFERRED_RNG)<0||!HashFrameAuthorization(authorization,authorizationHash))throw std::runtime_error("Cannot authorize frame transport");
         HANDLE token = nullptr;
         if (!OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &token)) throw std::runtime_error("Cannot read user SID");
         DWORD size = 0; GetTokenInformation(token, TokenUser, nullptr, 0, &size);
@@ -40,7 +51,7 @@ public:
         mapping = CreateFileMappingW(file, nullptr, PAGE_READWRITE, 0, static_cast<DWORD>(FrameFileBytes), nullptr);
         view = mapping ? static_cast<FrameHeader*>(MapViewOfFile(mapping, FILE_MAP_WRITE, 0, 0, FrameFileBytes)) : nullptr;
         if (!view) throw std::runtime_error("Cannot map frame transport");
-        ZeroMemory(view, FrameFileBytes); view->magic = FrameMagic; view->version = 2; view->width = width; view->height = height;
+        ZeroMemory(view, FrameFileBytes); view->magic = FrameMagic; view->version = 3; view->width = width; view->height = height;memcpy(view->authorizationHash,authorizationHash.data(),32);
     }
     FrameWriter(const FrameWriter&) = delete;
     ~FrameWriter() {
@@ -49,6 +60,7 @@ public:
         if (mapping) CloseHandle(mapping);
         if (file != INVALID_HANDLE_VALUE) CloseHandle(file);
         if (mutex) CloseHandle(mutex);
+        if(!privateDirectory.empty())RemoveDirectoryW(privateDirectory.c_str());
     }
     void Clear() { if (view && mutex) { auto result = WaitForSingleObject(mutex, 100); if (result == WAIT_OBJECT_0 || result == WAIT_ABANDONED) { view->updated = 0; ZeroMemory(reinterpret_cast<BYTE*>(view) + sizeof(FrameHeader), MaxFrameBytes); ReleaseMutex(mutex); } } }
     bool Write(const BYTE* bgra) {

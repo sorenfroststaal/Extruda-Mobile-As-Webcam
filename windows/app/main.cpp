@@ -59,6 +59,7 @@ HRESULT StartCamera() {
     auto hr = MFCreateVirtualCamera(MFVirtualCameraType_SoftwareCameraSource, MFVirtualCameraLifetime_Session, MFVirtualCameraAccess_CurrentUser, name.c_str(), CameraClassId, nullptr, 0, &camera);
     if (FAILED(hr)) return hr;
     hr = camera->SetString(FramePathAttribute, writer->path.c_str());
+    if(SUCCEEDED(hr))hr=camera->SetBlob(FrameAuthorizationAttribute,writer->Authorization().data(),32);
     if (SUCCEEDED(hr)) hr = camera->SetUINT64(FrameSizeAttribute, (static_cast<UINT64>(outputWidth) << 32) | outputHeight);
     if (SUCCEEDED(hr)) hr = camera->Start(nullptr);
     return hr;
@@ -122,7 +123,7 @@ void InitWeb() {
                 if(message.size()>128)return S_OK;
                 if(message==L"record-open:mp4"||message==L"record-open:webm"){
                     const auto hr=recordingSmokeTest?recordingFile.OpenPath(window,message==L"record-open:mp4"?L"recording-smoke.mp4":L"recording-smoke.webm"):recordingFile.Choose(window,message==L"record-open:mp4");
-                    const auto script=L"window.ExtrudaRecording?.opened("+std::wstring(SUCCEEDED(hr)?L"true,":L"false,")+RecordingFile::Quote(SUCCEEDED(hr)?recordingFile.DisplayPath():hr==HRESULT_FROM_WIN32(ERROR_CANCELLED)?L"":L"save-error")+L")";
+                    const auto script=L"window.ExtrudaRecording?.opened("+std::wstring(SUCCEEDED(hr)?L"true,":L"false,")+RecordingFile::Quote(SUCCEEDED(hr)?recordingFile.DisplayPath():hr==HRESULT_FROM_WIN32(ERROR_CANCELLED)?L"":L"save-error")+(SUCCEEDED(hr)&&recordingFile.StorageWarning()?L",true)":L",false)");
                     web->ExecuteScript(script.c_str(),nullptr);return S_OK;
                 }
                 if(message==L"record-finish"||message==L"record-abort"){recordingFile.Finish(message==L"record-finish");return S_OK;}
@@ -208,6 +209,9 @@ LRESULT CALLBACK Proc(HWND hwnd, UINT msg, WPARAM w, LPARAM l) {
 }
 int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR, int show) {
     wchar_t userLocale[LOCALE_NAME_MAX_LENGTH]{}; LCIDToLocaleName(MAKELCID(GetUserDefaultUILanguage(),SORT_DEFAULT),userLocale,LOCALE_NAME_MAX_LENGTH,0); SetNativeLanguage(userLocale);
+    HANDLE launchToken=nullptr;TOKEN_ELEVATION elevation{};DWORD tokenBytes=0;
+    const bool checked=OpenProcessToken(GetCurrentProcess(),TOKEN_QUERY,&launchToken)&&GetTokenInformation(launchToken,TokenElevation,&elevation,sizeof(elevation),&tokenBytes);if(launchToken)CloseHandle(launchToken);
+    if(!checked||elevation.TokenIsElevated){MessageBoxW(nullptr,NativeText(L"Åbn appen som almindelig bruger. Kun installationsprogrammet må køre som administrator."),L"extruda - mobile as webcam",MB_OK|MB_ICONERROR);return 1;}
     pairingSmokeTest = wcsstr(GetCommandLineW(), L"--pairing-smoke") != nullptr;
     recordingSmokeTest=wcsstr(GetCommandLineW(),L"--recording-smoke")!=nullptr;
     recordingAudioTest=wcsstr(GetCommandLineW(),L"--recording-smoke-audio")!=nullptr;

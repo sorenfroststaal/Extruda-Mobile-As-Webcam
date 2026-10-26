@@ -24,7 +24,7 @@
     const noise={phase:['off','waiting','starting','active','retrying','failed'].includes(filter.phase)?filter.phase:'off',
       retries:filter.retries===1?1:0,reason:['startup','timeout','queue','input','pipe','unknown'].includes(filter.reason)?filter.reason:'',processed:number(filter.processed),skipped:number(filter.skipped)};
     let picture=!peer?'off':track?.readyState==='ended'?'ended':track?.muted||media?.paused?'paused':!statsAvailable?'unknown':frameAt&&age(frameAt)<5000?'flowing':performance.now()-started>5000?'stalled':'waiting';
-    return {schema:2,version:'0.12.0',role,transport,video:picture,videoAgeMs:age(frameAt),windowsVideo:!native()?'not-app':ackAt&&age(ackAt)<5000?'accepted':'waiting',
+    return {schema:2,version:'0.13.0',role,transport,video:picture,videoAgeMs:age(frameAt),windowsVideo:!native()?'not-app':ackAt&&age(ackAt)<5000?'accepted':'waiting',
       audio:{enabled:!!audio.enabled,signal:!!audio.signal,paused:!!audio.paused,context:['running','suspended','closed'].includes(audio.context)?audio.context:'closed',windowsAccepted:!!audio.windowsAccepted,noise},
       packets:number(packets),packetsLost:number(lost),jitterMs:Math.round(number(jitter)*1000),statsAvailable,
       received:{width:number(media?.videoWidth),height:number(media?.videoHeight)},recent:{video:recent.video,audio:recent.audio}};

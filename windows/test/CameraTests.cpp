@@ -19,21 +19,22 @@ ComPtr<IMFSample> ReadNext(IMFSourceReader* reader, LONGLONG* timestamp = nullpt
     }
     Expect(false, "timely sample after stream events"); return {};
 }
-ComPtr<IMFMediaSource> CreateSource(const std::wstring& framePath, unsigned width, unsigned height) {
+ComPtr<IMFMediaSource> CreateSource(const std::wstring& framePath, unsigned width, unsigned height,const FrameAuthorization& authorization,bool omitAuthorization=false,HRESULT* activationResult=nullptr) {
     auto dll = LoadLibraryW(L"ExtrudaCamera.dll"); Expect(dll != nullptr, "load camera DLL");
     auto getClass = reinterpret_cast<HRESULT(WINAPI*)(REFCLSID, REFIID, void**)>(GetProcAddress(dll, "DllGetClassObject")); Expect(getClass != nullptr, "COM factory export");
     GUID id{}; CLSIDFromString(CameraClassId, &id);
     ComPtr<IClassFactory> factory; Check(getClass(id, IID_PPV_ARGS(&factory)), "get factory");
     ComPtr<IMFActivate> activate; Check(factory->CreateInstance(nullptr, IID_PPV_ARGS(&activate)), "create activation object");
+    if(!omitAuthorization)Check(activate->SetBlob(FrameAuthorizationAttribute,authorization.data(),32), "set frame authorization");
     Check(activate->SetString(FramePathAttribute, framePath.c_str()), "set frame path");
     Check(activate->SetUINT64(FrameSizeAttribute, (static_cast<UINT64>(width) << 32) | height), "set output size");
-    ComPtr<IMFMediaSource> source; Check(activate->ActivateObject(IID_PPV_ARGS(&source)), "activate media source");
+    ComPtr<IMFMediaSource> source;const auto hr=activate->ActivateObject(IID_PPV_ARGS(&source));if(activationResult)*activationResult=hr;else Check(hr, "activate media source");
     return source;
 }
 void ReaderTest(FrameWriter& writer, bool nv12, IMFMediaSource* installed = nullptr) {
     ComPtr<IMFMediaSource> source = installed;
     const auto width = writer.width, height = writer.height, bytes = width * height * 4;
-    if (!source) source = CreateSource(writer.path, width, height);
+    if (!source) source = CreateSource(writer.path, width, height,writer.Authorization());
     ComPtr<IMFSourceReader> reader; Check(MFCreateSourceReaderFromMediaSource(source.Get(), nullptr, &reader), "create source reader");
     ComPtr<IMFMediaType> type; Check(MFCreateMediaType(&type), "create type");
     type->SetGUID(MF_MT_MAJOR_TYPE, MFMediaType_Video); type->SetGUID(MF_MT_SUBTYPE, nv12 ? MFVideoFormat_NV12 : MFVideoFormat_RGB32);
@@ -98,9 +99,21 @@ int wmain(int argc, wchar_t** argv) {
         for (UINT32 i = 0; i < count; ++i) { wchar_t name[512]{}; devices[i]->GetString(MF_DEVSOURCE_ATTRIBUTE_FRIENDLY_NAME, name, 512, nullptr); wprintf(L"%s\n", name); devices[i]->Release(); } CoTaskMemFree(devices); return 0;
     }
     FrameWriter writer(requestedWidth, requestedHeight);
+    if(argc>1&&!wcscmp(argv[1],L"--security")){
+        HRESULT hr=S_OK;auto missing=CreateSource(writer.path,requestedWidth,requestedHeight,writer.Authorization(),true,&hr);Expect(hr==E_ACCESSDENIED&&!missing,"missing authorization rejected");
+        auto wrong=writer.Authorization();wrong[0]^=0xff;
+        auto source=CreateSource(writer.path,requestedWidth,requestedHeight,wrong);
+        ComPtr<IMFSourceReader> reader;Check(MFCreateSourceReaderFromMediaSource(source.Get(),nullptr,&reader),"create unauthorized reader");
+        ComPtr<IMFMediaType> type;MFCreateMediaType(&type);type->SetGUID(MF_MT_MAJOR_TYPE,MFMediaType_Video);type->SetGUID(MF_MT_SUBTYPE,MFVideoFormat_RGB32);MFSetAttributeSize(type.Get(),MF_MT_FRAME_SIZE,requestedWidth,requestedHeight);
+        Check(reader->SetCurrentMediaType(MF_SOURCE_READER_FIRST_VIDEO_STREAM,nullptr,type.Get()),"unauthorized media type");
+        std::vector<BYTE> pixels(requestedWidth*requestedHeight*4,200);writer.Write(pixels.data());const auto sample=ReadNext(reader.Get());ComPtr<IMFMediaBuffer> buffer;sample->ConvertToContiguousBuffer(&buffer);BYTE* data=nullptr;DWORD size=0;buffer->Lock(&data,nullptr,&size);
+        bool black=true;for(DWORD i=0;i<size;i++)black&=data[i]==0;buffer->Unlock();Expect(black,"wrong session key reveals no pixels");reader.Reset();source->Shutdown();source.Reset();
+        ReaderTest(writer,false);puts("PASS: missing capability rejected; wrong capability returns black; correct capability reads frames.");return 0;
+    }
     if (argc > 1 && !wcscmp(argv[1], L"--system")) {
         ComPtr<IMFVirtualCamera> camera;
         Check(MFCreateVirtualCamera(MFVirtualCameraType_SoftwareCameraSource, MFVirtualCameraLifetime_Session, MFVirtualCameraAccess_CurrentUser, L"extruda - mobile as webcam", CameraClassId, nullptr, 0, &camera), "create OS virtual camera");
+        Check(camera->SetBlob(FrameAuthorizationAttribute,writer.Authorization().data(),32), "authorize OS frame transport");
         Check(camera->SetString(FramePathAttribute, writer.path.c_str()), "configure OS frame transport");
         Check(camera->SetUINT64(FrameSizeAttribute, (static_cast<UINT64>(requestedWidth) << 32) | requestedHeight), "configure OS output size");
         Check(camera->Start(nullptr), "start OS virtual camera");

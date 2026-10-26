@@ -1036,5 +1036,17 @@
     "Speak normally for 10 seconds. Test audio stays in memory only.",
     "Sprich 10 Sekunden normal. Testaudio bleibt nur im Arbeitsspeicher.",
     "Parlez normalement pendant 10 secondes. Le son reste uniquement en mémoire."
+  ],
+  [
+    "Denne placering kan synkroniseres eller have andre adgangsrettigheder.",
+    "This location may sync or have different access permissions.",
+    "Dieser Speicherort kann synchronisiert werden oder andere Zugriffsrechte haben.",
+    "Cet emplacement peut être synchronisé ou avoir des droits d’accès différents."
+  ],
+  [
+    "Åbn appen som almindelig bruger. Kun installationsprogrammet må køre som administrator.",
+    "Open the app as a standard user. Only the installer should run as administrator.",
+    "Öffne die App als normaler Benutzer. Nur das Installationsprogramm darf als Administrator laufen.",
+    "Ouvrez l’application comme utilisateur standard. Seul l’installateur doit être exécuté comme administrateur."
   ]
 ]

@@ -1,8 +1,19 @@
 {
   "name": "extruda-mobile-as-webcam",
-  "version": "0.12.0",
+  "version": "0.13.0",
   "private": true,
   "type": "module",
-  "scripts": { "build": "node scripts/build-qr.mjs && node scripts/build-i18n.mjs", "dev": "wrangler dev", "deploy": "wrangler deploy", "test": "node --test test/*.test.js" },
-  "devDependencies": { "wrangler": "^4.151.1", "qrcode": "^1.5.4", "esbuild": "^0.28.2", "ws": "^8.18.0" }
+  "scripts": {
+    "build": "node scripts/build-qr.mjs && node scripts/build-i18n.mjs",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "node --test test/*.test.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "qrcode": "^1.5.4",
+    "wrangler": "^4.152.0",
+    "ws": "^8.18.0"
+  },
+  "packageManager": "pnpm@11.25.0"
 }

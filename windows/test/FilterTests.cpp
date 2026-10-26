@@ -1,8 +1,10 @@
+#define EXTRUDA_FILTER_TEST
 #include "../app/AudioFilter.h"
 #include <iostream>
 #include <cmath>
 int main(){
  AudioFilter filter;if(!filter.Start(nullptr,42)){std::cerr<<"Cannot start local filter\n";return 1;}
+ if(!filter.Sandboxed()){std::cerr<<"Filter is not inside AppContainer\n";return 16;}
  if(filter.Push(L"1:invalid")||filter.Push(L"bad:"+std::wstring(2560,L'A'))){std::cerr<<"Invalid packet accepted\n";return 2;}
  double before=0,after=0;unsigned random=123;const auto start=GetTickCount64();
  for(int block=0;block<100;block++){

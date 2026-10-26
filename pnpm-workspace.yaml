@@ -1,3 +1,63 @@
 allowBuilds:
+  '@cloudflare/kv-asset-handler': false
+  '@cspotcode/source-map-support': false
+  '@esbuild/win32-x64': false
+  '@img/colour': false
+  '@img/sharp-win32-x64': false
+  '@jridgewell/resolve-uri': false
+  '@jridgewell/sourcemap-codec': false
+  '@jridgewell/trace-mapping': false
+  '@poppinss/colors': false
+  '@poppinss/dumper': false
+  '@poppinss/exception': false
+  '@sindresorhus/is': false
+  '@speed-highlight/core': false
+  ansi-regex: false
+  ansi-styles: false
+  blake3-wasm: false
+  camelcase: false
+  cliui: false
+  color-convert: false
+  color-name: false
+  cookie: false
+  decamelize: false
+  detect-libc: false
+  dijkstrajs: false
+  emoji-regex: false
+  error-stack-parser-es: false
   esbuild: true
+  find-up: false
+  get-caller-file: false
+  is-fullwidth-code-point: false
+  kleur: false
+  locate-path: false
+  p-limit: false
+  p-locate: false
+  p-try: false
+  path-exists: false
+  path-to-regexp: false
+  pathe: false
+  pngjs: false
+  qrcode: false
+  require-directory: false
+  require-main-filename: false
+  semver: false
+  set-blocking: false
+  sharp: false
+  string-width: false
+  strip-ansi: false
+  supports-color: false
+  undici: false
+  unenv: false
+  which-module: false
   workerd: true
+  wrap-ansi: false
+  ws: false
+  y18n: false
+  yargs: false
+  yargs-parser: false
+  youch: false
+  youch-core: false
+
+overrides:
+  undici: 7.30.1

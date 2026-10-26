@@ -16,6 +16,7 @@ public:
 	STDMETHOD(GetParameters)(DWORD*, DWORD*) { return E_NOTIMPL; }
 	STDMETHOD(Invoke)(IMFAsyncResult* result);
 	void SetFramePath(const std::wstring& path) { _generator.SetFramePath(path); }
+    void SetFrameAuthorization(const FrameAuthorization& token){_generator.SetFrameAuthorization(token);}
     HRESULT Configure(unsigned width, unsigned height);
 
 	// IMFMediaStream2

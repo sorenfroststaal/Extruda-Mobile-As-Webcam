@@ -34,6 +34,12 @@ copy /y windows\vendor\deepfilter\LICENSE-MIT.txt windows\dist\DEEPFILTER-LICENS
 cl %COMMON% /I.tools\webview2\build\native\include windows\app\main.cpp windows\build\app.res /Fowindows\build\app.obj /Fewindows\dist\ExtrudaCamera.exe /link /SUBSYSTEM:WINDOWS .tools\webview2\build\native\x64\WebView2LoaderStatic.lib mfplat.lib mf.lib mfuuid.lib mfsensorgroup.lib ole32.lib oleaut32.lib advapi32.lib user32.lib shell32.lib shlwapi.lib version.lib dwmapi.lib uuid.lib propsys.lib crypt32.lib
 if errorlevel 1 exit /b 1
 :tests
+cl %COMMON% windows\test\InstalledFilterProbe.cpp /Fowindows\build\installed-filter-probe.obj /Fewindows\dist\InstalledFilterProbe.exe /link user32.lib crypt32.lib
+if errorlevel 1 exit /b 1
+cl %COMMON% /DEXTRUDA_SANDBOX_PROBE windows\app\FilterHost.cpp /Fowindows\build\filter-probe.obj /Fewindows\dist\ExtrudaFilterProbe.exe
+if errorlevel 1 exit /b 1
+cl %COMMON% windows\test\SandboxTests.cpp /Fowindows\build\sandbox-test.obj /Fewindows\dist\SandboxTests.exe /link user32.lib crypt32.lib
+if errorlevel 1 exit /b 1
 cl %COMMON% windows\test\FilterTests.cpp /Fowindows\build\filter-tests.obj /Fewindows\dist\FilterTests.exe /link crypt32.lib user32.lib
 if errorlevel 1 exit /b 1
 cl %COMMON% windows\test\RecordingTests.cpp /Fowindows\build\recording-test.obj /Fewindows\dist\RecordingTests.exe /link ole32.lib uuid.lib shell32.lib crypt32.lib user32.lib

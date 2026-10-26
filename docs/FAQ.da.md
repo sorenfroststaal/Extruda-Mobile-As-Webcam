@@ -121,3 +121,13 @@ Rensningen gælder både den virtuelle mikrofon og optagelser med mikrofon. Nive
 Støjreduktionens status vises på hovedskærmen sammen med målere før og efter behandling. Styrke vælger en maksimal dæmpning fra 6 til 60 dB. Mere dæmpning er ikke altid bedre for stemmen. Ved fejl forsøger appen én genstart med original lyd imens; ved endnu en fejl bruges original lyd, og årsagen vises. Ingen nye lydblokke er i sig selv ikke en fejl. Lyttetest holder højst 10 sekunders original og renset lyd i hukommelsen efter dit tryk på Start. Begge afspilles med samme lave afspilningsniveau. Brug hovedtelefoner. Lukning, mute, afbrudt forbindelse eller filterfejl frigiver testlyden. Der oprettes ingen fil eller upload.
 
 [DeepFilterNet](https://github.com/Rikorose/DeepFilterNet)
+
+## Hvad beskytter sikkerhedsopdateringen?
+
+Billedbufferen bruger nu en privat mappe pr. bruger/session og en tilfældig 256-bit adgangsnøgle. Kendskab til filnavnet alene giver ikke videobilleder. Buffere uden eller med forkert nøgle afvises eller giver sort billede. Almindelige programmer under samme bruger og Windows-tjenester er fortsat en tillidsgrænse.
+
+Begrænsning af nye parringer sker pr. kilde uden en fælles tæller, som andre kan opbruge. IPv6-adresser grupperes pr. /64-netværk. Delte offentlige IP-adresser deler fortsat grænser, og store angreb kan ramme Cloudflares platformkvoter.
+
+DeepFilterNet kører i en Windows AppContainer uden netværks-, kamera- eller mikrofonkapabiliteter, med loft over hukommelse og antal processer. Kan sandboxen ikke oprettes, bruges original lyd. Almindelig appdrift som administrator afvises.
+
+Standardmappen til optagelser ligger lokalt under brugerens appdata og har private adgangsrettigheder. Nye optagelsesfiler gives adgang til brugeren og SYSTEM; under skrivning deles filhåndtaget ikke. Kendte OneDrive-placeringer og andre drev uden samme beskyttelse giver en advarsel. Appen forsøger at bevare mindst 128 MB ledig plads. Filer er stadig ukrypterede, og .partial-filer kan blive bevaret ved fejl.

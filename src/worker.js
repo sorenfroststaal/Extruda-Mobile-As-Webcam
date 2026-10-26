@@ -10,6 +10,23 @@ export function validSignal(message) {
 }
 function response(text, status = 200) { return new Response(status === 204 ? null : text, { status, headers: { 'Cache-Control': 'no-store' } }); }
 const LOCAL_ORIGIN = 'https://app.extruda.local';
+// IPv6 privacy-address rotation within one /64 must not bypass source limits.
+export function sourceBucket(ip) {
+  if (/^(\d{1,3}\.){3}\d{1,3}$/.test(ip) && ip.split('.').every(n=>Number(n)<=255)) return 'v4:'+ip;
+  const parts=ip.toLowerCase().split('::');
+  if(parts.length<=2){const left=parts[0]?parts[0].split(':'):[],right=parts.length===2&&parts[1]?parts[1].split(':'):[];
+    const missing=8-left.length-right.length;
+    if((parts.length===1&&missing===0||parts.length===2&&missing>0)&&[...left,...right].every(n=>/^[0-9a-f]{1,4}$/.test(n))){
+      const full=[...left,...Array(missing).fill('0'),...right];return 'v6:'+full.slice(0,4).map(n=>n.padStart(4,'0')).join(':');
+    }
+  }
+  return 'local';
+}
+export async function limitSource(request,env,create){
+  const id=await digest(sourceBucket(request.headers.get('CF-Connecting-IP')||''));
+  // No shared minute budget: abusive sources cannot spend someone else's slots.
+  return env.ABUSE.get(env.ABUSE.idFromName('source-v2:'+id)).fetch('https://guard/check',{method:'POST',body:JSON.stringify({create})});
+}
 export async function limitedBody(request, limit = 1024) {
   const reader = request.body?.getReader(); if (!reader) return '';
   const chunks = []; let size = 0;
@@ -31,37 +48,41 @@ export default {
 };
 async function route(request,env) {
     const url = new URL(request.url);
-    if (url.pathname === '/api/health') return Response.json({ ok: true, version: '0.12.0', mediaRelay: false }, { headers: { 'Cache-Control': 'no-store' } });
+    if (url.pathname === '/api/health') return Response.json({ ok: true, version: '0.13.0', mediaRelay: false }, { headers: { 'Cache-Control': 'no-store' } });
     const downloads = {
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.11.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.12.0-x64.exe',
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.10.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.12.0-x64.exe',
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.9.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.12.0-x64.exe',
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.8.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.12.0-x64.exe',
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.7.2-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.12.0-x64.exe',
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.7.1-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.12.0-x64.exe',
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.7.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.12.0-x64.exe',
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.6.1-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.12.0-x64.exe',
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.6.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.12.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.6-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.12.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.5-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.12.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.4-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.12.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.3-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.12.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.2-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.12.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.1-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.12.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.12.0-x64.exe',
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.12.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.12.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.3.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.12.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.4.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.12.0-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.12.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.13.0-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.11.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.13.0-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.10.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.13.0-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.9.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.13.0-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.8.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.13.0-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.7.2-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.13.0-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.7.1-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.13.0-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.7.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.13.0-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.6.1-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.13.0-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.6.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.13.0-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.6-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.13.0-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.5-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.13.0-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.4-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.13.0-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.3-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.13.0-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.2-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.13.0-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.1-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.13.0-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.13.0-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.13.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.13.0-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.3.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.13.0-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.4.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.13.0-x64.exe',
       '/downloads/SHA256SUMS.txt':'SHA256SUMS.txt',
       '/downloads/extruda-camera.ico':'extruda-mobile-as-webcam.ico',
       '/downloads/extruda-mobile-as-webcam.ico':'extruda-mobile-as-webcam.ico'
     };
-    if (['GET','HEAD'].includes(request.method) && downloads[url.pathname]) return new Response(null,{status:302,headers:{Location:'https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.12.0/'+downloads[url.pathname],'Cache-Control':'no-store'}});
+    if (['GET','HEAD'].includes(request.method) && downloads[url.pathname]) return new Response(null,{status:302,headers:{Location:'https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.13.0/'+downloads[url.pathname],'Cache-Control':'no-store'}});
     const match = url.pathname.match(/^\/api\/rooms\/([a-f0-9]{32})(\/ws)?$/);
     if (match) {
       if (![url.origin,LOCAL_ORIGIN].includes(request.headers.get('Origin'))) return response('Origin rejected', 403);
       if (request.method === 'OPTIONS') return response('',204);
-      const gate = await env.ABUSE.get(env.ABUSE.idFromName('global')).fetch('https://guard/check',{method:'POST',body:JSON.stringify({ip:request.headers.get('CF-Connecting-IP') || 'local',create:request.method === 'POST'})});
+      if(request.method!=='POST'&&request.method!=='GET')return response('Method not allowed',405);
+      if(request.method==='GET'&&(!match[2]||request.headers.get('Upgrade')?.toLowerCase()!=='websocket'))return response('Not found',404);
+      if(request.method==='POST'&&match[2])return response('Method not allowed',405);
+      const gate = await limitSource(request,env,request.method==='POST');
       if (!gate.ok) return new Response('Pr�v igen om lidt.',{status:429,headers:{'Retry-After':'60'}});
       if (!ID.test(match[1])) return response('Invalid room', 400);
       if (request.method === 'POST') { const created = parseInt(match[1].slice(0,8),16)*1000; if (created > Date.now()+30000 || Date.now()-created >= TTL) return response('Invitation expired or clock incorrect',400); }
@@ -164,15 +185,12 @@ export class AbuseGuard {
   constructor(ctx) { this.ctx = ctx; }
   async fetch(request) {
     return this.ctx.blockConcurrencyWhile(async () => {
-      const {ip,create} = await request.json();
+      const {create} = await request.json();
       const now = Math.floor(Date.now()/60000);
       let state = await this.ctx.storage.get('limits');
-      if (!state || state.minute !== now) state = {minute:now,total:0,creates:0,ips:{}};
-      const id = await digest(ip);
-      const entry = state.ips[id] || {total:0,creates:0};
-      if (state.total >= 600 || (create && state.creates >= 120) || entry.total >= 90 || (create && entry.creates >= 20)) return response('Rate limited',429);
-      state.total++; entry.total++; if (create) { state.creates++; entry.creates++; }
-      state.ips[id] = entry;
+      if (!state || state.minute !== now) state = {minute:now,total:0,creates:0};
+      if (state.total >= 90 || (create && state.creates >= 20)) return response('Rate limited',429);
+      state.total++; if (create) state.creates++;
       await this.ctx.storage.put('limits',state); await this.ctx.storage.setAlarm(Date.now()+120000);
       return response('OK');
     });

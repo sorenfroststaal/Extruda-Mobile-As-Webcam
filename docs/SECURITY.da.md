@@ -74,6 +74,8 @@ Private billeder, parringsnøgler eller skærmens indhold kan blive kopieret ude
 
 Afkodede billeder passerer en midlertidig fil under ProgramData. Den har adgangskontrol, nulstilles og slettes ved lukning, men er ikke kun i anonym RAM. Processer med samme bruger eller tilstrækkelige systemrettigheder kan få adgang. Sletning garanterer ikke sikker overskrivning af disk- eller pagefiledata.
 
+Billedbufferen bruger nu en privat mappe pr. bruger/session og en tilfældig 256-bit adgangsnøgle. Kendskab til filnavnet alene giver ikke videobilleder. Buffere uden eller med forkert nøgle afvises eller giver sort billede. Almindelige programmer under samme bruger og Windows-tjenester er fortsat en tillidsgrænse.
+
 <!-- plain:start -->
 **Kort fortalt**
 
@@ -81,7 +83,7 @@ For at vise videoen som et Windows-kamera lægger appen kortvarigt billeder i en
 
 **Det kan betyde for dig**
 
-Et andet program med dine brugerrettigheder eller administratoradgang kan muligvis kopiere billederne. Der kan også være rester på lageret, selv efter filen er slettet. Brug derfor ikke løsningen til billeder, hvor selv et muligt læk vil være alvorligt.
+Et andet program med dine brugerrettigheder eller administratoradgang kan muligvis kopiere billederne. Der kan også være rester på lageret, selv efter filen er slettet. Brug derfor ikke løsningen til billeder, hvor selv et muligt læk vil være alvorligt. Billedbufferen bruger nu en privat mappe pr. bruger/session og en tilfældig 256-bit adgangsnøgle. Kendskab til filnavnet alene giver ikke videobilleder. Buffere uden eller med forkert nøgle afvises eller giver sort billede. Almindelige programmer under samme bruger og Windows-tjenester er fortsat en tillidsgrænse.
 <!-- plain:end -->
 
 ## Driftsstop og misbrug
@@ -90,6 +92,8 @@ Et andet program med dine brugerrettigheder eller administratoradgang kan muligv
 
 Server- og beskedgrænser dæmper misbrug, men forespørgsler rammer stadig Cloudflare. Et større angreb kan opbruge kvoter og blokere nye parringer. En allerede parret ondsindet enhed kan også afbryde eller forstyrre sessionen. Det giver ikke i sig selv en fremmed adgang til videoen.
 
+Begrænsning af nye parringer sker pr. kilde uden en fælles tæller, som andre kan opbruge. IPv6-adresser grupperes pr. /64-netværk. Delte offentlige IP-adresser deler fortsat grænser, og store angreb kan ramme Cloudflares platformkvoter.
+
 <!-- plain:start -->
 **Kort fortalt**
 
@@ -97,7 +101,7 @@ Parringen bruger en fælles onlinetjeneste med begrænset kapacitet. Mange fores
 
 **Det kan betyde for dig**
 
-Du kan stå lige før et møde uden at kunne forbinde telefonen. En forbindelse kan også blive afbrudt eller forstyrret. Et driftsstop betyder ikke i sig selv, at nogen har set dine billeder; hav eventuelt pc’ens almindelige webcam som reserve.
+Du kan stå lige før et møde uden at kunne forbinde telefonen. En forbindelse kan også blive afbrudt eller forstyrret. Et driftsstop betyder ikke i sig selv, at nogen har set dine billeder; hav eventuelt pc’ens almindelige webcam som reserve. Begrænsning af nye parringer sker pr. kilde uden en fælles tæller, som andre kan opbruge. IPv6-adresser grupperes pr. /64-netværk. Delte offentlige IP-adresser deler fortsat grænser, og store angreb kan ramme Cloudflares platformkvoter.
 <!-- plain:end -->
 
 ## Forbindelsesdata og lokalt netværk
@@ -166,6 +170,8 @@ En vejledning kan vise en forkert menu, en funktion kan svigte, eller en sikkerh
 
 Mikrofonen er fra ved hver ny forbindelse og aktiveres på telefonen med særskilt browseradgang. Lyden sendes krypteret via WebRTC og føres i afgrænsede hukommelsesbuffere til en valgt, allerede installeret virtuel lydenhed. Appen ændrer ikke standardlydenheder og installerer ingen lyddriver automatisk. Steam Streaming Microphone eller VB-CABLE er tredjepartssoftware med egen licens og sikkerhedsrisiko. En ny driver kræver administratorgodkendelse og kan kræve genstart.
 
+DeepFilterNet kører i en Windows AppContainer uden netværks-, kamera- eller mikrofonkapabiliteter, med loft over hukommelse og antal processer. Kan sandboxen ikke oprettes, bruges original lyd. Almindelig appdrift som administrator afvises.
+
 <!-- plain:start -->
 **Kort fortalt**
 
@@ -173,7 +179,7 @@ Når du tænder mikrofonen, kan den også opfange andre personer og lyde i rumme
 
 **Det kan betyde for dig**
 
-Private samtaler kan blive hørt eller optaget af et mødeprogram eller en anden app med adgang til den virtuelle mikrofon. Andre programmers lyd kan blandes ind, hvis de sender til samme virtuelle lydenhed. Slå mikrofonen fra efter brug; grøn niveauindikator betyder signal i appen, ikke at kun Teams kan høre det. Hent eventuelle drivere fra den officielle udgiver, og undlad at gøre det virtuelle kabel til pc’ens standardhøjttaler.
+Private samtaler kan blive hørt eller optaget af et mødeprogram eller en anden app med adgang til den virtuelle mikrofon. Andre programmers lyd kan blandes ind, hvis de sender til samme virtuelle lydenhed. Slå mikrofonen fra efter brug; grøn niveauindikator betyder signal i appen, ikke at kun Teams kan høre det. Hent eventuelle drivere fra den officielle udgiver, og undlad at gøre det virtuelle kabel til pc’ens standardhøjttaler. DeepFilterNet kører i en Windows AppContainer uden netværks-, kamera- eller mikrofonkapabiliteter, med loft over hukommelse og antal processer. Kan sandboxen ikke oprettes, bruges original lyd. Almindelig appdrift som administrator afvises.
 <!-- plain:end -->
 
 ## Lokale optagelser og mobilstyring
@@ -188,6 +194,8 @@ Lokal AI-støjreduktion sender ikke lyd til en cloudtjeneste. Filteret kan ændr
 
 Lyttetesten er frivillig og holder op til 10 sekunders original og behandlet tale i appens hukommelse. Der oprettes ingen testfil eller upload. Lukning, mute, forbindelsesbrud eller filterfejl stopper afspilning og frigiver lyddata; dette er ikke en garanti om sikker sletning af RAM eller Windows-sidefilen. Brug hovedtelefoner, så afspilning ikke fanges af telefonen.
 
+Standardmappen til optagelser ligger lokalt under brugerens appdata og har private adgangsrettigheder. Nye optagelsesfiler gives adgang til brugeren og SYSTEM; under skrivning deles filhåndtaget ikke. Kendte OneDrive-placeringer og andre drev uden samme beskyttelse giver en advarsel. Appen forsøger at bevare mindst 128 MB ledig plads. Filer er stadig ukrypterede, og .partial-filer kan blive bevaret ved fejl.
+
 <!-- plain:start -->
 **Kort fortalt**
 
@@ -195,7 +203,7 @@ Når du trykker optag, bliver billede og eventuel mikrofonlyd til en rigtig vide
 
 **Det kan betyde for dig**
 
-Andre med adgang til pc’en, backup eller den synkroniserede mappe kan få adgang til optagelsen. En optagelse kan fylde disken eller blive beskadiget ved nedbrud. Vælg placeringen med omtanke, del ikke parringen, og kontrollér den gemte video, før du sletter en anden kopi. Lokal AI-støjreduktion sender ikke lyd til en cloudtjeneste. Filteret kan ændre stemmen, fjerne lav tale og give forsinkelse. Ved fejl skifter appen tilbage til original lyd med en mulig kort pause. Optagelser med filter indeholder den behandlede lyd uden et separat originalspor. Lyttetesten er frivillig og holder op til 10 sekunders original og behandlet tale i appens hukommelse. Der oprettes ingen testfil eller upload. Lukning, mute, forbindelsesbrud eller filterfejl stopper afspilning og frigiver lyddata; dette er ikke en garanti om sikker sletning af RAM eller Windows-sidefilen. Brug hovedtelefoner, så afspilning ikke fanges af telefonen.
+Andre med adgang til pc’en, backup eller den synkroniserede mappe kan få adgang til optagelsen. En optagelse kan fylde disken eller blive beskadiget ved nedbrud. Vælg placeringen med omtanke, del ikke parringen, og kontrollér den gemte video, før du sletter en anden kopi. Lokal AI-støjreduktion sender ikke lyd til en cloudtjeneste. Filteret kan ændre stemmen, fjerne lav tale og give forsinkelse. Ved fejl skifter appen tilbage til original lyd med en mulig kort pause. Optagelser med filter indeholder den behandlede lyd uden et separat originalspor. Lyttetesten er frivillig og holder op til 10 sekunders original og behandlet tale i appens hukommelse. Der oprettes ingen testfil eller upload. Lukning, mute, forbindelsesbrud eller filterfejl stopper afspilning og frigiver lyddata; dette er ikke en garanti om sikker sletning af RAM eller Windows-sidefilen. Brug hovedtelefoner, så afspilning ikke fanges af telefonen. Standardmappen til optagelser ligger lokalt under brugerens appdata og har private adgangsrettigheder. Nye optagelsesfiler gives adgang til brugeren og SYSTEM; under skrivning deles filhåndtaget ikke. Kendte OneDrive-placeringer og andre drev uden samme beskyttelse giver en advarsel. Appen forsøger at bevare mindst 128 MB ledig plads. Filer er stadig ukrypterede, og .partial-filer kan blive bevaret ved fejl.
 <!-- plain:end -->
 
 [Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases)

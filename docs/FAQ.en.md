@@ -121,3 +121,13 @@ Filtering applies to both the virtual microphone and recordings with microphone 
 Noise reduction status appears on the main screen with meters before and after processing. Strength selects a maximum attenuation from 6 to 60 dB. More attenuation is not always better for the voice. On failure the app tries one restart while using original audio; after a second failure original audio continues and the reason is shown. Idle input alone is not a failure. After you press Start, Listening test holds up to 10 seconds of original and filtered audio in memory. Both use the same low playback gain. Use headphones. Closing, muting, disconnecting or a filter failure releases test audio. No file or upload is created.
 
 [DeepFilterNet](https://github.com/Rikorose/DeepFilterNet)
+
+## What does the security update protect?
+
+The frame buffer now uses a private user/session directory and a random 256-bit capability. Knowing the filename alone does not reveal video. Missing or wrong capabilities are rejected or produce black frames. Ordinary software under the same user and Windows services remain trust boundaries.
+
+New pairing limits are per source without a shared counter that other sources can exhaust. IPv6 addresses are grouped by /64 network. Shared public IP addresses still share limits and large attacks can hit Cloudflare platform quotas.
+
+DeepFilterNet runs inside a Windows AppContainer without network, camera or microphone capabilities, with memory and process-count limits. If the sandbox cannot start, original audio is used. Running the normal app as administrator is refused.
+
+The default recording folder is local user app data with private permissions. New recording files grant access to the user and SYSTEM; the active file handle is not shared. Known OneDrive locations and drives without equivalent protection show a warning. The app tries to preserve at least 128 MB of free space. Files remain unencrypted and partial files may remain after failure.

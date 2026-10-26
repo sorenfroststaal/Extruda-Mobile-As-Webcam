@@ -137,3 +137,11 @@ RecordingProbe decoded the resulting MP4 with Windows Media Foundation: 65 video
 ## Noise usability 0.12.0
 
 JS tests cover single bounded restart, original audio during restart, idle/suspended input, stale/duplicate replies, bounded PCM queues, live attenuation, stable recording track, shared Windows routing, opt-in preview, 10-second memory cap and cleanup on close/failure. Browser fixture exercised the generated-audio preview from Start to Ready and verified that reopening after Close has no retained test audio. No human audio was used for this fixture. Native tests measured 5.98 dB at the 6 dB setting and 34.67 dB at the 36 dB setting on seeded noise without restarting the engine. 100 realtime blocks completed in approximately 2.02 seconds. Physical-phone speech quality and exact acoustic latency still need real-device listening.
+
+## Security hardening 0.13.0
+
+All ten RGB32/NV12 camera formats passed with version-3 capability-protected buffers. A direct COM test rejected a missing capability, produced black frames with a wrong capability, and produced correct frames with the right capability. AppContainer DSP passed 100 realtime blocks in about 2.02 seconds. A separate zero-capability probe could not read a private canary file or establish TCP to a listening localhost endpoint. Recording finalization preserves a protected two-entry ACL. The new installed COM registration and real Frame Server path must also be checked after installation. Two-account Windows isolation is not claimed as an executed test.
+
+Installed 0.13.0 verification: the new camera COM registration points to ExtrudaCamera-0.13.dll. ProgramData frame root is owned by Administrators with a protected ACL. The operating-system Frame Server test passed 30 correct RGB32 frames, timestamps and stop/stale blackout using the new capability-protected private transport.
+
+Installed production audio verification: a probe launched the actual Program Files helper without the build-directory ACL test hook. AppContainer token verification passed and processed PCM was returned. No private media or microphone was opened.

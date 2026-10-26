@@ -74,6 +74,8 @@ Des images privées, secrets de jumelage ou contenus d’écran pourraient être
 
 Les images décodées passent par un fichier temporaire sous ProgramData. Il est protégé, effacé puis supprimé à la fermeture, mais ne réside pas uniquement en mémoire anonyme. Des processus du même utilisateur ou disposant de privilèges système suffisants peuvent y accéder. La suppression ne garantit pas l’effacement sécurisé du disque ou du fichier d’échange.
 
+Le tampon vidéo utilise un dossier privé par utilisateur/session et une clé aléatoire de 256 bits. Le nom de fichier seul ne révèle pas la vidéo. Une clé absente ou incorrecte est refusée ou produit une image noire. Les logiciels du même utilisateur et les services Windows restent des limites de confiance.
+
 <!-- plain:start -->
 **En termes simples**
 
@@ -81,7 +83,7 @@ Pour fournir une caméra Windows, l’application place brièvement les images d
 
 **Ce que cela peut entraîner pour vous**
 
-Un autre programme disposant de vos droits utilisateur ou d’un accès administrateur pourrait copier les images. Des traces peuvent aussi subsister sur le stockage après suppression. Évitez les images dont une fuite, même possible, aurait de graves conséquences.
+Un autre programme disposant de vos droits utilisateur ou d’un accès administrateur pourrait copier les images. Des traces peuvent aussi subsister sur le stockage après suppression. Évitez les images dont une fuite, même possible, aurait de graves conséquences. Le tampon vidéo utilise un dossier privé par utilisateur/session et une clé aléatoire de 256 bits. Le nom de fichier seul ne révèle pas la vidéo. Une clé absente ou incorrecte est refusée ou produit une image noire. Les logiciels du même utilisateur et les services Windows restent des limites de confiance.
 <!-- plain:end -->
 
 ## Disponibilité et abus
@@ -90,6 +92,8 @@ Un autre programme disposant de vos droits utilisateur ou d’un accès administ
 
 Les limites de serveur et de messages réduisent les abus, mais les requêtes atteignent toujours Cloudflare. Une attaque importante peut épuiser les quotas et bloquer de nouveaux jumelages. Un appareil malveillant déjà jumelé peut aussi perturber la session. Cela ne donne pas, à lui seul, accès à la vidéo à un tiers.
 
+Les nouvelles connexions sont limitées par source sans compteur commun que d’autres sources pourraient épuiser. Les adresses IPv6 sont regroupées par réseau /64. Les IP publiques partagées partagent les limites ; une attaque importante peut atteindre les quotas Cloudflare.
+
 <!-- plain:start -->
 **En termes simples**
 
@@ -97,7 +101,7 @@ Le jumelage utilise un service en ligne partagé à capacité limitée. Trop de 
 
 **Ce que cela peut entraîner pour vous**
 
-Vous pourriez ne pas pouvoir connecter le téléphone juste avant une réunion. Une session peut aussi être interrompue ou perturbée. Une panne ne signifie pas en soi que quelqu’un a vu vos images ; gardez éventuellement la webcam habituelle du PC en secours.
+Vous pourriez ne pas pouvoir connecter le téléphone juste avant une réunion. Une session peut aussi être interrompue ou perturbée. Une panne ne signifie pas en soi que quelqu’un a vu vos images ; gardez éventuellement la webcam habituelle du PC en secours. Les nouvelles connexions sont limitées par source sans compteur commun que d’autres sources pourraient épuiser. Les adresses IPv6 sont regroupées par réseau /64. Les IP publiques partagées partagent les limites ; une attaque importante peut atteindre les quotas Cloudflare.
 <!-- plain:end -->
 
 ## Métadonnées et réseau local
@@ -166,6 +170,8 @@ Un guide peut indiquer le mauvais menu, une fonction peut échouer ou une faille
 
 Le microphone est désactivé à chaque nouvelle connexion et activé sur le téléphone avec une autorisation distincte du navigateur. Le son est chiffré par WebRTC et passe par des tampons mémoire limités vers un périphérique audio virtuel sélectionné et déjà installé. L’application ne change pas les périphériques par défaut et n’installe aucun pilote audio automatiquement. Steam Streaming Microphone ou VB-CABLE est un logiciel tiers avec sa propre licence et ses risques. Un nouveau pilote exige une autorisation administrateur et peut nécessiter un redémarrage.
 
+DeepFilterNet fonctionne dans un AppContainer Windows sans capacités réseau, caméra ou microphone, avec limites de mémoire et de processus. Si la sandbox ne démarre pas, le son original est utilisé. L’application normale refuse de démarrer comme administrateur.
+
 <!-- plain:start -->
 **En termes simples**
 
@@ -173,7 +179,7 @@ Lorsque vous activez le microphone, il peut aussi capter d’autres personnes et
 
 **Ce que cela peut entraîner pour vous**
 
-Des conversations privées peuvent être entendues ou enregistrées par une application de réunion ou une autre application ayant accès au microphone virtuel. Le son d’autres applications peut se mélanger si elles utilisent le même périphérique. Désactivez le microphone après usage ; une jauge verte indique un signal dans l’application, pas que seul Teams l’entend. Obtenez les pilotes auprès de leur éditeur officiel et ne définissez pas le câble virtuel comme haut-parleur par défaut.
+Des conversations privées peuvent être entendues ou enregistrées par une application de réunion ou une autre application ayant accès au microphone virtuel. Le son d’autres applications peut se mélanger si elles utilisent le même périphérique. Désactivez le microphone après usage ; une jauge verte indique un signal dans l’application, pas que seul Teams l’entend. Obtenez les pilotes auprès de leur éditeur officiel et ne définissez pas le câble virtuel comme haut-parleur par défaut. DeepFilterNet fonctionne dans un AppContainer Windows sans capacités réseau, caméra ou microphone, avec limites de mémoire et de processus. Si la sandbox ne démarre pas, le son original est utilisé. L’application normale refuse de démarrer comme administrateur.
 <!-- plain:end -->
 
 ## Enregistrements locaux et commandes du téléphone
@@ -188,6 +194,8 @@ La réduction de bruit IA locale n’envoie aucun son à un service cloud. Elle 
 
 Le test d’écoute facultatif garde au maximum 10 secondes de parole originale et traitée en mémoire. Aucun fichier de test ni envoi n’est créé. Fermer, couper le microphone, déconnecter ou une erreur du filtre arrête la lecture et libère les données ; cela ne garantit pas l’effacement sécurisé de la RAM ou du fichier d’échange Windows. Utilisez un casque pour éviter que le téléphone capte la lecture.
 
+Le dossier d’enregistrement par défaut est local aux données de l’utilisateur et privé. Les nouveaux fichiers sont accessibles à l’utilisateur et SYSTEM ; le handle actif n’est pas partagé. Les emplacements OneDrive connus et lecteurs sans protection équivalente affichent un avertissement. L’application tente de garder au moins 128 Mo libres. Les fichiers restent non chiffrés ; des fichiers partiels peuvent subsister après un échec.
+
 <!-- plain:start -->
 **En termes simples**
 
@@ -195,7 +203,7 @@ Enregistrer crée un véritable fichier vidéo avec le son facultatif du microph
 
 **Ce que cela peut entraîner pour vous**
 
-Une personne ayant accès au PC, aux sauvegardes ou au dossier synchronisé peut consulter la vidéo. Un enregistrement peut remplir le disque ou être endommagé par une panne. Choisissez le dossier avec soin, gardez l’appairage privé et vérifiez la vidéo avant de supprimer une autre copie. La réduction de bruit IA locale n’envoie aucun son à un service cloud. Elle peut modifier la voix, supprimer la parole faible et ajouter du délai. En cas d’échec, l’application revient au son original avec une brève coupure possible. Les enregistrements filtrés ne contiennent pas de piste originale séparée. Le test d’écoute facultatif garde au maximum 10 secondes de parole originale et traitée en mémoire. Aucun fichier de test ni envoi n’est créé. Fermer, couper le microphone, déconnecter ou une erreur du filtre arrête la lecture et libère les données ; cela ne garantit pas l’effacement sécurisé de la RAM ou du fichier d’échange Windows. Utilisez un casque pour éviter que le téléphone capte la lecture.
+Une personne ayant accès au PC, aux sauvegardes ou au dossier synchronisé peut consulter la vidéo. Un enregistrement peut remplir le disque ou être endommagé par une panne. Choisissez le dossier avec soin, gardez l’appairage privé et vérifiez la vidéo avant de supprimer une autre copie. La réduction de bruit IA locale n’envoie aucun son à un service cloud. Elle peut modifier la voix, supprimer la parole faible et ajouter du délai. En cas d’échec, l’application revient au son original avec une brève coupure possible. Les enregistrements filtrés ne contiennent pas de piste originale séparée. Le test d’écoute facultatif garde au maximum 10 secondes de parole originale et traitée en mémoire. Aucun fichier de test ni envoi n’est créé. Fermer, couper le microphone, déconnecter ou une erreur du filtre arrête la lecture et libère les données ; cela ne garantit pas l’effacement sécurisé de la RAM ou du fichier d’échange Windows. Utilisez un casque pour éviter que le téléphone capte la lecture. Le dossier d’enregistrement par défaut est local aux données de l’utilisateur et privé. Les nouveaux fichiers sont accessibles à l’utilisateur et SYSTEM ; le handle actif n’est pas partagé. Les emplacements OneDrive connus et lecteurs sans protection équivalente affichent un avertissement. L’application tente de garder au moins 128 Mo libres. Les fichiers restent non chiffrés ; des fichiers partiels peuvent subsister après un échec.
 <!-- plain:end -->
 
 [Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases)

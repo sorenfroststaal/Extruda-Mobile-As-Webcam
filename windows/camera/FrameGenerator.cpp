@@ -9,7 +9,7 @@ FrameGenerator::~FrameGenerator() {
 }
 bool FrameGenerator::Open() {
     if (_view) return true;
-    if (_path.empty()) return false;
+    if (_path.empty()||!_authorized) return false;
     wchar_t data[MAX_PATH]{};
     if (!GetEnvironmentVariableW(L"ProgramData", data, MAX_PATH)) return false;
     const std::wstring prefix = std::wstring(data) + L"\\ExtrudaPhoneCamera\\";
@@ -35,7 +35,8 @@ HRESULT FrameGenerator::Generate(IMFSample* sample, REFGUID format, IMFSample** 
         auto result = WaitForSingleObject(_mutex, 10);
         if (result == WAIT_OBJECT_0 || result == WAIT_ABANDONED) {
             const auto now = GetTickCount64();
-            if (_view->magic == FrameMagic && _view->version == 2 && _view->width == _width && _view->height == _height && _view->updated && now >= _view->updated && now - _view->updated < 2000) {
+            BYTE different=0;for(unsigned i=0;i<32;i++)different|=_view->authorizationHash[i]^_authorizationHash[i];
+            if (!different&&_view->magic == FrameMagic && _view->version == 3 && _view->width == _width && _view->height == _height && _view->updated && now >= _view->updated && now - _view->updated < 2000) {
                 memcpy(_pixels.data(), reinterpret_cast<const BYTE*>(_view) + sizeof(FrameHeader), _pixels.size());
                 fresh = true;
             }

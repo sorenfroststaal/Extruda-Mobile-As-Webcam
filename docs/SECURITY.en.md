@@ -74,6 +74,8 @@ Private images, pairing secrets or screen contents could be copied without your 
 
 Decoded frames pass through a temporary file under ProgramData. It is access-controlled, cleared and deleted on close, but is not anonymous RAM only. Processes under the same user or with sufficient system privileges may gain access. Deletion does not guarantee secure erasure of disk or pagefile data.
 
+The frame buffer now uses a private user/session directory and a random 256-bit capability. Knowing the filename alone does not reveal video. Missing or wrong capabilities are rejected or produce black frames. Ordinary software under the same user and Windows services remain trust boundaries.
+
 <!-- plain:start -->
 **In plain language**
 
@@ -81,7 +83,7 @@ To present video as a Windows camera, the app briefly puts images in a protected
 
 **What could happen to you**
 
-Another program with your user permissions or administrator access might copy the images. Traces may also remain on storage after the file is deleted. Avoid images for which even a possible leak would be serious.
+Another program with your user permissions or administrator access might copy the images. Traces may also remain on storage after the file is deleted. Avoid images for which even a possible leak would be serious. The frame buffer now uses a private user/session directory and a random 256-bit capability. Knowing the filename alone does not reveal video. Missing or wrong capabilities are rejected or produce black frames. Ordinary software under the same user and Windows services remain trust boundaries.
 <!-- plain:end -->
 
 ## Availability and abuse
@@ -90,6 +92,8 @@ Another program with your user permissions or administrator access might copy th
 
 Server and message limits reduce abuse, but requests still reach Cloudflare. A larger attack can exhaust quotas and block new pairings. An already paired malicious device can also disrupt the session. This does not by itself give an outsider access to video.
 
+New pairing limits are per source without a shared counter that other sources can exhaust. IPv6 addresses are grouped by /64 network. Shared public IP addresses still share limits and large attacks can hit Cloudflare platform quotas.
+
 <!-- plain:start -->
 **In plain language**
 
@@ -97,7 +101,7 @@ Pairing uses a shared online service with limited capacity. Many requests or abu
 
 **What could happen to you**
 
-You might be unable to connect your phone just before a meeting. A session could also be interrupted or disrupted. An outage does not itself mean anyone has seen your images; consider keeping the PC’s ordinary webcam as a backup.
+You might be unable to connect your phone just before a meeting. A session could also be interrupted or disrupted. An outage does not itself mean anyone has seen your images; consider keeping the PC’s ordinary webcam as a backup. New pairing limits are per source without a shared counter that other sources can exhaust. IPv6 addresses are grouped by /64 network. Shared public IP addresses still share limits and large attacks can hit Cloudflare platform quotas.
 <!-- plain:end -->
 
 ## Connection metadata and local network
@@ -166,6 +170,8 @@ A guide could name the wrong menu, a feature could fail or a security flaw could
 
 The microphone starts off for each new connection and is enabled on the phone with separate browser permission. Audio is encrypted using WebRTC and passed through bounded memory buffers to a selected, already installed virtual audio device. The app does not change default audio devices or automatically install an audio driver. Steam Streaming Microphone or VB-CABLE is third-party software with its own licence and security risks. A new driver requires administrator approval and may require a restart.
 
+DeepFilterNet runs inside a Windows AppContainer without network, camera or microphone capabilities, with memory and process-count limits. If the sandbox cannot start, original audio is used. Running the normal app as administrator is refused.
+
 <!-- plain:start -->
 **In plain language**
 
@@ -173,7 +179,7 @@ When you turn the microphone on, it can also pick up other people and sounds in 
 
 **What could happen to you**
 
-Private conversations may be heard or recorded by a meeting app or another app with access to the virtual microphone. Other apps’ audio may be mixed in if they send to the same virtual device. Turn the microphone off after use; a green meter means signal in the app, not that only Teams can hear it. Get drivers from their official publisher and do not make the virtual cable your PC’s default speaker.
+Private conversations may be heard or recorded by a meeting app or another app with access to the virtual microphone. Other apps’ audio may be mixed in if they send to the same virtual device. Turn the microphone off after use; a green meter means signal in the app, not that only Teams can hear it. Get drivers from their official publisher and do not make the virtual cable your PC’s default speaker. DeepFilterNet runs inside a Windows AppContainer without network, camera or microphone capabilities, with memory and process-count limits. If the sandbox cannot start, original audio is used. Running the normal app as administrator is refused.
 <!-- plain:end -->
 
 ## Local recordings and phone controls
@@ -188,6 +194,8 @@ Local AI noise reduction sends no audio to a cloud service. It can change the vo
 
 The optional listening test holds up to 10 seconds of original and processed speech in application memory. It creates no test file or upload. Closing, muting, disconnecting or filter failure stops playback and releases audio data; this is not a guarantee of secure erasure of RAM or the Windows pagefile. Use headphones so playback is not picked up by the phone.
 
+The default recording folder is local user app data with private permissions. New recording files grant access to the user and SYSTEM; the active file handle is not shared. Known OneDrive locations and drives without equivalent protection show a warning. The app tries to preserve at least 128 MB of free space. Files remain unencrypted and partial files may remain after failure.
+
 <!-- plain:start -->
 **In plain language**
 
@@ -195,7 +203,7 @@ When you record, video and optional microphone audio become a real file. It does
 
 **What could happen to you**
 
-Anyone with access to the PC, backups or the synced folder may access a recording. Recording can fill the disk or be damaged by a crash. Choose the location carefully, keep pairing private and check saved video before deleting another copy. Local AI noise reduction sends no audio to a cloud service. It can change the voice, remove quiet speech and add latency. On failure the app restores original audio, with a possible brief gap. Filtered recordings contain processed audio without a separate original track. The optional listening test holds up to 10 seconds of original and processed speech in application memory. It creates no test file or upload. Closing, muting, disconnecting or filter failure stops playback and releases audio data; this is not a guarantee of secure erasure of RAM or the Windows pagefile. Use headphones so playback is not picked up by the phone.
+Anyone with access to the PC, backups or the synced folder may access a recording. Recording can fill the disk or be damaged by a crash. Choose the location carefully, keep pairing private and check saved video before deleting another copy. Local AI noise reduction sends no audio to a cloud service. It can change the voice, remove quiet speech and add latency. On failure the app restores original audio, with a possible brief gap. Filtered recordings contain processed audio without a separate original track. The optional listening test holds up to 10 seconds of original and processed speech in application memory. It creates no test file or upload. Closing, muting, disconnecting or filter failure stops playback and releases audio data; this is not a guarantee of secure erasure of RAM or the Windows pagefile. Use headphones so playback is not picked up by the phone. The default recording folder is local user app data with private permissions. New recording files grant access to the user and SYSTEM; the active file handle is not shared. Known OneDrive locations and drives without equivalent protection show a warning. The app tries to preserve at least 128 MB of free space. Files remain unencrypted and partial files may remain after failure.
 <!-- plain:end -->
 
 [Technical review](../SECURITY-REVIEW.md) · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases)

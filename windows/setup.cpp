@@ -4,10 +4,24 @@
 #include <wrl/client.h>
 #include <string>
 #include <vector>
+#include <sddl.h>
+#include <aclapi.h>
 using Microsoft::WRL::ComPtr;
 struct Payload { int resource; const wchar_t* name; };
-const Payload files[] = {{324,L"ui\\noise.js"},{321,L"ExtrudaFilter.exe"},{322,L"deep_filter.dll"},{323,L"DEEPFILTER-LICENSE.txt"},{201,L"ExtrudaCamera.exe"},{202,L"ExtrudaCamera-0.3.dll"},{203,L"README.md"},{204,L"UPSTREAM-LICENSE.txt"},{205,L"THIRD_PARTY_NOTICES.txt"},{206,L"LICENSE.txt"},{207,L"BRAND-NOTICE.txt"},{300,L"ui\\index.html"},{301,L"ui\\style.css"},{302,L"ui\\app.js"},{303,L"ui\\qr.js"},{304,L"ui\\brand\\logo.svg"},{305,L"ui\\brand\\camera.svg"},{306,L"ui\\brand\\tokens.css"},{307,L"ui\\fonts\\Nunito-Variable.woff2"},{308,L"ui\\fonts\\Inter-Variable.woff2"},{309,L"ui\\fonts\\Nunito-OFL.txt"},{310,L"ui\\fonts\\Inter-OFL.txt"},{311,L"ui\\i18n.js"},{312,L"ui\\i18n-core.js"},{313,L"ui\\brand\\logo-white.svg"},{314,L"ui\\fonts\\Manrope-Variable.woff2"},{315,L"ui\\fonts\\Manrope-OFL.txt"},{316,L"ui\\audio.js"},{317,L"ui\\audio-worklet.js"},{318,L"ui\\health.js"},{319,L"ui\\video.js"},{320,L"ui\\recording.js"}};
+const Payload files[] = {{324,L"ui\\noise.js"},{321,L"ExtrudaFilter.exe"},{322,L"deep_filter.dll"},{323,L"DEEPFILTER-LICENSE.txt"},{201,L"ExtrudaCamera.exe"},{202,L"ExtrudaCamera-0.13.dll"},{203,L"README.md"},{204,L"UPSTREAM-LICENSE.txt"},{205,L"THIRD_PARTY_NOTICES.txt"},{206,L"LICENSE.txt"},{207,L"BRAND-NOTICE.txt"},{300,L"ui\\index.html"},{301,L"ui\\style.css"},{302,L"ui\\app.js"},{303,L"ui\\qr.js"},{304,L"ui\\brand\\logo.svg"},{305,L"ui\\brand\\camera.svg"},{306,L"ui\\brand\\tokens.css"},{307,L"ui\\fonts\\Nunito-Variable.woff2"},{308,L"ui\\fonts\\Inter-Variable.woff2"},{309,L"ui\\fonts\\Nunito-OFL.txt"},{310,L"ui\\fonts\\Inter-OFL.txt"},{311,L"ui\\i18n.js"},{312,L"ui\\i18n-core.js"},{313,L"ui\\brand\\logo-white.svg"},{314,L"ui\\fonts\\Manrope-Variable.woff2"},{315,L"ui\\fonts\\Manrope-OFL.txt"},{316,L"ui\\audio.js"},{317,L"ui\\audio-worklet.js"},{318,L"ui\\health.js"},{319,L"ui\\video.js"},{320,L"ui\\recording.js"}};
 std::wstring KnownFolder(REFKNOWNFOLDERID id) { PWSTR p = nullptr; if (FAILED(SHGetKnownFolderPath(id, 0, nullptr, &p))) return {}; std::wstring result(p); CoTaskMemFree(p); return result; }
+HRESULT SecureFrameRoot(){
+ const auto path=KnownFolder(FOLDERID_ProgramData)+L"\\ExtrudaPhoneCamera";
+ PSECURITY_DESCRIPTOR sd=nullptr;
+ if(!ConvertStringSecurityDescriptorToSecurityDescriptorW(L"O:BAD:P(A;OICI;FA;;;SY)(A;OICI;FA;;;BA)(A;;0x001200A4;;;BU)(A;;GRGX;;;LS)",SDDL_REVISION_1,&sd,nullptr))return HRESULT_FROM_WIN32(GetLastError());
+ SECURITY_ATTRIBUTES sa{sizeof(sa),sd,FALSE};
+ if(!CreateDirectoryW(path.c_str(),&sa)&&GetLastError()!=ERROR_ALREADY_EXISTS){const auto error=GetLastError();LocalFree(sd);return HRESULT_FROM_WIN32(error);}
+ if(GetFileAttributesW(path.c_str())&FILE_ATTRIBUTE_REPARSE_POINT){LocalFree(sd);return E_ACCESSDENIED;}
+ PSID owner=nullptr;BOOL ownerDefault=FALSE,present=FALSE,daclDefault=FALSE;PACL dacl=nullptr;
+ GetSecurityDescriptorOwner(sd,&owner,&ownerDefault);GetSecurityDescriptorDacl(sd,&present,&dacl,&daclDefault);
+ const auto error=SetNamedSecurityInfoW(const_cast<wchar_t*>(path.c_str()),SE_FILE_OBJECT,OWNER_SECURITY_INFORMATION|DACL_SECURITY_INFORMATION|PROTECTED_DACL_SECURITY_INFORMATION,owner,nullptr,dacl,nullptr);
+ LocalFree(sd);return HRESULT_FROM_WIN32(error);
+}
 HRESULT ExportRegistration(const std::wstring& path, bool remove) {
     auto library = LoadLibraryExW(path.c_str(), nullptr, LOAD_WITH_ALTERED_SEARCH_PATH);
     if (!library) return HRESULT_FROM_WIN32(GetLastError());
@@ -20,7 +34,7 @@ HRESULT RunSetup(HINSTANCE instance, bool remove) {
     auto appMutex = OpenMutexW(SYNCHRONIZE, FALSE, L"Local\\ExtrudaPhoneCameraReceiver");
     if (appMutex) { CloseHandle(appMutex); return HRESULT_FROM_WIN32(ERROR_BUSY); }
     if (remove) {
-        auto hr = ExportRegistration(folder + L"\\ExtrudaCamera-0.3.dll", true);
+        auto hr = ExportRegistration(folder + L"\\ExtrudaCamera-0.13.dll", true);
         if (FAILED(hr) && hr != HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND) && hr != HRESULT_FROM_WIN32(ERROR_MOD_NOT_FOUND)) return hr;
         DeleteFileW(shortcut.c_str());
         DeleteFileW((KnownFolder(FOLDERID_CommonPrograms)+L"\\Extruda Phone Camera.lnk").c_str());
@@ -29,6 +43,7 @@ HRESULT RunSetup(HINSTANCE instance, bool remove) {
         RemoveDirectoryW(folder.c_str());
         return S_OK;
     }
+    auto secured=SecureFrameRoot();if(FAILED(secured))return secured;
     if (!CreateDirectoryW(folder.c_str(), nullptr) && GetLastError() != ERROR_ALREADY_EXISTS) return HRESULT_FROM_WIN32(GetLastError());
     for (const auto& file : files) {
         auto resource = FindResourceW(instance, MAKEINTRESOURCEW(file.resource), RT_RCDATA);
@@ -55,8 +70,9 @@ HRESULT RunSetup(HINSTANCE instance, bool remove) {
         DWORD written = 0; auto success = WriteFile(output, data, bytes, &written, nullptr); auto error = GetLastError(); CloseHandle(output);
         if (!success || written != bytes) return HRESULT_FROM_WIN32(error ? error : ERROR_WRITE_FAULT);
     }
-    auto hr = ExportRegistration(folder + L"\\ExtrudaCamera-0.3.dll", false); if (FAILED(hr)) return hr;
-    // Retire only our previous 0.2 COM registration after the new one succeeds.
+    auto hr = ExportRegistration(folder + L"\\ExtrudaCamera-0.13.dll", false); if (FAILED(hr)) return hr;
+    RegDeleteTreeW(HKEY_LOCAL_MACHINE,L"Software\\Classes\\CLSID\\{B012D425-7399-44E3-B194-8213BF7785AC}");
+    // Retire old registrations only after the new authorized transport succeeds.
     RegDeleteTreeW(HKEY_LOCAL_MACHINE, L"Software\\Classes\\CLSID\\{B012D424-7399-44E3-B194-8213BF7785AC}");
     ComPtr<IShellLinkW> link; hr = CoCreateInstance(CLSID_ShellLink, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&link));
     if (FAILED(hr)) return hr;
