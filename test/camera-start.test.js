@@ -105,3 +105,21 @@ test('phone offers one ICE restart and closes only after recovery deadline',asyn
 });
 
 test('invalid recording commands are rejected without exposing file operations',async()=>{const s=setup(async()=>{});vm.runInContext('approved=true',s.context);await vm.runInContext("receiveControl({type:'record-command',action:'write-file',path:'C:/arbitrary'})",s.context);assert.equal(vm.runInContext('stopped',s.context),true)});
+
+test('closing phone retires even a connected pairing and creates exactly one fresh invitation',async()=>{
+ const s=setup(async()=>{}, {setTimeout:()=>1,clearTimeout(){}});let created=0;
+ s.context.WS=class {static OPEN=1;constructor(){this.readyState=1;s.context.latestSocket=this}close(){}send(){}};
+ s.context.newInvitation=async()=>{created++;vm.runInContext('stopped=false;socket={close(){}}',s.context)};
+ vm.runInContext("role='host';WebSocket=WS;makePeer=()=>{pc={connectionState:'connected',close(){}}};$('create').onclick=newInvitation",s.context);
+ const connecting=vm.runInContext("connect('test-room','test-token')",s.context);const old=s.context.latestSocket;
+ old.onmessage({data:JSON.stringify({type:'ready',expires:Date.now()+600000})});await connecting;
+ old.onmessage({data:JSON.stringify({type:'peer-left'})});await settle();await settle();
+ assert.equal(created,1);assert.ok(!s.element('approval').open);assert.equal(s.element('pair-link').value,'');
+ old.onclose();old.onmessage({data:JSON.stringify({type:'peer-left'})});await settle();assert.equal(created,1);
+});
+
+test('manual cancellation never renews an invitation',async()=>{
+ const s=setup(async()=>{});let created=0;s.element('create').onclick=async()=>created++;
+ vm.runInContext("role='host'",s.context);await vm.runInContext('stop(false);renewPairing()',s.context);assert.equal(created,0);
+});
+

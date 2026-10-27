@@ -14,6 +14,12 @@ let pairSecret = '', phoneNonce = '', peerVerified = false;
 let captureSize = {width:1280,height:720};
 let recoveryTimer, restartTimer, recovering=false;
 function clearRecovery(){clearTimeout(recoveryTimer);clearTimeout(restartTimer);recoveryTimer=restartTimer=null;recovering=false;}
+async function renewPairing(){
+  if(stopped)return;
+  const host=role==='host';
+  await stop(false);
+  if(host)await $('create').onclick();
+}
 function handleConnectionState(connection){
   if(pc!==connection||stopped)return;
   const state=connection.connectionState;
@@ -30,7 +36,7 @@ function handleConnectionState(connection){
     if(pc!==connection||stopped||connection.connectionState==='connected'||role!=='phone'||socket?.readyState!==WebSocket.OPEN)return;
     try{await connection.setLocalDescription(await connection.createOffer({iceRestart:true}));if(pc===connection&&!stopped)await send({type:'offer',sdp:connection.localDescription.toJSON()});}catch{}
   },3000);
-  recoveryTimer=setTimeout(()=>{if(pc===connection&&!stopped&&connection.connectionState!=='connected')void stop(false).then(()=>status('Forbindelsen kunne ikke genoprettes. Scan en ny QR-kode.'));},15000);
+  recoveryTimer=setTimeout(()=>{if(pc===connection&&!stopped&&connection.connectionState!=='connected')void renewPairing();},15000);
 }
 const supportedCaptureSize = size => [[640,480],[1280,720],[1920,1080],[2560,1440],[3840,2160]].some(([w,h]) => size?.width === w && size?.height === h);
 const fragment = new URLSearchParams(location.hash.slice(1));
@@ -53,7 +59,7 @@ async function sendControl(message) {
 }
 async function receiveControl(data) {
   if (!approved || stopped) return;
-  if (data.type === 'stop') { await stop(false); return; }
+  if (data.type === 'stop') { await renewPairing(); return; }
   if(data.type==='record-command'||data.type==='record-state'){
     if(data.type==='record-command'&&!['start','pause','resume','stop'].includes(data.action)||data.type==='record-state'&&!['idle','configuring','recording','paused','saving'].includes(data.state)){await stop();return;}
     window.ExtrudaRecording?.control(data);return;
@@ -87,7 +93,7 @@ function bindControl(channel) {
     if (typeof event.data !== 'string' || event.data.length > 1024 || ++controlCount > 12 || controlQueued >= 4) { void stop(); return; }
     let data; try { data=JSON.parse(event.data); } catch { void stop(); return; }
     if (!data || !['capture-size','capture-info','microphone-request','microphone-state','microphone-mode','record-command','record-state','stop'].includes(data.type)) { void stop(); return; }
-    if (data.type === 'stop') { void stop(false); return; }
+    if (data.type === 'stop') { void renewPairing(); return; }
     controlQueued++;
     controlSerial = controlSerial.then(() => pc === connection && !stopped ? receiveControl(data) : undefined).catch(() => {}).finally(() => {controlQueued--;});
   };
@@ -132,22 +138,24 @@ async function receive(payload) {
   else if (data.type === 'offer' && role === 'host' && approved) { await pc.setRemoteDescription(data.sdp); await flushIce(); await pc.setLocalDescription(await pc.createAnswer()); await send({ type: 'answer', sdp: pc.localDescription.toJSON() }); }
   else if (data.type === 'answer' && role === 'phone' && approved) { await pc.setRemoteDescription(data.sdp); await flushIce(); }
   else if (data.type === 'ice' && approved) { if (pc.remoteDescription) await pc.addIceCandidate(data.candidate); else pendingIce.push(data.candidate); }
-  else if (data.type === 'stop') await stop(false);
+  else if (data.type === 'stop') await renewPairing();
 }
 async function connect(room, token) {
   makePeer();
   const url = new URL(`/api/rooms/${room}/ws`, serviceOrigin); url.protocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
   socket = new WebSocket(url);
+  const activeSocket=socket; let authenticated=false;
   await new Promise((resolve, reject) => {
     socket.onopen = () => { socket.send(JSON.stringify({ type: 'auth', role, token })); };
     socket.onerror = () => reject(new Error('Kan ikke nå parringsserveren. Prøv igen.'));
-    socket.onclose = () => { reject(new Error('Parringen er lukket eller udløbet. Opret en ny parring.')); if (!stopped && !recovering && pc?.connectionState !== 'connected') { $('start').disabled = true; closeApproval(); status('Parringen er lukket. Opret en ny parring på pc’en.'); } };
+    socket.onclose = () => { reject(new Error('Parringen er lukket eller udløbet. Opret en ny parring.')); if(activeSocket!==socket||stopped)return; if(authenticated&&!recovering&&pc?.connectionState!=='connected')void renewPairing(); };
     socket.onmessage = event => {
       serial = serial.then(async () => {
+        if(activeSocket!==socket||stopped)return;
         const message = JSON.parse(event.data);
-        if (message.type === 'ready') { clearTimeout(expiryTimer); expiryTimer = setTimeout(() => { if (pc?.connectionState !== 'connected') { $('start').disabled = true; closeApproval(); status('Parringen er udløbet. Opret en ny på pc’en.'); } }, Math.max(0, message.expires - Date.now())); resolve(); }
+        if (message.type === 'ready') { authenticated=true; clearTimeout(expiryTimer); expiryTimer = setTimeout(() => { if (pc?.connectionState !== 'connected') { void renewPairing(); } }, Math.max(0, message.expires - Date.now())); resolve(); }
         if (message.type === 'peer-joined') { if (role === 'host') { if (!approved && !$('approval').open) { $('approve').disabled = !peerVerified; $('approval-code').textContent = peerVerified ? $('approval-code').textContent : '…'; $('approval').showModal(); } status('Afventer din accept'); } else { $('phone-info').textContent = 'Afventer accept på pc'; status('Afventer accept på pc'); } }
-        if (message.type === 'peer-left' && !recovering && pc?.connectionState !== 'connected') { await stop(false); status('Parring annulleret'); }
+        if (message.type === 'peer-left') { await renewPairing(); return; }
         if (message.type === 'signal') await receive(message);
       }).catch(error => { fail(new Error('Parringsdata kunne ikke bekræftes. Opret en ny parring.')); });
     };

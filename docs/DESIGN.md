@@ -22,3 +22,11 @@ The video stays muted; the approved WAV plays through native Windows audio once 
 Skip, Escape or Tab dismisses it; playback errors, blocked playback and a
 4.5-second watchdog also reveal the application. Reduced-motion preference
 skips it altogether. Phone pairing pages do not show the intro. Animation audio is played on the normal Windows playback device, not explicitly routed into the virtual microphone or recordings. If a virtual cable is the system default playback device, Windows may route it there. Pairing hides inactive recording, health and guide sections; Cancel sits inside the pairing panel.
+
+## Pairing renewal (0.14.2)
+
+Invitations remain single-use. When the phone leaves, stops the connection or
+cannot recover within the existing 15-second deadline, the receiver retires the
+old session and automatically creates a fresh QR code. Scan that new code and
+compare/approve the new verification code. Manual Cancel does not automatically
+restart pairing. Events from retired WebSockets cannot reset a new invitation.
