@@ -1048,5 +1048,11 @@
     "Open the app as a standard user. Only the installer should run as administrator.",
     "Öffne die App als normaler Benutzer. Nur das Installationsprogramm darf als Administrator laufen.",
     "Ouvrez l’application comme utilisateur standard. Seul l’installateur doit être exécuté comme administrateur."
+  ],
+  [
+    "Spring over",
+    "Skip",
+    "Überspringen",
+    "Passer"
   ]
 ]

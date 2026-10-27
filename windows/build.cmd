@@ -60,6 +60,8 @@ if not exist windows\dist\ui\. mkdir windows\dist\ui\.
 copy /y public\style.css windows\dist\ui\style.css >nul
 if not exist windows\dist\ui\. mkdir windows\dist\ui\.
 copy /y public\app.js windows\dist\ui\app.js >nul
+copy /y public\startup.js windows\dist\ui\startup.js >nul
+copy /y public\brand\*-web.webm windows\dist\ui\brand\ >nul
 copy /y public\noise.js windows\dist\ui\noise.js >nul
 copy /y public\audio.js windows\dist\ui\audio.js >nul
 copy /y public\health.js windows\dist\ui\health.js >nul

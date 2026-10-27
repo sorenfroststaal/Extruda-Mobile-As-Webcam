@@ -68,5 +68,6 @@
   for(const id of ['help-show-risks','help-show-faq'])document.getElementById(id)?.addEventListener('click',()=>showHelp(id==='help-show-risks'?'help-risks':'help-faq'));
   back?.addEventListener('click',()=>showHelp());
   document.getElementById('safety-close')?.addEventListener('click',()=>document.getElementById('safety').close());
+  help?.addEventListener('close',()=>document.getElementById('safety-open')?.focus());
   applyTheme();render();
 })();

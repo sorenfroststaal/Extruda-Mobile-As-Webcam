@@ -39,3 +39,7 @@
 323 RCDATA "dist/DEEPFILTER-LICENSE.txt"
 
 324 RCDATA "dist/ui/noise.js"
+
+325 RCDATA "dist/ui/startup.js"
+326 RCDATA "dist/ui/brand/extruda-logo-light-web.webm"
+327 RCDATA "dist/ui/brand/extruda-logo-dark-web.webm"
