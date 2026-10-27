@@ -58,3 +58,33 @@ body.native:not(.session-active) #record-toolbar,body.native:not(.session-active
 body.native:has(#pairing:not([hidden])) #pairing-actions .statusbar p{display:none}
 #pairing-actions .statusbar button{margin:0}
 #pairing-actions .statusbar p{font-size:14px}
+/* Connected view: essential controls first, additional tools below the picture. */
+body.native.session-active #desktop{display:block;min-height:160px}
+body.native.session-active #desktop>div:first-child{display:none}
+body.native.session-active #desktop .screen{height:100%;min-height:160px}
+#session-controls{display:flex;align-items:end;gap:12px;flex-wrap:wrap;flex:none}
+#session-controls button{margin:0;min-height:44px;padding:8px 12px;font-size:14px}
+#session-controls .compact-resolution label,#session-controls .compact-level label{font-size:12px;margin:0 0 4px}
+#session-controls select{padding:8px 12px;min-height:44px;max-width:240px}
+#session-controls .noise-checkbox{font-size:14px;min-height:44px;margin:0;gap:8px}
+#session-controls .compact-level{align-self:center;width:88px;flex:none}
+#session-controls meter{display:block;width:88px;height:14px}
+#session-controls .record-actions{align-self:end}
+#session-controls #stop{margin-left:auto}
+#session-more{flex:none;border-top:1px solid var(--ex-border);padding:8px 0 0;font-size:14px}
+#session-more>summary{min-height:32px;line-height:32px;font-weight:600}
+.session-more-content{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding:12px 0;max-height:38dvh;overflow:auto}
+body.native.session-active #session-more #video-controls{display:grid!important;grid-template-columns:1fr;align-content:start}
+body.native.session-active #session-more #resolution-info,body.native.session-active #session-more .notes{display:block}
+#session-more #fullscreen{position:static;align-self:start;justify-self:start;margin:0}
+body.native.session-active #session-more .mic-panel{display:block;grid-column:1/-1}
+#session-more .mic-row{display:block}
+#session-more .statusbar,#session-more #health-panel,#session-more #guide{grid-column:1/-1}
+body.native.video-only #session-controls,body.native.video-only #session-more{display:none}
+body.native.video-only.is-recording #session-controls{display:flex;position:fixed;top:8px;left:8px;z-index:5;padding:8px;background:var(--ex-surface);border-radius:8px}
+body.native.video-only.is-recording #session-controls>:not(.record-actions){display:none}
+@media(max-width:700px){.session-more-content{grid-template-columns:1fr}#session-controls{gap:8px}#session-controls #stop{margin-left:0}}
+body.native.video-only #session-more{display:block;position:fixed;bottom:12px;right:12px;z-index:6;border:0;padding:0}
+body.native.video-only #session-more>summary{display:none}
+body.native.video-only #session-more .session-more-content{display:block;padding:0;max-height:none;overflow:visible}
+body.native.video-only #session-more .session-more-content>:not(#fullscreen){display:none!important}

@@ -162,6 +162,7 @@
   }
   $('mic-toggle').onclick=async()=>{
     if(!connected)return;
+    if(cameraOnly&&role==='host')await setCameraOnly(false);
     if(role==='host'&&native()&&devicesKnown&&!devices.length){offerDriver();return;}
     if(role==='phone'){if(capture)await disablePhone();else await enablePhone();}
     else if(hostAllowed&&phoneEnabled){hostAllowed=false;await refreshHost();await sendControl({type:'microphone-request',enabled:false});}

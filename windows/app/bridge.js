@@ -70,6 +70,32 @@
   const guide = document.getElementById('guide');
   if (guide) { guide.replaceChildren(); const text = document.createElement('p'); text.id = 'native-camera-guide'; text.textContent = tr('Vælg “extruda - mobile as webcam ({w}x{h}) Windows Virtual Camera” i dit mødeprogram. Hold appen åben.',{w:canvas.width,h:canvas.height}); guide.append(text); }
   window.addEventListener('extruda-language',()=>{showResolution();if(document.getElementById('native-camera-guide'))document.getElementById('native-camera-guide').textContent=tr('Vælg “extruda - mobile as webcam ({w}x{h}) Windows Virtual Camera” i dit mødeprogram. Hold appen åben.',{w:canvas.width,h:canvas.height});});
+
+  // Move the existing controls; keep their handlers, values and accessibility IDs.
+  const main=document.querySelector('main');
+  const compact=document.createElement('div');compact.id='session-controls';compact.hidden=true;
+  const resolutionGroup=document.createElement('div');resolutionGroup.className='compact-resolution';resolutionGroup.append(label,select);
+  const noiseToggle=document.querySelector('.noise-checkbox');noiseToggle.id='compact-noise';
+  const meterGroup=document.createElement('div');meterGroup.className='compact-level';
+  const meterLabel=document.createElement('label');meterLabel.htmlFor='mic-level';meterLabel.textContent='Lydinput';
+  meterGroup.append(meterLabel,document.getElementById('mic-level'));
+  const actions=document.querySelector('.record-actions');
+  const reveal=document.getElementById('record-reveal');document.getElementById('record-toolbar').append(reveal);
+  const stopButton=document.getElementById('stop');
+  compact.append(resolutionGroup,document.getElementById('mic-toggle'),noiseToggle,meterGroup,actions);
+  document.getElementById('desktop').before(compact);
+  const more=document.createElement('details');more.id='session-more';more.hidden=true;
+  const summary=document.createElement('summary');summary.textContent='Indstillinger og detaljer';
+  const content=document.createElement('div');content.className='session-more-content';more.append(summary,content);
+  content.append(control,document.getElementById('fullscreen'),document.getElementById('mic-panel'),document.getElementById('record-toolbar'),document.getElementById('health-panel'),guide);
+  main.append(more);
+  const syncNoise=()=>{noiseToggle.hidden=document.getElementById('mic-toggle').getAttribute('aria-pressed')!=='true';};
+  new MutationObserver(syncNoise).observe(document.getElementById('mic-toggle'),{attributes:true,attributeFilter:['aria-pressed']});syncNoise();
+  window.addEventListener('extruda-connection',event=>{
+    const active=event.detail.connected;compact.hidden=more.hidden=!active;
+    if(active){compact.append(stopButton);content.append(pairingStatus);}
+    else{pairingStatus.append(stopButton);more.open=false;}
+  });
   document.title = 'extruda - mobile as webcam · Windows';
   if (window.extrudaTestPattern) {
     const pattern = document.createElement('canvas'); pattern.width = canvas.width; pattern.height = canvas.height;

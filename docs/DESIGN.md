@@ -30,3 +30,14 @@ cannot recover within the existing 15-second deadline, the receiver retires the
 old session and automatically creates a fresh QR code. Scan that new code and
 compare/approve the new verification code. Manual Cancel does not automatically
 restart pairing. Events from retired WebSockets cannot reset a new invitation.
+
+## Compact connected view (0.15.0)
+
+The connected Windows view shows resolution, microphone toggle, a compact input
+meter, conditional noise-reduction checkbox, recording actions and Disconnect.
+Settings and details starts collapsed below the preview and contains framing,
+rotation, audio routing/tests, processing and connection diagnostics. Existing
+controls are moved rather than copied, preserving state and avoiding duplicate
+IDs. Disconnect restores the pairing screen and collapses the disclosure.
+A synthetic browser check verified the default view, conditional checkbox,
+expanded controls and return to pairing without using physical media devices.
