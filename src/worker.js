@@ -157,7 +157,7 @@ export class PairingRoom {
       room[data.role + 'Used'] = true;
       await this.ctx.storage.put('room',room);
       state.role = data.role; socket.serializeAttachment(state);
-      this.send(socket, { type: 'ready', expires: room.expires });
+      this.send(socket, { type: 'ready', expires: room.expires, expiresInMs: Math.max(0, room.expires-Date.now()) });
       for (const other of this.ctx.getWebSockets()) {
         if (other !== socket && other.deserializeAttachment()?.role) { this.send(other, { type: 'peer-joined' }); this.send(socket, { type: 'peer-joined' }); }
       }

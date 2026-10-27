@@ -123,3 +123,14 @@ test('manual cancellation never renews an invitation',async()=>{
  vm.runInContext("role='host'",s.context);await vm.runInContext('stop(false);renewPairing()',s.context);assert.equal(created,0);
 });
 
+
+test('pairing countdown uses server remaining lifetime, never the phone wall clock',async()=>{
+ for(const lifetime of [123456,undefined]){
+  const delays=[];const s=setup(async()=>{}, {setTimeout:(_fn,delay)=>{delays.push(delay);return 1},clearTimeout(){}});
+  s.context.WS=class{static OPEN=1;constructor(){s.context.latestSocket=this}close(){}send(){}};
+  vm.runInContext("WebSocket=WS;makePeer=()=>{pc={close(){}}}",s.context);
+  const pending=vm.runInContext("connect('clock-test','test-token')",s.context);
+  s.context.latestSocket.onmessage({data:JSON.stringify({type:'ready',expires:Date.now()-3600000,expiresInMs:lifetime})});await pending;
+  assert.equal(delays[0],lifetime??600000);
+ }
+});

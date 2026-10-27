@@ -154,7 +154,7 @@ async function connect(room, token) {
       serial = serial.then(async () => {
         if(activeSocket!==socket||stopped)return;
         const message = JSON.parse(event.data);
-        if (message.type === 'ready') { authenticated=true; clearTimeout(expiryTimer); expiryTimer = setTimeout(() => { if (pc?.connectionState !== 'connected') { void renewPairing(); } }, Math.max(0, message.expires - Date.now())); resolve(); }
+        if (message.type === 'ready') { authenticated=true; clearTimeout(expiryTimer); expiryTimer = setTimeout(() => { if (pc?.connectionState !== 'connected') { void renewPairing(); } }, Number.isFinite(message.expiresInMs) ? Math.min(600000, Math.max(0,message.expiresInMs)) : 600000); resolve(); }
         if (message.type === 'peer-joined') { if (role === 'host') { if (!approved && !$('approval').open) { $('approve').disabled = !peerVerified; $('approval-code').textContent = peerVerified ? $('approval-code').textContent : '…'; $('approval').showModal(); } status('Afventer din accept'); } else { $('phone-info').textContent = 'Afventer accept på pc'; status('Afventer accept på pc'); } }
         if (message.type === 'peer-left') { await renewPairing(); return; }
         if (message.type === 'signal') await receive(message);

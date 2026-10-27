@@ -49,3 +49,11 @@ the existing stop handler. While awaiting pairing, duplicate bottom status and
 technical video statistics are hidden. Connection, cancellation or an error
 ends the pairing presentation so diagnostic/error text remains available.
 This is a hosted phone-UI change; the Windows installer is unchanged.
+
+## Pairing clock independence
+
+The ready message includes remaining server-side lifetime in milliseconds.
+Clients use that relative lifetime, capped at ten minutes, rather than comparing
+server timestamps with the phone clock. Older servers fall back to ten minutes;
+the server still enforces the original invitation expiry. A simulated phone
+clock one hour ahead reproduced immediate "Pairing ended" before this fix.
