@@ -14,6 +14,8 @@ Expand Settings and details below the preview for framing, rotation, audio setti
 
 The PC app automatically creates a fresh QR code when the phone page closes or the session ends. Scan the new code, compare the new six-digit code and accept on the PC. The old QR code is a single-use invitation and cannot be reused. Brief network outages get up to 15 seconds to recover. Manually pressing Cancel on the PC does not automatically restart pairing.
 
+On the phone, Cancel is beside the verification code. Technical fields and the repeated bottom status are hidden while pairing. Errors remain visible if the connection cannot be established.
+
 ## How do I get started?
 
 Install the app on Windows 11 x64. Open it and scan the QR code with your phone on the same Wi-Fi. Compare the six-digit code and accept on the PC. Allow camera access on the phone. Keep both apps open.

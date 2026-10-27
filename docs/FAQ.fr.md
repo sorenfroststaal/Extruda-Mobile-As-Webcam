@@ -14,6 +14,8 @@ Dépliez Réglages et détails sous l’aperçu pour le cadrage, la rotation, le
 
 L’application PC crée automatiquement un nouveau QR code lorsque la page du téléphone se ferme ou que la session se termine. Scannez ce nouveau code, comparez le nouveau code à six chiffres et acceptez sur le PC. L’ancien QR code est une invitation à usage unique. Une brève coupure réseau dispose de 15 secondes pour se rétablir. Annuler manuellement sur le PC ne relance pas automatiquement l’appairage.
 
+Sur le téléphone, Annuler se trouve près du code de vérification. Pendant l’appairage, les champs techniques et le statut répété en bas sont masqués. Les erreurs restent visibles si la connexion ne peut pas être établie.
+
 ## Comment démarrer ?
 
 Installez l’application sur Windows 11 x64. Ouvrez-la et scannez le QR code avec votre téléphone sur le même Wi-Fi. Comparez le code à six chiffres et acceptez sur le PC. Autorisez la caméra du téléphone. Gardez les deux applications ouvertes.

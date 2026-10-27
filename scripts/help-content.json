@@ -36,6 +36,12 @@
         "The PC app automatically creates a fresh QR code when the phone page closes or the session ends. Scan the new code, compare the new six-digit code and accept on the PC. The old QR code is a single-use invitation and cannot be reused. Brief network outages get up to 15 seconds to recover. Manually pressing Cancel on the PC does not automatically restart pairing.",
         "Die PC-App erstellt automatisch einen neuen QR-Code, wenn die Telefonseite geschlossen wird oder die Sitzung endet. Scanne den neuen Code, vergleiche den neuen sechsstelligen Code und bestätige am PC. Der alte QR-Code ist eine einmalige Einladung und kann nicht wiederverwendet werden. Bei kurzen Netzwerkausfällen wird bis zu 15 Sekunden lang eine Wiederherstellung versucht. Manuelles Abbrechen am PC startet keine neue Kopplung.",
         "L’application PC crée automatiquement un nouveau QR code lorsque la page du téléphone se ferme ou que la session se termine. Scannez ce nouveau code, comparez le nouveau code à six chiffres et acceptez sur le PC. L’ancien QR code est une invitation à usage unique. Une brève coupure réseau dispose de 15 secondes pour se rétablir. Annuler manuellement sur le PC ne relance pas automatiquement l’appairage."
+      ],
+      [
+        "På telefonen står Annuller ved parringskoden. Under parringen skjules de tekniske felter og den gentagne status nederst. Fejl vises stadig, hvis forbindelsen ikke kan oprettes.",
+        "On the phone, Cancel is beside the verification code. Technical fields and the repeated bottom status are hidden while pairing. Errors remain visible if the connection cannot be established.",
+        "Am Telefon steht Abbrechen beim Bestätigungscode. Während der Kopplung sind technische Felder und der wiederholte Status unten ausgeblendet. Fehler bleiben sichtbar, wenn die Verbindung nicht hergestellt werden kann.",
+        "Sur le téléphone, Annuler se trouve près du code de vérification. Pendant l’appairage, les champs techniques et le statut répété en bas sont masqués. Les erreurs restent visibles si la connexion ne peut pas être établie."
       ]
     ]
   },

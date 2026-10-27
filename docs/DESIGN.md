@@ -41,3 +41,11 @@ controls are moved rather than copied, preserving state and avoiding duplicate
 IDs. Disconnect restores the pairing screen and collapses the disclosure.
 A synthetic browser check verified the default view, conditional checkbox,
 expanded controls and return to pairing without using physical media devices.
+
+## Phone pairing presentation
+
+The phone Cancel/Disconnect button sits beside the verification section, using
+the existing stop handler. While awaiting pairing, duplicate bottom status and
+technical video statistics are hidden. Connection, cancellation or an error
+ends the pairing presentation so diagnostic/error text remains available.
+This is a hosted phone-UI change; the Windows installer is unchanged.

@@ -25,6 +25,7 @@ function handleConnectionState(connection){
   const state=connection.connectionState;
   window.ExtrudaHealth?.transport(state);
   if(state==='connected'){
+    document.body.classList.remove('phone-pairing');
     clearRecovery();window.dispatchEvent(new CustomEvent('extruda-connection',{detail:{connected:true}}));
     $('pairing').hidden=true;status('Forbundet · Video sendes direkte mellem telefon og pc');return;
   }
@@ -45,7 +46,7 @@ const valid = /^[a-f0-9]{64}$/;
 if (location.hash) history.replaceState(null, '', location.pathname);
 async function verificationCode(nonce) { return String(parseInt((await hash('extruda-camera-v2:'+pairSecret+':'+nonce)).slice(0,10),16)%1000000).padStart(6,'0'); }
 function closeApproval() { if ($('approval').open) $('approval').close(); }
-function fail(error) { console.error(error?.name || 'Connection error'); status(error?.message || 'Forbindelsen kunne ikke oprettes. Opret en ny parring.'); }
+function fail(error) { document.body.classList.remove('phone-pairing'); console.error(error?.name || 'Connection error'); status(error?.message || 'Forbindelsen kunne ikke oprettes. Opret en ny parring.'); }
 async function importKey(secret) { pairSecret = secret; return crypto.subtle.importKey('raw', Uint8Array.from(secret.match(/../g), x => parseInt(x, 16)), 'AES-GCM', false, ['encrypt', 'decrypt']); }
 async function send(message) {
   if (socket?.readyState !== WebSocket.OPEN) throw new Error('Parringsforbindelsen er lukket. Opret en ny parring.');
@@ -258,6 +259,7 @@ function watchCamera(track){
   track.onended=()=>{if(current()){$('phone-info').textContent='Kameraet er stoppet. Tryk Start kamera for at genoptage.';$('start').hidden=false;$('start').disabled=false;}};
 }
 async function stop(notify = true) {
+  document.body.classList.remove('phone-pairing');
   clearRecovery();window.ExtrudaHealth?.stop();
   if (notify && key) try { await sendControl({ type: 'stop' }); } catch {}
   stopped = true; clearTimeout(expiryTimer); controlChannel?.close(); controlChannel = null;
@@ -279,7 +281,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') document.bod
 document.addEventListener('visibilitychange', async () => { if (document.visibilityState === 'visible' && stream && 'wakeLock' in navigator) try { wakeLock = await navigator.wakeLock.request('screen'); } catch {} });
 window.addEventListener('pagehide', () => { stream?.getTracks().forEach(t => t.stop()); pc?.close(); socket?.close(); });
 if (fragment.has('room')) {
-  role = 'phone'; $('phone').hidden = false; $('guide').hidden = true; document.querySelector('.intro').hidden = true;
-  if (!/^[a-f0-9]{32}$/.test(fragment.get('room')) || !valid.test(fragment.get('token')) || !valid.test(fragment.get('key'))) status('Parringslinket er ugyldigt. Scan en ny QR-kode på pc’en.');
+  role = 'phone'; document.body.classList.add('phone-client','phone-pairing'); $('phone').hidden = false; $('phone-actions').append($('stop')); $('guide').hidden = true; document.querySelector('.intro').hidden = true;
+  if (!/^[a-f0-9]{32}$/.test(fragment.get('room')) || !valid.test(fragment.get('token')) || !valid.test(fragment.get('key'))) fail(new Error('Parringslinket er ugyldigt. Scan en ny QR-kode på pc’en.'));
   else { try { if (!navigator.mediaDevices?.getUserMedia) throw new Error('Kamera kræver HTTPS og en understøttet browser.'); key = await importKey(fragment.get('key')); await connect(fragment.get('room'), fragment.get('token')); phoneNonce = hex(bytes(16)); $('phone-code').textContent = await verificationCode(phoneNonce); await send({type:'hello',nonce:phoneNonce}); if (!approved) status('Afventer accept på pc'); } catch (error) { fail(error); } }
 } else $('desktop').hidden = false;

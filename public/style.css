@@ -88,3 +88,6 @@ body.native.video-only #session-more{display:block;position:fixed;bottom:12px;ri
 body.native.video-only #session-more>summary{display:none}
 body.native.video-only #session-more .session-more-content{display:block;padding:0;max-height:none;overflow:visible}
 body.native.video-only #session-more .session-more-content>:not(#fullscreen){display:none!important}
+/* Phone invitation: one verification message and Cancel beside the code. */
+body.phone-pairing #health-panel,body.phone-pairing .statusbar{display:none!important}
+#phone-actions{margin-top:12px}#phone-actions button{margin:0;min-height:48px}

@@ -14,6 +14,8 @@ Når telefonen er forbundet, vises opløsning, lyd til/fra, en lille lydinputmå
 
 Pc-appen opretter automatisk en ny QR-kode, når telefonsiden lukkes eller forbindelsen afsluttes. Scan den nye kode og sammenlign og acceptér den nye sekscifrede kode på pc’en. Den gamle QR-kode er en engangsinvitation og kan ikke genbruges. Ved korte netværksudfald forsøges genoprettelse i op til 15 sekunder. Trykker du selv Annuller på pc’en, starter parringen ikke automatisk igen.
 
+På telefonen står Annuller ved parringskoden. Under parringen skjules de tekniske felter og den gentagne status nederst. Fejl vises stadig, hvis forbindelsen ikke kan oprettes.
+
 ## Hvordan kommer jeg i gang?
 
 Installér appen på Windows 11 x64. Åbn den, og scan QR-koden med telefonen på samme Wi-Fi. Sammenlign den sekscifrede kode, og acceptér på pc’en. Tillad kameraet på telefonen. Hold begge programmer åbne.

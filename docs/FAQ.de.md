@@ -14,6 +14,8 @@ Bei bestehender Verbindung zeigt die Hauptansicht Auflösung, Mikrofon ein/aus, 
 
 Die PC-App erstellt automatisch einen neuen QR-Code, wenn die Telefonseite geschlossen wird oder die Sitzung endet. Scanne den neuen Code, vergleiche den neuen sechsstelligen Code und bestätige am PC. Der alte QR-Code ist eine einmalige Einladung und kann nicht wiederverwendet werden. Bei kurzen Netzwerkausfällen wird bis zu 15 Sekunden lang eine Wiederherstellung versucht. Manuelles Abbrechen am PC startet keine neue Kopplung.
 
+Am Telefon steht Abbrechen beim Bestätigungscode. Während der Kopplung sind technische Felder und der wiederholte Status unten ausgeblendet. Fehler bleiben sichtbar, wenn die Verbindung nicht hergestellt werden kann.
+
 ## Wie fange ich an?
 
 Installiere die App unter Windows 11 x64. Öffne sie und scanne den QR-Code mit dem Telefon im selben WLAN. Vergleiche den sechsstelligen Code und bestätige am PC. Erlaube den Kamerazugriff am Telefon. Lass beide Anwendungen geöffnet.
