@@ -4,6 +4,16 @@
 
 [Sicherheitsrisiken](SECURITY.de.md)
 
+## Wo sind die weiteren Bedienelemente?
+
+Bei bestehender Verbindung zeigt die Hauptansicht Auflösung, Mikrofon ein/aus, einen kleinen Eingangspegel, Aufnahme und Trennen. Bei aktiviertem Ton erscheint zusätzlich das Kontrollkästchen zur Rauschunterdrückung. Die Anzeige misst den Telefoneingang vor der Filterung; Stille ist allein kein Fehler.
+
+Öffne Einstellungen und Details unter der Vorschau für Bildanpassung, Rotation, Audioeinstellungen, Tests und Verbindungsdetails. Der Bereich ist anfangs eingeklappt. Während einer Aufnahme erscheinen Pause und Stoppen/Speichern. Der Aufnahmestart erfordert weiterhin Einstellungen und einen Speicherort am PC.
+
+## Die Telefonseite wurde geschlossen — wie verbinde ich mich erneut?
+
+Die PC-App erstellt automatisch einen neuen QR-Code, wenn die Telefonseite geschlossen wird oder die Sitzung endet. Scanne den neuen Code, vergleiche den neuen sechsstelligen Code und bestätige am PC. Der alte QR-Code ist eine einmalige Einladung und kann nicht wiederverwendet werden. Bei kurzen Netzwerkausfällen wird bis zu 15 Sekunden lang eine Wiederherstellung versucht. Manuelles Abbrechen am PC startet keine neue Kopplung.
+
 ## Wie fange ich an?
 
 Installiere die App unter Windows 11 x64. Öffne sie und scanne den QR-Code mit dem Telefon im selben WLAN. Vergleiche den sechsstelligen Code und bestätige am PC. Erlaube den Kamerazugriff am Telefon. Lass beide Anwendungen geöffnet.

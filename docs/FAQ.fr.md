@@ -4,6 +4,16 @@
 
 [Risques de sécurité](SECURITY.fr.md)
 
+## Où sont les autres commandes ?
+
+Une fois connecté, la vue principale affiche la résolution, le microphone activé/désactivé, un petit indicateur de niveau, l’enregistrement et Déconnecter. L’activation du son révèle la case de réduction du bruit. Le niveau représente l’entrée du téléphone avant filtrage ; le silence seul ne signifie pas une erreur.
+
+Dépliez Réglages et détails sous l’aperçu pour le cadrage, la rotation, les réglages audio, les tests et les informations de connexion. Ce menu est fermé par défaut. Pendant l’enregistrement, Pause et Arrêter/enregistrer apparaissent. Le démarrage exige toujours les réglages et un emplacement sur le PC.
+
+## La page du téléphone a été fermée : comment se reconnecter ?
+
+L’application PC crée automatiquement un nouveau QR code lorsque la page du téléphone se ferme ou que la session se termine. Scannez ce nouveau code, comparez le nouveau code à six chiffres et acceptez sur le PC. L’ancien QR code est une invitation à usage unique. Une brève coupure réseau dispose de 15 secondes pour se rétablir. Annuler manuellement sur le PC ne relance pas automatiquement l’appairage.
+
 ## Comment démarrer ?
 
 Installez l’application sur Windows 11 x64. Ouvrez-la et scannez le QR code avec votre téléphone sur le même Wi-Fi. Comparez le code à six chiffres et acceptez sur le PC. Autorisez la caméra du téléphone. Gardez les deux applications ouvertes.

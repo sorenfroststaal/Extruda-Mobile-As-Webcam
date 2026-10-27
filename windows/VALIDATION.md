@@ -145,3 +145,14 @@ All ten RGB32/NV12 camera formats passed with version-3 capability-protected buf
 Installed 0.13.0 verification: the new camera COM registration points to ExtrudaCamera-0.13.dll. ProgramData frame root is owned by Administrators with a protected ACL. The operating-system Frame Server test passed 30 correct RGB32 frames, timestamps and stop/stale blackout using the new capability-protected private transport.
 
 Installed production audio verification: a probe launched the actual Program Files helper without the build-directory ACL test hook. AppContainer token verification passed and processed PCM was returned. No private media or microphone was opened.
+
+## Connected-view update 0.15.0
+
+73 automated tests passed, including phone closure while connected, one fresh
+invitation, rejection of stale WebSocket events and manual cancellation without
+renewal. A synthetic browser fixture verified the default compact controls,
+visible input meter, denoise visibility only with enabled audio, expanded
+framing controls and restoration of pairing layout on disconnect. These checks
+did not use a physical phone, camera or microphone; acoustic quality and actual
+speech levels still require device testing. Installed application/UI hashes
+matched the packaged 0.15.0 files. GitHub CI passed.

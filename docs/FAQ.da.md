@@ -4,6 +4,16 @@
 
 [Sikkerhedsrisici](SECURITY.da.md)
 
+## Hvor er de øvrige kontroller?
+
+Når telefonen er forbundet, vises opløsning, lyd til/fra, en lille lydinputmåler, optag og afbryd. Når lyden er slået til, vises også en checkbox til lydrensning. Lydmåleren viser telefonens input før rensning; stilhed er ikke i sig selv en fejl.
+
+Åbn Indstillinger og detaljer nederst for billedtilpasning, rotation, lydindstillinger, test og forbindelsesdetaljer. Menuen er lukket som udgangspunkt. Under optagelse vises Pause og Stop og gem. Start af optagelse kræver stadig valg og filplacering på pc’en.
+
+## Telefonsiden blev lukket — hvordan forbinder jeg igen?
+
+Pc-appen opretter automatisk en ny QR-kode, når telefonsiden lukkes eller forbindelsen afsluttes. Scan den nye kode og sammenlign og acceptér den nye sekscifrede kode på pc’en. Den gamle QR-kode er en engangsinvitation og kan ikke genbruges. Ved korte netværksudfald forsøges genoprettelse i op til 15 sekunder. Trykker du selv Annuller på pc’en, starter parringen ikke automatisk igen.
+
 ## Hvordan kommer jeg i gang?
 
 Installér appen på Windows 11 x64. Åbn den, og scan QR-koden med telefonen på samme Wi-Fi. Sammenlign den sekscifrede kode, og acceptér på pc’en. Tillad kameraet på telefonen. Hold begge programmer åbne.

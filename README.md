@@ -7,7 +7,7 @@
 
 Use an Android or iPhone camera as a Windows webcam, without OBS or a user account.
 
-**[Download Windows installer 0.13.0](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.13.0/ExtrudaMobileAsWebcam-Setup-0.13.0-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/tag/mobile-as-webcam-v0.13.0) · [mobile as webcam website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
+**[Download Windows installer 0.15.0](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.15.0/ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/tag/mobile-as-webcam-v0.15.0) · [mobile as webcam website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
 
 ## Use
 
@@ -19,6 +19,31 @@ starts its camera after acceptance; grant camera permission if prompted.
 The app starts at 1920 × 1080. Resolution controls appear once connected and
 support 480p, 720p, 1080p, 1440p and 4K. Teams may need the camera reselected after
 an output change. The phone and meeting app can deliver a lower actual resolution.
+
+## Connected controls (0.15.0)
+
+The default Windows view shows resolution, microphone on/off, a small input
+level meter, recording and Disconnect. The noise-reduction checkbox appears
+when microphone audio is enabled. The meter shows phone input before filtering;
+silence is normal and does not itself mean the connection has failed.
+
+**Settings and details** is collapsed below the preview. Expand it for framing,
+rotation, audio routing, microphone tests, before/after filter diagnostics,
+connection information and recording details. Pause and Stop/save appear when
+recording. Recording start still requires the PC settings and save dialog.
+
+If the phone page closes or the session ends, the PC automatically creates a
+fresh QR code. Scan the new code and compare/approve the new six-digit code.
+The old invitation remains single-use. Temporary connection loss has a
+15-second recovery window; manual Cancel does not restart pairing.
+
+## Startup
+
+The approved Extruda animation and sound are bundled locally. Light/dark theme
+follows the app preference. Skip, Escape or Tab dismisses the intro and stops
+its sound; reduced-motion preference skips it. Pairing starts concurrently.
+Sound uses the default Windows playback device, so check that this is not a
+virtual cable if you do not want system sounds routed into meeting software.
 
 ## Architecture
 
@@ -109,9 +134,9 @@ Noise reduction adds latency and can alter or suppress speech. Test your voice b
 
 Build prerequisite: `node scripts/fetch-deepfilter.mjs` downloads the pinned official Windows runtime if absent and verifies SHA256. Release packaging enforces a 400 MB installer ceiling. See windows/vendor/deepfilter/README.md for provenance.
 
-## Noise reduction controls (0.13.0)
+## Noise reduction controls
 
-The main screen shows filter state and before/after levels. The strength slider changes DeepFilterNet attenuation (6–60 dB) on the next audio blocks without restarting the microphone or recording track. One automatic restart is permitted per audio graph; original audio continues during restart and after a second failure. Error reasons are enumerated and delayed replies from old sessions are ignored. Idle input and suspended graphs do not trigger failure loops.
+The compact main screen shows phone input and, with audio enabled, the noise-reduction checkbox. Expand Settings and details for filter state and before/after levels. The strength slider changes DeepFilterNet attenuation (6–60 dB) on the next audio blocks without restarting the microphone or recording track. One automatic restart is permitted per audio graph; original audio continues during restart and after a second failure. Error reasons are enumerated and delayed replies from old sessions are ignored. Idle input and suspended graphs do not trigger failure loops.
 
 The optional listening test starts only when clicked, holds at most 10 seconds of paired original/filtered PCM in memory, and plays either version at the same low gain after a separate click. Use headphones to avoid recapture/feedback. Close, mute, disconnect or filter failure stops playback and releases buffers; no test file or upload is created. Memory release is not forensic secure erasure. Both preview and main meters are before the separate Windows send-gain control. No extra original track is retained in normal video recordings.
 
