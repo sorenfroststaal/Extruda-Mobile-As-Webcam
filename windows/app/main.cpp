@@ -1,4 +1,7 @@
 #include <windows.h>
+#include <mmsystem.h>
+#pragma comment(lib,"winmm.lib")
+bool startupSoundPlayed=false;
 #include <mfapi.h>
 #include <dwmapi.h>
 #include <mfvirtualcamera.h>
@@ -121,6 +124,8 @@ void InitWeb() {
                     web->ExecuteScript(!accepted||FAILED(audioOutput.Status())?L"window.extrudaAudioAck?.(false);window.extrudaAudioError?.()":L"window.extrudaAudioAck?.(true)",nullptr);return S_OK;
                 }
                 if(message.size()>128)return S_OK;
+                if(message==L"startup-sound"){if(!startupSoundPlayed){startupSoundPlayed=true;PlaySoundW(MAKEINTRESOURCEW(102),GetModuleHandleW(nullptr),SND_RESOURCE|SND_ASYNC|SND_NODEFAULT);}return S_OK;}
+                if(message==L"startup-sound-stop"){PlaySoundW(nullptr,nullptr,0);return S_OK;}
                 if(message==L"record-open:mp4"||message==L"record-open:webm"){
                     const auto hr=recordingSmokeTest?recordingFile.OpenPath(window,message==L"record-open:mp4"?L"recording-smoke.mp4":L"recording-smoke.webm"):recordingFile.Choose(window,message==L"record-open:mp4");
                     const auto script=L"window.ExtrudaRecording?.opened("+std::wstring(SUCCEEDED(hr)?L"true,":L"false,")+RecordingFile::Quote(SUCCEEDED(hr)?recordingFile.DisplayPath():hr==HRESULT_FROM_WIN32(ERROR_CANCELLED)?L"":L"save-error")+(SUCCEEDED(hr)&&recordingFile.StorageWarning()?L",true)":L",false)");

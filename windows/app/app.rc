@@ -1,2 +1,4 @@
 1 ICON "camera.ico"
 101 RCDATA "bridge.js"
+
+102 WAVE "startup.wav"

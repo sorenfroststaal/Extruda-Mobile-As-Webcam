@@ -1,6 +1,15 @@
 (() => {
   if (location.origin !== 'https://app.extruda.local' || window.extrudaNative) return;
   window.extrudaNative = true; document.body.classList.add('native');
+  const pairingStatus = document.querySelector('.statusbar');
+  const statusHome = document.createComment('connection status');
+  pairingStatus.before(statusHome);
+  function placeStatus(connected){
+    if(connected)statusHome.after(pairingStatus);
+    else document.getElementById('pairing-actions').append(pairingStatus);
+  }
+  placeStatus(false);
+  window.addEventListener('extruda-connection',event=>placeStatus(event.detail.connected));
   const tr = (key,params) => window.ExtrudaI18n?.t(key,params) || key.replace(/\{(\w+)\}/g,(all,name)=>params?.[name] ?? all);
   let pixels, busy = false, running = false, lastFrame = 0, changing = false;
   const sizes = [[640,480,'480p · 640 × 480'],[1280,720,'720p · 1280 × 720'],[1920,1080,'1080p · 1920 × 1080'],[2560,1440,'1440p · 2560 × 1440'],[3840,2160,'4K · 3840 × 2160']];

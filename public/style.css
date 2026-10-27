@@ -51,3 +51,10 @@ select,input{border-color:var(--ex-field-border)}
 #startup button{position:absolute;right:24px;bottom:24px;min-height:48px}
 @media(max-width:700px){header,.native header{flex-wrap:wrap}.header-tools,body.native .header-tools{width:100%;margin-left:0;justify-content:flex-end}header .brand-link{max-width:100%}}
 @media(prefers-reduced-motion:reduce){#startup{display:none!important}*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+/* Keep pairing focused; session controls return after the connection opens. */
+body.native:not(.session-active) #record-toolbar,body.native:not(.session-active) #health-panel,body.native:not(.session-active) #guide{display:none!important}
+#pairing-actions .statusbar{justify-content:flex-start;min-height:0;padding:8px 0 0}
+#pairing-actions .dot{display:none}
+body.native:has(#pairing:not([hidden])) #pairing-actions .statusbar p{display:none}
+#pairing-actions .statusbar button{margin:0}
+#pairing-actions .statusbar p{font-size:14px}
