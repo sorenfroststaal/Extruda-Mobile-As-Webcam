@@ -16,6 +16,8 @@ L’application PC crée automatiquement un nouveau QR code lorsque la page du t
 
 Sur le téléphone, Annuler se trouve près du code de vérification. Pendant l’appairage, les champs techniques et le statut répété en bas sont masqués. Les erreurs restent visibles si la connexion ne peut pas être établie.
 
+Une invitation QR inutilisée expire après 10 minutes. Une fois les deux appareils authentifiés auprès du serveur, leur session existante dispose d’une limite distincte et fixe de huit heures. Cela ne rend pas l’ancien QR code réutilisable.
+
 ## Comment démarrer ?
 
 Installez l’application sur Windows 11 x64. Ouvrez-la et scannez le QR code avec votre téléphone sur le même Wi-Fi. Comparez le code à six chiffres et acceptez sur le PC. Autorisez la caméra du téléphone. Gardez les deux applications ouvertes.
@@ -143,3 +145,11 @@ Les nouvelles connexions sont limitées par source sans compteur commun que d’
 DeepFilterNet fonctionne dans un AppContainer Windows sans capacités réseau, caméra ou microphone, avec limites de mémoire et de processus. Si la sandbox ne démarre pas, le son original est utilisé. L’application normale refuse de démarrer comme administrateur.
 
 Le dossier d’enregistrement par défaut est local aux données de l’utilisateur et privé. Les nouveaux fichiers sont accessibles à l’utilisateur et SYSTEM ; le handle actif n’est pas partagé. Les emplacements OneDrive connus et lecteurs sans protection équivalente affichent un avertissement. L’application tente de garder au moins 128 Mo libres. Les fichiers restent non chiffrés ; des fichiers partiels peuvent subsister après un échec.
+
+## Les autres participants s’entendent en écho : que faire ?
+
+Si le son de la réunion sort d’un téléviseur ou de haut-parleurs près du téléphone, son microphone peut renvoyer les voix des autres participants. Utilisez un casque sur le PC, ou désactivez le microphone du téléphone et choisissez un microphone ou un appareil de conférence avec annulation d’écho sur le PC. Un seul microphone doit transmettre dans la pièce.
+
+L’application demande déjà l’annulation d’écho au navigateur. Elle ne garantit pas la suppression d’un téléviseur distinct sur le PC, car le téléphone ne dispose pas de son signal de lecture comme référence. DeepFilterNet réduit le bruit et ne garantit pas la suppression des voix des autres participants.
+
+[W3C · Echo cancellation](https://www.w3.org/TR/mediacapture-streams/#dom-mediatrackconstraintset-echocancellation)

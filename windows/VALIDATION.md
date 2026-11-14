@@ -156,3 +156,14 @@ framing controls and restoration of pairing layout on disconnect. These checks
 did not use a physical phone, camera or microphone; acoustic quality and actual
 speech levels still require device testing. Installed application/UI hashes
 matched the packaged 0.15.0 files. GitHub CI passed.
+
+## Session lifetime regression — 14 November 2026
+
+A simulated-clock Durable Object test authenticates the second device four
+minutes after invitation creation, advances past the original ten-minute
+expiry, verifies both sockets remain open and can relay signalling, and checks
+that repeated traffic/duplicate tokens do not extend the fixed eight-hour cap.
+At that cap sockets close and storage clears. Unused invitations still expire
+after ten minutes. This is a time-controlled regression, not an eight-hour
+physical-phone endurance test. Echo was not acoustically reproduced on the
+user's TV; microphone capture already requests browser echo cancellation.

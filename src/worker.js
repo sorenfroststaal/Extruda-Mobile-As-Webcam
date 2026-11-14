@@ -2,6 +2,7 @@ const ID = /^[a-f0-9]{32}$/;
 const HASH = /^[a-f0-9]{64}$/;
 const TOKEN = /^[a-f0-9]{64}$/;
 const TTL = 10 * 60 * 1000;
+const SESSION_TTL = 8 * 60 * 60 * 1000;
 export async function digest(value) {
   return [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value)))].map(x => x.toString(16).padStart(2, '0')).join('');
 }
@@ -155,6 +156,15 @@ export class PairingRoom {
       if (this.ctx.getWebSockets().some(s => s !== socket && s.deserializeAttachment()?.role === data.role)) return socket.close(1008, 'Role occupied');
       if (room[data.role + 'Used']) return socket.close(1008,'Invitation already used');
       room[data.role + 'Used'] = true;
+      // The one-use invitation still expires after ten minutes. Once both
+      // roles authenticate, keep their existing signalling session available
+      // for the call; never refresh this fixed cap on later traffic.
+      if (!room.sessionStarted && room.hostUsed && room.phoneUsed) {
+        room.sessionStarted = Date.now();
+        room.invitationExpires = room.expires;
+        room.expires = room.sessionStarted + SESSION_TTL;
+        await this.ctx.storage.setAlarm(room.expires);
+      }
       await this.ctx.storage.put('room',room);
       state.role = data.role; socket.serializeAttachment(state);
       this.send(socket, { type: 'ready', expires: room.expires, expiresInMs: Math.max(0, room.expires-Date.now()) });

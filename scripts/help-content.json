@@ -42,6 +42,12 @@
         "On the phone, Cancel is beside the verification code. Technical fields and the repeated bottom status are hidden while pairing. Errors remain visible if the connection cannot be established.",
         "Am Telefon steht Abbrechen beim Bestätigungscode. Während der Kopplung sind technische Felder und der wiederholte Status unten ausgeblendet. Fehler bleiben sichtbar, wenn die Verbindung nicht hergestellt werden kann.",
         "Sur le téléphone, Annuler se trouve près du code de vérification. Pendant l’appairage, les champs techniques et le statut répété en bas sont masqués. Les erreurs restent visibles si la connexion ne peut pas être établie."
+      ],
+      [
+        "En ubrugt QR-invitation udløber efter 10 minutter. Når begge enheder har godkendt sig over for serveren, får deres eksisterende session en separat, fast grænse på 8 timer. Det forlænger ikke en gammel QR-kodes mulighed for genbrug.",
+        "An unused QR invitation expires after 10 minutes. Once both devices authenticate to the server, their existing session has a separate, fixed eight-hour limit. This does not make an old QR code reusable.",
+        "Eine ungenutzte QR-Einladung läuft nach 10 Minuten ab. Sobald beide Geräte am Server authentifiziert sind, gilt für ihre bestehende Sitzung eine separate feste Grenze von acht Stunden. Ein alter QR-Code wird dadurch nicht wiederverwendbar.",
+        "Une invitation QR inutilisée expire après 10 minutes. Une fois les deux appareils authentifiés auprès du serveur, leur session existante dispose d’une limite distincte et fixe de huit heures. Cela ne rend pas l’ancien QR code réutilisable."
       ]
     ]
   },
@@ -533,6 +539,35 @@
         "The default recording folder is local user app data with private permissions. New recording files grant access to the user and SYSTEM; the active file handle is not shared. Known OneDrive locations and drives without equivalent protection show a warning. The app tries to preserve at least 128 MB of free space. Files remain unencrypted and partial files may remain after failure.",
         "Der Standard-Aufnahmeordner liegt lokal in den Benutzer-Appdaten mit privaten Rechten. Neue Dateien sind für Benutzer und SYSTEM zugänglich; während des Schreibens wird der Dateizugriff nicht geteilt. Bekannte OneDrive-Orte und Laufwerke ohne entsprechende Rechte zeigen eine Warnung. Die App versucht mindestens 128 MB frei zu halten. Dateien bleiben unverschlüsselt; bei Fehlern können Teildateien bleiben.",
         "Le dossier d’enregistrement par défaut est local aux données de l’utilisateur et privé. Les nouveaux fichiers sont accessibles à l’utilisateur et SYSTEM ; le handle actif n’est pas partagé. Les emplacements OneDrive connus et lecteurs sans protection équivalente affichent un avertissement. L’application tente de garder au moins 128 Mo libres. Les fichiers restent non chiffrés ; des fichiers partiels peuvent subsister après un échec."
+      ]
+    ]
+  },
+  {
+    "id": "meeting-echo",
+    "title": [
+      "De andre hører sig selv — hvad gør jeg?",
+      "Other participants hear themselves — what should I do?",
+      "Andere hören sich selbst — was kann ich tun?",
+      "Les autres participants s’entendent en écho : que faire ?"
+    ],
+    "paragraphs": [
+      [
+        "Hvis mødet afspilles gennem tv eller højttalere ved telefonen, kan telefonens mikrofon sende de andres stemmer tilbage. Brug hovedtelefoner ved pc’en, eller slå telefonens mikrofon fra og vælg en mikrofon eller konferencelydenhed med ekkoreduktion ved pc’en. Sørg for, at kun én mikrofon sender fra rummet.",
+        "If meeting audio plays through a TV or speakers near the phone, the phone microphone may send the other participants’ voices back to them. Use headphones at the PC, or turn off the phone microphone and select a PC microphone or conference audio device with echo cancellation. Keep only one transmitting microphone in the room.",
+        "Wenn der Besprechungston über einen Fernseher oder Lautsprecher in der Nähe des Telefons läuft, kann das Telefon die Stimmen der anderen zurücksenden. Nutze Kopfhörer am PC oder deaktiviere das Telefonmikrofon und wähle am PC ein Mikrofon oder Konferenzgerät mit Echounterdrückung. Nur ein Mikrofon im Raum sollte senden.",
+        "Si le son de la réunion sort d’un téléviseur ou de haut-parleurs près du téléphone, son microphone peut renvoyer les voix des autres participants. Utilisez un casque sur le PC, ou désactivez le microphone du téléphone et choisissez un microphone ou un appareil de conférence avec annulation d’écho sur le PC. Un seul microphone doit transmettre dans la pièce."
+      ],
+      [
+        "Appen anmoder allerede browseren om ekkoreduktion. Den kan ikke garanteres at fjerne et separat tv ved pc’en, fordi telefonen ikke har tv’ets afspilningssignal som reference. DeepFilterNet er støjreduktion og er ikke en garanti mod ekko fra andre stemmer.",
+        "The app already requests browser echo cancellation. It cannot guarantee removal of a separate PC television because the phone does not have that playback signal as a reference. DeepFilterNet reduces noise; it does not guarantee removal of other participants’ voices.",
+        "Die App fordert bereits die Echounterdrückung des Browsers an. Sie kann einen separaten Fernseher am PC nicht zuverlässig ausblenden, da dem Telefon dessen Wiedergabesignal als Referenz fehlt. DeepFilterNet reduziert Rauschen und garantiert keine Entfernung anderer Stimmen.",
+        "L’application demande déjà l’annulation d’écho au navigateur. Elle ne garantit pas la suppression d’un téléviseur distinct sur le PC, car le téléphone ne dispose pas de son signal de lecture comme référence. DeepFilterNet réduit le bruit et ne garantit pas la suppression des voix des autres participants."
+      ]
+    ],
+    "sources": [
+      [
+        "W3C · Echo cancellation",
+        "https://www.w3.org/TR/mediacapture-streams/#dom-mediatrackconstraintset-echocancellation"
       ]
     ]
   }

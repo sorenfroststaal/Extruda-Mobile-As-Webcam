@@ -16,6 +16,8 @@ Pc-appen opretter automatisk en ny QR-kode, når telefonsiden lukkes eller forbi
 
 På telefonen står Annuller ved parringskoden. Under parringen skjules de tekniske felter og den gentagne status nederst. Fejl vises stadig, hvis forbindelsen ikke kan oprettes.
 
+En ubrugt QR-invitation udløber efter 10 minutter. Når begge enheder har godkendt sig over for serveren, får deres eksisterende session en separat, fast grænse på 8 timer. Det forlænger ikke en gammel QR-kodes mulighed for genbrug.
+
 ## Hvordan kommer jeg i gang?
 
 Installér appen på Windows 11 x64. Åbn den, og scan QR-koden med telefonen på samme Wi-Fi. Sammenlign den sekscifrede kode, og acceptér på pc’en. Tillad kameraet på telefonen. Hold begge programmer åbne.
@@ -143,3 +145,11 @@ Begrænsning af nye parringer sker pr. kilde uden en fælles tæller, som andre 
 DeepFilterNet kører i en Windows AppContainer uden netværks-, kamera- eller mikrofonkapabiliteter, med loft over hukommelse og antal processer. Kan sandboxen ikke oprettes, bruges original lyd. Almindelig appdrift som administrator afvises.
 
 Standardmappen til optagelser ligger lokalt under brugerens appdata og har private adgangsrettigheder. Nye optagelsesfiler gives adgang til brugeren og SYSTEM; under skrivning deles filhåndtaget ikke. Kendte OneDrive-placeringer og andre drev uden samme beskyttelse giver en advarsel. Appen forsøger at bevare mindst 128 MB ledig plads. Filer er stadig ukrypterede, og .partial-filer kan blive bevaret ved fejl.
+
+## De andre hører sig selv — hvad gør jeg?
+
+Hvis mødet afspilles gennem tv eller højttalere ved telefonen, kan telefonens mikrofon sende de andres stemmer tilbage. Brug hovedtelefoner ved pc’en, eller slå telefonens mikrofon fra og vælg en mikrofon eller konferencelydenhed med ekkoreduktion ved pc’en. Sørg for, at kun én mikrofon sender fra rummet.
+
+Appen anmoder allerede browseren om ekkoreduktion. Den kan ikke garanteres at fjerne et separat tv ved pc’en, fordi telefonen ikke har tv’ets afspilningssignal som reference. DeepFilterNet er støjreduktion og er ikke en garanti mod ekko fra andre stemmer.
+
+[W3C · Echo cancellation](https://www.w3.org/TR/mediacapture-streams/#dom-mediatrackconstraintset-echocancellation)

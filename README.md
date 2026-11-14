@@ -147,3 +147,18 @@ Development tooling is updated and undici is pinned to a patched release. GitHub
 Pairing budgets are per source (IPv6 /64), rather than one globally consumable minute budget. Platform quotas and shared-NAT limits still apply; this does not claim DDoS immunity. Frame transport uses private per-session directories, protected ACLs and a fresh 256-bit capability checked by a new camera COM component. A path alone is insufficient to obtain pixels. DeepFilterNet uses a capability-free AppContainer, one-process and 512 MB limits, with no unsandboxed fallback.
 
 Recordings default to a private local app-data folder, use private file ACLs, warn for known synced/less-private storage and stop writing before a small free-space reserve is exhausted when detectable. Files are not encrypted. Other software under the same user, administrator access, OS services, a compromised phone/PC and compromised phone-client deployment remain trust boundaries. Digital signing is deferred.
+
+## Call duration and room audio (14 November 2026)
+
+Unused invitations expire after ten minutes. Once both one-use role tokens
+have authenticated, the existing room receives a fixed eight-hour session
+expiry. Traffic does not slide that expiry, tokens remain consumed, and the
+six-digit comparison/PC approval still gates media. Previously the invitation
+expiry also closed live signalling, which could end a call several minutes
+after scanning. Create a fresh pairing after this server update.
+
+For meeting audio played through a TV near the phone, use headphones or turn
+off the phone microphone and select a PC/conference microphone with acoustic
+echo cancellation. Browser echo cancellation is already requested; the phone
+has no reference copy of a separate PC TV's playback. DeepFilterNet does not
+guarantee removal of other speakers' voices. See the four-language FAQ.

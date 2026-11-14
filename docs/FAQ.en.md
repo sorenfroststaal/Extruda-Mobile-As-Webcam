@@ -16,6 +16,8 @@ The PC app automatically creates a fresh QR code when the phone page closes or t
 
 On the phone, Cancel is beside the verification code. Technical fields and the repeated bottom status are hidden while pairing. Errors remain visible if the connection cannot be established.
 
+An unused QR invitation expires after 10 minutes. Once both devices authenticate to the server, their existing session has a separate, fixed eight-hour limit. This does not make an old QR code reusable.
+
 ## How do I get started?
 
 Install the app on Windows 11 x64. Open it and scan the QR code with your phone on the same Wi-Fi. Compare the six-digit code and accept on the PC. Allow camera access on the phone. Keep both apps open.
@@ -143,3 +145,11 @@ New pairing limits are per source without a shared counter that other sources ca
 DeepFilterNet runs inside a Windows AppContainer without network, camera or microphone capabilities, with memory and process-count limits. If the sandbox cannot start, original audio is used. Running the normal app as administrator is refused.
 
 The default recording folder is local user app data with private permissions. New recording files grant access to the user and SYSTEM; the active file handle is not shared. Known OneDrive locations and drives without equivalent protection show a warning. The app tries to preserve at least 128 MB of free space. Files remain unencrypted and partial files may remain after failure.
+
+## Other participants hear themselves — what should I do?
+
+If meeting audio plays through a TV or speakers near the phone, the phone microphone may send the other participants’ voices back to them. Use headphones at the PC, or turn off the phone microphone and select a PC microphone or conference audio device with echo cancellation. Keep only one transmitting microphone in the room.
+
+The app already requests browser echo cancellation. It cannot guarantee removal of a separate PC television because the phone does not have that playback signal as a reference. DeepFilterNet reduces noise; it does not guarantee removal of other participants’ voices.
+
+[W3C · Echo cancellation](https://www.w3.org/TR/mediacapture-streams/#dom-mediatrackconstraintset-echocancellation)

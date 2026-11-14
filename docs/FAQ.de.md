@@ -16,6 +16,8 @@ Die PC-App erstellt automatisch einen neuen QR-Code, wenn die Telefonseite gesch
 
 Am Telefon steht Abbrechen beim Bestätigungscode. Während der Kopplung sind technische Felder und der wiederholte Status unten ausgeblendet. Fehler bleiben sichtbar, wenn die Verbindung nicht hergestellt werden kann.
 
+Eine ungenutzte QR-Einladung läuft nach 10 Minuten ab. Sobald beide Geräte am Server authentifiziert sind, gilt für ihre bestehende Sitzung eine separate feste Grenze von acht Stunden. Ein alter QR-Code wird dadurch nicht wiederverwendbar.
+
 ## Wie fange ich an?
 
 Installiere die App unter Windows 11 x64. Öffne sie und scanne den QR-Code mit dem Telefon im selben WLAN. Vergleiche den sechsstelligen Code und bestätige am PC. Erlaube den Kamerazugriff am Telefon. Lass beide Anwendungen geöffnet.
@@ -143,3 +145,11 @@ Neue Kopplungen werden pro Quelle ohne gemeinsamen verbrauchbaren Zähler begren
 DeepFilterNet läuft in einem Windows-AppContainer ohne Netzwerk-, Kamera- oder Mikrofonfähigkeiten, mit Speicher- und Prozesslimits. Startet die Sandbox nicht, wird Originalton genutzt. Die normale App verweigert den Start als Administrator.
 
 Der Standard-Aufnahmeordner liegt lokal in den Benutzer-Appdaten mit privaten Rechten. Neue Dateien sind für Benutzer und SYSTEM zugänglich; während des Schreibens wird der Dateizugriff nicht geteilt. Bekannte OneDrive-Orte und Laufwerke ohne entsprechende Rechte zeigen eine Warnung. Die App versucht mindestens 128 MB frei zu halten. Dateien bleiben unverschlüsselt; bei Fehlern können Teildateien bleiben.
+
+## Andere hören sich selbst — was kann ich tun?
+
+Wenn der Besprechungston über einen Fernseher oder Lautsprecher in der Nähe des Telefons läuft, kann das Telefon die Stimmen der anderen zurücksenden. Nutze Kopfhörer am PC oder deaktiviere das Telefonmikrofon und wähle am PC ein Mikrofon oder Konferenzgerät mit Echounterdrückung. Nur ein Mikrofon im Raum sollte senden.
+
+Die App fordert bereits die Echounterdrückung des Browsers an. Sie kann einen separaten Fernseher am PC nicht zuverlässig ausblenden, da dem Telefon dessen Wiedergabesignal als Referenz fehlt. DeepFilterNet reduziert Rauschen und garantiert keine Entfernung anderer Stimmen.
+
+[W3C · Echo cancellation](https://www.w3.org/TR/mediacapture-streams/#dom-mediatrackconstraintset-echocancellation)
