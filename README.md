@@ -7,7 +7,7 @@
 
 Use an Android or iPhone camera as a Windows webcam, without OBS or a user account.
 
-**[Download Windows installer 0.15.0](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.15.0/ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/tag/mobile-as-webcam-v0.15.0) · [mobile as webcam website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
+**[Download Windows installer 0.15.1](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.15.1/ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/tag/mobile-as-webcam-v0.15.0) · [mobile as webcam website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
 
 ## Use
 
@@ -162,3 +162,16 @@ off the phone microphone and select a PC/conference microphone with acoustic
 echo cancellation. Browser echo cancellation is already requested; the phone
 has no reference copy of a separate PC TV's playback. DeepFilterNet does not
 guarantee removal of other speakers' voices. See the four-language FAQ.
+
+
+## Connection recovery update 0.15.1
+
+Install the new Windows version as well as reopening the hosted phone page.
+The receiver UI is packaged locally and does not acquire fixes from a website
+refresh. Once media connects, its invitation timer is cancelled; stale timer
+callbacks cannot retire an approved or recovering call. An abnormal signalling
+transport closure no longer forces the other endpoint to abandon direct media.
+Explicit departure, authentication failures and the fixed server session cap
+continue to end the session. A network/media failure still gets the existing
+15-second recovery window. This does not prevent iOS suspending a locked or
+backgrounded phone page. Keep the phone page visible during use.

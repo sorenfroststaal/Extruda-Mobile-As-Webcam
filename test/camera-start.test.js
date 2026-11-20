@@ -134,3 +134,17 @@ test('pairing countdown uses server remaining lifetime, never the phone wall clo
   assert.equal(delays[0],lifetime??600000);
  }
 });
+
+test('successful media cancels invitation timer and a queued old timeout cannot kill recovery',async()=>{
+ const tasks=new Map();let timer=0,renewed=0;const s=setup(async()=>{}, {setTimeout:(fn,delay)=>{tasks.set(++timer,{fn,delay});return timer},clearTimeout:id=>tasks.delete(id)});
+ s.context.WS=class{static OPEN=1;constructor(){s.context.latestSocket=this}close(){}send(){}};
+ s.context.renewed=()=>renewed++;
+ vm.runInContext("role='host';WebSocket=WS;makePeer=()=>{pc={connectionState:'new',close(){}}};$('create').onclick=renewed",s.context);
+ const pending=vm.runInContext("connect('deadline-test','test-token')",s.context);
+ s.context.latestSocket.onmessage({data:JSON.stringify({type:'ready',expiresInMs:600000})});await pending;
+ const oldDeadline=[...tasks.values()].find(x=>x.delay===600000).fn;
+ vm.runInContext("approved=true;pc.connectionState='connected';handleConnectionState(pc)",s.context);
+ assert.equal([...tasks.values()].some(x=>x.delay===600000),false);
+ vm.runInContext("pc.connectionState='disconnected';handleConnectionState(pc)",s.context);
+ await oldDeadline();await settle();assert.equal(renewed,0);assert.equal(vm.runInContext('stopped',s.context),false);assert.equal(tasks.size,2);
+});

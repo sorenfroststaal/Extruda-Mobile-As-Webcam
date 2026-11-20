@@ -49,37 +49,38 @@ export default {
 };
 async function route(request,env) {
     const url = new URL(request.url);
-    if (url.pathname === '/api/health') return Response.json({ ok: true, version: '0.15.0', mediaRelay: false }, { headers: { 'Cache-Control': 'no-store' } });
+    if (url.pathname === '/api/health') return Response.json({ ok: true, version: '0.15.1', mediaRelay: false }, { headers: { 'Cache-Control': 'no-store' } });
     const downloads = {
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.12.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe',
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.11.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe',
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.10.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe',
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.9.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe',
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.8.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe',
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.7.2-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe',
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.7.1-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe',
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.7.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe',
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.6.1-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe',
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.6.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.6-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.5-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.4-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.3-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.2-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.1-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.5.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe',
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe',
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.14.2-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe',
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.14.1-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe',
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.14.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe',
-      '/downloads/ExtrudaMobileAsWebcam-Setup-0.13.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.3.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe',
-      '/downloads/ExtrudaCamera-Setup-0.4.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.12.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.11.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.10.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.9.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.8.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.7.2-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.7.1-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.7.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.6.1-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.6.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.6-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.5-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.4-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.3-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.2-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.1-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.5.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.15.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.14.2-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.14.1-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.14.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe',
+      '/downloads/ExtrudaMobileAsWebcam-Setup-0.13.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.3.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe',
+      '/downloads/ExtrudaCamera-Setup-0.4.0-x64.exe':'ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe',
       '/downloads/SHA256SUMS.txt':'SHA256SUMS.txt',
       '/downloads/extruda-camera.ico':'extruda-mobile-as-webcam.ico',
       '/downloads/extruda-mobile-as-webcam.ico':'extruda-mobile-as-webcam.ico'
     };
-    if (['GET','HEAD'].includes(request.method) && downloads[url.pathname]) return new Response(null,{status:302,headers:{Location:'https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.15.0/'+downloads[url.pathname],'Cache-Control':'no-store'}});
+    if (['GET','HEAD'].includes(request.method) && downloads[url.pathname]) return new Response(null,{status:302,headers:{Location:'https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.15.1/'+downloads[url.pathname],'Cache-Control':'no-store'}});
     const match = url.pathname.match(/^\/api\/rooms\/([a-f0-9]{32})(\/ws)?$/);
     if (match) {
       if (![url.origin,LOCAL_ORIGIN].includes(request.headers.get('Origin'))) return response('Origin rejected', 403);
@@ -180,6 +181,14 @@ export class PairingRoom {
   async webSocketClose(socket, code) {
     const role = socket.deserializeAttachment()?.role;
     try { socket.close([1005,1006,1015].includes(code) ? 1000 : code); } catch {}
+    const room = await this.ctx.storage.get('room');
+    // A lost signalling transport does not prove that the direct media ended.
+    // Preserve the other side through abnormal network/service closures; the
+    // clients still recover or retire failed media, and the fixed cap remains.
+    if (role && room?.sessionStarted && room.expires > Date.now() && [1006,1011,1012,1013].includes(code)) {
+      for (const other of this.ctx.getWebSockets()) if (other !== socket && other.deserializeAttachment()?.role) this.send(other,{type:'peer-signaling-lost'});
+      return;
+    }
     if (role) for (const other of this.ctx.getWebSockets()) if (other !== socket && other.deserializeAttachment()?.role) { this.send(other, { type: 'peer-left' }); other.close(1000, 'Peer left; create a new pairing'); }
   }
   async webSocketError(socket) { socket.close(1011, 'Connection error'); }

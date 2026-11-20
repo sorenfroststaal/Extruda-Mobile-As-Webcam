@@ -24,3 +24,10 @@ test('unused invitation still expires after ten minutes',async t=>{
  const room=new PairingRoom({getWebSockets:()=>sockets,storage:{get:async()=>data,deleteAll:async()=>cleared=true}});
  now+=600000;await room.alarm();assert.equal(sockets[0].closed.length,1);assert.equal(cleared,true);
 });
+
+test('abnormal signalling close preserves paired media; explicit departure still ends session',async()=>{
+ const now=Date.now(),left=socket(now),right=socket(now);left.state.role='phone';right.state.role='host';
+ const room=new PairingRoom({getWebSockets:()=>[left,right],storage:{get:async()=>({sessionStarted:now,expires:now+600000})}});
+ await room.webSocketClose(left,1006);assert.equal(right.closed.length,0);assert.equal(right.sent.at(-1).type,'peer-signaling-lost');
+ await room.webSocketClose(left,1000);assert.equal(right.closed.length,1);assert.equal(right.sent.at(-1).type,'peer-left');
+});

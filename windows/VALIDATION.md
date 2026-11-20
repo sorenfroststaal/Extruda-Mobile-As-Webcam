@@ -167,3 +167,18 @@ At that cap sockets close and storage clears. Unused invitations still expire
 after ten minutes. This is a time-controlled regression, not an eight-hour
 physical-phone endurance test. Echo was not acoustically reproduced on the
 user's TV; microphone capture already requests browser echo cancellation.
+
+## Recovery after invitation deadline — 0.15.1
+
+The client now clears the invitation deadline when media becomes connected.
+A queued deadline checks its own socket, consent and recovery state before
+renewing. Regression tests simulate a connection followed by a brief outage
+at the old deadline and verify that the 15-second recovery period is preserved.
+Server close handling distinguishes abnormal signalling/service loss from
+explicit departure; a paired peer's direct media is not closed merely because
+the other signalling socket reports 1006/1011/1012/1013. Authentication/policy
+failures, explicit departure and session expiry retain termination behavior.
+
+78 automated tests passed against an isolated local Worker. Physical iPhone
+sleep/background behaviour is outside these synthetic tests. Endurance results
+are recorded below after the real-time run finishes.
