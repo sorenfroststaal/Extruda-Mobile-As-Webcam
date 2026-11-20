@@ -195,6 +195,8 @@ original root cause.
 
 ## 0.16.0 image editor
 
+Phone viewfinder publication (2026-11-20): all 86 automated tests passed. A synthetic-media browser at 390 × 844 paired with the existing packaged receiver, exercised hide/show video, camera replacement while hidden, settings, screen dimming and reconnecting a new QR in the same phone tab. The simulated camera ignores facingMode because desktop fake cameras do not provide front/back devices. The video track remained live after replacement, and older receivers correctly kept phone-side resolution disabled. Physical iOS/Android and the updated native resolution bridge still require device testing; the Cloudflare publication alone does not update installed Windows apps.
+
 Hosted phone reconnect hotfix: 83 automated tests passed, including new-QR fragment navigation and cached-page cleanup. An end-to-end synthetic-media browser test connected, closed the PC page, observed the ended phone session, opened a second PC pairing and navigated the SAME phone tab to its new QR URL. A fresh phone document loaded, comparison codes matched, PC approval succeeded and video resumed. This verifies desktop Chromium's tab-reuse path; physical iOS Safari cache behavior remains a manual check. No Windows binary changes are needed for the hosted phone fix.
 
 Synthetic browser pixel checks passed for crop, opaque mask, unchanged exterior pixels, blur, overlay and invalid rectangle rejection. Native editor opens from the bottom advanced menu, supports numerical rectangles, adds/removes areas and closes correctly. No physical camera or microphone was accessed. Image edits feed the existing shared processed canvas for webcam and recording. Real phone and meeting-app validation remains a manual check.

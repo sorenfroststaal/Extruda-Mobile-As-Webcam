@@ -178,6 +178,8 @@ backgrounded phone page. Keep the phone page visible during use.
 
 ## Image editing (0.16.0)
 
+The hosted phone page now uses a fullscreen viewfinder with camera, microphone, hide-picture, dim-screen and settings controls. Existing recording and audio options are in the settings sheet. Phone-side resolution selection is enabled only when a compatible updated Windows receiver advertises support; existing installed receivers continue to choose resolution on the PC. Reload the phone page to receive hosted UI updates.
+
 Hosted phone reconnect fix: scanning a new QR into an existing browser tab now starts a fresh session even when the browser changes only the URL fragment. Returning to a cached ended page also clears its old session. Refresh an already-open phone page once to load this fix; no Windows reinstall is required for this phone-side correction.
 
 Open **Settings and details → Edit picture** in the Windows app. Crop the source, add up to 12 rectangular blur/opaque-color masks, and add one local PNG/JPEG/WebP overlay (15 MB / 16 MP maximum) with position, size and opacity controls. Drag rectangles or enter percentages for keyboard use. The processed canvas feeds both the Windows virtual camera and subsequent local recording frames. The phone preview remains unchanged.
