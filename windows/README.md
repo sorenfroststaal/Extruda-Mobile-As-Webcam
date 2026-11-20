@@ -1,4 +1,4 @@
-# extruda - mobile as webcam 0.15.0
+# extruda - mobile as webcam 0.15.1
 
 Language and theme follow the operating system by default. Use the globe and sun icons to override them; choices are stored per device. The information icon opens Security risks and FAQ and guides without leaving the session.
 
@@ -113,3 +113,13 @@ The phone microphone defaults off on every new session. Enable it on the phone a
 Select Steam Streaming Microphone or VB-CABLE in Audio settings. In Teams/Zoom choose Steam Streaming Microphone or CABLE Output as the microphone. Steam send gain starts at 3% to compensate amplification; VB-CABLE starts at 100%. Adjust if too quiet or distorted. The app never changes Windows default devices or installs an audio driver automatically. If no supported virtual device exists, the meter works but microphone delivery to meeting apps needs a separately installed driver. VB-CABLE is third-party donationware with its own licence, outside the project MIT licence.
 
 PCM audio uses bounded in-memory queues with a stale-input silence timeout; no audio file or recording is created. Other applications can listen to or inject into the same virtual audio device if Windows permissions allow. Do not make the virtual cable the default speaker. Read the updated microphone security section and FAQ.
+
+
+## Connection timeout fix 0.15.1
+
+Install this receiver update; refreshing the phone website does not update
+the local Windows UI. Successful video cancels the ten-minute invitation timer,
+and an approved/recovering session cannot be retired by an old queued timer.
+Abnormal signalling loss no longer immediately tells the paired endpoint to
+stop healthy direct media. Keep the phone camera page visible and the screen
+unlocked: browser suspension is not prevented by the server session limit.

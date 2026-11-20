@@ -182,3 +182,13 @@ failures, explicit departure and session expiry retain termination behavior.
 78 automated tests passed against an isolated local Worker. Physical iPhone
 sleep/background behaviour is outside these synthetic tests. Endurance results
 are recorded below after the real-time run finishes.
+
+The real-time end-to-end run completed eleven minutes with the 0.15.1 packaged
+Windows UI and hosted phone assets (patched phone app.js), using Chromium's
+synthetic camera. The comparison codes matched, PC approval started media,
+and the receiver remained connected beyond the ten-minute invitation boundary.
+No physical camera/microphone was opened. This establishes this desktop-browser
+path, not an iPhone endurance result or a reproduction of the user's exact
+network/lock conditions. The earlier old-receiver trial was stopped after two
+minutes to test the corrected package instead; it did not establish the user's
+original root cause.
