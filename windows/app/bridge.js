@@ -38,6 +38,15 @@
   window.ExtrudaRecording?.ready(canvas);
   window.addEventListener('extruda-connection', event => { control.hidden = !event.detail.connected;document.body.classList.toggle('session-active',event.detail.connected); });
   select.onchange = () => { changing = true; updateEnabled(); document.getElementById('create').disabled = true; chrome.webview.postMessage(`resolution:${select.value}`); };
+  // An approved phone may ask for one of the same Windows sizes. The PC's own
+  // rules still apply: no change while recording or while a change is running.
+  window.extrudaRequestResolution = size => {
+    const value = `${size?.width}x${size?.height}`;
+    if (!sizes.some(([w,h]) => `${w}x${h}` === value) || select.disabled) return false;
+    if (select.value !== value) { select.value = value; select.onchange(); }
+    else window.extrudaSetCaptureSize?.({width:canvas.width,height:canvas.height}).catch(() => {});
+    return true;
+  };
   window.extrudaResolutionApplied = (width,height) => {
     if (!sizes.some(([w,h]) => w === width && h === height)) return;
     const changed = canvas.width !== width || canvas.height !== height;

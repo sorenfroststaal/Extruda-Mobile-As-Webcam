@@ -1,0 +1,18 @@
+[
+  ["Vend kamera", "Flip camera", "Kamera wechseln", "Changer de caméra"],
+  ["Skjul billede", "Hide picture", "Bild ausblenden", "Masquer l’image"],
+  ["Vis billede", "Show picture", "Bild anzeigen", "Afficher l’image"],
+  ["Dæmp skærm", "Dim screen", "Bildschirm abdunkeln", "Assombrir l’écran"],
+  ["Flere indstillinger", "More settings", "Weitere Einstellungen", "Plus de réglages"],
+  ["Indstillinger", "Settings", "Einstellungen", "Réglages"],
+  ["Live på pc", "Live on PC", "Live am PC", "En direct sur le PC"],
+  ["Forbinder…", "Connecting…", "Verbinde…", "Connexion…"],
+  ["Billedet er skjult for pc’en", "The picture is hidden from your PC", "Das Bild ist für den PC ausgeblendet", "L’image est masquée pour le PC"],
+  ["Pc’en får et sort billede, indtil du viser det igen.", "Your PC gets a black picture until you show it again.", "Der PC erhält ein schwarzes Bild, bis du es wieder anzeigst.", "Le PC reçoit une image noire jusqu’à ce que vous l’affichiez de nouveau."],
+  ["Sender til pc’en", "Sending to your PC", "Wird an den PC gesendet", "Envoi vers le PC"],
+  ["Tryk for at vise skærmen igen", "Tap to wake the screen", "Tippen, um den Bildschirm wieder anzuzeigen", "Touchez pour rallumer l’écran"],
+  ["Opløsningen vælges på pc’en.", "Resolution is set on your PC.", "Die Auflösung wird am PC gewählt.", "La résolution se règle sur le PC."],
+  ["Skifter opløsning…", "Changing resolution…", "Auflösung wird geändert…", "Changement de résolution…"],
+  ["Pc’en kunne ikke skifte opløsning lige nu.", "Your PC couldn’t change resolution right now.", "Der PC konnte die Auflösung gerade nicht ändern.", "Le PC n’a pas pu changer la résolution pour le moment."],
+  ["Windows-kameraet skifter også opløsning. Vælg eventuelt kameraet igen i Teams.", "The Windows camera changes resolution too. You may need to pick the camera again in Teams.", "Die Windows-Kamera ändert ebenfalls die Auflösung. Wähle die Kamera in Teams eventuell erneut aus.", "La caméra Windows change aussi de résolution. Vous devrez peut-être resélectionner la caméra dans Teams."]
+]

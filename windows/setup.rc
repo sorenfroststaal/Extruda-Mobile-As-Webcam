@@ -45,3 +45,4 @@
 327 RCDATA "dist/ui/brand/extruda-logo-dark-web.webm"
 328 RCDATA "dist/ui/compositor.js"
 329 RCDATA "dist/ui/image-editor.js"
+330 RCDATA "dist/ui/phone-ui.js"

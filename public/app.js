@@ -70,7 +70,14 @@ async function receiveControl(data) {
     if (typeof data.enabled !== 'boolean') { await stop(); return; }
     await window.ExtrudaAudio?.control(data);return;
   }
+  if (data.type === 'capture-request') {
+    if (role !== 'host' || !supportedCaptureSize(data.size)) return;
+    if (!window.extrudaRequestResolution?.(data.size)) await sendControl({type:'capture-size',size:currentCaptureSize(),resolutionControl:resolutionControl(),refused:true});
+    return;
+  }
   if (data.type === 'capture-size' && role === 'phone' && supportedCaptureSize(data.size)) {
+    phoneResolutionControl = data.resolutionControl === true;
+    if (data.refused === true) { announceCaptureSize(true); return; }
     const track = stream?.getVideoTracks()[0];
     if (!track) return;
     const connection = pc;
@@ -81,6 +88,7 @@ async function receiveControl(data) {
       const settings = track.getSettings();
       await sendControl({type:'capture-info',width:settings.width,height:settings.height});
     } catch { if (!stopped) status('Opløsningen kunne ikke ændres. Videoen fortsætter.'); }
+    finally { if (pc === connection && !stopped) announceCaptureSize(false); }
   } else if (data.type === 'capture-info' && role === 'host' && Number.isInteger(data.width) && Number.isInteger(data.height) && data.width > 0 && data.width <= 8192 && data.height > 0 && data.height <= 8192) {
     window.dispatchEvent(new CustomEvent('extruda-capture-info',{detail:{width:data.width,height:data.height}}));
   }
@@ -94,7 +102,7 @@ function bindControl(channel) {
     const now = Date.now(); if (now-controlWindow >= 1000) {controlWindow=now;controlCount=0;}
     if (typeof event.data !== 'string' || event.data.length > 1024 || ++controlCount > 12 || controlQueued >= 4) { void stop(); return; }
     let data; try { data=JSON.parse(event.data); } catch { void stop(); return; }
-    if (!data || !['capture-size','capture-info','microphone-request','microphone-state','microphone-mode','record-command','record-state','stop'].includes(data.type)) { void stop(); return; }
+    if (!data || !['capture-size','capture-info','capture-request','microphone-request','microphone-state','microphone-mode','record-command','record-state','stop'].includes(data.type)) { void stop(); return; }
     if (data.type === 'stop') { void renewPairing(); return; }
     controlQueued++;
     controlSerial = controlSerial.then(() => pc === connection && !stopped ? receiveControl(data) : undefined).catch(() => {}).finally(() => {controlQueued--;});
@@ -103,7 +111,17 @@ function bindControl(channel) {
 window.extrudaSetCaptureSize = async size => {
   if (!supportedCaptureSize(size)) return;
   window.extrudaCaptureSize = size;
-  if (role === 'host' && approved && pc?.connectionState === 'connected') await sendControl({type:'capture-size',size});
+  if (role === 'host' && approved && pc?.connectionState === 'connected') await sendControl({type:'capture-size',size,resolutionControl:resolutionControl()});
+};
+// Hosts advertise phone-side resolution control. Older hosts never set the flag,
+// so a new phone page never sends them a message type they would reject.
+let phoneResolutionControl = false;
+const resolutionControl = () => typeof window.extrudaRequestResolution === 'function';
+const currentCaptureSize = () => supportedCaptureSize(window.extrudaCaptureSize) ? window.extrudaCaptureSize : {width:1280,height:720};
+function announceCaptureSize(refused) { window.dispatchEvent(new CustomEvent('extruda-capture-size',{detail:{size:captureSize,control:phoneResolutionControl,refused}})); }
+window.extrudaRequestCaptureSize = async size => {
+  if (role !== 'phone' || !approved || stopped || !phoneResolutionControl || !supportedCaptureSize(size)) return false;
+  await sendControl({type:'capture-request',size}); return true;
 };
 function makePeer() {
   pc = new RTCPeerConnection({ iceServers: [] });
@@ -132,11 +150,13 @@ async function receive(payload) {
   }
   else if (data.type === 'approved' && role === 'phone' && !approved && !stopped && data.nonce === phoneNonce) {
     captureSize = supportedCaptureSize(data.size) ? data.size : {width:1280,height:720};
+    phoneResolutionControl = data.resolutionControl === true;
     approved = true; $('phone-controls').hidden = false; $('stop').textContent = 'Afbryd';
     // Do not block incoming stop messages while the browser asks for camera permission.
+    announceCaptureSize(false);
     void startCamera();
   }
-  else if (['capture-info','capture-size','microphone-request','microphone-state','microphone-mode','record-command','record-state'].includes(data.type)) await receiveControl(data);
+  else if (['capture-info','capture-size','capture-request','microphone-request','microphone-state','microphone-mode','record-command','record-state'].includes(data.type)) await receiveControl(data);
   else if (data.type === 'offer' && role === 'host' && approved) { await pc.setRemoteDescription(data.sdp); await flushIce(); await pc.setLocalDescription(await pc.createAnswer()); await send({ type: 'answer', sdp: pc.localDescription.toJSON() }); }
   else if (data.type === 'answer' && role === 'phone' && approved) { await pc.setRemoteDescription(data.sdp); await flushIce(); }
   else if (data.type === 'ice' && approved) { if (pc.remoteDescription) await pc.addIceCandidate(data.candidate); else pendingIce.push(data.candidate); }
@@ -184,7 +204,7 @@ $('approve').onclick = async () => {
   if (!peerVerified) return;
   $('approve').disabled = true;
   try {
-    await send({ type: 'approved', nonce: phoneNonce, size: supportedCaptureSize(window.extrudaCaptureSize) ? window.extrudaCaptureSize : {width:1280,height:720} });
+    await send({ type: 'approved', nonce: phoneNonce, size: currentCaptureSize(), resolutionControl: resolutionControl() });
     approved = true; closeApproval(); $('pairing').hidden = true; $('stop').textContent = 'Afbryd'; status('Afventer telefonkamera…');
   } catch (error) { closeApproval(); fail(error); }
   finally { $('approve').disabled = false; }
@@ -203,6 +223,7 @@ async function startCamera() {
     const captured = await navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode: { ideal: $('camera').value }, width: { ideal: captureSize.width }, height: { ideal: captureSize.height }, aspectRatio: {ideal: captureSize.width/captureSize.height}, frameRate: { ideal: 30, max: 30 } } });
     if (stopped || !approved || pc !== connection) { captured.getTracks().forEach(track => track.stop()); return; }
     stream = captured;
+    stream.getVideoTracks().forEach(track => { track.enabled = !window.extrudaVideoHidden; });
     watchCamera(stream.getVideoTracks()[0]);
     const settings = stream.getVideoTracks()[0].getSettings();
     await sendControl({type:'capture-info',width:settings.width,height:settings.height});
@@ -236,6 +257,7 @@ async function switchCamera() {
     try{
       if(!current()){acquired.getTracks().forEach(item=>item.stop());return false;}
       if(!track)throw Error('No video track');
+      track.enabled=!window.extrudaVideoHidden;
       await sender.replaceTrack(track);
       if(!current()){acquired.getTracks().forEach(item=>item.stop());return false;}
     }catch(error){acquired.getTracks().forEach(item=>item.stop());throw error;}

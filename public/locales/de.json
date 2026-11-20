@@ -424,5 +424,21 @@
   "Billedet kunne ikke åbnes. Brug PNG, JPEG eller WebP under 15 MB og 16 megapixel.": "Bild konnte nicht geöffnet werden. PNG, JPEG oder WebP unter 15 MB und 16 Megapixel verwenden.",
   "Hvordan beskærer jeg og skjuler områder?": "Wie beschneide und maskiere ich Bereiche?",
   "I Windows-appen: Åbn Indstillinger og detaljer → Redigér billede. Træk et rektangel eller indtast procenter. Vælg Beskær, Dæk med farve eller Slør, og vælg Anvend område. Op til 12 skjulte områder kan fjernes enkeltvis. En dækkende farve skjuler pixels helt; sløring kan efterlade genkendelige detaljer. Områderne følger originalbilledet, også ved rotation. Kontrollér placeringen igen, hvis du skifter telefonkamera eller retning.": "In der Windows-App Einstellungen und Details → Bild bearbeiten öffnen. Rechteck ziehen oder Prozentwerte eingeben. Zuschneiden, Mit Farbe abdecken oder Weichzeichnen wählen, dann Bereich anwenden. Bis zu 12 Bereiche sind einzeln entfernbar. Deckende Farbe verbirgt Pixel vollständig; Weichzeichnung kann Details erkennbar lassen. Bereiche folgen dem Originalbild einschließlich Drehung. Nach Kamera- oder Ausrichtungswechsel Position prüfen.",
-  "Overlaygrafik åbner en lokal PNG, JPEG eller WebP (højst 15 MB og 16 megapixel). Justér placering, bredde og synlighed. Grafikken lægges over det færdige billede. Alt behandles på pc’en og gælder både Windows-webcam og efterfølgende optagelsesbilleder, ikke tidligere optaget video eller telefonens egen forhåndsvisning. Indstillinger og grafik forsvinder, når appen lukkes. Fejl i billedbehandlingen giver sort output frem for et ubeskyttet originalbillede.": "Overlay-Grafik öffnet eine lokale PNG-, JPEG- oder WebP-Datei (bis 15 MB und 16 Megapixel). Position, Breite und Deckkraft einstellen. Die Grafik liegt über dem fertigen Bild. Verarbeitung erfolgt auf dem PC und gilt für Windows-Webcam und folgende Aufnahmebilder, nicht für frühere Aufnahmen oder die Telefonvorschau. Beim Schließen werden Änderungen verworfen. Fehler erzeugen schwarzes statt ungeschütztem Originalbild."
+  "Overlaygrafik åbner en lokal PNG, JPEG eller WebP (højst 15 MB og 16 megapixel). Justér placering, bredde og synlighed. Grafikken lægges over det færdige billede. Alt behandles på pc’en og gælder både Windows-webcam og efterfølgende optagelsesbilleder, ikke tidligere optaget video eller telefonens egen forhåndsvisning. Indstillinger og grafik forsvinder, når appen lukkes. Fejl i billedbehandlingen giver sort output frem for et ubeskyttet originalbillede.": "Overlay-Grafik öffnet eine lokale PNG-, JPEG- oder WebP-Datei (bis 15 MB und 16 Megapixel). Position, Breite und Deckkraft einstellen. Die Grafik liegt über dem fertigen Bild. Verarbeitung erfolgt auf dem PC und gilt für Windows-Webcam und folgende Aufnahmebilder, nicht für frühere Aufnahmen oder die Telefonvorschau. Beim Schließen werden Änderungen verworfen. Fehler erzeugen schwarzes statt ungeschütztem Originalbild.",
+  "Vend kamera": "Kamera wechseln",
+  "Skjul billede": "Bild ausblenden",
+  "Vis billede": "Bild anzeigen",
+  "Dæmp skærm": "Bildschirm abdunkeln",
+  "Flere indstillinger": "Weitere Einstellungen",
+  "Indstillinger": "Einstellungen",
+  "Live på pc": "Live am PC",
+  "Forbinder…": "Verbinde…",
+  "Billedet er skjult for pc’en": "Das Bild ist für den PC ausgeblendet",
+  "Pc’en får et sort billede, indtil du viser det igen.": "Der PC erhält ein schwarzes Bild, bis du es wieder anzeigst.",
+  "Sender til pc’en": "Wird an den PC gesendet",
+  "Tryk for at vise skærmen igen": "Tippen, um den Bildschirm wieder anzuzeigen",
+  "Opløsningen vælges på pc’en.": "Die Auflösung wird am PC gewählt.",
+  "Skifter opløsning…": "Auflösung wird geändert…",
+  "Pc’en kunne ikke skifte opløsning lige nu.": "Der PC konnte die Auflösung gerade nicht ändern.",
+  "Windows-kameraet skifter også opløsning. Vælg eventuelt kameraet igen i Teams.": "Die Windows-Kamera ändert ebenfalls die Auflösung. Wähle die Kamera in Teams eventuell erneut aus."
 }

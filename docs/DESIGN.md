@@ -59,3 +59,29 @@ the server still enforces the original invitation expiry. A simulated phone
 clock one hour ahead reproduced immediate "Pairing ended" before this fix.
 
 Image editing lives in the collapsed bottom settings menu. The modal uses local raster overlays, keyboard-accessible percentage rectangles, crop and opaque/blur masks. All outputs share one processed canvas. Changes last for the app session; see the FAQ for privacy limits.
+
+## Phone viewfinder (0.17.0)
+
+Pairing shows the comparison code large and centred with a status pill and
+Cancel. Once the PC approves, the phone switches to a full-screen viewfinder
+(`public/phone-ui.js`, `body.phone-live`): the picture uses `object-fit: contain`
+so the phone shows what the PC receives, a Live/connecting chip and the current
+resolution sit at the top, and five 56 px round controls sit at the bottom:
+flip camera, microphone, hide picture, dim screen and settings.
+
+- Settings is a bottom sheet. The existing microphone panel, recording controls,
+  health line, status line and Disconnect are moved into it (not copied) and
+  returned when the session ends, so errors stay visible on the ended page.
+- Hide picture disables the outgoing video track; the PC receives black frames.
+  `window.extrudaVideoHidden` keeps a new track hidden after a camera switch or
+  restart before it is sent.
+- Dim screen is a black, tappable cover. The existing screen wake lock stays held.
+- Resolution: the phone sends `capture-request` with one of the five Windows
+  sizes. Only hosts that advertise `resolutionControl` (approval and
+  `capture-size` messages) receive it, because older hosts close the control
+  channel on unknown message types. The PC applies its own rules (not while
+  recording or mid-change) and answers with `capture-size`; a refusal returns
+  the current size with `refused: true`. Hosted phone page and Windows app must
+  both be updated before the phone selector becomes active.
+- Icons: 26A `camera-switch`, `microphone`, `microphone-off`, `eye-off`, `moon`,
+  `settings` and `close`; the first four were added to the identity package.

@@ -160,3 +160,30 @@ test('unrelated anchors do not restart pairing and cached pages cannot revive ap
  vm.runInContext('approved=true',s.context);s.listeners.pageshow({persisted:true});await settle();
  assert.equal(vm.runInContext('approved',s.context),false);assert.equal(vm.runInContext('stopped',s.context),true);
 });
+
+test('phone asks for a resolution only when the PC advertises support',async()=>{
+ const sent=[];const track={applyConstraints:async()=>{},getSettings:()=>({width:1280,height:720}),stop(){}};
+ const s=setup(async()=>({getVideoTracks:()=>[track],getTracks:()=>[track]}));await s.approve();await settle();
+ vm.runInContext("controlChannel={readyState:'open',send(m){globalThis.sent.push(JSON.parse(m))}};",Object.assign(s.context,{sent}));
+ assert.equal(await s.context.window.extrudaRequestCaptureSize({width:1920,height:1080}),false);assert.equal(sent.length,0);
+ await vm.runInContext("receiveControl({type:'capture-size',size:{width:1280,height:720},resolutionControl:true})",s.context);
+ assert.equal(await s.context.window.extrudaRequestCaptureSize({width:999,height:1}),false);
+ assert.equal(await s.context.window.extrudaRequestCaptureSize({width:1920,height:1080}),true);
+ assert.equal(JSON.stringify(sent.filter(m=>m.type==='capture-request').map(m=>m.size)),'[{"width":1920,"height":1080}]');
+});
+
+test('PC applies valid phone resolution requests and reports a refusal',async()=>{
+ const sent=[];const s=setup(async()=>{throw Error('unused')});Object.assign(s.context,{sent});
+ vm.runInContext("role='host';approved=true;controlChannel={readyState:'open',send(m){globalThis.sent.push(JSON.parse(m))}};",s.context);
+ const asked=[];let accept=true;s.context.window.extrudaCaptureSize={width:1280,height:720};s.context.window.extrudaRequestResolution=size=>{asked.push(size);return accept;};
+ await vm.runInContext("receiveControl({type:'capture-request',size:{width:7,height:7}})",s.context);assert.equal(asked.length,0);
+ await vm.runInContext("receiveControl({type:'capture-request',size:{width:1920,height:1080}})",s.context);assert.equal(asked.length,1);assert.equal(sent.length,0);
+ accept=false;await vm.runInContext("receiveControl({type:'capture-request',size:{width:3840,height:2160}})",s.context);
+ assert.equal(sent.at(-1).type,'capture-size');assert.equal(sent.at(-1).refused,true);assert.equal(JSON.stringify(sent.at(-1).size),'{"width":1280,"height":720}');
+});
+
+test('a hidden picture stays hidden on a newly started camera track',async()=>{
+ const track={enabled:true,getSettings:()=>({width:1280,height:720}),stop(){}};
+ const s=setup(async()=>({getVideoTracks:()=>[track],getTracks:()=>[track]}));s.context.window.extrudaVideoHidden=true;
+ await s.approve();await settle();assert.equal(track.enabled,false);
+});
