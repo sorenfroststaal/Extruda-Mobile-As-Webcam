@@ -57,3 +57,5 @@ Clients use that relative lifetime, capped at ten minutes, rather than comparing
 server timestamps with the phone clock. Older servers fall back to ten minutes;
 the server still enforces the original invitation expiry. A simulated phone
 clock one hour ahead reproduced immediate "Pairing ended" before this fix.
+
+Image editing lives in the collapsed bottom settings menu. The modal uses local raster overlays, keyboard-accessible percentage rectangles, crop and opaque/blur masks. All outputs share one processed canvas. Changes last for the app session; see the FAQ for privacy limits.

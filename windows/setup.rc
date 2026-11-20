@@ -43,3 +43,5 @@
 325 RCDATA "dist/ui/startup.js"
 326 RCDATA "dist/ui/brand/extruda-logo-light-web.webm"
 327 RCDATA "dist/ui/brand/extruda-logo-dark-web.webm"
+328 RCDATA "dist/ui/compositor.js"
+329 RCDATA "dist/ui/image-editor.js"

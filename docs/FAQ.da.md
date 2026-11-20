@@ -4,6 +4,12 @@
 
 [Sikkerhedsrisici](SECURITY.da.md)
 
+## Hvordan beskærer jeg og skjuler områder?
+
+I Windows-appen: Åbn Indstillinger og detaljer → Redigér billede. Træk et rektangel eller indtast procenter. Vælg Beskær, Dæk med farve eller Slør, og vælg Anvend område. Op til 12 skjulte områder kan fjernes enkeltvis. En dækkende farve skjuler pixels helt; sløring kan efterlade genkendelige detaljer. Områderne følger originalbilledet, også ved rotation. Kontrollér placeringen igen, hvis du skifter telefonkamera eller retning.
+
+Overlaygrafik åbner en lokal PNG, JPEG eller WebP (højst 15 MB og 16 megapixel). Justér placering, bredde og synlighed. Grafikken lægges over det færdige billede. Alt behandles på pc’en og gælder både Windows-webcam og efterfølgende optagelsesbilleder, ikke tidligere optaget video eller telefonens egen forhåndsvisning. Indstillinger og grafik forsvinder, når appen lukkes. Fejl i billedbehandlingen giver sort output frem for et ubeskyttet originalbillede.
+
 ## Hvor er de øvrige kontroller?
 
 Når telefonen er forbundet, vises opløsning, lyd til/fra, en lille lydinputmåler, optag og afbryd. Når lyden er slået til, vises også en checkbox til lydrensning. Lydmåleren viser telefonens input før rensning; stilhed er ikke i sig selv en fejl.

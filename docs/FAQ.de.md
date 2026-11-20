@@ -4,6 +4,12 @@
 
 [Sicherheitsrisiken](SECURITY.de.md)
 
+## Wie beschneide und maskiere ich Bereiche?
+
+In der Windows-App Einstellungen und Details → Bild bearbeiten öffnen. Rechteck ziehen oder Prozentwerte eingeben. Zuschneiden, Mit Farbe abdecken oder Weichzeichnen wählen, dann Bereich anwenden. Bis zu 12 Bereiche sind einzeln entfernbar. Deckende Farbe verbirgt Pixel vollständig; Weichzeichnung kann Details erkennbar lassen. Bereiche folgen dem Originalbild einschließlich Drehung. Nach Kamera- oder Ausrichtungswechsel Position prüfen.
+
+Overlay-Grafik öffnet eine lokale PNG-, JPEG- oder WebP-Datei (bis 15 MB und 16 Megapixel). Position, Breite und Deckkraft einstellen. Die Grafik liegt über dem fertigen Bild. Verarbeitung erfolgt auf dem PC und gilt für Windows-Webcam und folgende Aufnahmebilder, nicht für frühere Aufnahmen oder die Telefonvorschau. Beim Schließen werden Änderungen verworfen. Fehler erzeugen schwarzes statt ungeschütztem Originalbild.
+
 ## Wo sind die weiteren Bedienelemente?
 
 Bei bestehender Verbindung zeigt die Hauptansicht Auflösung, Mikrofon ein/aus, einen kleinen Eingangspegel, Aufnahme und Trennen. Bei aktiviertem Ton erscheint zusätzlich das Kontrollkästchen zur Rauschunterdrückung. Die Anzeige misst den Telefoneingang vor der Filterung; Stille ist allein kein Fehler.

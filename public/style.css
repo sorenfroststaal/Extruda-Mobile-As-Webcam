@@ -91,3 +91,10 @@ body.native.video-only #session-more .session-more-content>:not(#fullscreen){dis
 /* Phone invitation: one verification message and Cancel beside the code. */
 body.phone-pairing #health-panel,body.phone-pairing .statusbar{display:none!important}
 #phone-actions{margin-top:12px}#phone-actions button{margin:0;min-height:48px}
+#image-editor{width:min(1000px,94vw);max-height:92vh;overflow:auto;box-sizing:border-box}
+#image-editor .image-editor-preview{height:clamp(200px,40vh,420px);display:flex;align-items:center;justify-content:center;background:var(--bg,#242c2b);border-radius:12px;margin:12px 0}
+#edit-canvas{max-width:100%;max-height:100%;width:auto;height:auto;touch-action:none;cursor:crosshair}
+.image-editor-tools{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin:12px 0}
+.image-editor-tools label{display:flex;flex-direction:column;gap:5px;flex:1;min-width:100px}
+.image-editor-tools input[type=number]{width:100%;box-sizing:border-box}
+#edit-color{height:42px;min-width:70px}

@@ -1,0 +1,164 @@
+[
+  [
+    "Redigér billede",
+    "Edit picture",
+    "Bild bearbeiten",
+    "Modifier l’image"
+  ],
+  [
+    "Værktøj",
+    "Tool",
+    "Werkzeug",
+    "Outil"
+  ],
+  [
+    "Beskær",
+    "Crop",
+    "Zuschneiden",
+    "Recadrer"
+  ],
+  [
+    "Dæk med farve",
+    "Cover with color",
+    "Mit Farbe abdecken",
+    "Masquer par une couleur"
+  ],
+  [
+    "Slør",
+    "Blur",
+    "Weichzeichnen",
+    "Flouter"
+  ],
+  [
+    "Farve",
+    "Color",
+    "Farbe",
+    "Couleur"
+  ],
+  [
+    "Sløring",
+    "Blur strength",
+    "Weichzeichnung",
+    "Intensité du flou"
+  ],
+  [
+    "Venstre (%)",
+    "Left (%)",
+    "Links (%)",
+    "Gauche (%)"
+  ],
+  [
+    "Top (%)",
+    "Top (%)",
+    "Oben (%)",
+    "Haut (%)"
+  ],
+  [
+    "Bredde (%)",
+    "Width (%)",
+    "Breite (%)",
+    "Largeur (%)"
+  ],
+  [
+    "Højde (%)",
+    "Height (%)",
+    "Höhe (%)",
+    "Hauteur (%)"
+  ],
+  [
+    "Anvend område",
+    "Apply area",
+    "Bereich anwenden",
+    "Appliquer la zone"
+  ],
+  [
+    "Skjulte områder",
+    "Masked areas",
+    "Maskierte Bereiche",
+    "Zones masquées"
+  ],
+  [
+    "Fjern valgt område",
+    "Remove selected area",
+    "Gewählten Bereich entfernen",
+    "Supprimer la zone sélectionnée"
+  ],
+  [
+    "Overlaygrafik",
+    "Overlay image",
+    "Overlay-Grafik",
+    "Image superposée"
+  ],
+  [
+    "Vælg billede",
+    "Choose image",
+    "Bild wählen",
+    "Choisir une image"
+  ],
+  [
+    "Synlighed (%)",
+    "Opacity (%)",
+    "Deckkraft (%)",
+    "Opacité (%)"
+  ],
+  [
+    "Fjern grafik",
+    "Remove image",
+    "Grafik entfernen",
+    "Supprimer l’image"
+  ],
+  [
+    "Nulstil alle ændringer",
+    "Reset all edits",
+    "Alle Änderungen zurücksetzen",
+    "Réinitialiser les modifications"
+  ],
+  [
+    "Område anvendt",
+    "Area applied",
+    "Bereich angewendet",
+    "Zone appliquée"
+  ],
+  [
+    "Grafik tilføjet",
+    "Image added",
+    "Grafik hinzugefügt",
+    "Image ajoutée"
+  ],
+  [
+    "Kontrollér procenterne. Højst 12 områder.",
+    "Check percentages. Maximum 12 areas.",
+    "Prozentwerte prüfen. Höchstens 12 Bereiche.",
+    "Vérifiez les pourcentages. 12 zones maximum."
+  ],
+  [
+    "Ændringer gælder webcam og nye optagelser. De gemmes kun, mens appen er åben.",
+    "Edits apply to webcam and new recordings. They last until the app closes.",
+    "Änderungen gelten für Webcam und neue Aufnahmen, bis die App geschlossen wird.",
+    "Les modifications s’appliquent à la webcam et aux nouveaux enregistrements jusqu’à la fermeture."
+  ],
+  [
+    "Træk et område i billedet, eller indtast procenter nedenfor. Vælg Anvend område.",
+    "Drag a rectangle or enter percentages below. Choose Apply area.",
+    "Rechteck ziehen oder Prozentwerte eingeben. Bereich anwenden wählen.",
+    "Dessinez un rectangle ou saisissez les pourcentages. Choisissez Appliquer la zone."
+  ],
+  [
+    "En dækkende farve skjuler området helt. Sløring kan stadig efterlade genkendelige detaljer.",
+    "Opaque color hides the area completely. Blur may leave recognizable details.",
+    "Eine deckende Farbe verbirgt den Bereich vollständig. Weichzeichnung kann Details erkennbar lassen.",
+    "Une couleur opaque masque entièrement la zone. Le flou peut laisser des détails reconnaissables."
+  ],
+  [
+    "PNG, JPEG eller WebP · højst 15 MB og 16 megapixel. Billedet bliver på pc’en.",
+    "PNG, JPEG or WebP · up to 15 MB and 16 megapixels. The image stays on the PC.",
+    "PNG, JPEG oder WebP · bis 15 MB und 16 Megapixel. Das Bild bleibt auf dem PC.",
+    "PNG, JPEG ou WebP · 15 Mo et 16 mégapixels maximum. L’image reste sur le PC."
+  ],
+  [
+    "Billedet kunne ikke åbnes. Brug PNG, JPEG eller WebP under 15 MB og 16 megapixel.",
+    "Could not open image. Use PNG, JPEG or WebP under 15 MB and 16 megapixels.",
+    "Bild konnte nicht geöffnet werden. PNG, JPEG oder WebP unter 15 MB und 16 Megapixel verwenden.",
+    "Impossible d’ouvrir l’image. Utilisez PNG, JPEG ou WebP sous 15 Mo et 16 mégapixels."
+  ]
+]

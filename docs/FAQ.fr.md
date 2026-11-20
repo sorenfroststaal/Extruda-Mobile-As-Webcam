@@ -4,6 +4,12 @@
 
 [Risques de sécurité](SECURITY.fr.md)
 
+## Comment recadrer et masquer des zones ?
+
+Dans l’application Windows, ouvrez Paramètres et détails → Modifier l’image. Dessinez un rectangle ou saisissez les pourcentages. Choisissez Recadrer, Masquer par une couleur ou Flouter, puis Appliquer la zone. Jusqu’à 12 zones peuvent être supprimées individuellement. Une couleur opaque masque totalement les pixels ; le flou peut laisser des détails reconnaissables. Vérifiez les zones après un changement de caméra ou d’orientation.
+
+Image superposée ouvre un PNG, JPEG ou WebP local (15 Mo et 16 mégapixels maximum). Réglez position, largeur et opacité. Le traitement reste sur le PC et s’applique à la webcam Windows et aux images enregistrées suivantes, pas aux anciens enregistrements ni à l’aperçu du téléphone. Les réglages disparaissent à la fermeture. Une erreur de traitement produit une image noire plutôt que la vidéo originale non protégée.
+
 ## Où sont les autres commandes ?
 
 Une fois connecté, la vue principale affiche la résolution, le microphone activé/désactivé, un petit indicateur de niveau, l’enregistrement et Déconnecter. L’activation du son révèle la case de réduction du bruit. Le niveau représente l’entrée du téléphone avant filtrage ; le silence seul ne signifie pas une erreur.

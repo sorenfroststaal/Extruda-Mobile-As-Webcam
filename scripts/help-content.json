@@ -1,5 +1,28 @@
 [
   {
+    "id": "image-editor",
+    "title": [
+      "Hvordan beskærer jeg og skjuler områder?",
+      "How do I crop and hide areas?",
+      "Wie beschneide und maskiere ich Bereiche?",
+      "Comment recadrer et masquer des zones ?"
+    ],
+    "paragraphs": [
+      [
+        "I Windows-appen: Åbn Indstillinger og detaljer → Redigér billede. Træk et rektangel eller indtast procenter. Vælg Beskær, Dæk med farve eller Slør, og vælg Anvend område. Op til 12 skjulte områder kan fjernes enkeltvis. En dækkende farve skjuler pixels helt; sløring kan efterlade genkendelige detaljer. Områderne følger originalbilledet, også ved rotation. Kontrollér placeringen igen, hvis du skifter telefonkamera eller retning.",
+        "In the Windows app, open Settings and details → Edit picture. Drag a rectangle or enter percentages. Choose Crop, Cover with color or Blur, then Apply area. Up to 12 masked areas can be removed individually. Opaque color completely hides pixels; blur may leave recognizable details. Areas follow the original image, including rotation. Check placement after switching phone cameras or orientation.",
+        "In der Windows-App Einstellungen und Details → Bild bearbeiten öffnen. Rechteck ziehen oder Prozentwerte eingeben. Zuschneiden, Mit Farbe abdecken oder Weichzeichnen wählen, dann Bereich anwenden. Bis zu 12 Bereiche sind einzeln entfernbar. Deckende Farbe verbirgt Pixel vollständig; Weichzeichnung kann Details erkennbar lassen. Bereiche folgen dem Originalbild einschließlich Drehung. Nach Kamera- oder Ausrichtungswechsel Position prüfen.",
+        "Dans l’application Windows, ouvrez Paramètres et détails → Modifier l’image. Dessinez un rectangle ou saisissez les pourcentages. Choisissez Recadrer, Masquer par une couleur ou Flouter, puis Appliquer la zone. Jusqu’à 12 zones peuvent être supprimées individuellement. Une couleur opaque masque totalement les pixels ; le flou peut laisser des détails reconnaissables. Vérifiez les zones après un changement de caméra ou d’orientation."
+      ],
+      [
+        "Overlaygrafik åbner en lokal PNG, JPEG eller WebP (højst 15 MB og 16 megapixel). Justér placering, bredde og synlighed. Grafikken lægges over det færdige billede. Alt behandles på pc’en og gælder både Windows-webcam og efterfølgende optagelsesbilleder, ikke tidligere optaget video eller telefonens egen forhåndsvisning. Indstillinger og grafik forsvinder, når appen lukkes. Fejl i billedbehandlingen giver sort output frem for et ubeskyttet originalbillede.",
+        "Overlay image opens a local PNG, JPEG or WebP (up to 15 MB and 16 megapixels). Adjust position, width and opacity. It is drawn over the final output. Processing stays on the PC and applies to the Windows webcam and subsequent recorded frames, not earlier recordings or the phone preview. Edits and graphics are cleared when the app closes. Processing failures produce black output instead of unprotected original video.",
+        "Overlay-Grafik öffnet eine lokale PNG-, JPEG- oder WebP-Datei (bis 15 MB und 16 Megapixel). Position, Breite und Deckkraft einstellen. Die Grafik liegt über dem fertigen Bild. Verarbeitung erfolgt auf dem PC und gilt für Windows-Webcam und folgende Aufnahmebilder, nicht für frühere Aufnahmen oder die Telefonvorschau. Beim Schließen werden Änderungen verworfen. Fehler erzeugen schwarzes statt ungeschütztem Originalbild.",
+        "Image superposée ouvre un PNG, JPEG ou WebP local (15 Mo et 16 mégapixels maximum). Réglez position, largeur et opacité. Le traitement reste sur le PC et s’applique à la webcam Windows et aux images enregistrées suivantes, pas aux anciens enregistrements ni à l’aperçu du téléphone. Les réglages disparaissent à la fermeture. Une erreur de traitement produit une image noire plutôt que la vidéo originale non protégée."
+      ]
+    ]
+  },
+  {
     "id": "compact-controls",
     "title": [
       "Hvor er de øvrige kontroller?",

@@ -4,6 +4,12 @@
 
 [Security risks](SECURITY.en.md)
 
+## How do I crop and hide areas?
+
+In the Windows app, open Settings and details → Edit picture. Drag a rectangle or enter percentages. Choose Crop, Cover with color or Blur, then Apply area. Up to 12 masked areas can be removed individually. Opaque color completely hides pixels; blur may leave recognizable details. Areas follow the original image, including rotation. Check placement after switching phone cameras or orientation.
+
+Overlay image opens a local PNG, JPEG or WebP (up to 15 MB and 16 megapixels). Adjust position, width and opacity. It is drawn over the final output. Processing stays on the PC and applies to the Windows webcam and subsequent recorded frames, not earlier recordings or the phone preview. Edits and graphics are cleared when the app closes. Processing failures produce black output instead of unprotected original video.
+
 ## Where are the other controls?
 
 When connected, the main view shows resolution, microphone on/off, a small input meter, recording and Disconnect. Enabling audio also reveals the noise-reduction checkbox. The meter shows phone input before filtering; silence is not itself an error.

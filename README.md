@@ -7,7 +7,7 @@
 
 Use an Android or iPhone camera as a Windows webcam, without OBS or a user account.
 
-**[Download Windows installer 0.15.1](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.15.1/ExtrudaMobileAsWebcam-Setup-0.15.1-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/tag/mobile-as-webcam-v0.15.0) · [mobile as webcam website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
+**[Download Windows installer 0.16.0](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.16.0/ExtrudaMobileAsWebcam-Setup-0.16.0-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/tag/mobile-as-webcam-v0.16.0) · [mobile as webcam website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
 
 ## Use
 
@@ -164,7 +164,7 @@ has no reference copy of a separate PC TV's playback. DeepFilterNet does not
 guarantee removal of other speakers' voices. See the four-language FAQ.
 
 
-## Connection recovery update 0.15.1
+## Connection recovery update 0.16.0
 
 Install the new Windows version as well as reopening the hosted phone page.
 The receiver UI is packaged locally and does not acquire fixes from a website
@@ -175,3 +175,9 @@ Explicit departure, authentication failures and the fixed server session cap
 continue to end the session. A network/media failure still gets the existing
 15-second recovery window. This does not prevent iOS suspending a locked or
 backgrounded phone page. Keep the phone page visible during use.
+
+## Image editing (0.16.0)
+
+Open **Settings and details → Edit picture** in the Windows app. Crop the source, add up to 12 rectangular blur/opaque-color masks, and add one local PNG/JPEG/WebP overlay (15 MB / 16 MP maximum) with position, size and opacity controls. Drag rectangles or enter percentages for keyboard use. The processed canvas feeds both the Windows virtual camera and subsequent local recording frames. The phone preview remains unchanged.
+
+Opaque masks completely cover their source pixels and take precedence over blur. Blur is visual obfuscation and may leave recognizable details. Check masks after camera/orientation changes. Edits affect future frames only; they cannot redact an existing recording. Images remain local and edits are cleared on app exit. A processing error produces black output rather than unprocessed video. Extra processing, especially blur at 4K, can reduce frame rate.

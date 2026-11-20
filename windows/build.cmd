@@ -66,6 +66,8 @@ copy /y public\noise.js windows\dist\ui\noise.js >nul
 copy /y public\audio.js windows\dist\ui\audio.js >nul
 copy /y public\health.js windows\dist\ui\health.js >nul
 copy /y public\video.js windows\dist\ui\video.js >nul
+copy /y public\compositor.js windows\dist\ui\compositor.js >nul
+copy /y public\image-editor.js windows\dist\ui\image-editor.js >nul
 copy /y public\recording.js windows\dist\ui\recording.js >nul
 copy /y public\audio-worklet.js windows\dist\ui\audio-worklet.js >nul
 if not exist windows\dist\ui\. mkdir windows\dist\ui\.

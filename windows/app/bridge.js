@@ -63,7 +63,7 @@
         const rgba = new Uint32Array(image.data.buffer);
         for (let i = 0; i < rgba.length; i++) { const p = rgba[i]; pixels[i] = (p & 0xff00ff00) | ((p & 0xff) << 16) | ((p >>> 16) & 0xff); }
         busy = true; running = true; lastFrame = now; chrome.webview.postMessage('frame');
-      } catch { running = false; chrome.webview.postMessage('clear'); }
+      } catch { running = false;ctx.fillStyle='#000';ctx.fillRect(0,0,canvas.width,canvas.height);window.ExtrudaRecording?.frame(canvas,true);chrome.webview.postMessage('clear'); }
     } else if (running && (!video?.srcObject||!healthy)) { running = false;ctx.fillStyle='#000';ctx.fillRect(0,0,canvas.width,canvas.height);window.ExtrudaRecording?.frame(canvas,true);chrome.webview.postMessage('clear'); }
     setTimeout(() => frame(performance.now()), 33);
   }
@@ -89,6 +89,7 @@
   const content=document.createElement('div');content.className='session-more-content';more.append(summary,content);
   content.append(control,document.getElementById('fullscreen'),document.getElementById('mic-panel'),document.getElementById('record-toolbar'),document.getElementById('health-panel'),guide);
   main.append(more);
+  const editPicture=document.createElement('button');editPicture.id='edit-picture';editPicture.textContent='Redigér billede';editPicture.onclick=()=>window.ExtrudaImageEditor?.open();content.prepend(editPicture);
   const syncNoise=()=>{noiseToggle.hidden=document.getElementById('mic-toggle').getAttribute('aria-pressed')!=='true';};
   new MutationObserver(syncNoise).observe(document.getElementById('mic-toggle'),{attributes:true,attributeFilter:['aria-pressed']});syncNoise();
   window.addEventListener('extruda-connection',event=>{

@@ -7,6 +7,7 @@
     return{angle:angle*Math.PI/180,x:width/2,y:height/2,width:sourceWidth*scale,height:sourceHeight*scale};
   }
   window.ExtrudaVideo={geometry,draw(ctx,video,width,height,mode,rotation){
+    if(window.ExtrudaCompositor?.active())return window.ExtrudaCompositor.render(ctx,video,width,height,mode,rotation,geometry);
     const g=geometry(video.videoWidth,video.videoHeight,width,height,mode,rotation);if(!g)return false;
     ctx.fillStyle='#000';ctx.fillRect(0,0,width,height);ctx.save();ctx.translate(g.x,g.y);ctx.rotate(g.angle);
     ctx.drawImage(video,-g.width/2,-g.height/2,g.width,g.height);ctx.restore();return true;

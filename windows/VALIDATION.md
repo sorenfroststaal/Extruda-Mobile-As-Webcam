@@ -192,3 +192,7 @@ path, not an iPhone endurance result or a reproduction of the user's exact
 network/lock conditions. The earlier old-receiver trial was stopped after two
 minutes to test the corrected package instead; it did not establish the user's
 original root cause.
+
+## 0.16.0 image editor
+
+Synthetic browser pixel checks passed for crop, opaque mask, unchanged exterior pixels, blur, overlay and invalid rectangle rejection. Native editor opens from the bottom advanced menu, supports numerical rectangles, adds/removes areas and closes correctly. No physical camera or microphone was accessed. Image edits feed the existing shared processed canvas for webcam and recording. Real phone and meeting-app validation remains a manual check.
