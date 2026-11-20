@@ -195,4 +195,6 @@ original root cause.
 
 ## 0.16.0 image editor
 
+Hosted phone reconnect hotfix: 83 automated tests passed, including new-QR fragment navigation and cached-page cleanup. An end-to-end synthetic-media browser test connected, closed the PC page, observed the ended phone session, opened a second PC pairing and navigated the SAME phone tab to its new QR URL. A fresh phone document loaded, comparison codes matched, PC approval succeeded and video resumed. This verifies desktop Chromium's tab-reuse path; physical iOS Safari cache behavior remains a manual check. No Windows binary changes are needed for the hosted phone fix.
+
 Synthetic browser pixel checks passed for crop, opaque mask, unchanged exterior pixels, blur, overlay and invalid rectangle rejection. Native editor opens from the bottom advanced menu, supports numerical rectangles, adds/removes areas and closes correctly. No physical camera or microphone was accessed. Image edits feed the existing shared processed canvas for webcam and recording. Real phone and meeting-app validation remains a manual check.

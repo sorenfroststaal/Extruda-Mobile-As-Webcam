@@ -5,16 +5,16 @@ import {webcrypto} from 'node:crypto';
 import {readFileSync} from 'node:fs';
 const source=readFileSync(new URL('../public/app.js',import.meta.url),'utf8').split("if (fragment.has('room')) {")[0];
 function setup(getUserMedia,timers={setTimeout,clearTimeout}) {
-  const elements=new Map();
+  const elements=new Map(),listeners={};
   const element=id=>{if(!elements.has(id))elements.set(id,{hidden:false,disabled:false,value:'environment',textContent:'',addEventListener(){},getContext(){return{clearRect(){}}},close(){this.open=false}});return elements.get(id)};
   const context=vm.createContext({console:{...console,error(){}},CustomEvent,TextEncoder,TextDecoder,Uint8Array,URLSearchParams,URL,atob,btoa,setTimeout:timers.setTimeout,clearTimeout:timers.clearTimeout,
     crypto:{getRandomValues:a=>a,subtle:{decrypt:async(_a,_b,data)=>data,encrypt:async()=>new Uint8Array(),digest:(...args)=>webcrypto.subtle.digest(...args)}},
     location:{hash:'',pathname:'/',origin:'https://example.test',protocol:'https:'},history:{replaceState(){}},
-    document:{getElementById:element,addEventListener(){},body:{classList:{remove(){}}}},window:{addEventListener(){},dispatchEvent(){}},
+    document:{getElementById:element,addEventListener(){},body:{classList:{remove(){}}}},window:{addEventListener(name,handler){listeners[name]=handler},dispatchEvent(){}},
     navigator:{mediaDevices:{getUserMedia}},WebSocket:{OPEN:1}});
   vm.runInContext(source+`;role='phone';phoneNonce='test-nonce';stopped=false;pc={addTrack(){},async setLocalDescription(){},async createOffer(){return{}},localDescription:{toJSON(){return{}}},close(){}};socket={readyState:1,send(){},close(){}};`,context);
   const approve=()=>vm.runInContext(`receive({iv:'',data:btoa(JSON.stringify({type:'approved',sender:'host',nonce:'test-nonce'}))})`,context);
-  return{context,element,approve};
+  return{context,element,approve,listeners};
 }
 const settle=()=>new Promise(resolve=>setImmediate(resolve));
 test('PC approval starts camera automatically and duplicate approval does not reopen it',async()=>{
@@ -147,4 +147,16 @@ test('successful media cancels invitation timer and a queued old timeout cannot 
  assert.equal([...tasks.values()].some(x=>x.delay===600000),false);
  vm.runInContext("pc.connectionState='disconnected';handleConnectionState(pc)",s.context);
  await oldDeadline();await settle();assert.equal(renewed,0);assert.equal(vm.runInContext('stopped',s.context),false);assert.equal(tasks.size,2);
+});
+
+test('new QR fragment in a reused phone tab reloads and retires the old session',async()=>{
+ const s=setup(async()=>{});let reloads=0;s.context.location.reload=()=>reloads++;
+ vm.runInContext("stopped=true;approved=false;location.hash='#room=new-room&token=new-token&key=new-key'",s.context);
+ s.listeners.hashchange();await settle();assert.equal(reloads,1);assert.equal(vm.runInContext('stopped',s.context),true);
+});
+test('unrelated anchors do not restart pairing and cached pages cannot revive approval',async()=>{
+ const s=setup(async()=>{});let reloads=0;s.context.location.reload=()=>reloads++;
+ s.context.location.hash='#faq';s.listeners.hashchange();assert.equal(reloads,0);
+ vm.runInContext('approved=true',s.context);s.listeners.pageshow({persisted:true});await settle();
+ assert.equal(vm.runInContext('approved',s.context),false);assert.equal(vm.runInContext('stopped',s.context),true);
 });

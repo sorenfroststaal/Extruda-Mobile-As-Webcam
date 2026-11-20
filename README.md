@@ -178,6 +178,8 @@ backgrounded phone page. Keep the phone page visible during use.
 
 ## Image editing (0.16.0)
 
+Hosted phone reconnect fix: scanning a new QR into an existing browser tab now starts a fresh session even when the browser changes only the URL fragment. Returning to a cached ended page also clears its old session. Refresh an already-open phone page once to load this fix; no Windows reinstall is required for this phone-side correction.
+
 Open **Settings and details → Edit picture** in the Windows app. Crop the source, add up to 12 rectangular blur/opaque-color masks, and add one local PNG/JPEG/WebP overlay (15 MB / 16 MP maximum) with position, size and opacity controls. Drag rectangles or enter percentages for keyboard use. The processed canvas feeds both the Windows virtual camera and subsequent local recording frames. The phone preview remains unchanged.
 
 Opaque masks completely cover their source pixels and take precedence over blur. Blur is visual obfuscation and may leave recognizable details. Check masks after camera/orientation changes. Edits affect future frames only; they cannot redact an existing recording. Images remain local and edits are cleared on app exit. A processing error produces black output rather than unprocessed video. Extra processing, especially blur at 4K, can reduce frame rate.

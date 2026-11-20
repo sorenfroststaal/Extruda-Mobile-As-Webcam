@@ -280,7 +280,19 @@ $('stop').onclick = () => stop();
 $('fullscreen').onclick = () => { document.body.classList.toggle('video-only'); $('fullscreen').textContent = document.body.classList.contains('video-only') ? 'Tilbage' : 'Vis kun video'; };
 document.addEventListener('keydown', e => { if (e.key === 'Escape') document.body.classList.remove('video-only'); });
 document.addEventListener('visibilitychange', async () => { if (document.visibilityState === 'visible' && stream && 'wakeLock' in navigator) try { wakeLock = await navigator.wakeLock.request('screen'); } catch {} });
-window.addEventListener('pagehide', () => { stream?.getTracks().forEach(t => t.stop()); pc?.close(); socket?.close(); });
+// Scanners can reuse the same tab by changing only the URL fragment. That does
+// not reload this module, so start a fresh document for the new invitation.
+window.addEventListener('hashchange', () => {
+  if(!new URLSearchParams(location.hash.slice(1)).has('room'))return;
+  void stop(false);
+  location.reload();
+});
+window.addEventListener('pagehide', () => { void stop(false); });
+// Safari may restore a finished page from its back/forward cache. Never restore
+// stale camera consent, approval, timers or sockets as an active session.
+window.addEventListener('pageshow', event => {
+  if(event.persisted && role==='phone')void stop(false);
+});
 if (fragment.has('room')) {
   role = 'phone'; document.body.classList.add('phone-client','phone-pairing'); $('phone').hidden = false; $('phone-actions').append($('stop')); $('guide').hidden = true; document.querySelector('.intro').hidden = true;
   if (!/^[a-f0-9]{32}$/.test(fragment.get('room')) || !valid.test(fragment.get('token')) || !valid.test(fragment.get('key'))) fail(new Error('Parringslinket er ugyldigt. Scan en ny QR-kode på pc’en.'));
