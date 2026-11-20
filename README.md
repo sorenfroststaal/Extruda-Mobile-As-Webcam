@@ -7,7 +7,7 @@
 
 Use an Android or iPhone camera as a Windows webcam, without OBS or a user account.
 
-**[Download Windows installer 0.16.0](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.16.0/ExtrudaMobileAsWebcam-Setup-0.16.0-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/tag/mobile-as-webcam-v0.16.0) · [mobile as webcam website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
+**[Download Windows installer 0.17.0](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.17.0/ExtrudaMobileAsWebcam-Setup-0.17.0-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/tag/mobile-as-webcam-v0.17.0) · [mobile as webcam website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
 
 ## Use
 
@@ -176,9 +176,11 @@ continue to end the session. A network/media failure still gets the existing
 15-second recovery window. This does not prevent iOS suspending a locked or
 backgrounded phone page. Keep the phone page visible during use.
 
-## Image editing (0.16.0)
+## Phone viewfinder (0.17.0)
 
-The hosted phone page now uses a fullscreen viewfinder with camera, microphone, hide-picture, dim-screen and settings controls. Existing recording and audio options are in the settings sheet. Phone-side resolution selection is enabled only when a compatible updated Windows receiver advertises support; existing installed receivers continue to choose resolution on the PC. Reload the phone page to receive hosted UI updates.
+The hosted phone page now uses a fullscreen viewfinder with camera, microphone, hide-picture, dim-screen and settings controls. Existing recording and audio options are in the settings sheet. Phone-side resolution selection is enabled only when a compatible updated Windows receiver advertises support; Windows 0.17.0 does. Older installed receivers continue to choose resolution on the PC. Reload the phone page to receive hosted UI updates.
+
+## Image editing (0.16.0)
 
 Hosted phone reconnect fix: scanning a new QR into an existing browser tab now starts a fresh session even when the browser changes only the URL fragment. Returning to a cached ended page also clears its old session. Refresh an already-open phone page once to load this fix; no Windows reinstall is required for this phone-side correction.
 
