@@ -7,7 +7,7 @@
 
 Use an Android or iPhone camera as a Windows webcam, without OBS or a user account.
 
-**[Download Windows installer 0.17.0](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.17.0/ExtrudaMobileAsWebcam-Setup-0.17.0-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/tag/mobile-as-webcam-v0.17.0) · [mobile as webcam website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
+**[Download Windows installer 0.18.0](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/download/mobile-as-webcam-v0.18.0/ExtrudaMobileAsWebcam-Setup-0.18.0-x64.exe)** · [Releases](https://github.com/sorenfroststaal/Extruda-Mobile-As-Webcam/releases/tag/mobile-as-webcam-v0.18.0) · [mobile as webcam website](https://extruda-phone-camera.sorenfroststaal.workers.dev/)
 
 ## Use
 
@@ -27,7 +27,8 @@ level meter, recording and Disconnect. The noise-reduction checkbox appears
 when microphone audio is enabled. The meter shows phone input before filtering;
 silence is normal and does not itself mean the connection has failed.
 
-**Settings and details** is collapsed below the preview. Expand it for framing,
+**Settings** opens a side panel from the toolbar (Picture, Sound, Recording,
+Connection sections). Use it for framing,
 rotation, audio routing, microphone tests, before/after filter diagnostics,
 connection information and recording details. Pause and Stop/save appear when
 recording. Recording start still requires the PC settings and save dialog.
@@ -136,7 +137,7 @@ Build prerequisite: `node scripts/fetch-deepfilter.mjs` downloads the pinned off
 
 ## Noise reduction controls
 
-The compact main screen shows phone input and, with audio enabled, the noise-reduction checkbox. Expand Settings and details for filter state and before/after levels. The strength slider changes DeepFilterNet attenuation (6–60 dB) on the next audio blocks without restarting the microphone or recording track. One automatic restart is permitted per audio graph; original audio continues during restart and after a second failure. Error reasons are enumerated and delayed replies from old sessions are ignored. Idle input and suspended graphs do not trigger failure loops.
+The compact main screen shows phone input and, with audio enabled, the noise-reduction checkbox. Open Settings for filter state and before/after levels. The strength slider changes DeepFilterNet attenuation (6–60 dB) on the next audio blocks without restarting the microphone or recording track. One automatic restart is permitted per audio graph; original audio continues during restart and after a second failure. Error reasons are enumerated and delayed replies from old sessions are ignored. Idle input and suspended graphs do not trigger failure loops.
 
 The optional listening test starts only when clicked, holds at most 10 seconds of paired original/filtered PCM in memory, and plays either version at the same low gain after a separate click. Use headphones to avoid recapture/feedback. Close, mute, disconnect or filter failure stops playback and releases buffers; no test file or upload is created. Memory release is not forensic secure erasure. Both preview and main meters are before the separate Windows send-gain control. No extra original track is retained in normal video recordings.
 
@@ -176,6 +177,10 @@ continue to end the session. A network/media failure still gets the existing
 15-second recovery window. This does not prevent iOS suspending a locked or
 backgrounded phone page. Keep the phone page visible during use.
 
+## Windows receiver layout and fullscreen (0.18.0)
+
+The Windows app shows four steps (scan, approve, camera running, choose in the meeting app), a video stage with live status, resolution and a last-step hint naming the exact camera, and a toolbar grouped into Picture, Sound and Record. Settings open as a side panel. Fullscreen covers the whole monitor: use the stage button, F11 or double-click; Esc, F11 or double-click leaves it and restores the window. Controls hide after 2.5 seconds without mouse movement; the recording indicator stays. This needs the 0.18.0 Windows installer; the hosted phone page is unchanged.
+
 ## Phone viewfinder (0.17.0)
 
 The hosted phone page now uses a fullscreen viewfinder with camera, microphone, hide-picture, dim-screen and settings controls. Existing recording and audio options are in the settings sheet. Phone-side resolution selection is enabled only when a compatible updated Windows receiver advertises support; Windows 0.17.0 does. Older installed receivers continue to choose resolution on the PC. Reload the phone page to receive hosted UI updates.
@@ -184,6 +189,6 @@ The hosted phone page now uses a fullscreen viewfinder with camera, microphone, 
 
 Hosted phone reconnect fix: scanning a new QR into an existing browser tab now starts a fresh session even when the browser changes only the URL fragment. Returning to a cached ended page also clears its old session. Refresh an already-open phone page once to load this fix; no Windows reinstall is required for this phone-side correction.
 
-Open **Settings and details → Edit picture** in the Windows app. Crop the source, add up to 12 rectangular blur/opaque-color masks, and add one local PNG/JPEG/WebP overlay (15 MB / 16 MP maximum) with position, size and opacity controls. Drag rectangles or enter percentages for keyboard use. The processed canvas feeds both the Windows virtual camera and subsequent local recording frames. The phone preview remains unchanged.
+Click **Edit picture** in the Picture group of the Windows toolbar. Crop the source, add up to 12 rectangular blur/opaque-color masks, and add one local PNG/JPEG/WebP overlay (15 MB / 16 MP maximum) with position, size and opacity controls. Drag rectangles or enter percentages for keyboard use. The processed canvas feeds both the Windows virtual camera and subsequent local recording frames. The phone preview remains unchanged.
 
 Opaque masks completely cover their source pixels and take precedence over blur. Blur is visual obfuscation and may leave recognizable details. Check masks after camera/orientation changes. Edits affect future frames only; they cannot redact an existing recording. Images remain local and edits are cleared on app exit. A processing error produces black output rather than unprocessed video. Extra processing, especially blur at 4K, can reduce frame rate.

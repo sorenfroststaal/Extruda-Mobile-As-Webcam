@@ -204,3 +204,7 @@ Synthetic browser pixel checks passed for crop, opaque mask, unchanged exterior 
 ## 0.17.0 phone-side resolution
 
 All 86 automated tests passed (pairing against an isolated local Worker). Camera-start tests cover the capability flag, the PC applying valid phone requests through the bridge, refusals while the selector is locked, and the hidden picture surviving camera replacement. The installer was built from this commit and its packaged UI was compared with `public/` (phone-ui.js identical; app.js and i18n.js carry the new messages and strings). The updated receiver was not installed on this build machine during release, and physical iOS/Android plus Teams resolution switching remain manual checks.
+
+## 0.18.0 receiver layout and fullscreen
+
+All 88 automated tests passed (pairing against an isolated local Worker), including two new packaging tests for script copy/embed/install and bridge init order. The built ExtrudaCamera.exe was run with `--system-smoke` and checked for the step bar, stage chips, last-step hint, grouped toolbar, settings side panel, pairing view and maximized width. Fullscreen via button, F11 and double-click covered the monitor without frame or taskbar; Esc, F11 and double-click restored the earlier placement, and controls auto-hid and reappeared on mouse movement. A harness checked step progression, hint dismissal, Esc focus return and English strings. Physical phone pairing, recording in fullscreen and installation via setup remain manual checks.

@@ -85,3 +85,25 @@ flip camera, microphone, hide picture, dim screen and settings.
   both be updated before the phone selector becomes active.
 - Icons: 26A `camera-switch`, `microphone`, `microphone-off`, `eye-off`, `moon`,
   `settings` and `close`; the first four were added to the identity package.
+
+## Windows receiver layout and fullscreen
+
+The native receiver follows the same order as the session: a four-step bar
+(scan, approve the code, camera running, choose in meeting app) sits above the
+video stage. Step 2 follows the approval dialog; step 4 stays current until
+"Det har jeg gjort" is chosen in the stage hint, which is remembered locally.
+The connected view puts the processed Windows output in the middle with a
+"Live · Windows-kamera" chip, a recording chip and a resolution chip that opens
+the toolbar selector. Controls below are grouped as Picture (resolution, edit
+picture), Sound (microphone, input meter, noise reduction) and Record, followed
+by Settings and Disconnect. The former "Settings and details" disclosure is a
+right-hand panel with Picture, Sound, Recording and Connection sections; Escape
+or the close button returns focus to Settings.
+
+Fullscreen covers the video stage only. Use the stage button, F11 or a
+double-click; Escape, F11 or a double-click leaves. Chips and the button fade
+after 2.5 seconds without mouse movement, while the recording chip stays
+visible. WebView2 reports the fullscreen element to the host, which removes the
+window frame and covers the current monitor, then restores the previous window
+placement. Disconnecting leaves fullscreen and closes the settings panel. The
+old "Vis kun video" mode is hidden. New 26A icons: fullscreen, fullscreen-exit.

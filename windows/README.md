@@ -1,4 +1,4 @@
-# extruda - mobile as webcam 0.17.0
+# extruda - mobile as webcam 0.18.0
 
 Language and theme follow the operating system by default. Use the globe and sun icons to override them; choices are stored per device. The information icon opens Security risks and FAQ and guides without leaving the session.
 
@@ -124,12 +124,16 @@ Abnormal signalling loss no longer immediately tells the paired endpoint to
 stop healthy direct media. Keep the phone camera page visible and the screen
 unlocked: browser suspension is not prevented by the server session limit.
 
+## Windows receiver layout and fullscreen (0.18.0)
+
+The Windows app shows four steps (scan, approve, camera running, choose in the meeting app), a video stage with live status, resolution and a last-step hint naming the exact camera, and a toolbar grouped into Picture, Sound and Record. Settings open as a side panel. Fullscreen covers the whole monitor: use the stage button, F11 or double-click; Esc, F11 or double-click leaves it and restores the window. Controls hide after 2.5 seconds without mouse movement; the recording indicator stays. This needs the 0.18.0 Windows installer; the hosted phone page is unchanged.
+
 ## Phone-side resolution (0.17.0)
 
 The receiver now accepts resolution requests from the phone's settings sheet. It applies the same rules as the PC selector: a request is refused while recording or while another change is in progress, and the phone shows the refusal. The Windows camera changes resolution too; reselect the camera in Teams if the meeting app keeps the old size.
 
 ## Image editing (0.16.0)
 
-Open **Settings and details → Edit picture** in the Windows app. Crop the source, add up to 12 rectangular blur/opaque-color masks, and add one local PNG/JPEG/WebP overlay (15 MB / 16 MP maximum) with position, size and opacity controls. Drag rectangles or enter percentages for keyboard use. The processed canvas feeds both the Windows virtual camera and subsequent local recording frames. The phone preview remains unchanged.
+Click **Edit picture** in the Picture group of the Windows toolbar. Crop the source, add up to 12 rectangular blur/opaque-color masks, and add one local PNG/JPEG/WebP overlay (15 MB / 16 MP maximum) with position, size and opacity controls. Drag rectangles or enter percentages for keyboard use. The processed canvas feeds both the Windows virtual camera and subsequent local recording frames. The phone preview remains unchanged.
 
 Opaque masks completely cover their source pixels and take precedence over blur. Blur is visual obfuscation and may leave recognizable details. Check masks after camera/orientation changes. Edits affect future frames only; they cannot redact an existing recording. Images remain local and edits are cleared on app exit. A processing error produces black output rather than unprocessed video. Extra processing, especially blur at 4K, can reduce frame rate.

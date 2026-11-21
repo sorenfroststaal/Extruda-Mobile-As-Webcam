@@ -1,0 +1,19 @@
+[
+  ["Trin", "Steps", "Schritte", "Étapes"],
+  ["Scan QR-koden", "Scan the QR code", "QR-Code scannen", "Scannez le code QR"],
+  ["Godkend koden", "Approve the code", "Code bestätigen", "Validez le code"],
+  ["Kamera kører", "Camera running", "Kamera läuft", "Caméra active"],
+  ["Vælg i mødeprogram", "Choose in meeting app", "In Meeting-App wählen", "Choisir dans l’appli de réunion"],
+  ["Live · Windows-kamera", "Live · Windows camera", "Live · Windows-Kamera", "En direct · Caméra Windows"],
+  ["Optager", "Recording", "Aufnahme läuft", "Enregistrement"],
+  ["Det har jeg gjort", "I’ve done that", "Erledigt", "C’est fait"],
+  ["Sidste trin: vælg", "Last step: choose", "Letzter Schritt: Wählen Sie", "Dernière étape : choisissez"],
+  ["som kamera i Teams, Zoom eller Meet.", "as the camera in Teams, Zoom or Meet.", "als Kamera in Teams, Zoom oder Meet.", "comme caméra dans Teams, Zoom ou Meet."],
+  ["Fuld skærm", "Full screen", "Vollbild", "Plein écran"],
+  ["Afslut fuld skærm", "Exit full screen", "Vollbild beenden", "Quitter le plein écran"],
+  ["Billede", "Picture", "Bild", "Image"],
+  ["Optag", "Record", "Aufnahme", "Enregistrer"],
+  ["Luk indstillinger", "Close settings", "Einstellungen schließen", "Fermer les réglages"],
+  ["Optagelse", "Recording", "Aufnahme", "Enregistrement"],
+  ["Forbindelse", "Connection", "Verbindung", "Connexion"]
+]

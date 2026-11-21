@@ -107,6 +107,7 @@
     else{pairingStatus.append(stopButton);more.open=false;}
   });
   document.title = 'extruda - mobile as webcam · Windows';
+  window.ExtrudaDesktopUI?.init();
   if (window.extrudaTestPattern) {
     const pattern = document.createElement('canvas'); pattern.width = canvas.width; pattern.height = canvas.height;
     const paint = pattern.getContext('2d');

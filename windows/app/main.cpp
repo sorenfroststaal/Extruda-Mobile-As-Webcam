@@ -45,6 +45,27 @@ unsigned smokeFrames = 0;
 std::wstring bridge;
 unsigned outputWidth = FrameWidth, outputHeight = FrameHeight;
 std::wstring settingsPath;
+// The page asks for fullscreen on the video stage; WebView2 only fills its
+// bounds, so the host makes the window cover the monitor without a frame.
+WINDOWPLACEMENT windowedPlacement{sizeof(WINDOWPLACEMENT)};
+LONG_PTR windowedStyle = 0;
+bool fullscreen = false;
+void SetFullscreen(bool on) {
+    if (on == fullscreen || !window) return;
+    if (on) {
+        MONITORINFO monitor{sizeof(monitor)};
+        if (!GetWindowPlacement(window, &windowedPlacement) || !GetMonitorInfoW(MonitorFromWindow(window, MONITOR_DEFAULTTONEAREST), &monitor)) return;
+        windowedStyle = GetWindowLongPtrW(window, GWL_STYLE);
+        SetWindowLongPtrW(window, GWL_STYLE, windowedStyle & ~WS_OVERLAPPEDWINDOW);
+        const auto& r = monitor.rcMonitor;
+        SetWindowPos(window, HWND_TOP, r.left, r.top, r.right - r.left, r.bottom - r.top, SWP_NOOWNERZORDER | SWP_FRAMECHANGED);
+    } else {
+        SetWindowLongPtrW(window, GWL_STYLE, windowedStyle);
+        SetWindowPlacement(window, &windowedPlacement);
+        SetWindowPos(window, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_FRAMECHANGED);
+    }
+    fullscreen = on;
+}
 std::wstring ConfigScript() {
     return L"window.extrudaCaptureSize = {width:" + std::to_wstring(outputWidth) + L",height:" + std::to_wstring(outputHeight) + L"};window.extrudaResolutionApplied?.(" + std::to_wstring(outputWidth) + L"," + std::to_wstring(outputHeight) + L");";
 }
@@ -100,6 +121,7 @@ void InitWeb() {
                 CoTaskMemFree(uri); return S_OK;
             }).Get(), &token);
             web->add_PermissionRequested(Callback<ICoreWebView2PermissionRequestedEventHandler>([](ICoreWebView2*, ICoreWebView2PermissionRequestedEventArgs* e) -> HRESULT { e->put_State(COREWEBVIEW2_PERMISSION_STATE_DENY); return S_OK; }).Get(), &token);
+            web->add_ContainsFullScreenElementChanged(Callback<ICoreWebView2ContainsFullScreenElementChangedEventHandler>([](ICoreWebView2* sender, IUnknown*) -> HRESULT { BOOL full = FALSE; sender->get_ContainsFullScreenElement(&full); SetFullscreen(full); return S_OK; }).Get(), &token);
             web->add_NavigationCompleted(Callback<ICoreWebView2NavigationCompletedEventHandler>([](ICoreWebView2*, ICoreWebView2NavigationCompletedEventArgs* e) -> HRESULT {
                 BOOL success = FALSE; e->get_IsSuccess(&success);
                 if (!success) { Error(L"Kunne ikke hente parringssiden. Kontrollér internetforbindelsen.", E_FAIL); return S_OK; }

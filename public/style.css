@@ -121,3 +121,89 @@ body.phone-live .phone-sheet:not([hidden]){display:block;position:fixed;left:0;r
 .phone-sheet .mic-panel,.phone-sheet .phone-record{margin:16px 0;max-width:none}.phone-sheet .statusbar{margin:16px 0 8px}.phone-sheet #stop{width:100%;margin:8px 0 0}
 body.phone-live .dim-cover:not([hidden]){display:flex;position:fixed;inset:0;z-index:40;flex-direction:column;align-items:center;justify-content:center;gap:8px;width:100%;height:100%;min-height:100%;border:0;border-radius:0;margin:0;background:#000;color:#586361;font-size:13px}.dim-cover .dim-title{font-size:15px;color:#899693}
 @media(prefers-reduced-motion:no-preference){.live-button,.live-chip{transition:background-color 150ms,color 150ms}}
+
+/* Windows receiver layout (0.18.0): steps, video stage, grouped controls, settings panel, fullscreen. */
+body.native main{display:flex;flex-direction:column;gap:12px;height:calc(100dvh - 76px);min-height:0;padding:12px 24px}
+body.native .steps{order:0;flex:none;display:flex;align-items:center;gap:8px;list-style:none;margin:0;padding:0;font-size:14px;counter-reset:none}
+body.native .steps li{display:flex;align-items:center;gap:8px;color:var(--ex-muted);white-space:nowrap}
+body.native .steps li+li::before{content:"";width:clamp(12px,3vw,40px);height:1px;background:var(--ex-border);margin-right:2px}
+body.native .step-mark{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--ex-border);font-size:13px;flex:none}
+body.native .step-mark b{font-weight:700}body.native .step-mark svg{display:none;width:16px;height:16px}
+body.native .steps li.done .step-mark{background:var(--ex-action);border-color:var(--ex-action);color:var(--ex-action-text)}
+body.native .steps li.done .step-mark b{display:none}body.native .steps li.done .step-mark svg{display:block}
+body.native .steps li.current{color:var(--ex-text);font-weight:600}
+body.native .steps li.current .step-mark{border-color:var(--ex-apricot);border-width:2px;color:var(--ex-text)}
+body.native #desktop{order:1;flex:1;min-height:0}
+body.native #session-controls{order:2}
+body.native:not(.session-active) #desktop{grid-template-columns:minmax(280px,360px) minmax(0,1fr);align-items:stretch}
+body.native:not(.session-active) #desktop .screen{height:100%;max-height:none}
+body.native:not(.session-active) #qr{width:clamp(200px,40vh,300px)}
+body.native.session-active #desktop{padding:0;border:0;background:none}
+body.native.session-active #desktop .screen{border-radius:12px;background:#1B2222}
+/* Stage overlay */
+body.native .stage-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:12px;pointer-events:none;z-index:2}
+body.native:not(.session-active) .stage-overlay{display:none}
+body.native .stage-chips,body.native .stage-bottom{display:flex;align-items:center;gap:8px}
+body.native .stage-bottom{align-items:flex-end}
+body.native .stage-spacer{flex:1}
+body.native .stage-overlay>*>*{pointer-events:auto}
+body.native .stage-chip{display:inline-flex;align-items:center;gap:8px;min-height:32px;padding:4px 12px;border-radius:999px;font-size:13px;font-weight:600;line-height:1.2;border:0;margin:0}
+body.native .stage-chip.live{background:#F5F0E8;color:#343B3B}
+body.native .stage-chip.rec{background:#F5F0E8;color:#343B3B}
+body.native .stage-dot{width:8px;height:8px;border-radius:50%;background:#28645F;flex:none}
+body.native .stage-chip.rec .stage-dot{background:#A43636}
+body.native .screen .stage-overlay button{position:static}
+body.native .stage-chip.size{background:rgba(37,44,44,.82);color:#F5F0E8;cursor:pointer;font-variant-numeric:tabular-nums}
+body.native .stage-chip.size:hover{background:rgba(52,59,59,.95)}
+body.native .stage-hint{display:flex;align-items:center;gap:12px;max-width:min(640px,100%);padding:8px 8px 8px 14px;border-radius:12px;background:rgba(37,44,44,.9);border:1px solid #E8B08E;color:#F5F0E8}
+body.native .stage-hint[hidden]{display:none}
+body.native .stage-hint p{margin:0;font-size:13px;line-height:1.4}
+body.native .stage-hint strong{font-weight:600;color:#fff}
+body.native .stage-hint button{flex:none;margin:0;min-height:36px;padding:6px 12px;font-size:13px;background:transparent;color:#E8B08E;border:1px solid #E8B08E}
+body.native .stage-hint button:hover{background:rgba(232,176,142,.12)}
+body.native .stage-button{display:inline-grid;place-items:center;width:44px;height:44px;min-height:44px;padding:0;margin:0;border-radius:50%;border:0;background:rgba(37,44,44,.82);color:#F5F0E8;cursor:pointer}
+body.native .stage-button:hover{background:rgba(52,59,59,.95)}
+body.native .stage-button svg{width:22px;height:22px}
+body.native .stage-overlay :focus-visible{outline:3px solid #E8B08E;outline-offset:2px}
+/* Fullscreen */
+body.native .screen:fullscreen{border-radius:0;max-height:none;height:100%;background:#000}
+body.native .screen:fullscreen #output-preview{height:100%}
+body.native.stage-fullscreen .stage-overlay{padding:20px}
+body.native.stage-fullscreen .stage-hint{display:none}
+body.native.stage-fullscreen:not(.stage-awake) .screen{cursor:none}
+body.native.stage-fullscreen:not(.stage-awake) .stage-overlay>*>:not(#stage-rec){opacity:0;pointer-events:none}
+@media(prefers-reduced-motion:no-preference){body.native .stage-overlay>*>*{transition:opacity 200ms}}
+/* Grouped controls */
+body.native #session-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+body.native #session-controls .tool-group{display:flex;align-items:center;gap:8px;padding:6px 8px 6px 12px;border:1px solid var(--ex-border);border-radius:12px;background:var(--ex-surface)}
+body.native #session-controls .tool-label{font-size:12px;font-weight:600;color:var(--ex-muted);margin-right:2px}
+body.native #session-controls .tool-group button{min-height:40px;padding:6px 12px}
+body.native #session-controls .compact-resolution label,body.native #session-controls .compact-level label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+body.native #session-controls select{min-height:40px;padding:6px 10px}
+body.native #session-controls .compact-level{width:72px;align-self:center}
+body.native #session-controls meter{width:72px}
+body.native #session-controls .record-actions{gap:8px;flex-wrap:nowrap}
+body.native #session-controls .tool-spacer{flex:1}
+body.native #session-controls #stop{margin:0}
+body.native #session-controls .noise-checkbox{min-height:40px}
+body.native .button-icon{display:inline-grid;place-items:center;margin-right:6px;vertical-align:-5px}
+body.native .button-icon svg{width:18px;height:18px}
+body.native #settings-open,body.native #edit-picture{display:inline-flex;align-items:center}
+/* Settings panel */
+body.native #session-more.settings-panel{position:fixed;top:0;right:0;bottom:0;width:min(440px,100vw);z-index:30;margin:0;padding:0;border:0;border-left:1px solid var(--ex-border);background:var(--ex-surface);box-shadow:-12px 0 32px rgba(0,0,0,.25);font-size:14px}
+body.native #session-more.settings-panel:not([open]){display:none}
+body.native #session-more.settings-panel>summary{display:none}
+body.native #session-more.settings-panel .session-more-content{display:flex;flex-direction:column;gap:16px;height:100%;max-height:none;overflow:auto;padding:0 20px 24px}
+body.native #session-more .settings-head{position:sticky;top:0;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 -20px;padding:12px 12px 12px 20px;background:var(--ex-surface);border-bottom:1px solid var(--ex-border)}
+body.native #session-more .settings-head h2{margin:0;font-size:20px}
+body.native #session-more .settings-close{display:inline-grid;place-items:center;width:44px;height:44px;min-height:44px;padding:0;margin:0;background:transparent;color:var(--ex-text);border:1px solid var(--ex-border)}
+body.native #session-more .settings-close svg{width:20px;height:20px}
+body.native #session-more #edit-picture{align-self:flex-start}
+body.native .legacy-fullscreen{display:none!important}
+@media(max-width:900px){body.native .step-label{display:none}body.native .steps li.current .step-label{display:inline}}
+@media(max-height:600px){body.native .steps{display:none}}
+body.native header,body.native main{max-width:none}
+body.native.session-active #desktop .screen:fullscreen{border-radius:0;background:#000}
+body.native #session-more .settings-section{margin:8px 0 -8px;font-size:13px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:var(--ex-muted);font-family:var(--ex-font-body)}
+body.native #session-more .resolution-hint{display:none}
+body.native #session-more #video-controls{gap:4px}

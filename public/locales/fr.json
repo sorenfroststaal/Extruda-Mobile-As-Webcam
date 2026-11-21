@@ -440,5 +440,22 @@
   "Opløsningen vælges på pc’en.": "La résolution se règle sur le PC.",
   "Skifter opløsning…": "Changement de résolution…",
   "Pc’en kunne ikke skifte opløsning lige nu.": "Le PC n’a pas pu changer la résolution pour le moment.",
-  "Windows-kameraet skifter også opløsning. Vælg eventuelt kameraet igen i Teams.": "La caméra Windows change aussi de résolution. Vous devrez peut-être resélectionner la caméra dans Teams."
+  "Windows-kameraet skifter også opløsning. Vælg eventuelt kameraet igen i Teams.": "La caméra Windows change aussi de résolution. Vous devrez peut-être resélectionner la caméra dans Teams.",
+  "Trin": "Étapes",
+  "Scan QR-koden": "Scannez le code QR",
+  "Godkend koden": "Validez le code",
+  "Kamera kører": "Caméra active",
+  "Vælg i mødeprogram": "Choisir dans l’appli de réunion",
+  "Live · Windows-kamera": "En direct · Caméra Windows",
+  "Optager": "Enregistrement",
+  "Det har jeg gjort": "C’est fait",
+  "Sidste trin: vælg": "Dernière étape : choisissez",
+  "som kamera i Teams, Zoom eller Meet.": "comme caméra dans Teams, Zoom ou Meet.",
+  "Fuld skærm": "Plein écran",
+  "Afslut fuld skærm": "Quitter le plein écran",
+  "Billede": "Image",
+  "Optag": "Enregistrer",
+  "Luk indstillinger": "Fermer les réglages",
+  "Optagelse": "Enregistrement",
+  "Forbindelse": "Connexion"
 }

@@ -7,6 +7,7 @@ for(const lang of languages)data[lang]=JSON.parse(await readFile(`public/locales
 const audioTranslations=JSON.parse(await readFile('scripts/audio-translations.json','utf8'));
 audioTranslations.push(...JSON.parse(await readFile('scripts/image-editor-translations.json','utf8')));
 audioTranslations.push(...JSON.parse(await readFile('scripts/phone-ui-translations.json','utf8')));
+audioTranslations.push(...JSON.parse(await readFile('scripts/desktop-ui-translations.json','utf8')));
 for(const [i,lang] of languages.entries()){
  for(const row of audioTranslations)data[lang][row[0]]=row[i];
  await writeFile(`public/locales/${lang}.json`,JSON.stringify(data[lang],null,2)+'\n');
